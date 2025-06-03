@@ -1,7 +1,21 @@
+'use client'
+
+import { useGlobalStore } from "@/providers/global-store-provider";
+
 export default function Home() {
+    const { count, incrementCount, decrementCount } = useGlobalStore(
+    (state) => state,
+  )
   return (
-    <div className="min-h-screen bg-primary text-black flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Home</h1>
+    <div>
+      Count: {count}
+      <hr />
+      <button type="button" onClick={incrementCount}>
+        Increment Count
+      </button>
+      <button type="button" onClick={decrementCount}>
+        Decrement Count
+      </button>
     </div>
   );
 }
