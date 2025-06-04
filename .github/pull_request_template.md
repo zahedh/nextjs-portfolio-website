@@ -1,10 +1,5 @@
 ## 📝 Key Notes
 
-<!-- Brief summary of the changes and any context reviewers should know -->
-
-- What was added, changed, or fixed?
-- Any considerations (e.g. SSR, routing, performance, dependencies)?
-
 ---
 
 ## 📸 Screenshots / Recordings
@@ -26,9 +21,6 @@
 ## ✅ Checklist
 
 - [ ] Code compiles and runs without errors
-- [ ] Follows Next.js best practices (SSR/SSG/client separation)
 - [ ] Lint and Prettier pass
 - [ ] No `console.log` or dead code
-- [ ] UI/UX verified (if applicable)
-- [ ] Relevant comments or docs added
-- [ ] Ready for review
+- [ ] Unit tests added
