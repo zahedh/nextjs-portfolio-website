@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prettier-check": "npx prettier --check .",
+    "prettier-format": "npx prettier --write .",
     "test": "jest"
   },
   "dependencies": {
@@ -33,7 +35,7 @@
     "eslint-config-next": "15.3.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^30.0.0-beta.3",
-    "prettier": "^3.5.3",
+    "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",
