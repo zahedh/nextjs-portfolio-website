@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { useGlobalStore } from "@/providers/global-store-provider";
-import { motion } from "motion/react"
+import { useGlobalStore } from '@/providers/global-store-provider';
+import { motion } from 'motion/react';
 
 export default function Home() {
   const { count, incrementCount, decrementCount } = useGlobalStore(
-    (state) => state,
-  )
+    (state) => state
+  );
   return (
-    <div className="min-h-screen">  
-      <div className="mb-4"> 
+    <div className="min-h-screen">
+      <div className="mb-4">
         Count: {count}
         <hr />
         <button type="button" onClick={incrementCount}>
@@ -20,7 +20,7 @@ export default function Home() {
         </button>
       </div>
       <motion.div
-        className={"w-[200px] h-[200px] bg-secondary rounded-2xl"}
+        className={'bg-secondary h-[200px] w-[200px] rounded-2xl'}
         animate={{ rotate: 360 }}
         transition={{ duration: 1 }}
       />
