@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Neutral scale */
+  --color-neutral-100: #f2f2f2;
+  --color-neutral-200: #d9d9d9;
+  --color-neutral-300: #bfbfbf;
+  --color-neutral-400: #a6a6a6;
+  --color-neutral-500: #8c8c8c;
+  --color-neutral-600: #737373;
+  --color-neutral-700: #595959;
+  --color-neutral-800: #404040;
+  --color-neutral-900: #262626;
+
+  /* Brand scale (Light Mode) */
+  --color-brand-100: #fbf4e9;
+  --color-brand-200: #f4ddbe;
+  --color-brand-300: #ecc693;
+  --color-brand-400: #e4af67;
+  --color-brand-500: #dd993c;
+  --color-brand-600: #c37f22;
+  --color-brand-700: #98631b;
+  --color-brand-800: #6c4713;
+  --color-brand-900: #412a0b;
+}
+
+/* Enable dark mode using .dark on <html> or <body> */
+@custom-variant dark (&:where(.dark, .dark *));
+.dark {
+  --color-brand-100: #d98d26;
+  --color-brand-200: #cc8524;
+  --color-brand-300: #bb7a21;
+  --color-brand-400: #a96e1e;
+  --color-brand-500: #98631b;
+  --color-brand-600: #825517;
+  --color-brand-700: #6d4713;
+  --color-brand-800: #57390f;
+  --color-brand-900: #412b0c;
+}
