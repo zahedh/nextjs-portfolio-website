@@ -7,12 +7,10 @@ export default function HeaderFooter({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="min-h-[calc(100vh-6rem)] flex-grow bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
-        {children}
-      </main>
+      <main className="w-full flex-grow">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }

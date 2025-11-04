@@ -1,35 +1,77 @@
+import {
+  PrimaryButton,
+  SectionHeader,
+  ProjectCard,
+  SkillTile,
+  AboutMeCard,
+  JobCard,
+  FooterCard,
+  SectionDivider,
+} from '@/components'; // All components already structured
+
 export default function Home() {
   return (
-    <main className="flex flex-col bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">
-      {/* 2️⃣ Hero */}
-      <section className="border-brand-600 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">Hero Section</h2>
+    <div>
+      {/* Hero Section */}
+      <h1 className="font-inter text-4xl">This is Inter</h1>
+      <p className="font-plex text-lg">This is IBM Plex Sans</p>
+
+      <section className="bg-brand-500 dark:bg-brand-700 px-4 py-16 text-center">
+        <h1 className="text-3xl font-bold sm:text-4xl">Hi, I&apos;m Zahed!</h1>
+        <p className="mt-4 text-lg">Web & Mobile Developer</p>
+        <PrimaryButton className="mt-6">Contact Me</PrimaryButton>
       </section>
 
-      {/* 3️⃣ Skills Collage */}
-      <section className="border-brand-700 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">Skills Collage Section</h2>
+      {/* Skills Collage Section */}
+      <section className="px-4 py-16">
+        <SectionHeader>What I Work Best With</SectionHeader>
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          <SkillTile />
+          <SkillTile />
+          <SkillTile />
+          <SkillTile />
+        </div>
       </section>
 
-      {/* 4️⃣ Projects */}
-      <section className="border-brand-800 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">Projects Section</h2>
+      {/* Projects Section */}
+      <section className="bg-neutral-100 px-4 py-16 dark:bg-neutral-800">
+        <SectionHeader>What I’ve Built</SectionHeader>
+        <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <ProjectCard />
+          <ProjectCard />
+          <ProjectCard />
+        </div>
       </section>
 
-      {/* 5️⃣ About */}
-      <section className="border-brand-900 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">About Section</h2>
+      {/* About Section */}
+      <section className="px-4 py-16">
+        <SectionHeader>A Bit About Me</SectionHeader>
+        <div className="mt-6">
+          <AboutMeCard />
+        </div>
       </section>
 
-      {/* 6️⃣ Timeline */}
-      <section className="border-brand-400 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">Timeline Section</h2>
+      {/* Timeline Section */}
+      <section className="bg-neutral-100 px-4 py-16 dark:bg-neutral-800">
+        <SectionHeader>Where I’ve Worked</SectionHeader>
+        <div className="mt-6">
+          <JobCard />
+          <JobCard />
+        </div>
       </section>
 
-      {/* 7️⃣ GitHub Contributions */}
-      <section className="border-brand-300 border-4 p-6 text-center">
-        <h2 className="text-lg font-semibold">GitHub Contributions Section</h2>
+      {/* GitHub Contributions Section */}
+      <section className="px-4 py-16">
+        <SectionHeader>My Dev Footprint</SectionHeader>
+        <div className="mt-6">
+          <SectionDivider />
+        </div>
       </section>
-    </main>
+
+      {/* Footer */}
+      <footer className="bg-neutral-800 px-4 py-6 text-neutral-100">
+        <FooterCard />
+      </footer>
+    </div>
   );
 }

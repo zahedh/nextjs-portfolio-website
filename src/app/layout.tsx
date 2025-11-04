@@ -1,18 +1,21 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter, IBM_Plex_Sans } from 'next/font/google';
+
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
 import '../styles/globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
   subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-ibm-plex-sans',
+  display: 'swap',
 });
-
 export const metadata: Metadata = {
   title: 'Next.js Portfolio Website for Zahed Heidari',
   description:
@@ -48,7 +51,7 @@ export default function RootLayout({
     <GlobalStoreProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${inter.variable} ${ibmPlexSans.variable} antialiased`}
         >
           {children}
         </body>

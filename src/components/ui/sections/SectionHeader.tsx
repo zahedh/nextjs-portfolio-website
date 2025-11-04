@@ -1,7 +1,11 @@
-export default function SectionHeader() {
+export default function SectionHeader({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <header className="border-b border-neutral-300 py-6 text-center text-xl font-semibold dark:border-neutral-700">
-      Section Header
-    </header>
+    <h2 className="text-brand-600 dark:text-brand-400 text-center text-2xl font-semibold">
+      {children}
+    </h2>
   );
 }
