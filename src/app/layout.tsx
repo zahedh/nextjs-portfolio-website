@@ -16,6 +16,9 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: '--font-ibm-plex-sans',
   display: 'swap',
 });
+
+const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
+
 export const metadata: Metadata = {
   title: 'Next.js Portfolio Website for Zahed Heidari',
   description:
@@ -49,10 +52,8 @@ export default function RootLayout({
 }>) {
   return (
     <GlobalStoreProvider>
-      <html lang="en">
-        <body
-          className={`${inter.variable} ${ibmPlexSans.variable} antialiased`}
-        >
+      <html lang="en" className={fontClasses}>
+        <body className="prime-parent bg-neutral-100 antialiased dark:bg-neutral-900">
           {children}
         </body>
       </html>

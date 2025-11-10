@@ -22,6 +22,9 @@
   --color-brand-700: #98631b;
   --color-brand-800: #6c4713;
   --color-brand-900: #412a0b;
+
+  --font-heading: var(--font-inter, sans-serif);
+  --font-body: var(--font-ibm-plex-sans, sans-serif);
 }
 
 /* Enable dark mode using .dark on <html> or <body> */
@@ -36,4 +39,34 @@
   --color-brand-700: #6d4713;
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
+}
+
+@layer utilities {
+  .prime-parent {
+    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-12;
+  }
+
+  .screen-parent {
+    @apply mx-auto flex max-w-[1440px] flex-col gap-24 px-6 sm:px-10 md:gap-28 md:px-12 lg:gap-32 lg:px-16 2xl:px-20;
+  }
+
+  /* 📦 Section container (each major section on a page) */
+  .screen-section {
+    @apply flex w-full flex-col gap-10 py-16 md:gap-12 md:py-20 lg:py-24;
+  }
+
+  /* 🔹 Main Heading (H1–H2 scale) */
+  .heading {
+    @apply font-heading text-2xl leading-snug font-bold tracking-tight text-neutral-900 sm:text-3xl md:text-4xl dark:text-neutral-200;
+  }
+
+  /* 🔹 SubHeading (H3–H4 scale) */
+  .subheading {
+    @apply font-heading text-lg leading-snug font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-200;
+  }
+
+  /* 🔹 Body Text (Paragraphs) */
+  .body-text {
+    @apply font-body text-sm leading-relaxed text-neutral-900 sm:text-base md:text-lg dark:text-neutral-200;
+  }
 }

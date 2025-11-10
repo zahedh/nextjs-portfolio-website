@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-100 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 dark:bg-neutral-900">
+      <body>
         <HeaderFooter>{children}</HeaderFooter>
         <BreakpointIndicator />
       </body>
