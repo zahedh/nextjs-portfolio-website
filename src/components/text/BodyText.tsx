@@ -15,8 +15,6 @@ export default function BodyText({
   className,
 }: BodyTextProps) {
   return (
-    <Component className={clsx('body-text', className, style)}>
-      {children}
-    </Component>
+    <Component className={clsx('t-sm', className, style)}>{children}</Component>
   );
 }

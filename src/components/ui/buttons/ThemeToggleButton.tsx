@@ -1,8 +1,8 @@
 'use client';
-import { useThemeToggle } from '@/hooks/utilityHooks';
+import { useTheme } from '@/hooks/utilityHooks';
 
 export default function ThemeToggleButton() {
-  const { isDark, toggleTheme } = useThemeToggle();
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <button

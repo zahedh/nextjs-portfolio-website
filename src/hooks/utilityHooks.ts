@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 /** Handles light/dark theme switching and persistence */
-export function useThemeToggle() {
+export function useTheme() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {

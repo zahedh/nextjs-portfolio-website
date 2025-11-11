@@ -1,18 +1,12 @@
-import {
-  PrimaryButton,
-  SectionHeader,
-  Heading,
-  SectionDivider,
-} from '@/components'; // All components already structured
+import { SectionHeader, Heading, SectionDivider } from '@/components';
 
 export default function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-brand-500 dark:bg-brand-700 px-4 py-16 text-center">
+      <section className="screen-section">
         <Heading>Hi, I&apos;m Zahed!</Heading>
         <Heading className="mt-4 text-lg">Web & Mobile Developer</Heading>
-        <PrimaryButton className="mt-6">Contact Me</PrimaryButton>
       </section>
 
       {/* Skills Collage Section */}
