@@ -15,6 +15,8 @@ export default function SubHeading({
   className,
 }: SubHeadingProps) {
   return (
-    <Component className={clsx('t-lg', className, style)}>{children}</Component>
+    <Component className={clsx('font-heading t-lg', className, style)}>
+      {children}
+    </Component>
   );
 }

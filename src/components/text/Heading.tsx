@@ -13,7 +13,7 @@ export default function Heading({
   className,
 }: HeadingProps) {
   return (
-    <Component className={clsx('t-2xl font-heading', className)}>
+    <Component className={clsx('font-heading', 't-2xl', className)}>
       {children}
     </Component>
   );
