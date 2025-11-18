@@ -20,7 +20,7 @@ export default function SectionDivider({
     <div
       className={clsx(
         // base style
-        'mt-4 h-[3px]',
+        'h-[3px]',
         // width handling
         width === 'half' && 'w-1/2',
         width === 'third' && 'w-1/3',

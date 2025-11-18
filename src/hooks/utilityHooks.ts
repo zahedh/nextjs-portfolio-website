@@ -1,26 +1,28 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import {
+  useGlobalStore,
+  GlobalStoreContext,
+} from '@/providers/global-store-provider';
 
 /** Handles light/dark theme switching and persistence */
 export function useTheme() {
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, toggleTheme } = useGlobalStore(
+    useShallow((state) => ({
+      isDark: state.isDark,
+      toggleTheme: state.toggleTheme,
+    }))
+  );
+  const store = useContext(GlobalStoreContext);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark') {
+    if (storedTheme === 'dark' && store) {
       document.documentElement.classList.add('dark');
-      setIsDark(true);
+      store.setState({ isDark: true });
     }
-  }, []);
-
-  const toggleTheme = () => {
-    const html = document.documentElement;
-    const nextTheme = isDark ? 'light' : 'dark';
-
-    html.classList.toggle('dark');
-    localStorage.setItem('theme', nextTheme);
-    setIsDark(!isDark);
-  };
+  }, [store]);
 
   return { isDark, toggleTheme };
 }

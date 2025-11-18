@@ -1,30 +1,38 @@
 import { createStore } from 'zustand/vanilla';
 
 export type GlobalState = {
-  count: number;
+  isDark: boolean;
 };
 
 export type GlobalActions = {
-  decrementCount: () => void;
-  incrementCount: () => void;
+  toggleTheme: () => void;
 };
 
 export type GlobalStore = GlobalState & GlobalActions;
 
 export const initGlobalStore = (): GlobalState => {
-  return { count: new Date().getFullYear() };
+  return {
+    isDark: false,
+  };
 };
 
 export const defaultInitState: GlobalState = {
-  count: 0,
+  isDark: false,
 };
 
 export const createGlobalStore = (
   initState: GlobalState = defaultInitState
 ) => {
-  return createStore<GlobalStore>()((set) => ({
+  return createStore<GlobalStore>()((set, get) => ({
     ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    toggleTheme: () => {
+      const html = document.documentElement;
+      const currentIsDark = get().isDark;
+      const nextTheme = currentIsDark ? 'light' : 'dark';
+
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', nextTheme);
+      set({ isDark: !currentIsDark });
+    },
   }));
 };

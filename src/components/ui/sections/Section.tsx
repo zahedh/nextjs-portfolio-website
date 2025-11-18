@@ -13,6 +13,7 @@ type SectionProps = {
   dividerColor?: string;
   className?: string;
   supportingText?: string;
+  children?: React.ReactNode;
 };
 
 export default function Section({
@@ -25,9 +26,10 @@ export default function Section({
   dividerColor,
   className,
   supportingText,
+  children,
 }: SectionProps) {
   return (
-    <div className={clsx('screen-section', className)}>
+    <div className={clsx('screen-section py-xs', className)}>
       {title && (
         <Heading
           className={clsx(
@@ -71,6 +73,8 @@ export default function Section({
           color={dividerColor}
         />
       )}
+
+      {children}
     </div>
   );
 }

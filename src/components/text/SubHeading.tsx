@@ -1,21 +1,24 @@
 import React, { JSX } from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 type SubHeadingProps = {
   children: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
-  style?: string;
   className?: string;
 };
 
 export default function SubHeading({
   children,
   as: Component = 'h3',
-  style,
   className,
 }: SubHeadingProps) {
   return (
-    <Component className={clsx('font-heading t-lg', className, style)}>
+    <Component
+      className={cn(
+        'font-heading t-lg text-neutral-900 dark:text-neutral-200',
+        className
+      )}
+    >
       {children}
     </Component>
   );

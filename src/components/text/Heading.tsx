@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 type HeadingProps = {
   children: React.ReactNode;
@@ -13,7 +13,12 @@ export default function Heading({
   className,
 }: HeadingProps) {
   return (
-    <Component className={clsx('font-heading', 't-2xl', className)}>
+    <Component
+      className={cn(
+        'font-heading t-2xl text-neutral-900 dark:text-neutral-200',
+        className
+      )}
+    >
       {children}
     </Component>
   );
