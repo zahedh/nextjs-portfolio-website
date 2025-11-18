@@ -2,12 +2,12 @@
 A modern, minimal, and performant personal portfolio built with Next.js, designed to showcase development skills and professional projects. Built with a strong emphasis on clean architecture, responsive design, and efficient data/state handling.
 
 🚀 Tech Stack
-Category	Tech
-Meta Framework	Next.js
-Language	TypeScript
-Styling	Tailwind CSS
-Client-Side State	Zustand
-Server-Side State	TanStack Query (react-query)
+Category Tech
+Meta Framework Next.js
+Language TypeScript
+Styling Tailwind CSS
+Client-Side State Zustand
+Server-Side State TanStack Query (react-query)
 
 🎯 Features
 ⚡ Static & Server Rendering for performance and SEO
@@ -34,7 +34,7 @@ Edit
 /components
 /hooks
 /lib
-/store      → Zustand stores
+/store → Zustand stores
 /styles
 /utils
 /public
@@ -58,12 +58,12 @@ start: Run production build
 lint: Run ESLint
 
 📌 Roadmap
- Add About, Contact, and Project pages
+Add About, Contact, and Project pages
 
- Implement featured carousel and modal system
+Implement featured carousel and modal system
 
- SEO and Open Graph optimization
+SEO and Open Graph optimization
 
- Deploy with Vercel or personal domain
+Deploy with Vercel or personal domain
 
- Add analytics and performance monitoring
+Add analytics and performance monitoring
