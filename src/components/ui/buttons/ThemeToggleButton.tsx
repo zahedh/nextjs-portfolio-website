@@ -1,15 +1,14 @@
 'use client';
 import { useTheme } from '@/hooks/utilityHooks';
+import SecondaryButton from './SecondaryButton';
+import { ThemeToggleGraphic } from '@/components/media';
 
 export default function ThemeToggleButton() {
-  const { isDark, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="text-brand-700 dark:text-brand-300 rounded-md bg-neutral-100 px-3 py-1.5 text-sm font-medium transition hover:opacity-80 dark:bg-neutral-800"
-    >
-      {isDark ? '☀️ Light Mode' : '🌙 Dark Mode'}
-    </button>
+    <SecondaryButton onClick={toggleTheme} className="aspect-square p-1.5">
+      <ThemeToggleGraphic className="h-3.5 w-3.5" />
+    </SecondaryButton>
   );
 }
