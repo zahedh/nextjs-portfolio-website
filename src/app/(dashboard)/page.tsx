@@ -50,9 +50,7 @@ export default function Home() {
       <Section
         anchor="contributions"
         title={en.sectionHeaders.contributionsSection}
-      >
-        {' '}
-      </Section>
+      ></Section>
 
       {/* Footer */}
       <Section anchor="contact" />
