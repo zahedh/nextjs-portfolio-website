@@ -14,6 +14,7 @@ type SectionProps = {
   className?: string;
   supportingText?: string;
   children?: React.ReactNode;
+  anchor?: string;
 };
 
 export default function Section({
@@ -27,9 +28,10 @@ export default function Section({
   className,
   supportingText,
   children,
+  anchor,
 }: SectionProps) {
   return (
-    <div className={clsx('screen-section py-xs', className)}>
+    <div id={anchor} className={clsx('screen-section py-xs', className)}>
       {title && (
         <Heading
           className={clsx(

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="screen-parent">
       {/* Hero Section */}
-      <Section showDivider={false}>
+      <Section anchor="home" showDivider={false}>
         <div className="flex w-full flex-row items-center justify-center gap-10 border-2">
           <AvatarGraphic className="h-32 w-32 border-2 md:block lg:h-48 lg:w-48" />
           <div className="flex flex-col gap-4">
@@ -25,25 +25,35 @@ export default function Home() {
       </Section>
 
       {/* Skills Collage Section */}
-      <Section title={en.sectionHeaders.skillsCollage}></Section>
+      <Section
+        anchor="skills"
+        title={en.sectionHeaders.skillsCollage}
+      ></Section>
 
       {/* Projects Section */}
-      <Section title={en.sectionHeaders.projects}></Section>
+      <Section anchor="projects" title={en.sectionHeaders.projects}></Section>
 
       {/* About Section */}
       <Section
+        anchor="about"
         supportingText={en.projectsSection.designedToLabel}
         title={en.sectionHeaders.about}
       ></Section>
 
       {/* Timeline Section */}
-      <Section title={en.sectionHeaders.experience}></Section>
+      <Section
+        anchor="experience"
+        title={en.sectionHeaders.experience}
+      ></Section>
 
       {/* GitHub Contributions Section */}
-      <Section title={en.sectionHeaders.contributionsSection}> </Section>
+      <Section
+        anchor="contributions"
+        title={en.sectionHeaders.contributionsSection}
+      ></Section>
 
       {/* Footer */}
-      <Section />
+      <Section anchor="contact" />
     </div>
   );
 }
