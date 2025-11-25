@@ -3,8 +3,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { en } from '@/language';
-import { SecondaryButton, ThemeToggleButton } from '../buttons';
-import { CloseGraphic } from '@/components/media';
+import {
+  SecondaryButton,
+  ThemeToggleButton,
+  BurgerMenuButton,
+  CloseButton,
+} from '../buttons';
+import { createEscapeHandler } from '@/lib/utils';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,18 +26,19 @@ export default function MobileMenu() {
     };
   }, [isOpen]);
 
+  // Close menu on ESC key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = createEscapeHandler(() => setIsOpen(false));
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [isOpen]);
+
   return (
     <>
       {/* Burger Icon Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex flex-col gap-1.5 p-2 md:hidden"
-        aria-label="Toggle menu"
-      >
-        <span className="bg-brand-500 block h-0.5 w-6 transition-transform" />
-        <span className="bg-brand-500 block h-0.5 w-6 transition-opacity" />
-        <span className="bg-brand-500 block h-0.5 w-6 transition-transform" />
-      </button>
+      <BurgerMenuButton onClick={() => setIsOpen(!isOpen)} />
 
       {/* Mobile Menu Drawer */}
       <AnimatePresence>
@@ -46,67 +52,62 @@ export default function MobileMenu() {
               transition={{ duration: 0.2 }}
               className="fixed inset-0 z-40 bg-black/50 md:hidden"
               onClick={() => setIsOpen(false)}
-              onTouchStart={(e) => e.preventDefault()}
-              onWheel={(e) => e.preventDefault()}
             />
 
             {/* Menu Panel */}
             <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="border-brand-500 fixed top-0 right-0 z-50 w-48 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800"
+              className="mobile-menu-panel"
             >
               {/* Close Button */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 rounded-full p-2 text-neutral-900 transition-colors hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
-                aria-label="Close menu"
-              >
-                <CloseGraphic className="h-6 w-6" />
-              </button>
+              <CloseButton onClick={() => setIsOpen(false)} />
 
-              <nav className="flex flex-col items-center gap-8 p-8 pt-16 pb-6">
+              <nav className="flex flex-col items-center gap-8 p-8 pt-16">
                 <a
                   href="#home"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.home}
                 </a>
                 <a
                   href="#skills"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.skills}
                 </a>
                 <a
                   href="#projects"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.projects}
                 </a>
                 <a
                   href="#about"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.about}
                 </a>
                 <a
                   href="#experience"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.experience}
                 </a>
                 <a
                   href="#contact"
                   onClick={() => setIsOpen(false)}
-                  className="font-heading hover:text-brand-600 dark:hover:text-brand-600 font-bold text-neutral-900 dark:text-neutral-200"
+                  className="nav-link"
                 >
                   {en.contact}
                 </a>
