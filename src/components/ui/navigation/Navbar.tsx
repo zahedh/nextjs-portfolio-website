@@ -1,7 +1,10 @@
+'use client';
+
 import { en } from '@/language';
 import { SecondaryButton, ThemeToggleButton } from '../buttons';
 import { InitialsGraphic } from '@/components/media';
 import MobileMenu from './MobileMenu';
+import { handleSmoothScroll } from '@/lib/utils';
 import clsx from 'clsx';
 
 type NavbarProps = {
@@ -22,32 +25,36 @@ export default function Navbar({
       {/* Desktop Navigation */}
       <ul className="hidden items-center gap-5 md:flex">
         <li>
-          <a href="#home" className="nav-link">
+          <a href="#home" className="nav-link" onClick={handleSmoothScroll}>
             {en.home}
           </a>
         </li>
         <li>
-          <a href="#skills" className="nav-link">
+          <a href="#skills" className="nav-link" onClick={handleSmoothScroll}>
             {en.skills}
           </a>
         </li>
         <li>
-          <a href="#projects" className="nav-link">
+          <a href="#projects" className="nav-link" onClick={handleSmoothScroll}>
             {en.projects}
           </a>
         </li>
         <li>
-          <a href="#about" className="nav-link">
+          <a href="#about" className="nav-link" onClick={handleSmoothScroll}>
             {en.about}
           </a>
         </li>
         <li>
-          <a href="#experience" className="nav-link">
+          <a
+            href="#experience"
+            className="nav-link"
+            onClick={handleSmoothScroll}
+          >
             {en.experience}
           </a>
         </li>
         <li>
-          <a href="#contact" className="nav-link">
+          <a href="#contact" className="nav-link" onClick={handleSmoothScroll}>
             {en.contact}
           </a>
         </li>

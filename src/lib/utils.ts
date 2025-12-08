@@ -25,3 +25,16 @@ export function createEscapeHandler(callback: () => void) {
     }
   };
 }
+
+/**
+ * Handles smooth scrolling to an anchor element on the page
+ * Prevents default anchor behavior and uses scrollIntoView with smooth animation
+ * @param e - React mouse event from clicking an anchor link
+ */
+export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
+  e.preventDefault();
+  const href = e.currentTarget.getAttribute('href');
+  if (href) {
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+  }
+}

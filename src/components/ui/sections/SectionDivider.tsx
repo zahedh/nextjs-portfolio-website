@@ -12,7 +12,7 @@ type SectionDividerProps = {
 export default function SectionDivider({
   width = 'full',
   align = 'left',
-  color = 'bg-brand-600 dark:bg-brand-600',
+  color = 'bg-brand-600',
   opacity = 'opacity-70',
   className,
 }: SectionDividerProps) {
