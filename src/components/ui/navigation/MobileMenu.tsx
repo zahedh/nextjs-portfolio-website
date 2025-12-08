@@ -9,7 +9,7 @@ import {
   BurgerMenuButton,
   CloseButton,
 } from '../buttons';
-import { createEscapeHandler } from '@/lib/utils';
+import { createEscapeHandler, handleSmoothScroll } from '@/lib/utils';
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,42 +71,60 @@ export default function MobileMenu() {
               <nav className="flex flex-col items-center gap-8 p-8 pt-16">
                 <a
                   href="#home"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.home}
                 </a>
                 <a
                   href="#skills"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.skills}
                 </a>
                 <a
                   href="#projects"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.projects}
                 </a>
                 <a
                   href="#about"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.about}
                 </a>
                 <a
                   href="#experience"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.experience}
                 </a>
                 <a
                   href="#contact"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    handleSmoothScroll(e);
+                    setIsOpen(false);
+                  }}
                   className="nav-link"
                 >
                   {en.contact}
