@@ -1,4 +1,4 @@
-import { Section, SubHeading } from '@/components';
+import { Heading, Section, SubHeading } from '@/components';
 import { AvatarGraphic } from '@/components/media';
 import { en } from '@/language';
 
@@ -11,9 +11,9 @@ export default function HeroSection() {
           <SubHeading>{en.heroSection.header}</SubHeading>
           <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:items-baseline">
             <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
-            <SubHeading className="t-xl text-brand-600 dark:text-brand-300">
+            <Heading className="text-brand-600 dark:text-brand-300">
               {en.heroSection.subHeaderPartTwo}
-            </SubHeading>
+            </Heading>
           </div>
           <SubHeading className="t-md mt-4 max-w-2xl">
             {en.heroSection.supportingText}

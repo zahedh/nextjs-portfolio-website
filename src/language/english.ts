@@ -22,7 +22,7 @@ export const en = {
     subHeaderPartOne: "I'm a...",
     subHeaderPartTwo: 'Web & Mobile Developer',
     supportingText:
-      'I design and build digital products across web and mobile, using engineering, thoughtful design, and smarty AI integrations to create seamless, user-focused experiences.',
+      'I design and build digital products across web and mobile, using engineering, thoughtful design, and smart AI integrations to create seamless, user-focused experiences.',
   },
 
   skillsCollageSection: {
