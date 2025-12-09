@@ -73,6 +73,7 @@ export default function Section({
           width={dividerWidth}
           align={align}
           color={dividerColor}
+          className="mb-5 sm:mb-8 md:mb-11 lg:mb-13 2xl:mb-16"
         />
       )}
 
