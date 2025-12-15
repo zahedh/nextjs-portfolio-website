@@ -26,26 +26,73 @@ export const en = {
   },
 
   skillsCollageSection: {
-    reactNative: 'React Native',
-    nextJS: 'Next JS',
+    // Modern Web & Mobile Frameworks
     react: 'React',
+    nextJS: 'Next JS',
+    reactNative: 'React Native',
+
+    // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
-    figma: 'Figma',
+
+    // Microsoft Stack
+    dotNet: '.NET',
+    aspNet: 'ASP.NET',
+    visualBasicDotNet: 'Visual Basic .NET',
+
+    // Legacy/Additional Languages
+    objectiveC: 'Objective-C',
+    jquery: 'jQuery',
+
+    // Web Fundamentals
+    html: 'HTML5',
+    css: 'CSS3',
+    amp: 'AMP',
+
+    // Styling & Design
     tailwind: 'Tailwind CSS',
-    jira: 'Jira',
+    figma: 'Figma',
+
+    // Database
+    mySQL: 'MySQL',
+
+    // Development Tools & IDEs
     github: 'GitHub',
+    androidStudio: 'Android Studio',
+    xcode: 'Xcode',
+
+    // Testing & Code Quality
+    jest: 'Jest',
+    eSLint: 'ESLint',
+    prettier: 'Prettier',
+
+    // API & Development
+    restAPI: 'REST API',
     postman: 'Postman',
+
+    // Project Management & Collaboration
+    jira: 'Jira',
     slack: 'Slack',
+    discord: 'Discord',
     notion: 'Notion',
+
+    // Productivity Tools
+    microsoftOffice: 'Microsoft Office',
+    googleDocs: 'Google Docs',
+
+    // AI Tools
     gitHubCopilot: 'GH Copilot',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
-    mySQL: 'MySQL',
-    androidStudio: 'Android Studio',
-    xcode: 'Xcode',
+    noteBookLM: 'NoteBookLM',
+    promptEngineering: 'Prompt Engineering',
+
+    // Operating Systems
     macOS: 'macOS',
     windows: 'Windows',
+
+    // Methodologies
+    agile: 'Agile Methodologies',
   },
 
   projectsSection: {

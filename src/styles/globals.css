@@ -100,6 +100,13 @@
   }
 
   /* =========================
+     💬 LABELS
+     ========================= */
+  .hover-tooltip {
+    @apply pointer-events-none absolute -top-10 left-1/2 z-[9999] -translate-x-1/2 rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 dark:bg-neutral-100 dark:text-neutral-900;
+  }
+
+  /* =========================
      📦 SPACING SYSTEM
      ========================= */
   /* Padding X/Y Variants */

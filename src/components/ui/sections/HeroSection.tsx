@@ -5,7 +5,7 @@ import { en } from '@/language';
 export default function HeroSection() {
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="section-content flex w-full flex-col items-center justify-center gap-6 sm:flex-row sm:gap-10">
+      <div className="section-content flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
         <AvatarGraphic className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48" />
         <div className="flex flex-col text-center sm:text-left">
           <SubHeading>{en.heroSection.header}</SubHeading>
