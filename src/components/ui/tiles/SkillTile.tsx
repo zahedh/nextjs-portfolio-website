@@ -16,7 +16,7 @@ export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
         // Shape
         'rounded-full',
         // Style: pill with brand border/background
-        'border-brand-500 bg-brand-400 border text-neutral-900 dark:text-neutral-200',
+        'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
         // Effects
         'shadow-sm transition-all duration-300 hover:scale-110',
         className
