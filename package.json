@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint . && echo \"✔ ESLint: no issues found ✔\"",
     "prettier-check": "npx prettier --check .",
     "prettier-format": "npx prettier --write .",
+    "prettier-check-format": "npx prettier --check . || npx prettier --write .",
+    "validate": "npm run lint && npm run prettier-check-format",
     "test": "jest"
   },
   "dependencies": {
