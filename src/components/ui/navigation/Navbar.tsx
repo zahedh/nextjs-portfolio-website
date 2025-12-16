@@ -20,7 +20,7 @@ export default function Navbar({
 }: NavbarProps) {
   return (
     <nav className={clsx('flex items-center justify-between', className)}>
-      {showInitials && <InitialsGraphic className="-ml-4 h-12 w-20" />}
+      {showInitials && <InitialsGraphic className="-ml-4 h-16 w-20" />}
 
       {/* Desktop Navigation */}
       <ul className="hidden items-center gap-5 md:flex">

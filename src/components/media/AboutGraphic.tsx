@@ -16,14 +16,5 @@ export default function AboutGraphic({
   const { isDark } = useTheme();
   const src = isDark ? DarkModeAbout : LightModeAbout;
 
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      placeholder="blur"
-      loading="lazy"
-      sizes={sizes}
-      {...rest}
-    />
-  );
+  return <Image src={src} alt={alt} loading="eager" sizes={sizes} {...rest} />;
 }
