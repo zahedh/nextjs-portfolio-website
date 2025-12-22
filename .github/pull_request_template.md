@@ -1,7 +1,5 @@
 ## 📝 Key Notes
 
----
-
 ## ✅ Checklist
 
 - [ ] Code compiles and runs without errors
