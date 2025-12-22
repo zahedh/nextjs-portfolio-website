@@ -116,4 +116,4 @@ This project is hosted on **Vercel** and optimised for similar platforms:
 
 ## 📄 License
 
-This project is open source and licensed under the **MIT License**.
+This project is open source and licensed under the [MIT License](LICENSE).
