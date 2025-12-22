@@ -11,14 +11,17 @@ import {
 
 export type GlobalStoreApi = ReturnType<typeof createGlobalStore>;
 
+/** React context holding the global Zustand store instance. */
 export const GlobalStoreContext = createContext<GlobalStoreApi | undefined>(
   undefined
 );
 
+/** Props for the GlobalStoreProvider component. */
 export interface GlobalStoreProviderProps {
   children: ReactNode;
 }
 
+/** Provides the global store to the React component tree. */
 export const GlobalStoreProvider = ({ children }: GlobalStoreProviderProps) => {
   const storeRef = useRef<GlobalStoreApi | null>(null);
   if (storeRef.current === null) {
@@ -32,6 +35,9 @@ export const GlobalStoreProvider = ({ children }: GlobalStoreProviderProps) => {
   );
 };
 
+/**
+ * Hook to read values from the global store using a selector.
+ */
 export const useGlobalStore = <T,>(selector: (store: GlobalStore) => T): T => {
   const globalStoreContext = useContext(GlobalStoreContext);
 

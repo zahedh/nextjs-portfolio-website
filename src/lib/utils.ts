@@ -9,6 +9,7 @@ const customTwMerge = extendTailwindMerge({
   },
 });
 
+/** Combines and intelligently merges Tailwind class names. */
 export function cn(...inputs: ClassValue[]) {
   return customTwMerge(clsx(inputs));
 }

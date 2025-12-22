@@ -7,6 +7,7 @@ import LightModeAvatar from '../../../public/images/lightModeAvatar.webp';
 
 type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 
+/** Avatar image used in the hero section (theme-aware placeholder). */
 export default function AvatarGraphic({
   alt = 'Zahed avatar image',
   sizes = '(max-width: 768px) 100vw, 400px',

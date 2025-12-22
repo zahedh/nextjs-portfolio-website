@@ -3,6 +3,7 @@ import { useTheme } from '@/hooks/utilityHooks';
 import SecondaryButton from './SecondaryButton';
 import { ThemeToggleGraphic } from '@/components/media';
 
+/** Button that toggles between light and dark themes. */
 export default function ThemeToggleButton() {
   const { toggleTheme } = useTheme();
 

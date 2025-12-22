@@ -1,5 +1,6 @@
 import { Navbar } from '../ui';
 
+/** Site footer with copyright and secondary navigation. */
 export default function Footer() {
   return (
     <footer className="text-center text-neutral-900">

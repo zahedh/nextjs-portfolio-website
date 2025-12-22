@@ -11,6 +11,7 @@ import {
 } from '../buttons';
 import { createEscapeHandler, handleSmoothScroll } from '@/lib/utils';
 
+/** Slide-in mobile navigation drawer with backdrop and keyboard support. */
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 

@@ -7,6 +7,7 @@ type HeadingProps = {
   className?: string;
 };
 
+/** Semantic heading component wired to the heading type scale. */
 export default function Heading({
   children,
   as: Component = 'h2',

@@ -1,3 +1,4 @@
+/** English copy used throughout the UI. */
 export const en = {
   // Navigation Labels
   home: 'Home',
@@ -58,6 +59,8 @@ export const en = {
 
     // Development Tools & IDEs
     github: 'GitHub',
+    vercel: 'Vercel',
+    firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
 

@@ -26,6 +26,8 @@ import {
   SiEslint,
   SiPrettier,
   SiLibreofficewriter,
+  SiVercel,
+  SiFirebase,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import { Code2, Lightbulb, Sparkles, Network } from 'lucide-react';
@@ -173,6 +175,18 @@ export const skillsData: Skill[] = [
     id: 'github',
     label: en.skillsCollageSection.github,
     icon: SiGithub,
+    category: 'dev-tools',
+  },
+  {
+    id: 'vercel',
+    label: en.skillsCollageSection.vercel,
+    icon: SiVercel,
+    category: 'dev-tools',
+  },
+  {
+    id: 'firebase',
+    label: en.skillsCollageSection.firebase,
+    icon: SiFirebase,
     category: 'dev-tools',
   },
   {

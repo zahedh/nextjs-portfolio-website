@@ -1,6 +1,7 @@
 import Header from './Header';
 import Footer from './Footer';
 
+/** Layout wrapper adding a header and footer around page content. */
 export default function HeaderFooter({
   children,
 }: {

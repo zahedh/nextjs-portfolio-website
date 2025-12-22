@@ -1,5 +1,6 @@
 'use client';
 
+/** Development-only helper showing the active Tailwind breakpoint. */
 export default function BreakpointIndicator() {
   if (process.env.NODE_ENV !== 'development') return null;
 
