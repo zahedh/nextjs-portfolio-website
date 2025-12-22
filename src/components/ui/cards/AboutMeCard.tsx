@@ -1,14 +1,49 @@
+import { SubHeading, BodyText } from '@/components';
+import { en } from '@/language';
+
+/** Card component displaying Zahed's about information with tagline and personal details. */
 export default function AboutMeCard() {
   return (
-    <div className="rounded-lg bg-neutral-100 p-6 dark:bg-neutral-800">
-      <h3 className="text-lg font-semibold">About Me</h3>
-      <p className="mt-4">Tech-loving, gym-obsessed problem solver.</p>
-      <p>What drives me</p>
-      <p className="font-ibm-plex-sans">
-        I thrive on solving real-world problems and constantly learning. Whether
-        it&apos;s full stack development or AI integrations, I enjoy staying at
-        the edge of tech and using it to create meaningful impact.
-      </p>
+    <div className="border-brand-500 flex w-full max-w-md flex-col gap-8 overflow-hidden rounded-[30px] border-b-2 bg-neutral-100 p-8 shadow-md lg:max-w-md dark:bg-neutral-800">
+      {/* Tagline */}
+      <SubHeading className="text-brand-600 dark:text-brand-400 font-bold italic">
+        {en.aboutSection.tagline}
+      </SubHeading>
+
+      {/* What drives me */}
+      <div className="flex flex-col gap-2">
+        <SubHeading className="t-md font-semibold">
+          {en.aboutSection.whatDrivesMeHeading}
+        </SubHeading>
+        <BodyText className="text-sm leading-relaxed">
+          {en.aboutSection.whatDrivesMeText}
+        </BodyText>
+      </div>
+
+      {/* Beyond coding */}
+      <div className="flex flex-col gap-2">
+        <SubHeading className="t-md font-semibold">
+          {en.aboutSection.beyondCodingHeading}
+        </SubHeading>
+        <BodyText as="div" className="text-sm leading-relaxed">
+          <p className="mb-1">{en.aboutSection.beyondCodingIntro}</p>
+          <ul className="ml-4 list-disc space-y-1">
+            {en.aboutSection.beyondCodingItems.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </BodyText>
+      </div>
+
+      {/* Levelling up in life */}
+      <div className="flex flex-col gap-2">
+        <SubHeading className="t-md font-semibold">
+          {en.aboutSection.levellingUpHeading}
+        </SubHeading>
+        <BodyText className="text-sm leading-relaxed">
+          {en.aboutSection.levellingUpText}
+        </BodyText>
+      </div>
     </div>
   );
 }

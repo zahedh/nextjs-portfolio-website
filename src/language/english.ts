@@ -26,6 +26,23 @@ export const en = {
       'I design and build digital products across web and mobile, using engineering, thoughtful design, and smart AI integrations to create seamless, user-focused experiences.',
   },
 
+  aboutSection: {
+    tagline: 'Tech loving, gym obsessed problem solver',
+    whatDrivesMeHeading: 'What drives me',
+    whatDrivesMeText:
+      "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
+    beyondCodingHeading: 'Beyond coding',
+    beyondCodingIntro: "Outside of work, you'll find me:",
+    beyondCodingItems: [
+      'Lifting in the gym — staying focused and energised.',
+      'Making music — always exploring new sounds.',
+      'Diving into games, design, and tech — driven by curiosity.',
+    ],
+    levellingUpHeading: 'Levelling up in life',
+    levellingUpText:
+      'For me, growth means pushing past comfort zones—whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
+  },
+
   skillsCollageSection: {
     // Modern Web & Mobile Frameworks
     react: 'React',
