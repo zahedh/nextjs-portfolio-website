@@ -9,6 +9,7 @@ type SectionDividerProps = {
   className?: string;
 };
 
+/** Decorative divider bar displayed under section headings. */
 export default function SectionDivider({
   width = 'full',
   align = 'left',

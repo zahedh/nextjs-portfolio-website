@@ -6,7 +6,7 @@ import {
   GlobalStoreContext,
 } from '@/providers/global-store-provider';
 
-/** Handles light/dark theme switching and persistence */
+/** Handles light/dark theme switching and persistence. */
 export function useTheme() {
   const { isDark, toggleTheme } = useGlobalStore(
     useShallow((state) => ({

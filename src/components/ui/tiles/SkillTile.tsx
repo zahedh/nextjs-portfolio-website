@@ -9,6 +9,7 @@ type SkillTileProps = {
   className?: string;
 };
 
+/** Circular icon tile representing a single skill with tooltip. */
 export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
   const { showTooltip, handleClick } = useTooltip(2000);
 

@@ -8,6 +8,7 @@ type SecondaryButtonProps = {
   className?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
+/** Rounded secondary button used for supporting actions. */
 export function SecondaryButton({
   children,
   className,

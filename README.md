@@ -1,69 +1,119 @@
-🌐 Next.js Portfolio Website
-A modern, minimal, and performant personal portfolio built with Next.js, designed to showcase development skills and professional projects. Built with a strong emphasis on clean architecture, responsive design, and efficient data/state handling.
+# 🌐 Next.js Portfolio Website
 
-🚀 Tech Stack
-Category Tech
-Meta Framework Next.js
-Language TypeScript
-Styling Tailwind CSS
-Client-Side State Zustand
-Server-Side State TanStack Query (react-query)
+A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase projects, experience, and skills with a strong focus on responsive design, accessibility, and maintainable architecture.
 
-🎯 Features
-⚡ Static & Server Rendering for performance and SEO
+## 📚 Contents
 
-🎨 Responsive Design with Tailwind CSS
+- 🧰 [Tech Stack](#tech-stack)
+- ✨ [Features](#features)
+- 🗂️ [Project Structure](#project-structure)
+- 🚀 [Getting Started](#getting-started)
+- 🔐 [Environment Variables](#environment-variables)
+- 🧪 [Scripts](#scripts)
+- 🌍 [Deployment](#deployment)
+- 📄 [License](#license)
 
-🌗 Light/Dark Mode support
+<a id="tech-stack"></a>
 
-🧠 Global State Management with Zustand
+## 🧰 Tech Stack
 
-🔄 Data Fetching and Caching via TanStack Query
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** Zustand
+- **Data Fetching:** TanStack Query (React Query)
+- **Testing:** Jest, Testing Library
+- **Linting & Formatting:** ESLint, Prettier
+- **Hosting:** Vercel
+- **Analytics:** Firebase Analytics
 
-💼 Project Showcase with modal views and deep linking
+<a id="features"></a>
 
-♿ Accessibility-first approach
+## ✨ Features
 
-🧩 Modular, scalable codebase using modern best practices
+- ⚡ Static & server rendering for great performance and SEO
+- 🎨 Fully responsive layout for mobile, tablet, and desktop
+- 🌗 Light / dark mode theme toggle
+- 💼 Project showcase with rich cards (and support for detail views)
+- 🧠 Global UI state with Zustand
+- 🔄 Data fetching & caching via TanStack Query (ready for API integration)
+- ♿ Accessibility-first components and semantics
+- 🧩 Modular, reusable component library for sections and UI elements
 
-📁 Folder Structure (Preview)
-bash
-Copy
-Edit
-/app
-/components
-/hooks
-/lib
-/store → Zustand stores
-/styles
-/utils
-/public
-🛠️ Getting Started
-bash
-Copy
-Edit
-git clone https://github.com/your-username/your-portfolio.git
-cd your-portfolio
-npm install
-npm run dev
-Then open http://localhost:3000 to view it in the browser.
+<a id="project-structure"></a>
 
-🧪 Scripts
-dev: Start development server
+## 🗂️ Project Structure
 
-build: Create production build
+High-level overview of the main folders:
 
-start: Run production build
+- `src/app` – Next.js routes, layouts, and pages (App Router)
+- `src/components` – Reusable UI components (buttons, cards, navigation, sections, etc.)
+- `src/data` – Static data (e.g. skills, content definitions)
+- `src/hooks` – Custom React hooks for UI and interaction logic
+- `src/lib` – Utilities, environment helpers, and shared logic
+- `src/stores` – Zustand global store definitions
+- `src/styles` – Global styles (Tailwind entry point, global CSS)
+- `public` – Static assets (images, icons, etc.)
 
-lint: Run ESLint
+<a id="getting-started"></a>
 
-📌 Roadmap
-Add About, Contact, and Project pages
+## 🚀 Getting Started
 
-Implement featured carousel and modal system
+### Prerequisites
 
-SEO and Open Graph optimization
+- Node.js **18.17+** (match your deployment target, e.g. Vercel)
+- npm (or another Node.js package manager)
 
-Deploy with Vercel or personal domain
+<a id="environment-variables"></a>
 
-Add analytics and performance monitoring
+## 🔐 Environment Variables
+
+This project uses environment variables for configuration. For local development:
+
+1. Create a `.env.local` file in the project root.
+2. Add any required variables, for example:
+
+```bash
+# Example – adjust to your needs
+NEXT_PUBLIC_ANALYTICS_ID=your-analytics-id
+API_BASE_URL=https://api.example.com
+```
+
+- `.env.local` is **git-ignored** and should not be committed.
+- In production (e.g. Vercel), set the same variables in the project’s Environment Variables settings.
+
+<a id="scripts"></a>
+
+## 🧪 Scripts
+
+Commonly used scripts defined in `package.json`:
+
+```bash
+npm run dev                  # Start development server
+npm run build                # Create production build
+npm run start                # Run the production server
+
+npm run type-check           # Run TypeScript type checking
+npm run lint                 # Run ESLint
+npm run test                 # Run Jest test suite
+
+npm run prettier-check       # Check formatting with Prettier
+npm run prettier-format      # Format code with Prettier
+npm run prettier-check-format# Check, or format if needed
+
+npm run validate             # Type-check + lint + format check (full sanity check)
+```
+
+Run `npm run validate` before committing or deploying to ensure everything passes.
+
+<a id="deployment"></a>
+
+## 🌍 Deployment
+
+This project is hosted on **Vercel** and optimised for similar platforms:
+
+<a id="license"></a>
+
+## 📄 License
+
+This project is open source and licensed under the **MIT License**.

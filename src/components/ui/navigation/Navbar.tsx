@@ -13,6 +13,7 @@ type NavbarProps = {
   className?: string;
 };
 
+/** Responsive top navigation bar for primary site links. */
 export default function Navbar({
   showInitials = true,
   showMobileMenu = true,

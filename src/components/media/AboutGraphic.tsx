@@ -8,6 +8,7 @@ import DarkModeAbout from '../../../public/images/darkModeAbout.webp';
 
 type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 
+/** Illustration used in the About section, switching with theme. */
 export default function AboutGraphic({
   alt = 'About section illustration',
   sizes = '(max-width: 768px) 100vw, 800px',

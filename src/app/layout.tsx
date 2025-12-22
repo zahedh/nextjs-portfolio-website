@@ -19,6 +19,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 
 const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
 
+/** Default metadata for the public site shell. */
 export const metadata: Metadata = {
   title: 'Next.js Portfolio Website for Zahed Heidari',
   description:
@@ -52,6 +53,10 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Root layout for the app.
+ * Wraps children with global store provider and font variables.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

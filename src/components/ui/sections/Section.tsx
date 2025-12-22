@@ -17,6 +17,7 @@ type SectionProps = {
   anchor?: string;
 };
 
+/** Generic layout section used to structure page content. */
 export default function Section({
   title,
   subheading,

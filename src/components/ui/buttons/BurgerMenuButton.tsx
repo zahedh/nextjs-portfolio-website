@@ -4,6 +4,7 @@ type BurgerMenuButtonProps = {
   onClick: () => void;
 };
 
+/** Icon-only button that opens the mobile navigation drawer. */
 export default function BurgerMenuButton({ onClick }: BurgerMenuButtonProps) {
   return (
     <button

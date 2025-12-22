@@ -8,6 +8,7 @@ import DarkModeInitials from '../../../public/images/darkModeInitials.png';
 
 type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 
+/** Logo graphic showing initials, switching per theme. */
 export default function InitialsGraphic({
   alt = 'Initials graphic',
   sizes = '(max-width: 768px) 100vw, 400px',

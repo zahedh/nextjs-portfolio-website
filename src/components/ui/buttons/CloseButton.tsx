@@ -6,6 +6,7 @@ type CloseButtonProps = {
   onClick: () => void;
 };
 
+/** Icon-only close button for dismissing overlays and panels. */
 export default function CloseButton({ onClick }: CloseButtonProps) {
   return (
     <button
