@@ -71,6 +71,7 @@
 
   .screen-section {
     @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 md:gap-6 dark:border-neutral-200;
+    scroll-margin-top: 5rem; /* Offset for sticky header */
   }
 
   .section-content {

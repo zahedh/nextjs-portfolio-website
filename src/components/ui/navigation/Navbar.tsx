@@ -4,7 +4,7 @@ import { en } from '@/language';
 import { SecondaryButton, ThemeToggleButton } from '../buttons';
 import { InitialsGraphic } from '@/components/media';
 import MobileMenu from './MobileMenu';
-import { handleSmoothScroll } from '@/lib/utils';
+import { handleSmoothScroll, scrollToTop } from '@/lib/utils';
 import clsx from 'clsx';
 
 type NavbarProps = {
@@ -26,7 +26,7 @@ export default function Navbar({
       {/* Desktop Navigation */}
       <ul className="hidden items-center gap-5 md:flex">
         <li>
-          <a href="#home" className="nav-link" onClick={handleSmoothScroll}>
+          <a href="#home" className="nav-link" onClick={scrollToTop}>
             {en.home}
           </a>
         </li>

@@ -39,3 +39,12 @@ export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   }
 }
+
+/**
+ * Scrolls to the top of the page with smooth animation
+ * @param e - Optional React mouse event to prevent default behavior
+ */
+export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
+  e?.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
