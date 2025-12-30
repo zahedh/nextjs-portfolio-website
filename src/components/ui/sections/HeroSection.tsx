@@ -2,7 +2,7 @@ import { Heading, Section, SubHeading } from '@/components';
 import { AvatarGraphic } from '@/components/media';
 import { en } from '@/language';
 
-/** Hero section introducing Zahed and the primary value proposition. */
+/** Hero section introducing the portfolio and primary value proposition. */
 export default function HeroSection() {
   return (
     <Section anchor="home" showDivider={false}>

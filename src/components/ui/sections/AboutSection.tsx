@@ -2,12 +2,12 @@
 
 import { Section } from '@/components';
 import { AboutGraphic } from '@/components/media';
-import { AboutMeCard } from '@/components/ui/cards';
+import { AboutMeCard, StatCard } from '@/components/ui/cards';
 import { aboutStatCards } from '@/data';
 import { en } from '@/language';
 import { motion } from 'motion/react';
 
-/** Section describing Zahed's background and story. */
+/** Section describing background and story. */
 export default function AboutSection() {
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
@@ -27,7 +27,6 @@ export default function AboutSection() {
             }}
           >
             <motion.div
-              className="border-brand-400/30 dark:border-brand-500/30 relative rounded-2xl border bg-neutral-100/80 px-6 py-4 shadow-lg backdrop-blur-sm dark:bg-neutral-800/80"
               animate={{
                 rotate: [0, -2, 2, -2, 0],
               }}
@@ -38,19 +37,11 @@ export default function AboutSection() {
                 delay: index * 0.5,
               }}
             >
-              <div className="text-center">
-                <p className="font-heading text-brand-500 dark:text-brand-400 text-3xl font-bold">
-                  {card.value}
-                </p>
-                <p className="text-xs font-semibold text-neutral-700 dark:text-neutral-300">
-                  {card.label}
-                </p>
-              </div>
+              <StatCard value={card.value} label={card.label} />
             </motion.div>
           </motion.div>
         ))}
 
-        {/* About Me Card */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -60,7 +51,6 @@ export default function AboutSection() {
           <AboutMeCard />
         </motion.div>
 
-        {/* Illustration */}
         <motion.div
           className="flex w-full max-w-sm items-center justify-center lg:max-w-md"
           initial={{ opacity: 0, x: 50 }}

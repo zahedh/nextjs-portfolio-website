@@ -41,6 +41,19 @@ export const en = {
     levellingUpHeading: 'Levelling up in life',
     levellingUpText:
       'For me, growth means pushing past comfort zones—whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
+    statCards: {
+      yearsExperienceLabel: 'Years Experience',
+      enterpriseClientsLabel: 'Enterprise Clients',
+      enterpriseClientsValue: '2+',
+      usersReachedLabel: 'Users Reached',
+      usersReachedValue: '500K+',
+      appsPublishedLabel: 'Apps Published',
+      appsPublishedValue: 'iOS & Android',
+      aiWorkflowsLabel: 'Workflows',
+      aiWorkflowsValue: 'AI-Enhanced',
+      degreeLabel: 'Degree',
+      degreeValue: '1st Class',
+    },
   },
 
   skillsCollageSection: {

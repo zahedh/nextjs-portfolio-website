@@ -1,7 +1,7 @@
 import { SubHeading, BodyText } from '@/components';
 import { en } from '@/language';
 
-/** Card component displaying Zahed's about information with tagline and personal details. */
+/** Card component displaying about information with tagline and personal details. */
 export default function AboutMeCard() {
   return (
     <div className="border-brand-500 flex w-full max-w-md flex-col gap-8 overflow-hidden rounded-[30px] border-b-2 bg-neutral-100 p-8 shadow-md lg:max-w-md dark:bg-neutral-800">
