@@ -1,21 +1,5 @@
 import { en } from '@/language';
-
-/** Calculate years of experience since start date */
-function getYearsOfExperience() {
-  const startDate = new Date('2020-05-01');
-  const today = new Date();
-  const years = today.getFullYear() - startDate.getFullYear();
-  const monthDiff = today.getMonth() - startDate.getMonth();
-
-  if (
-    monthDiff < 0 ||
-    (monthDiff === 0 && today.getDate() < startDate.getDate())
-  ) {
-    return years - 1;
-  }
-
-  return years;
-}
+import { getYearsOfExperience } from '@/lib';
 
 const { statCards } = en.aboutSection;
 
