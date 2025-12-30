@@ -6,7 +6,7 @@ import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion } from 'motion/react';
 
-/** Animated collage of skills and tools Zahed works with. */
+/** Animated collage of skills and tools. */
 export default function SkillsSection() {
   return (
     <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
