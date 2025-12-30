@@ -9,7 +9,11 @@ import {
   BurgerMenuButton,
   CloseButton,
 } from '../buttons';
-import { createEscapeHandler, handleSmoothScroll } from '@/lib/utils';
+import {
+  createEscapeHandler,
+  scrollToTop,
+  handleSmoothScroll,
+} from '@/lib/utils';
 
 /** Slide-in mobile navigation drawer with backdrop and keyboard support. */
 export default function MobileMenu() {
@@ -38,7 +42,6 @@ export default function MobileMenu() {
 
   return (
     <>
-      {/* Burger Icon Button */}
       <BurgerMenuButton onClick={() => setIsOpen(!isOpen)} />
 
       {/* Mobile Menu Drawer */}
@@ -66,14 +69,13 @@ export default function MobileMenu() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               className="mobile-menu-panel"
             >
-              {/* Close Button */}
               <CloseButton onClick={() => setIsOpen(false)} />
 
               <nav className="flex flex-col items-center gap-8 p-8 pt-16">
                 <a
                   href="#home"
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    scrollToTop(e);
                     setIsOpen(false);
                   }}
                   className="nav-link"
