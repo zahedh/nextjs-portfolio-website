@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { en } from '@/language';
 import {
@@ -18,6 +20,8 @@ import {
 /** Slide-in mobile navigation drawer with backdrop and keyboard support. */
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -72,66 +76,79 @@ export default function MobileMenu() {
               <CloseButton onClick={() => setIsOpen(false)} />
 
               <nav className="flex flex-col items-center gap-8 p-8 pt-16">
-                <a
-                  href="#home"
+                <Link
+                  href="/"
                   onClick={(e) => {
-                    scrollToTop(e);
+                    if (isHome) {
+                      e.preventDefault();
+                      scrollToTop(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.home}
-                </a>
-                <a
-                  href="#skills"
+                </Link>
+                <Link
+                  href={isHome ? '#skills' : '/#skills'}
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.skills}
-                </a>
-                <a
-                  href="#projects"
+                </Link>
+                <Link
+                  href={isHome ? '#projects' : '/#projects'}
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.projects}
-                </a>
-                <a
-                  href="#about"
+                </Link>
+                <Link
+                  href={isHome ? '#about' : '/#about'}
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.about}
-                </a>
-                <a
-                  href="#experience"
+                </Link>
+                <Link
+                  href={isHome ? '#experience' : '/#experience'}
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.experience}
-                </a>
-                <a
-                  href="#contact"
+                </Link>
+                <Link
+                  href={isHome ? '#contact' : '/#contact'}
                   onClick={(e) => {
-                    handleSmoothScroll(e);
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
                     setIsOpen(false);
                   }}
                   className="nav-link"
                 >
                   {en.contact}
-                </a>
+                </Link>
                 <SecondaryButton onClick={() => setIsOpen(false)}>
                   {en.cV}
                 </SecondaryButton>
