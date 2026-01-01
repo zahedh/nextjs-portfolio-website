@@ -4,14 +4,18 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 
 type SecondaryButtonProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
+  icon?: ReactNode;
+  iconOnly?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** Rounded secondary button used for supporting actions. */
 export function SecondaryButton({
   children,
   className,
+  icon,
+  iconOnly = false,
   ...props
 }: SecondaryButtonProps) {
   return (
@@ -19,13 +23,14 @@ export function SecondaryButton({
       type="button"
       className={clsx(
         // Layout
-        'inline-flex items-center justify-center gap-2 px-3 py-1.5',
+        'inline-flex items-center justify-center gap-2',
+        iconOnly ? 'p-2' : 'px-3 py-1.5',
         // Shape
         'rounded-full',
-        // Light mode secondary style: white pill with brand border/text
-        'border-brand-500 bg-brand-400 border text-neutral-900 dark:text-neutral-200',
+        // Colours
+        'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
         // Typography
-        'font-heading text-sm font-bold',
+        'font-heading text-base leading-normal font-bold tracking-tight',
         // Effects
         'shadow-sm transition-colors duration-150',
         // Interactions
@@ -34,7 +39,8 @@ export function SecondaryButton({
       )}
       {...props}
     >
-      {children}
+      {icon && <span className="flex-shrink-0">{icon}</span>}
+      {!iconOnly && children}
     </button>
   );
 }
