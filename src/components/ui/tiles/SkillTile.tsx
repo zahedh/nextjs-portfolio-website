@@ -7,10 +7,16 @@ type SkillTileProps = {
   icon: IconType;
   label: string;
   className?: string;
+  compact?: boolean;
 };
 
 /** Circular icon tile representing a single skill with tooltip. */
-export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
+export function SkillTile({
+  icon: Icon,
+  label,
+  className,
+  compact = false,
+}: SkillTileProps) {
   const { showTooltip, handleClick } = useTooltip(2000);
 
   return (
@@ -18,7 +24,9 @@ export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
       onClick={handleClick}
       className={clsx(
         // Layout
-        'group relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',
+        compact
+          ? 'group relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
+          : 'group relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',
         // Shape
         'rounded-full',
         // Style: pill with brand border/background
@@ -31,7 +39,9 @@ export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
       )}
     >
       {/* Icon */}
-      <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
+      <Icon
+        className={compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-7 w-7 sm:h-8 sm:w-8'}
+      />
 
       {/* Tooltip - shows on hover and click */}
       <div className={clsx('hover-tooltip', showTooltip && '!opacity-100')}>

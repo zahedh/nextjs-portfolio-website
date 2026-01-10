@@ -10,24 +10,21 @@ import { motion } from 'motion/react';
 export default function ExperienceSection() {
   return (
     <Section anchor="experience" title={en.sectionHeaders.experience}>
-      <div className="section-content relative mx-auto max-w-6xl">
+      <div className="section-content relative mx-auto max-w-6xl xl:max-w-7xl">
         {/* Timeline - Desktop: center, Mobile: left */}
-        <div className="bg-brand-500 absolute top-0 left-8 h-full w-0.5 md:left-1/2 md:-translate-x-1/2" />
+        <div className="bg-brand-400 absolute top-0 left-8 h-full w-0.5 lg:left-1/2 lg:-translate-x-1/2" />
 
         {/* Job cards */}
-        <div className="relative space-y-16 md:space-y-24">
+        <div className="relative space-y-16 py-32 lg:space-y-24 lg:py-48">
           {jobExperiences.map((job, index) => {
             const isLeft = index % 2 === 0;
 
             return (
-              <div
-                key={job.id}
-                className="relative"
-              >
+              <div key={job.id} className="relative">
                 {/* Desktop layout - alternating */}
                 <motion.div
-                  className={`hidden md:block md:w-[calc(50%-2rem)] ${
-                    isLeft ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
+                  className={`hidden lg:block lg:w-[calc(50%-2rem)] ${
+                    isLeft ? 'lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:pl-8'
                   }`}
                   initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -39,7 +36,7 @@ export default function ExperienceSection() {
 
                 {/* Timeline dot */}
                 <motion.div
-                  className="bg-brand-500 absolute left-8 top-0 z-10 h-5 w-5 -translate-x-1/2 rounded-full border-[5px] border-neutral-100 md:left-1/2 md:top-1/2 md:-translate-y-1/2 dark:border-neutral-900"
+                  className="bg-brand-400 absolute top-1/2 left-8 z-10 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 lg:left-1/2 dark:border-neutral-900"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -48,7 +45,7 @@ export default function ExperienceSection() {
 
                 {/* Mobile layout - all on right */}
                 <motion.div
-                  className="ml-16 w-full md:hidden"
+                  className="mr-4 ml-16 lg:hidden"
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
