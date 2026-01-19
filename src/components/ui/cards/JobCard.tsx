@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
 import { MapPin, Building2, Code2, ChevronDown } from 'lucide-react';
 import { SkillTile } from '@/components/ui/tiles';
 import { skillsData } from '@/data/skills';
+import { getSkillsByIds } from '@/lib/utils';
+import { useExpandableContent } from '@/hooks/utilityHooks';
 import type { JobExperience } from '@/data/experience';
 
 interface JobCardProps {
@@ -12,55 +13,18 @@ interface JobCardProps {
 }
 
 export default function JobCard({ job, isLeft = false }: JobCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showExpandButton, setShowExpandButton] = useState(true); // Start with true to test
-  const [contentHeight, setContentHeight] = useState<number>(0);
-  const descriptionRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const {
+    isExpanded,
+    showExpandButton,
+    contentHeight,
+    contentRef,
+    handleToggle,
+  } = useExpandableContent(300);
 
-  // Check if content exceeds max height
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (contentRef.current) {
-        const fullHeight = contentRef.current.scrollHeight;
-        setContentHeight(fullHeight);
-        setShowExpandButton(fullHeight > 300);
-      }
-    };
-
-    // Check immediately and after a short delay to ensure rendering is complete
-    checkOverflow();
-    const timer = setTimeout(checkOverflow, 100);
-
-    return () => clearTimeout(timer);
-  }, [job.description]);
-
-  // Handle expand/collapse with scroll
-  const handleToggleExpand = () => {
-    setIsExpanded(!isExpanded);
-
-    // Scroll card to center after state update
-    if (!isExpanded && cardRef.current) {
-      setTimeout(() => {
-        cardRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }, 100);
-    }
-  };
-
-  // Get skill objects from skill IDs
-  const jobSkills = job.skills
-    .map((skillId) => skillsData.find((s) => s.id === skillId))
-    .filter((skill): skill is NonNullable<typeof skill> => skill !== undefined);
+  const jobSkills = getSkillsByIds(job.skills, skillsData);
 
   return (
-    <div
-      ref={cardRef}
-      className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900"
-    >
+    <div className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900">
       {/* Date badge */}
       <div
         className={`bg-brand-300 dark:bg-brand-400 absolute -top-4 left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100 ${
@@ -97,7 +61,6 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       {/* Job description */}
       <div className="relative mb-10">
         <div
-          ref={descriptionRef}
           style={{
             maxHeight: isExpanded ? `${contentHeight}px` : '300px',
             transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -125,7 +88,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       {/* Show more/less button */}
       {showExpandButton && (
         <button
-          onClick={handleToggleExpand}
+          onClick={handleToggle}
           className="bg-brand-300 hover:bg-brand-400 dark:bg-brand-500 dark:hover:bg-brand-400 mb-8 flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-100"
         >
           {isExpanded ? 'Show less' : 'Show more'}
