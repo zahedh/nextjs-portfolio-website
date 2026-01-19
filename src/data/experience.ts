@@ -2,7 +2,6 @@ export interface JobExperience {
   id: string;
   title: string;
   company: string;
-  companyLogo?: string;
   location: string;
   startDate: string;
   endDate: string;
@@ -15,7 +14,6 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-1',
     title: 'Developer',
     company: 'Blue Beck Ltd',
-    companyLogo: '/images/bluebeck-logo.png',
     location: 'Macclesfield, England, United Kingdom',
     startDate: 'Mar 2023',
     endDate: 'Present',
@@ -23,10 +21,9 @@ export const jobExperiences: JobExperience[] = [
       '► Ongoing development and maintenance of the SMARTY mobile application, ensuring high performance and stability across iOS and Android platforms.',
       '► Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
       '► Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
-      "► Collaborate within SMARTY's multi-company tech stack to ensure seamless integration, alignment, and efficient cross-team development.",
+      "► Collaborate within SMARTY's multi-company tech stack and liaise directly with clients to ensure seamless integration, technical alignment, and that implementation meets business needs.",
       '► Regularly present technical updates and progress in large client meetings, supporting transparency and collaboration.',
       "► Research, learn, and integrate emerging technologies into the app's development workflow to drive innovation.",
-      '► Liaise directly with clients to clarify requirements, ensuring alignment between technical implementation and business needs.',
       '► Work within Agile methodologies, collaborating closely with developers, QA, and PMs to deliver continuous improvements.',
     ],
     skills: [
@@ -53,17 +50,17 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-2',
     title: 'Senior Web Solutions Developer',
     company: 'Interlockdigital',
-    companyLogo: '/images/interlock-logo.png',
     location: 'Stoke-on-Trent, England, United Kingdom',
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
     description: [
-      '► Led development of internal React-Native mobile applications for Michelin, including costings and truck audit systems.',
-      '► Converted legacy Alloy applications to modern React-Native framework.',
-      '► Revamped e-commerce site with heavy focus on back-end development.',
-      "► Developed programmatical bridge between client's stock system and Oracle NetSuite.",
-      '► Created front-end stock management system using VB.NET with automated task scheduler for periodic stock data and image management.',
-      '► Developed dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
+      '► Led the development of an internal React-Native mobile application for Michelin.',
+      '► Converted legacy Alloy applications to a modern React-Native framework.',
+      '► Revamped an e-commerce site with a heavy focus on back-end development.',
+      "► Developed a programmatical bridge between a client's stock system and Oracle NetSuite.",
+      '► Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
+      '► Developed a dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
+      '► Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
     ],
     skills: [
       'react-native',
@@ -74,6 +71,8 @@ export const jobExperiences: JobExperience[] = [
       'xcode',
       'mysql',
       'jira',
+      'php',
+      'wordpress',
       'agile',
       'jquery',
       'github',
@@ -89,14 +88,12 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-3',
     title: 'Junior Web Solutions Developer',
     company: 'Interlockdigital',
-    companyLogo: '/images/interlock-logo.png',
     location: 'Stoke-on-Trent, England, United Kingdom',
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     description: [
-      '► Co-developed Warmshowers mobile app using React-Native, published in both Google Play and Apple App stores.',
-      '► Contributed to application serving 150,000+ member community, generating over £50,000 annual revenue.',
-      "► Developed RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
+      '► Co-developed the Warmshowers mobile app using React-Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
+      "► Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
       '► Reduced PDF production time drastically - capable of creating 100 PDFs in under an hour with dynamic content generation.',
     ],
     skills: [
@@ -108,6 +105,8 @@ export const jobExperiences: JobExperience[] = [
       'xcode',
       'mysql',
       'jira',
+      'php',
+      'wordpress',
       'agile',
       'jquery',
       'github',

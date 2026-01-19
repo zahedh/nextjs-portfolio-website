@@ -37,7 +37,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       {/* Job header */}
       <div className="mt-6 mb-8 flex items-start gap-4">
         {/* Developer icon */}
-        <div className="bg-brand-300 dark:bg-brand-500 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg text-neutral-900 dark:text-neutral-100">
+        <div className="border-brand-500 bg-brand-300 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border text-neutral-900 dark:text-neutral-200">
           <Code2 size={24} />
         </div>
 
@@ -89,7 +89,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       {showExpandButton && (
         <button
           onClick={handleToggle}
-          className="bg-brand-300 hover:bg-brand-400 dark:bg-brand-500 dark:hover:bg-brand-400 mb-8 flex w-full items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-100"
+          className="border-brand-500 bg-brand-300 hover:bg-brand-500 mb-8 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200"
         >
           {isExpanded ? 'Show less' : 'Show more'}
           <ChevronDown
