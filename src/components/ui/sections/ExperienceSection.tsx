@@ -12,7 +12,7 @@ export default function ExperienceSection() {
     <Section anchor="experience" title={en.sectionHeaders.experience}>
       <div className="section-content relative mx-auto max-w-6xl xl:max-w-7xl">
         {/* Timeline - Desktop: center, Mobile: left */}
-        <div className="bg-brand-400 absolute top-0 left-8 h-full w-0.5 lg:left-1/2 lg:-translate-x-1/2" />
+        <div className="timeline-position" />
 
         {/* Job cards */}
         <div className="relative space-y-16 py-32 lg:space-y-24 lg:py-48">
@@ -36,7 +36,7 @@ export default function ExperienceSection() {
 
                 {/* Timeline dot */}
                 <motion.div
-                  className="bg-brand-400 absolute top-1/2 left-8 z-10 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 lg:left-1/2 dark:border-neutral-900"
+                  className="timeline-dot-position"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
