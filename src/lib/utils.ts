@@ -48,3 +48,18 @@ export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
   e?.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+/**
+ * Maps skill IDs to their corresponding skill objects
+ * @param skillIds - Array of skill identifier strings
+ * @param skillsData - Complete dataset of skill objects
+ * @returns Array of skill objects that match the provided IDs
+ */
+export function getSkillsByIds<T extends { id: string }>(
+  skillIds: string[],
+  skillsData: T[]
+): T[] {
+  return skillIds
+    .map((skillId) => skillsData.find((s) => s.id === skillId))
+    .filter((skill): skill is T => skill !== undefined);
+}

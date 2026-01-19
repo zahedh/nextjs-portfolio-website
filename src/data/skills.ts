@@ -28,6 +28,8 @@ import {
   SiLibreofficewriter,
   SiVercel,
   SiFirebase,
+  SiPhp,
+  SiWordpress,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import { Code2, Lightbulb, Sparkles, Network } from 'lucide-react';
@@ -93,6 +95,12 @@ export const skillsData: Skill[] = [
     icon: SiJavascript,
     category: 'languages',
   },
+  {
+    id: 'php',
+    label: en.skillsCollageSection.php,
+    icon: SiPhp,
+    category: 'languages',
+  },
 
   // Microsoft Stack
   {
@@ -125,6 +133,12 @@ export const skillsData: Skill[] = [
     id: 'jquery',
     label: en.skillsCollageSection.jquery,
     icon: SiJquery,
+    category: 'legacy',
+  },
+  {
+    id: 'wordpress',
+    label: en.skillsCollageSection.wordpress,
+    icon: SiWordpress,
     category: 'legacy',
   },
 

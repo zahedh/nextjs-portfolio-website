@@ -78,6 +78,14 @@
     @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-6;
   }
 
+  .timeline-position {
+    @apply bg-brand-400 absolute top-0 left-8 h-full w-0.5 lg:left-1/2 lg:-translate-x-1/2;
+  }
+
+  .timeline-dot-position {
+    @apply bg-brand-400 absolute top-1/2 left-[15px] z-10 h-5 w-5 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 sm:left-[11px] md:left-[7px] lg:left-1/2 lg:-translate-x-1/2 dark:border-neutral-900;
+  }
+
   /* =========================
      🔤 TYPOGRAPHY SCALE
      ========================= */

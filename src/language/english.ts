@@ -65,6 +65,7 @@ export const en = {
     // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
+    php: 'PHP',
 
     // Microsoft Stack
     dotNet: '.NET',
@@ -74,6 +75,7 @@ export const en = {
     // Legacy/Additional Languages
     objectiveC: 'Objective-C',
     jquery: 'jQuery',
+    wordpress: 'WordPress',
 
     // Web Fundamentals
     html: 'HTML5',
