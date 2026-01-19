@@ -21,20 +21,11 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
 
   // Check if content exceeds max height
   useEffect(() => {
-    console.log('Effect running, contentRef:', contentRef.current);
     const checkOverflow = () => {
       if (contentRef.current) {
         const fullHeight = contentRef.current.scrollHeight;
-        console.log(
-          'Content height:',
-          fullHeight,
-          'Should show button:',
-          fullHeight > 300
-        );
         setContentHeight(fullHeight);
         setShowExpandButton(fullHeight > 300);
-      } else {
-        console.log('contentRef.current is null');
       }
     };
 
@@ -68,7 +59,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
   return (
     <div
       ref={cardRef}
-      className="relative rounded-2xl border-2 border-neutral-200 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:border-neutral-700 dark:bg-neutral-800"
+      className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900"
     >
       {/* Date badge */}
       <div
@@ -127,7 +118,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
 
         {/* Subtle gradient fade */}
         {!isExpanded && showExpandButton && (
-          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-800" />
+          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900" />
         )}
       </div>
 

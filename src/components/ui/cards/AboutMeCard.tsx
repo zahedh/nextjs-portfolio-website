@@ -4,7 +4,7 @@ import { en } from '@/language';
 /** Card component displaying about information with tagline and personal details. */
 export default function AboutMeCard() {
   return (
-    <div className="border-brand-500 flex w-full max-w-md flex-col gap-8 overflow-hidden rounded-[30px] border-b-2 bg-neutral-100 p-8 shadow-md lg:max-w-md dark:bg-neutral-800">
+    <div className="border-brand-300 flex w-full max-w-md flex-col gap-8 overflow-hidden rounded-[30px] border bg-neutral-100 p-8 shadow-md lg:max-w-md dark:bg-neutral-900">
       {/* Tagline */}
       <SubHeading className="text-brand-600 dark:text-brand-400 font-bold italic">
         {en.aboutSection.tagline}
