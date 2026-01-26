@@ -6,16 +6,17 @@ export const en = {
   skills: 'Skills',
   projects: 'Projects',
   experience: 'Experience',
+  activity: 'Activity',
   contact: 'Contact',
   cV: 'CV',
 
   // Static Home Content
   sectionHeaders: {
     skillsCollage: 'What I Work Best With',
-    projects: "What I\'ve Built",
+    projects: "What I've Built",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
-    contributionsSection: 'My Dev Footprint',
+    contributionsSection: 'My GitHub Contributions',
   },
 
   heroSection: {
@@ -23,7 +24,7 @@ export const en = {
     subHeaderPartOne: "I'm a...",
     subHeaderPartTwo: 'Web & Mobile Developer',
     supportingText:
-      'I design and build digital products across web and mobile, using engineering, thoughtful design, and smart AI integrations to create seamless, user-focused experiences.',
+      'I design and build digital products across web and mobile, using robust engineering, thoughtful design, and modern AI integrations.',
   },
 
   aboutSection: {
@@ -153,5 +154,15 @@ export const en = {
     meetButtonLabel: 'Meet',
     connectHeader: 'Connect',
     copyrightText: `© ${new Date().getFullYear()} Zahed Heidari`,
+  },
+
+  contributionsSection: {
+    loading: 'Loading contributions...',
+    error: 'Unable to load contribution data. Please try again later.',
+  },
+
+  contributionsCalendar: {
+    totalCount: '{{count}} contributions in the last year',
+    totalCountYear: '{{count}} contributions in {{year}}',
   },
 };

@@ -88,6 +88,15 @@ export default function Navbar({
         </li>
         <li>
           <Link
+            href={isHome ? '#contributions' : '/#contributions'}
+            className="nav-link"
+            onClick={handleNavClick}
+          >
+            {en.activity}
+          </Link>
+        </li>
+        <li>
+          <Link
             href={isHome ? '#contact' : '/#contact'}
             className="nav-link"
             onClick={handleNavClick}

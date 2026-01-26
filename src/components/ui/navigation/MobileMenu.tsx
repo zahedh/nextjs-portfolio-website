@@ -138,6 +138,18 @@ export default function MobileMenu() {
                   {en.experience}
                 </Link>
                 <Link
+                  href={isHome ? '#contributions' : '/#contributions'}
+                  onClick={(e) => {
+                    if (isHome) {
+                      handleSmoothScroll(e);
+                    }
+                    setIsOpen(false);
+                  }}
+                  className="nav-link"
+                >
+                  {en.activity}
+                </Link>
+                <Link
                   href={isHome ? '#contact' : '/#contact'}
                   onClick={(e) => {
                     if (isHome) {

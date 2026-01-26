@@ -15,6 +15,7 @@ type SectionProps = {
   supportingText?: string;
   children?: React.ReactNode;
   anchor?: string;
+  filterButtons?: React.ReactNode;
 };
 
 /** Generic layout section used to structure page content. */
@@ -30,19 +31,27 @@ export default function Section({
   supportingText,
   children,
   anchor,
+  filterButtons,
 }: SectionProps) {
   return (
     <div id={anchor} className={clsx('screen-section py-xs', className)}>
       {title && (
-        <Heading
-          className={clsx(
-            align === 'center' && 'text-center',
-            align === 'right' && 'text-right',
-            italicize && 'italic'
+        <div className="mb-2 flex w-full items-center justify-between gap-4">
+          <Heading
+            className={clsx(
+              align === 'center' && 'text-center',
+              align === 'right' && 'text-right',
+              italicize && 'italic'
+            )}
+          >
+            {title}
+          </Heading>
+          {filterButtons && (
+            <div className="ml-auto flex flex-shrink-0 gap-2">
+              {filterButtons}
+            </div>
           )}
-        >
-          {title}
-        </Heading>
+        </div>
       )}
 
       {subheading && (
