@@ -13,8 +13,9 @@ const GITHUB_USERNAME = 'zahedh';
 /**
  * Fetches GitHub contribution data using GraphQL API.
  * Requires GITHUB_TOKEN in environment variables.
+ * @param year - Optional year to fetch contributions for (defaults to current year)
  */
-export async function fetchGitHubContributions() {
+export async function fetchGitHubContributions(year?: number) {
   const token = process.env.GITHUB_TOKEN;
 
   if (!token) {
@@ -31,10 +32,18 @@ export async function fetchGitHubContributions() {
     Authorization: `Bearer ${token}`,
   };
 
+  // Calculate date range for the year
+  const fromDate = year
+    ? `${year}-01-01T00:00:00Z`
+    : `${new Date().getFullYear()}-01-01T00:00:00Z`;
+  const toDate = year
+    ? `${year}-12-31T23:59:59Z`
+    : `${new Date().getFullYear()}-12-31T23:59:59Z`;
+
   const query = `
-    query($userName:String!) {
+    query($userName:String!, $from:DateTime!, $to:DateTime!) {
       user(login: $userName) {
-        contributionsCollection {
+        contributionsCollection(from: $from, to: $to) {
           contributionCalendar {
             totalContributions
             weeks {
@@ -55,7 +64,11 @@ export async function fetchGitHubContributions() {
       headers,
       body: JSON.stringify({
         query,
-        variables: { userName: GITHUB_USERNAME },
+        variables: {
+          userName: GITHUB_USERNAME,
+          from: fromDate,
+          to: toDate,
+        },
       }),
       next: { revalidate: 86400 }, // Cache for 24 hours
     });

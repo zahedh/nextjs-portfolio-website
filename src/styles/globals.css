@@ -86,6 +86,18 @@
     @apply bg-brand-400 absolute top-1/2 left-[15px] z-10 h-5 w-5 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 sm:left-[11px] md:left-[7px] lg:left-1/2 lg:-translate-x-1/2 dark:border-neutral-900;
   }
 
+  .contributions-calendar {
+    @apply flex w-full justify-center overflow-x-auto pb-12;
+    /* Footer styles */
+    & footer {
+      @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
+    }
+    /* SVG text styles (month labels, etc) */
+    & text {
+      @apply fill-neutral-900 dark:fill-neutral-200;
+    }
+  }
+
   /* =========================
      🔤 TYPOGRAPHY SCALE
      ========================= */
