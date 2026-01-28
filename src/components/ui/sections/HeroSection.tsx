@@ -12,7 +12,7 @@ export default function HeroSection() {
         <AvatarGraphic className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48" />
         <div className="flex flex-col text-center sm:text-left">
           <SubHeading>
-            {en.heroSection.header.replace('👋', '')}
+            {en.heroSection.header}
             <WavingHand />
           </SubHeading>
           <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:items-baseline">

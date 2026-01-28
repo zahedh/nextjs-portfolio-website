@@ -35,6 +35,13 @@ export default function ContributionsCalendar({
         blockSize={size.blockSize}
         blockMargin={size.blockMargin}
         blockRadius={size.blockRadius}
+        style={{
+          borderStyle: 'solid',
+          borderWidth: '2px',
+          borderColor: isDark ? '#bb7a21' : '#ecc693',
+          borderRadius: '1rem',
+          padding: '2rem',
+        }}
         fontSize={size.fontSize}
         labels={{
           totalCount: year
