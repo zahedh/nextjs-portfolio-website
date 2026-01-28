@@ -20,7 +20,7 @@ export const en = {
   },
 
   heroSection: {
-    header: "Hi, I'm Zahed! 👋",
+    header: "Hi, I'm Zahed!  ",
     subHeaderPartOne: "I'm a...",
     subHeaderPartTwo: 'Web & Mobile Developer',
     supportingText:

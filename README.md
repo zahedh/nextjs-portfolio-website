@@ -89,19 +89,19 @@ API_BASE_URL=https://api.example.com
 Commonly used scripts defined in `package.json`:
 
 ```bash
-npm run dev                  # Start development server
-npm run build                # Create production build
-npm run start                # Run the production server
+npm run dev                   # Start development server
+npm run build                 # Create production build
+npm run start                 # Run the production server
 
-npm run type-check           # Run TypeScript type checking
-npm run lint                 # Run ESLint
-npm run test                 # Run Jest test suite
+npm run type-check            # Run TypeScript type checking
+npm run lint                  # Run ESLint
+npm run test                  # Run Jest test suite
 
-npm run prettier-check       # Check formatting with Prettier
-npm run prettier-format      # Format code with Prettier
-npm run prettier-check-format# Check, or format if needed
+npm run prettier-check        # Check formatting with Prettier
+npm run prettier-format       # Format code with Prettier
+npm run prettier-check-format # Check, or format if needed
 
-npm run validate             # Type-check + lint + format check (full sanity check)
+npm run validate              # Type-check + lint + format check (full sanity check)
 ```
 
 Run `npm run validate` before committing or deploying to ensure everything passes.
