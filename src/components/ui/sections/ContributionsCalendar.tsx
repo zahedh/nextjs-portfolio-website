@@ -28,8 +28,20 @@ export default function ContributionsCalendar({
       <ActivityCalendar
         data={activities}
         theme={{
-          light: ['#f2f2f2', '#ecc693', '#e4af67', '#dd993c', '#c37f22'],
-          dark: ['#262626', '#bb7a21', '#a96e1e', '#98631b', '#825517'],
+          light: [
+            'var(--color-neutral-100)',
+            'var(--color-brand-300)',
+            'var(--color-brand-400)',
+            'var(--color-brand-500)',
+            'var(--color-brand-600)',
+          ],
+          dark: [
+            'var(--color-neutral-900)',
+            'var(--color-brand-300)',
+            'var(--color-brand-400)',
+            'var(--color-brand-500)',
+            'var(--color-brand-600)',
+          ],
         }}
         colorScheme={isDark ? 'dark' : 'light'}
         blockSize={size.blockSize}
@@ -38,9 +50,12 @@ export default function ContributionsCalendar({
         style={{
           borderStyle: 'solid',
           borderWidth: '2px',
-          borderColor: isDark ? '#bb7a21' : '#ecc693',
+          borderColor: isDark
+            ? 'var(--color-brand-300)'
+            : 'var(--color-brand-300)',
           borderRadius: '1rem',
           padding: '2rem',
+          transition: 'background-color 0.3s, color 0.3s, border-color 0.3s',
         }}
         fontSize={size.fontSize}
         labels={{
