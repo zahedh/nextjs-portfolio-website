@@ -10,18 +10,17 @@ export default function ProjectsSection() {
   return (
     <Section anchor="projects" title={en.sectionHeaders.projects}>
       <Swiper
-        className="w-1/3 flex-1 items-center justify-center"
+        className="w-1/2 flex-1 items-center justify-center"
         spaceBetween={50}
         slidesPerView={1}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
       >
-        <SwiperSlide>
-          <ProjectCard project={projects[0]} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProjectCard project={projects[0]} />
-        </SwiperSlide>
+        {projects.map((project) => (
+          <SwiperSlide key={project.id}>
+            <ProjectCard project={project} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </Section>
   );
