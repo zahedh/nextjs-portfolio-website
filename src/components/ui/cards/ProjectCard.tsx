@@ -3,6 +3,7 @@ import { SkillTile } from '@/components/ui/tiles';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
+import { Building2 } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
@@ -12,7 +13,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const projectSkills = getSkillsByIds(project.skills, skillsData);
 
   return (
-    <div className="border-brand-300 relative mt-6 rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900">
+    <div className="border-brand-300 relative mx-auto mt-6 w-full max-w-3xl rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900">
       {/* Date badge */}
       <div className="bg-brand-300 dark:bg-brand-400 absolute -top-3 left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100">
         {project.startDate} - {project.endDate}
@@ -23,9 +24,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <h3 className="t-lg mb-2 text-neutral-900 dark:text-neutral-100">
           {project.title}
         </h3>
-        <p className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
-          {project.company}
-        </p>
+        <div className="flex items-center gap-2">
+          <Building2 size={16} />
+          <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
+            {project.company}
+          </span>
+        </div>
       </div>
 
       {/* Project image */}

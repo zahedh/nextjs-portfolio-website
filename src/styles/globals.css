@@ -62,15 +62,15 @@
    ========================= */
 @layer utilities {
   .prime-parent {
-    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-12;
+    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-64;
   }
 
   .screen-parent {
-    @apply flex w-full flex-col gap-16 pt-9 sm:gap-24 sm:pt-14 md:gap-32 md:pt-18 lg:gap-40 lg:pt-22 2xl:gap-48 2xl:pt-27;
+    @apply flex w-full flex-col gap-32 pt-18;
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 md:gap-6 dark:border-neutral-200;
+    @apply flex w-full flex-col items-start justify-center gap-6 border-neutral-900 dark:border-neutral-200;
     scroll-margin-top: 5rem; /* Offset for sticky header */
   }
 
