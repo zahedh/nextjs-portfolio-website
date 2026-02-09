@@ -6,6 +6,7 @@ import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
 import type { JobExperience } from '@/data/experience';
+import { useRef } from 'react';
 
 interface JobCardProps {
   job: JobExperience;
@@ -18,13 +19,39 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
     showExpandButton,
     contentHeight,
     contentRef,
-    handleToggle,
+    handleToggle: originalHandleToggle,
   } = useExpandableContent(300);
 
+  const cardRef = useRef<HTMLDivElement>(null);
   const jobSkills = getSkillsByIds(job.skills, skillsData);
 
+  const handleToggle = () => {
+    const wasExpanded = isExpanded;
+    originalHandleToggle();
+
+    if (!wasExpanded && cardRef.current) {
+      // Wait for the content to expand fully, then scroll
+      setTimeout(() => {
+        if (cardRef.current) {
+          const cardRect = cardRef.current.getBoundingClientRect();
+          const cardCenter = cardRect.top + cardRect.height / 2;
+          const viewportCenter = window.innerHeight / 2;
+          const scrollOffset = cardCenter - viewportCenter;
+
+          window.scrollBy({
+            top: scrollOffset,
+            behavior: 'smooth',
+          });
+        }
+      }, 250);
+    }
+  };
+
   return (
-    <div className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900">
+    <div
+      ref={cardRef}
+      className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900"
+    >
       {/* Date badge */}
       <div
         className={`bg-brand-300 dark:bg-brand-400 absolute -top-4 left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100 ${

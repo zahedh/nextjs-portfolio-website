@@ -1,6 +1,6 @@
 export interface Project {
   id: string;
-  projectType: 'Mobile' | 'Web' | 'AI';
+  projectType: 'Mobile' | 'Web';
   title: string;
   company: string;
   startDate: string;
@@ -10,6 +10,36 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    id: 'project-0',
+    projectType: 'Web',
+    title: 'Portfolio Website',
+    company: 'Personal Project',
+    startDate: 'Jan 2025',
+    endDate: 'Present',
+    description: [
+      '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
+      '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',
+      '✦ Features a dynamic project showcase with interactive Swiper carousel and expandable project cards.',
+      '✦ Integrates GitHub API to display real-time contribution calendar showing open-source activity.',
+      '✦ Utilizes Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
+      '✦ Built with modern React patterns including hooks, context API, and client/server component architecture.',
+      '✦ Deployed with continuous integration and automated builds for seamless updates.',
+    ],
+    skills: [
+      'next.js',
+      'react',
+      'typescript',
+      'tailwind',
+      'github',
+      'vercel',
+      'github-copilot',
+      'figma',
+      'vscode',
+      'chatgpt',
+      'prompt-engineering',
+    ],
+  },
   {
     id: 'project-1',
     projectType: 'Mobile',
