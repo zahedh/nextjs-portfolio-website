@@ -3,8 +3,8 @@
 import Image, { ImageProps } from 'next/image';
 import { useTheme } from '@/hooks/utilityHooks';
 
-import LightModeAbout from '../../../public/images/lightModeAbout.webp';
-import DarkModeAbout from '../../../public/images/darkModeAbout.webp';
+import LightModeAbout from '../../../public/images/lightModeAbout.png';
+import DarkModeAbout from '../../../public/images/darkModeAbout.png';
 
 type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 
