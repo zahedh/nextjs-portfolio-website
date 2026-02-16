@@ -76,7 +76,7 @@ export const skillsData: Skill[] = [
     category: 'frameworks',
   },
   {
-    id: 'react-native',
+    id: 'React Native',
     label: en.skillsCollageSection.reactNative,
     icon: SiReact,
     category: 'frameworks',

@@ -8,32 +8,22 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-cards';
 import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
-import { useEffect, useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
+import { useBreakpoint } from '@/hooks/utilityHooks';
 
 /** Section container for highlighted projects. */
 export default function ProjectsSection() {
-  const [isLargeScreen, setIsLargeScreen] = useState(
-    typeof window !== 'undefined' && window.innerWidth >= 1024
-  );
+  const isLargeScreen = useBreakpoint('lg');
   const [selectedType, setSelectedType] = useState<'All' | 'Mobile' | 'Web'>(
     'All'
   );
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  const filteredProjects =
-    selectedType === 'All'
+  const filteredProjects = useMemo(() => {
+    return selectedType === 'All'
       ? projects
       : projects.filter((project) => project.projectType === selectedType);
+  }, [selectedType]);
 
   const filterButtons = (
     <>
@@ -41,19 +31,19 @@ export default function ProjectsSection() {
         onClick={() => setSelectedType('All')}
         className={selectedType !== 'All' ? 'opacity-50' : ''}
       >
-        All
+        {en.projectFilters.all}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Mobile')}
         className={selectedType !== 'Mobile' ? 'opacity-50' : ''}
       >
-        Mobile
+        {en.projectFilters.mobile}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Web')}
         className={selectedType !== 'Web' ? 'opacity-50' : ''}
       >
-        Web
+        {en.projectFilters.web}
       </PrimaryButton>
     </>
   );

@@ -47,12 +47,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div
-      ref={cardRef}
-      className="border-brand-300 relative mx-auto mt-6 w-full max-w-3xl rounded-2xl border-2 bg-neutral-100 shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-neutral-900"
-    >
+    <div ref={cardRef} className="card-container mx-auto mt-6 w-full max-w-3xl">
       {/* Date badge */}
-      <div className="bg-brand-300 dark:bg-brand-400 absolute -top-3 left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100">
+      <div className="card-date-badge -top-3">
         {project.startDate} - {project.endDate}
       </div>
 
@@ -84,10 +81,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
-        <h3 className="t-lg mb-2 text-neutral-900 dark:text-neutral-100">
-          {project.title}
-        </h3>
-        <div className="mb-6 flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
+        <h3 className="card-title t-lg">{project.title}</h3>
+        <div className="card-meta-row mb-6">
           <Building2 className="" size={16} />
           <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
             {project.company}
@@ -107,17 +102,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {/* Description */}
             <div className="space-y-4">
               {project.description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="t-sm text-neutral-700 dark:text-neutral-300"
-                >
+                <p key={index} className="card-description t-sm">
                   {paragraph}
                 </p>
               ))}
             </div>
 
             {/* Skills */}
-            <div className="flex flex-wrap gap-2">
+            <div className="card-skills">
               {projectSkills.map((skill) => (
                 <SkillTile
                   key={skill.id}
@@ -131,10 +123,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Expand/Collapse button */}
-        <button
-          onClick={handleToggle}
-          className="border-brand-500 bg-brand-300 hover:bg-brand-500 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200"
-        >
+        <button onClick={handleToggle} className="card-expand-btn">
           {isExpanded ? 'Show less' : 'View details'}
           <ChevronDown
             size={16}

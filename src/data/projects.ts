@@ -61,7 +61,7 @@ export const projects: Project[] = [
     ],
     skills: [
       'react',
-      'react-native',
+      'React Native',
       'typescript',
       'tailwind',
       'github-copilot',
@@ -124,7 +124,7 @@ export const projects: Project[] = [
       '✦ Provides detailed information for all police forces in England.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'node.js',
       'javascript',
       'jsx',
@@ -154,7 +154,7 @@ export const projects: Project[] = [
       '✦ Delivered a robust and user-friendly solution for internal business processes.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'node.js',
       'javascript',
       'jsx',
@@ -183,7 +183,7 @@ export const projects: Project[] = [
       '✦ Delivered a reliable and efficient tool for internal operational audits.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'node.js',
       'javascript',
       'jsx',
@@ -221,13 +221,13 @@ export const projects: Project[] = [
     startDate: 'May 2020',
     endDate: 'Sep 2020',
     description: [
-      '✦ Co-developed the Warmshowers mobile app using the React-Native framework under the company Interlockdigital.',
+      '✦ Co-developed the Warmshowers mobile app using the React Native framework under the company Interlockdigital.',
       '✦ Application is published in both the Google Play and Apple App stores.',
       '✦ The Warmshowers community holds over 150,000 members.',
       '✦ The application provides over £50,000 in revenue a year to Warmshowers.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'node.js',
       'javascript',
       'jsx',
