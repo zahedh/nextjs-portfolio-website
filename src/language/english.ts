@@ -165,4 +165,10 @@ export const en = {
     totalCount: '{{count}} contributions in the last year',
     totalCountYear: '{{count}} contributions in {{year}}',
   },
+
+  projectFilters: {
+    all: 'All',
+    mobile: 'Mobile',
+    web: 'Web',
+  },
 };

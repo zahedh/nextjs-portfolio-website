@@ -5,7 +5,7 @@ export default function BreakpointIndicator() {
   if (process.env.NODE_ENV !== 'development') return null;
 
   return (
-    <div className="bg-brand-600 sm:bg-brand-500 md:bg-brand-400 lg:bg-brand-300 xl:bg-brand-200 2xl:bg-brand-100 fixed right-3 bottom-3 z-50 rounded-md px-3 py-1 text-xs font-semibold text-neutral-900 shadow-lg transition-colors">
+    <div className="bg-brand-600 sm:bg-brand-500 md:bg-brand-400 lg:bg-brand-300 xl:bg-brand-200 2xl:bg-brand-100 fixed right-3 bottom-3 z-[9999] rounded-md px-3 py-1 text-xs font-semibold text-neutral-900 shadow-lg transition-colors">
       {/* Breakpoint labels (only one visible per range) */}
       <span className="block sm:hidden">xs (&lt;640px)</span>
       <span className="hidden sm:block md:hidden">sm (≥640px)</span>

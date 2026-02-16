@@ -18,7 +18,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Mar 2023',
     endDate: 'Present',
     description: [
-      '✦ Development and maintenance of the React-Native SMARTY mobile application, ensuring high performance and stability across iOS and Android platforms.',
+      '✦ Development and maintenance of the React Native SMARTY mobile application, ensuring high performance and stability across iOS and Android platforms.',
       '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
       '✦ Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
       "✦ Collaborate within SMARTY's multi-company tech stack and liaise directly with clients to ensure seamless integration, technical alignment, and that implementation meets business needs.",
@@ -28,7 +28,7 @@ export const jobExperiences: JobExperience[] = [
     ],
     skills: [
       'react',
-      'react-native',
+      'React Native',
       'typescript',
       'tailwind',
       'github-copilot',
@@ -54,8 +54,8 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
     description: [
-      '✦ Led the development of an internal React-Native mobile application for Michelin.',
-      '✦ Converted legacy Alloy applications to a modern React-Native framework.',
+      '✦ Led the development of an internal React Native mobile application for Michelin.',
+      '✦ Converted legacy Alloy applications to a modern React Native framework.',
       '✦ Revamped an e-commerce site with a heavy focus on back-end development.',
       "✦ Developed a programmatical bridge between a client's stock system and Oracle NetSuite.",
       '✦ Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
@@ -63,7 +63,7 @@ export const jobExperiences: JobExperience[] = [
       '✦ Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'html',
       'javascript',
       'aspnet',
@@ -92,12 +92,12 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     description: [
-      '✦ Co-developed the Warmshowers mobile app using React-Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
+      '✦ Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
       "✦ Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
       '✦ Reduced PDF production time drastically - capable of creating 100 PDFs in under an hour with dynamic content generation.',
     ],
     skills: [
-      'react-native',
+      'React Native',
       'html',
       'javascript',
       'aspnet',

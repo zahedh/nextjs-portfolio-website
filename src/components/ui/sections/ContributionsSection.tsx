@@ -5,6 +5,7 @@ import { en } from '@/language';
 import ContributionsCalendar from './ContributionsCalendar';
 import { useState, useEffect } from 'react';
 import type { ActivityCalendarData } from '@/types/github';
+import { motion } from 'motion/react';
 
 /** Section for open-source and community contributions. */
 export default function ContributionsSection() {
@@ -56,7 +57,13 @@ export default function ContributionsSection() {
       filterButtons={filterButtons}
     >
       <div className="section-content flex w-full justify-center">
-        <div className="relative min-h-[350px] w-full">
+        <motion.div
+          className="relative min-h-[350px] w-full"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           {loading ? (
             <div className="absolute inset-0 flex items-center justify-center">
               <SubHeading className="text-center text-neutral-600 dark:text-neutral-400">
@@ -75,7 +82,7 @@ export default function ContributionsSection() {
               </SubHeading>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

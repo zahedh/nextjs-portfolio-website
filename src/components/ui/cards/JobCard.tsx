@@ -6,6 +6,7 @@ import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
 import type { JobExperience } from '@/data/experience';
+import { useRef } from 'react';
 
 interface JobCardProps {
   job: JobExperience;
@@ -18,18 +19,39 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
     showExpandButton,
     contentHeight,
     contentRef,
-    handleToggle,
+    handleToggle: originalHandleToggle,
   } = useExpandableContent(300);
 
+  const cardRef = useRef<HTMLDivElement>(null);
   const jobSkills = getSkillsByIds(job.skills, skillsData);
 
+  const handleToggle = () => {
+    const wasExpanded = isExpanded;
+    originalHandleToggle();
+
+    if (!wasExpanded && cardRef.current) {
+      // Wait for the content to expand fully, then scroll
+      setTimeout(() => {
+        if (cardRef.current) {
+          const cardRect = cardRef.current.getBoundingClientRect();
+          const cardCenter = cardRect.top + cardRect.height / 2;
+          const viewportCenter = window.innerHeight / 2;
+          const scrollOffset = cardCenter - viewportCenter;
+
+          window.scrollBy({
+            top: scrollOffset,
+            behavior: 'smooth',
+          });
+        }
+      }, 250);
+    }
+  };
+
   return (
-    <div className="border-brand-300 relative rounded-2xl border-2 bg-neutral-100 p-6 shadow-sm transition-all duration-300 hover:shadow-lg md:p-8 dark:bg-neutral-900">
+    <div ref={cardRef} className="card-container p-6 md:p-8">
       {/* Date badge */}
       <div
-        className={`bg-brand-300 dark:bg-brand-400 absolute -top-4 left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100 ${
-          isLeft ? 'lg:right-6 lg:left-auto' : 'lg:left-6'
-        }`}
+        className={`card-date-badge -top-4 ${isLeft ? 'lg:right-6 lg:left-auto' : 'lg:left-6'}`}
       >
         {job.startDate} - {job.endDate}
       </div>
@@ -42,9 +64,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
         </div>
 
         <div className="flex-1">
-          <h3 className="t-lg mb-2 text-neutral-900 dark:text-neutral-100">
-            {job.title}
-          </h3>
+          <h3 className="card-title t-lg">{job.title}</h3>
           <div className="flex flex-col gap-1 text-sm text-neutral-600 dark:text-neutral-400">
             <div className="flex items-center gap-2">
               <Building2 size={16} />
@@ -69,10 +89,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
         >
           <div ref={contentRef} className="space-y-4">
             {job.description.map((paragraph, index) => (
-              <p
-                key={index}
-                className="t-sm text-neutral-700 dark:text-neutral-300"
-              >
+              <p key={index} className="card-description t-sm">
                 {paragraph}
               </p>
             ))}
@@ -87,10 +104,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
 
       {/* Show more/less button */}
       {showExpandButton && (
-        <button
-          onClick={handleToggle}
-          className="border-brand-500 bg-brand-300 hover:bg-brand-500 mb-8 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200"
-        >
+        <button onClick={handleToggle} className="card-expand-btn mb-8">
           {isExpanded ? 'Show less' : 'Show more'}
           <ChevronDown
             size={16}
@@ -102,7 +116,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       )}
 
       {/* Skills */}
-      <div className="flex flex-wrap gap-2">
+      <div className="card-skills">
         {jobSkills.map((skill) => (
           <SkillTile
             key={skill.id}

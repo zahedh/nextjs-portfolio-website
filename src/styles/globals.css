@@ -62,16 +62,16 @@
    ========================= */
 @layer utilities {
   .prime-parent {
-    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-12;
+    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-64;
   }
 
   .screen-parent {
-    @apply flex w-full flex-col gap-16 pt-9 sm:gap-24 sm:pt-14 md:gap-32 md:pt-18 lg:gap-40 lg:pt-22 2xl:gap-48 2xl:pt-27;
+    @apply flex w-full flex-col gap-32 pt-18;
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 md:gap-6 dark:border-neutral-200;
-    scroll-margin-top: 5rem; /* Offset for sticky header */
+    @apply flex w-full flex-col items-start justify-center gap-6 border-neutral-900 dark:border-neutral-200;
+    scroll-margin-top: 4rem; /* Offset for sticky header */
   }
 
   .section-content {
@@ -292,6 +292,63 @@
   }
 
   .mobile-menu-panel {
-    @apply border-brand-500 fixed top-0 right-0 z-50 w-48 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800;
+    @apply border-brand-500 fixed top-0 z-50 w-48 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800;
+    right: 0 !important;
+  }
+
+  /* =========================
+     🃏 CARD UTILITIES
+     ========================= */
+  .card-container {
+    @apply border-brand-300 relative rounded-2xl border-2 bg-neutral-100 shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-neutral-900;
+  }
+  .card-date-badge {
+    @apply bg-brand-300 dark:bg-brand-400 absolute left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100;
+  }
+  .card-title {
+    @apply mb-2 text-neutral-900 dark:text-neutral-100;
+  }
+  .card-meta-row {
+    @apply flex items-center gap-2 text-neutral-600 dark:text-neutral-400;
+  }
+  .card-description {
+    @apply text-neutral-700 dark:text-neutral-300;
+  }
+  .card-expand-btn {
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
+  }
+  .card-skills {
+    @apply flex flex-wrap gap-2;
+  }
+}
+
+/* =========================
+   🎨 SWIPER CUSTOMIZATION
+   ========================= */
+.swiper-pagination-bullet {
+  background-color: #dd993c !important;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #dd993c !important;
+  opacity: 1;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #dd993c !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 24px !important;
+}
+
+/* Hide navigation arrows on lg and lower */
+@media (max-width: 1279px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
   }
 }

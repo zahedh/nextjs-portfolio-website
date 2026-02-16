@@ -6,6 +6,17 @@ import {
   GlobalStoreContext,
 } from '@/providers/global-store-provider';
 
+/** Tailwind CSS breakpoint values (in pixels) */
+export const BREAKPOINTS = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  '2xl': 1536,
+} as const;
+
+export type Breakpoint = keyof typeof BREAKPOINTS;
+
 /** Handles light/dark theme switching and persistence. */
 export function useTheme() {
   const { isDark, toggleTheme } = useGlobalStore(
@@ -70,4 +81,25 @@ export function useExpandableContent(maxHeight: number = 300) {
     contentRef,
     handleToggle,
   };
+}
+
+/** Detects if the viewport matches or exceeds a given Tailwind breakpoint. */
+export function useBreakpoint(breakpoint: Breakpoint) {
+  const [matches, setMatches] = useState(
+    typeof window !== 'undefined'
+      ? window.innerWidth >= BREAKPOINTS[breakpoint]
+      : false
+  );
+
+  useEffect(() => {
+    const checkBreakpoint = () => {
+      setMatches(window.innerWidth >= BREAKPOINTS[breakpoint]);
+    };
+
+    checkBreakpoint();
+    window.addEventListener('resize', checkBreakpoint);
+    return () => window.removeEventListener('resize', checkBreakpoint);
+  }, [breakpoint]);
+
+  return matches;
 }

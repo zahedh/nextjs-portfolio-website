@@ -3,7 +3,8 @@
 import Image, { ImageProps } from 'next/image';
 import { useTheme } from '@/hooks/utilityHooks';
 
-import LightModeAvatar from '../../../public/images/lightModeAvatar.webp';
+import LightModeAvatar from '../../../public/images/lightModeAvatar.png';
+import DarkModeAvatar from '../../../public/images/darkModeAvatar.png';
 
 type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 
@@ -14,7 +15,7 @@ export default function AvatarGraphic({
   ...rest
 }: Props) {
   const { isDark } = useTheme();
-  const src = isDark ? LightModeAvatar : LightModeAvatar;
+  const src = isDark ? DarkModeAvatar : LightModeAvatar;
 
   return <Image src={src} alt={alt} loading="eager" sizes={sizes} {...rest} />;
 }
