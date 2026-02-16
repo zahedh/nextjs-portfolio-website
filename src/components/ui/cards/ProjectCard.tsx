@@ -1,9 +1,11 @@
 'use client';
 import { SkillTile } from '@/components/ui/tiles';
+import Image from 'next/image';
+
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
-import { Building2, ChevronDown } from 'lucide-react';
+import { Building2, ChevronDown, CodeXml } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 interface ProjectCardProps {
@@ -55,22 +57,28 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Project image */}
-      <div className="flex items-center justify-center rounded-t-2xl bg-neutral-200 dark:bg-neutral-800">
-        <div className="flex h-64 w-full items-center justify-center text-neutral-400 dark:text-neutral-600">
-          {/* Image placeholder - replace with actual image when available */}
-          <svg
-            className="h-16 w-16"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+      <div className="flex items-center justify-center rounded-t-2xl bg-neutral-200/40 dark:bg-neutral-800/40">
+        <div className="flex h-64 w-full items-center justify-center">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title + ' preview'}
+              width={320}
+              height={192}
+              style={{
+                maxHeight: '12rem',
+                width: 'auto',
+                objectFit: 'contain',
+              }}
+              className="rounded-xl bg-neutral-100 shadow-md"
+              priority
             />
-          </svg>
+          ) : (
+            <CodeXml
+              className="h-16 w-16 text-neutral-400 dark:text-neutral-600"
+              strokeWidth={1.5}
+            />
+          )}
         </div>
       </div>
 

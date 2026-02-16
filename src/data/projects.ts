@@ -7,6 +7,7 @@ export interface Project {
   endDate: string;
   description: string[];
   skills: string[];
+  image?: string; // Path to project image (optional)
 }
 
 export const projects: Project[] = [
@@ -17,11 +18,12 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Jan 2025',
     endDate: 'Present',
+    image: '/images/lightModeAbout.png',
     description: [
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
       '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',
       '✦ Features a dynamic project showcase with interactive Swiper carousel and expandable project cards.',
-      '✦ Integrates GitHub API to display real-time contribution calendar showing open-source activity.',
+      '✦ Integrates the GitHub API to display a real-time contribution calendar showing open-source activity.',
       '✦ Utilizes Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
       '✦ Built with modern React patterns including hooks, context API, and client/server component architecture.',
       '✦ Deployed with continuous integration and automated builds for seamless updates.',
@@ -47,6 +49,7 @@ export const projects: Project[] = [
     company: 'Blue Beck Ltd',
     startDate: 'Mar 2023',
     endDate: 'Present',
+    image: '/images/smartyLogo.png',
     description: [
       '✦ A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
       '✦ Built using React Native to support both iOS and Android platforms under a shared codebase.',
@@ -85,7 +88,6 @@ export const projects: Project[] = [
     endDate: 'Mar 2023',
     description: [
       '✦ Revamp of a previous e-commerce site.',
-      '✦ Heavily focused in back-end development.',
       "✦ Developed a programmatical bridge between the client's stock system and Oracle NetSuite.",
       '✦ Created a front-end stock management system using VB.NET.',
       '✦ Created an automated task scheduler that manages stock data and images periodically.',
@@ -114,11 +116,12 @@ export const projects: Project[] = [
     company: 'Staffordshire University',
     startDate: 'Dec 2021',
     endDate: 'May 2022',
+    image: '/images/staffordshireUniversityLogo.jpg',
     description: [
-      '✦ React-Native mobile application developed for my final year project at Staffordshire University.',
-      '✦ Utilises the Police API to retrieve crime and policing data.',
-      '✦ Allows the user to view the crimes in the entirety of England through a Google maps plugin.',
-      '✦ Allows the user to view the data related to all police forces in England.',
+      '✦ Developed a React Native mobile application as my final year project at Staffordshire University.',
+      '✦ Integrated the UK Police API to provide real-time crime and policing data.',
+      '✦ Enables users to explore crime statistics across England using an interactive Google Maps interface.',
+      '✦ Provides detailed information for all police forces in England.',
     ],
     skills: [
       'react-native',
@@ -143,11 +146,12 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
+    image: '/images/michelinLogo.jpeg',
     description: [
-      '✦ Internal React-Native mobile application for Michelin.',
-      '✦ Lead the development for this application.',
-      '✦ Conversion from an Alloy application.',
-      '✦ Used to gauge the costs involved with Michelin tyres.',
+      '✦ Led the development of an internal React Native mobile application for Michelin.',
+      '✦ Modernized and migrated the app from the legacy Alloy framework to React Native.',
+      '✦ Designed to accurately calculate and analyze costs associated with Michelin tyres.',
+      '✦ Delivered a robust and user-friendly solution for internal business processes.',
     ],
     skills: [
       'react-native',
@@ -171,11 +175,12 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
+    image: '/images/michelinLogo.jpeg',
     description: [
-      '✦ Internal React-Native mobile application for Michelin.',
-      '✦ Supported the development for this application.',
-      '✦ Conversion from an Alloy application.',
-      '✦ Used to audit trucks used by Michelin.',
+      '✦ Contributed to the development of an internal React Native mobile application for Michelin.',
+      '✦ Assisted in migrating the app from the legacy Alloy framework to React Native.',
+      '✦ Designed to streamline and digitize the truck auditing process for Michelin.',
+      '✦ Delivered a reliable and efficient tool for internal operational audits.',
     ],
     skills: [
       'react-native',
@@ -199,11 +204,12 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jun 2021',
     endDate: 'Jul 2021',
+    image: '/images/redFredLogo.png',
     description: [
-      "✦ Developed a tool to automate the generation of TheirCare's summer activity PDFs under the company Interlockdigital.",
-      "✦ Reduced RedFred's work time drastically for the production of TheirCare PDFs.",
-      '✦ Dynamically creates content based on what the user uploads.',
-      '✦ Capable of creating 100 PDFs in under an hour.',
+      "✦ Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
+      "✦ Significantly reduced RedFred's production time for TheirCare PDFs through automation.",
+      '✦ Dynamically generates content and layouts based on user-uploaded data.',
+      '✦ Efficiently produces up to 100 customized PDFs in under an hour.',
     ],
     skills: ['php', 'jquery', 'javascript', 'github', 'mysql', 'html', 'css'],
   },
