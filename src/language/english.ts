@@ -144,11 +144,10 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: "Let's solve big challenges",
+    catchPhraseHeader: 'Solving meaningful problems with deliberate execution',
     catchPhraseSubheader:
       'Blending design, development, and AI to craft solutions that feel effortless.',
-    catchPhraseSupportingText:
-      "Let's talk if you're looking for a developer who thrives on solving tough challenges.",
+    catchPhraseSupportingText: 'Let’s talk',
     contactHeader: 'Contact',
     talkButtonLabel: 'Talk',
     meetButtonLabel: 'Meet',
