@@ -8,6 +8,9 @@ type SecondaryButtonProps = {
   className?: string;
   icon?: ReactNode;
   iconOnly?: boolean;
+  onClick?: () => void;
+  hyperlink?: string;
+  target?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** Rounded secondary button used for supporting actions. */
@@ -16,24 +19,22 @@ export function SecondaryButton({
   className,
   icon,
   iconOnly = false,
+  onClick,
+  hyperlink,
+  target,
   ...props
 }: SecondaryButtonProps) {
-  return (
+  const button = (
     <button
+      onClick={onClick}
       type="button"
       className={clsx(
-        // Layout
         'inline-flex items-center justify-center gap-2',
         iconOnly ? 'p-2' : 'px-3 py-1.5',
-        // Shape
         'rounded-full',
-        // Colours
         'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
-        // Typography
         'font-heading text-base leading-normal font-bold tracking-tight',
-        // Effects
         'shadow-sm transition-colors duration-150',
-        // Interactions
         'hover:bg-brand-600',
         className
       )}
@@ -43,6 +44,19 @@ export function SecondaryButton({
       {!iconOnly && children}
     </button>
   );
+  if (hyperlink) {
+    return (
+      <a
+        href={hyperlink}
+        target={target}
+        rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+        style={{ display: 'inline-flex' }}
+      >
+        {button}
+      </a>
+    );
+  }
+  return button;
 }
 
 export default SecondaryButton;

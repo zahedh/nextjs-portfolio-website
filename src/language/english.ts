@@ -144,11 +144,12 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: 'Solving meaningful problems with deliberate execution',
+    catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
     catchPhraseSubheader:
-      'Blending design, development, and AI to craft solutions that feel effortless.',
-    catchPhraseSupportingText: 'Let’s talk',
-    contactHeader: 'Contact',
+      'Blending design, development, and AI into cohesive systems.',
+    catchPhraseSupportingText:
+      'Building something ambitious? Let’s build it properly.',
+    contactHeader: 'Talk',
     talkButtonLabel: 'Talk',
     meetButtonLabel: 'Meet',
     connectHeader: 'Connect',

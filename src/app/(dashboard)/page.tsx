@@ -5,7 +5,6 @@ import {
   AboutSection,
   ExperienceSection,
   ContributionsSection,
-  ContactSection,
 } from '@/components/ui/sections';
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
       <AboutSection />
       <ExperienceSection />
       <ContributionsSection />
-      <ContactSection />
     </div>
   );
 }

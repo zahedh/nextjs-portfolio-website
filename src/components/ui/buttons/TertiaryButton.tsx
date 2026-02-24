@@ -8,6 +8,9 @@ type TertiaryButtonProps = {
   className?: string;
   icon?: ReactNode;
   iconOnly?: boolean;
+  onClick?: () => void;
+  hyperlink?: string;
+  target?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 /** Rounded tertiary button used for tertiary actions. */
@@ -16,24 +19,22 @@ export function TertiaryButton({
   className,
   icon,
   iconOnly = false,
+  onClick,
+  hyperlink,
+  target,
   ...props
 }: TertiaryButtonProps) {
-  return (
+  const button = (
     <button
+      onClick={onClick}
       type="button"
       className={clsx(
-        // Layout
         'inline-flex items-center justify-center gap-2',
         iconOnly ? 'p-2' : 'px-3 py-1.5',
-        // Shape
         'rounded-full',
-        // Colours
         'border-brand-500 border bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200',
-        // Typography
         'font-heading text-base leading-normal font-bold tracking-tight',
-        // Effects
         'shadow-sm transition-colors duration-150',
-        // Interactions
         'hover:bg-brand-600',
         className
       )}
@@ -43,6 +44,19 @@ export function TertiaryButton({
       {!iconOnly && children}
     </button>
   );
+  if (hyperlink) {
+    return (
+      <a
+        href={hyperlink}
+        target={target}
+        rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+        style={{ display: 'inline-flex' }}
+      >
+        {button}
+      </a>
+    );
+  }
+  return button;
 }
 
 export default TertiaryButton;

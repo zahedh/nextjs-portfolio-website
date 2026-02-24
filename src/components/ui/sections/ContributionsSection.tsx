@@ -55,6 +55,7 @@ export default function ContributionsSection() {
       anchor="contributions"
       title={en.sectionHeaders.contributionsSection}
       filterButtons={filterButtons}
+      showBottomDivider
     >
       <div className="section-content flex w-full justify-center">
         <motion.div
