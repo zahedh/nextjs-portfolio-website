@@ -64,8 +64,25 @@ export default function RootLayout({
 }>) {
   return (
     <GlobalStoreProvider>
-      <html lang="en" className={fontClasses}>
-        <body className="prime-parent bg-neutral-100 antialiased dark:bg-neutral-900">
+      <html lang="en" className={fontClasses} suppressHydrationWarning>
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function() {
+                  const theme = localStorage.getItem('theme');
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
+                })();
+              `,
+            }}
+          />
+        </head>
+        <body
+          className="prime-parent bg-neutral-100 antialiased dark:bg-neutral-900"
+          suppressHydrationWarning
+        >
           {children}
         </body>
       </html>
