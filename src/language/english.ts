@@ -144,16 +144,16 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: "Let's solve big challenges",
+    catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
     catchPhraseSubheader:
-      'Blending design, development, and AI to craft solutions that feel effortless.',
-    catchPhraseSupportingText:
-      "Let's talk if you're looking for a developer who thrives on solving tough challenges.",
-    contactHeader: 'Contact',
+      'Blending design, development, and AI into cohesive systems.',
+    catchPhraseSupportingTextPart1: 'Building something ambitious? ',
+    catchPhraseSupportingTextPart2: 'Let’s build it properly.',
+    contactHeader: 'Talk',
     talkButtonLabel: 'Talk',
     meetButtonLabel: 'Meet',
     connectHeader: 'Connect',
-    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari`,
+    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
   },
 
   contributionsSection: {

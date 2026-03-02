@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { en } from '@/language';
-import { SecondaryButton, ThemeToggleButton } from '../buttons';
+import { ThemeToggleButton } from '../buttons';
 import { InitialsGraphic } from '@/components/media';
 import MobileMenu from './MobileMenu';
 import { handleSmoothScroll, scrollToTop } from '@/lib/utils';
@@ -103,9 +103,6 @@ export default function Navbar({
           >
             {en.contact}
           </Link>
-        </li>
-        <li>
-          <SecondaryButton>{en.cV}</SecondaryButton>
         </li>
         <li>
           <ThemeToggleButton />

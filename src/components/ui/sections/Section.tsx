@@ -9,6 +9,7 @@ type SectionProps = {
   align?: 'left' | 'center' | 'right';
   italicize?: boolean;
   showDivider?: boolean;
+  showBottomDivider?: boolean;
   dividerWidth?: 'full' | 'half' | 'third';
   dividerColor?: string;
   className?: string;
@@ -25,6 +26,7 @@ export default function Section({
   align = 'left',
   italicize = true,
   showDivider = true,
+  showBottomDivider = false,
   dividerWidth = 'full',
   dividerColor,
   className,
@@ -88,6 +90,15 @@ export default function Section({
       )}
 
       {children}
+
+      {showBottomDivider && (
+        <SectionDivider
+          width={dividerWidth}
+          align={align}
+          color={dividerColor}
+          className="mt-5 sm:mt-8 md:mt-11 lg:mt-13 2xl:mt-16"
+        />
+      )}
     </div>
   );
 }
