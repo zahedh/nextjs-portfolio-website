@@ -5,12 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { en } from '@/language';
-import {
-  SecondaryButton,
-  ThemeToggleButton,
-  BurgerMenuButton,
-  CloseButton,
-} from '../buttons';
+import { ThemeToggleButton, BurgerMenuButton, CloseButton } from '../buttons';
 import {
   createEscapeHandler,
   scrollToTop,
@@ -164,9 +159,6 @@ export default function MobileMenu() {
                 >
                   {en.contact}
                 </Link>
-                <SecondaryButton onClick={() => setIsOpen(false)}>
-                  {en.cV}
-                </SecondaryButton>
                 <ThemeToggleButton />
               </nav>
             </motion.div>

@@ -147,13 +147,13 @@ export const en = {
     catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
     catchPhraseSubheader:
       'Blending design, development, and AI into cohesive systems.',
-    catchPhraseSupportingText:
-      'Building something ambitious? Let’s build it properly.',
+    catchPhraseSupportingTextPart1: 'Building something ambitious? ',
+    catchPhraseSupportingTextPart2: 'Let’s build it properly.',
     contactHeader: 'Talk',
     talkButtonLabel: 'Talk',
     meetButtonLabel: 'Meet',
     connectHeader: 'Connect',
-    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari`,
+    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
   },
 
   contributionsSection: {
