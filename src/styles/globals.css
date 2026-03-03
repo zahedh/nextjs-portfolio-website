@@ -93,7 +93,7 @@
   }
 
   .footer-container {
-    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
+    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 dark:hover:bg-brand-600/20 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
   }
 
   .footer-column {
