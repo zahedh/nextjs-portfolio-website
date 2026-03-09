@@ -238,6 +238,7 @@ export const projects: Project[] = [
       'objective-c',
       'html',
       'css',
+      'wordpress',
     ],
   },
 ];

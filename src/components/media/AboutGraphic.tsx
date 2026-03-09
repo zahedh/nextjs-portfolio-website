@@ -1,8 +1,6 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import { useTheme } from '@/hooks/utilityHooks';
-
 import LightModeAbout from '../../../public/images/lightModeAbout.png';
 import DarkModeAbout from '../../../public/images/darkModeAbout.png';
 
@@ -12,10 +10,27 @@ type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 export default function AboutGraphic({
   alt = 'About section illustration',
   sizes = '(max-width: 768px) 100vw, 800px',
+  className,
   ...rest
 }: Props) {
-  const { isDark } = useTheme();
-  const src = isDark ? DarkModeAbout : LightModeAbout;
-
-  return <Image src={src} alt={alt} loading="eager" sizes={sizes} {...rest} />;
+  return (
+    <>
+      <Image
+        src={LightModeAbout}
+        alt={alt}
+        loading="eager"
+        sizes={sizes}
+        className={`dark:hidden ${className || ''}`}
+        {...rest}
+      />
+      <Image
+        src={DarkModeAbout}
+        alt={alt}
+        loading="eager"
+        sizes={sizes}
+        className={`hidden dark:block ${className || ''}`}
+        {...rest}
+      />
+    </>
+  );
 }

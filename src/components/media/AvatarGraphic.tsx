@@ -1,8 +1,6 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import { useTheme } from '@/hooks/utilityHooks';
-
 import LightModeAvatar from '../../../public/images/lightModeAvatar.png';
 import DarkModeAvatar from '../../../public/images/darkModeAvatar.png';
 
@@ -12,10 +10,27 @@ type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
 export default function AvatarGraphic({
   alt = 'Zahed avatar image',
   sizes = '(max-width: 768px) 100vw, 400px',
+  className,
   ...rest
 }: Props) {
-  const { isDark } = useTheme();
-  const src = isDark ? DarkModeAvatar : LightModeAvatar;
-
-  return <Image src={src} alt={alt} loading="eager" sizes={sizes} {...rest} />;
+  return (
+    <>
+      <Image
+        src={LightModeAvatar}
+        alt={alt}
+        loading="lazy"
+        sizes={sizes}
+        className={`dark:hidden ${className || ''}`}
+        {...rest}
+      />
+      <Image
+        src={DarkModeAvatar}
+        alt={alt}
+        loading="lazy"
+        sizes={sizes}
+        className={`hidden dark:block ${className || ''}`}
+        {...rest}
+      />
+    </>
+  );
 }

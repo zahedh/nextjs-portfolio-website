@@ -15,7 +15,7 @@ import { useBreakpoint } from '@/hooks/utilityHooks';
 /** Section container for highlighted projects. */
 export default function ProjectsSection() {
   const isLargeScreen = useBreakpoint('lg');
-  const [selectedType, setSelectedType] = useState<'All' | 'Mobile' | 'Web'>(
+  const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
 
@@ -34,16 +34,16 @@ export default function ProjectsSection() {
         {en.projectFilters.all}
       </PrimaryButton>
       <PrimaryButton
-        onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'opacity-50' : ''}
-      >
-        {en.projectFilters.mobile}
-      </PrimaryButton>
-      <PrimaryButton
         onClick={() => setSelectedType('Web')}
         className={selectedType !== 'Web' ? 'opacity-50' : ''}
       >
         {en.projectFilters.web}
+      </PrimaryButton>
+      <PrimaryButton
+        onClick={() => setSelectedType('Mobile')}
+        className={selectedType !== 'Mobile' ? 'opacity-50' : ''}
+      >
+        {en.projectFilters.mobile}
       </PrimaryButton>
     </>
   );

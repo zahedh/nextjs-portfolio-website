@@ -8,11 +8,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <HeaderFooter>{children}</HeaderFooter>
-        <BreakpointIndicator />
-      </body>
-    </html>
+    <>
+      <HeaderFooter>{children}</HeaderFooter>
+      <BreakpointIndicator />
+    </>
   );
 }

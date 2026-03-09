@@ -3,12 +3,6 @@
 /* =========================
    🌐 GLOBAL STYLES
    ========================= */
-* {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
-}
 
 /* =========================
    🎨 THEME & COLOR TOKENS
@@ -70,7 +64,7 @@
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-6 border-neutral-900 dark:border-neutral-200;
+    @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 dark:border-neutral-200;
     scroll-margin-top: 4rem; /* Offset for sticky header */
   }
 
@@ -99,7 +93,7 @@
   }
 
   .footer-container {
-    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
+    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 dark:hover:bg-brand-600/20 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
   }
 
   .footer-column {
