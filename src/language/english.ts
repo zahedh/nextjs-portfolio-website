@@ -174,4 +174,11 @@ export const en = {
     mobile: 'Mobile',
     web: 'Web',
   },
+
+  notFound: {
+    heading: 'Page Not Found',
+    description: "Oops! The page you're looking for doesn't exist.",
+    returnHome: 'Return Home',
+    code: '404',
+  },
 };
