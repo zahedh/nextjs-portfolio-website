@@ -34,7 +34,7 @@ export default function Footer() {
             </BodyText>
           </div>
           <div className="footer-column lg:border-l-1">
-            <PrimaryButton>
+            <PrimaryButton hyperlink="documents/CV.pdf" target="_blank">
               <FileUser className="h-6 w-6" />
             </PrimaryButton>
             <PrimaryButton hyperlink="mailto:zahed.heidari2@gmail.com">
