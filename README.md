@@ -21,7 +21,6 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **State Management:** Zustand
-- **Data Fetching:** TanStack Query (React Query)
 - **Testing:** Jest, Testing Library
 - **Linting & Formatting:** ESLint, Prettier
 - **Hosting:** Vercel
@@ -36,7 +35,6 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - 🌗 Light / dark mode theme toggle
 - 💼 Project showcase with rich cards (and support for detail views)
 - 🧠 Global UI state with Zustand
-- 🔄 Data fetching & caching via TanStack Query (ready for API integration)
 - ♿ Accessibility-first components and semantics
 - 🧩 Modular, reusable component library for sections and UI elements
 
