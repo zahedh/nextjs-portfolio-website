@@ -8,7 +8,10 @@ import { AvatarGraphic } from '../media';
 /** Site footer with copyright and secondary navigation. */
 export default function Footer() {
   return (
-    <footer className="text-center text-neutral-900" id="contact">
+    <footer
+      className="mt-5 text-center text-neutral-900 sm:mt-8 md:mt-11 lg:mt-13 2xl:mt-16"
+      id="contact"
+    >
       <div className="footer-container">
         <div className="flex flex-row">
           <div className="hidden flex-2 flex-col items-start justify-between gap-y-4 px-2 lg:flex">

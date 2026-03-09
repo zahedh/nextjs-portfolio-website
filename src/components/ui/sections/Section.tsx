@@ -36,7 +36,7 @@ export default function Section({
   filterButtons,
 }: SectionProps) {
   return (
-    <div id={anchor} className={clsx('screen-section py-xs', className)}>
+    <div id={anchor} className={clsx('screen-section', className)}>
       {title && (
         <div className="mb-2 flex w-full items-center justify-between gap-4">
           <Heading

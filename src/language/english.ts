@@ -164,6 +164,9 @@ export const en = {
   contributionsCalendar: {
     totalCount: '{{count}} contributions in the last year',
     totalCountYear: '{{count}} contributions in {{year}}',
+    contributions: 'contributions',
+    contributionsSingular: 'contribution',
+    noContributions: 'No contributions',
   },
 
   projectFilters: {

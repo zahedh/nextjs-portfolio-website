@@ -64,7 +64,7 @@
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-6 border-neutral-900 dark:border-neutral-200;
+    @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 dark:border-neutral-200;
     scroll-margin-top: 4rem; /* Offset for sticky header */
   }
 

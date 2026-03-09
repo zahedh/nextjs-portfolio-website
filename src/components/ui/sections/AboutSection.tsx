@@ -22,7 +22,7 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
             whileHover={{
-              scale: 1.08,
+              scale: 1.25,
               transition: { duration: 0.3 },
             }}
           >

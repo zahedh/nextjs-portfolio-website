@@ -57,34 +57,50 @@ export default function ContributionsSection() {
       filterButtons={filterButtons}
       showBottomDivider
     >
-      <div className="section-content flex w-full justify-center">
-        <motion.div
-          className="relative min-h-[350px] w-full"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          {loading ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <SubHeading className="text-center text-neutral-600 dark:text-neutral-400">
-                {en.contributionsSection.loading}
-              </SubHeading>
-            </div>
-          ) : activities.length > 0 ? (
+      <motion.div
+        key={selectedYear} // This triggers re-animation when year changes
+        className="relative min-h-[400px] w-full"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -30 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        {loading ? (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <SubHeading className="text-center text-neutral-600 dark:text-neutral-400">
+              {en.contributionsSection.loading}
+            </SubHeading>
+          </motion.div>
+        ) : activities.length > 0 ? (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
             <ContributionsCalendar
               activities={activities}
               year={selectedYear}
             />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <SubHeading className="text-center text-neutral-600 dark:text-neutral-400">
-                {en.contributionsSection.error}
-              </SubHeading>
-            </div>
-          )}
-        </motion.div>
-      </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <SubHeading className="text-center text-neutral-600 dark:text-neutral-400">
+              {en.contributionsSection.error}
+            </SubHeading>
+          </motion.div>
+        )}
+      </motion.div>
     </Section>
   );
 }
