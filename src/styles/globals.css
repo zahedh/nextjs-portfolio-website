@@ -81,7 +81,7 @@
   }
 
   .contributions-calendar {
-    @apply flex w-full justify-center overflow-x-auto pb-12;
+    @apply flex justify-center overflow-x-auto pb-12;
     /* Footer styles */
     & footer {
       @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
@@ -302,7 +302,7 @@
      🃏 CARD UTILITIES
      ========================= */
   .card-container {
-    @apply border-brand-300 relative rounded-2xl border-2 bg-neutral-100 shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-neutral-900;
+    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
   }
   .card-date-badge {
     @apply bg-brand-300 dark:bg-brand-400 absolute left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100;
@@ -317,7 +317,7 @@
     @apply text-neutral-700 dark:text-neutral-300;
   }
   .card-expand-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 mt-6 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
   }
   .card-skills {
     @apply flex flex-wrap gap-2;
@@ -352,5 +352,19 @@
   .swiper-button-next,
   .swiper-button-prev {
     display: none !important;
+  }
+}
+
+/* On mobile, position projects pagination at top; gap below dots via wrapper margin (matches Section divider mb-11) */
+@media (max-width: 1023px) {
+  .projects-section-swiper .swiper-pagination {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: auto !important;
+    left: 0;
+    right: 0;
+  }
+  .projects-section-swiper .swiper-wrapper {
+    margin-top: 2.75rem !important; /* gap between dots and cards */
   }
 }

@@ -30,7 +30,10 @@ export default function ContributionsCalendar({
 
   return (
     <>
-      <div className="contributions-calendar" onMouseLeave={handleMouseLeave}>
+      <div
+        className="contributions-calendar border-brand-300 rounded-3xl border-2 bg-neutral-50/90 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20"
+        onMouseLeave={handleMouseLeave}
+      >
         <ActivityCalendar
           data={activities}
           theme={{
@@ -54,14 +57,9 @@ export default function ContributionsCalendar({
           blockMargin={size.blockMargin}
           blockRadius={size.blockRadius}
           style={{
-            borderStyle: 'solid',
-            borderWidth: '2px',
-            borderColor: isDark
-              ? 'var(--color-brand-300)'
-              : 'var(--color-brand-300)',
-            borderRadius: '1rem',
-            padding: '2rem',
-            transition: 'background-color 0.3s, color 0.3s, border-color 0.3s',
+            padding: 0,
+            border: 'none',
+            background: 'transparent',
           }}
           fontSize={size.fontSize}
           labels={{

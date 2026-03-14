@@ -43,6 +43,7 @@ export default function AboutSection() {
         ))}
 
         <motion.div
+          className="order-2 lg:order-1"
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-100px' }}
@@ -52,7 +53,7 @@ export default function AboutSection() {
         </motion.div>
 
         <motion.div
-          className="flex w-full max-w-sm items-center justify-center lg:max-w-md"
+          className="order-1 flex w-full max-w-sm items-center justify-center lg:order-2 lg:max-w-md"
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-100px' }}

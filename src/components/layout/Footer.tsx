@@ -26,9 +26,9 @@ export default function Footer() {
                 </BodyText>
               </div>
             </div>
-            <BodyText className="text-center italic">
+            <BodyText className="text-center">
               {en.footerSection.catchPhraseSupportingTextPart1}
-              <span className="font-semibold">
+              <span className="font-semibold italic">
                 {en.footerSection.catchPhraseSupportingTextPart2}
               </span>
             </BodyText>

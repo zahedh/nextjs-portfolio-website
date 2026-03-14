@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Project image */}
-      <div className="flex items-center justify-center rounded-t-2xl bg-neutral-200/40 dark:bg-neutral-800/40">
+      <div className="flex items-center justify-center rounded-t-3xl bg-neutral-200/40 dark:bg-neutral-800/40">
         <div className="flex h-64 w-full items-center justify-center">
           {project.image ? (
             <Image
@@ -89,11 +89,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Expandable details */}
+        {/* Expandable details – scroll when constrained so content is never cut off */}
         <div
-          className="overflow-hidden"
+          className={
+            isExpanded ? 'overflow-x-hidden overflow-y-auto' : 'overflow-hidden'
+          }
           style={{
-            maxHeight: isExpanded ? `${contentHeight}px` : '0px',
+            maxHeight: isExpanded ? `min(${contentHeight}px, 70vh)` : '0px',
             transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             willChange: isExpanded ? 'max-height' : 'auto',
           }}
