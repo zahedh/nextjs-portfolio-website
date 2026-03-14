@@ -13,10 +13,10 @@ export const en = {
   // Static Home Content
   sectionHeaders: {
     skillsCollage: 'What I Work Best With',
-    projects: "What I've Built",
+    projects: "What I've Worked On",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
-    contributionsSection: 'My GitHub Contributions',
+    contributionsSection: 'My GitHub Activity',
   },
 
   heroSection: {
