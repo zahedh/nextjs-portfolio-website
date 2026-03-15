@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, IBM_Plex_Sans } from 'next/font/google';
 
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
-import '../styles/globals.css';
+import '../styles/index.css';
 
 const inter = Inter({
   subsets: ['latin'],

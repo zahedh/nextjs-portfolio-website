@@ -31,7 +31,7 @@ export default function ContributionsCalendar({
   return (
     <>
       <div
-        className="contributions-calendar border-brand-300 rounded-3xl border-2 bg-neutral-50/90 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20"
+        className="contributions-calendar card-surface p-8"
         onMouseLeave={handleMouseLeave}
       >
         <ActivityCalendar
@@ -91,7 +91,7 @@ export default function ContributionsCalendar({
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <div className="rounded-lg bg-neutral-900 px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:bg-neutral-100 dark:text-neutral-900">
+          <div className="contributions-tooltip-box">
             <div className="text-sm font-semibold whitespace-nowrap">
               {getContributionText(tooltip.count)}
             </div>
@@ -100,10 +100,7 @@ export default function ContributionsCalendar({
             </div>
           </div>
           {/* Tooltip arrow */}
-          <div
-            className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-neutral-900 dark:bg-neutral-100"
-            style={{ zIndex: -1 }}
-          />
+          <div className="contributions-tooltip-arrow" />
         </div>
       )}
     </>

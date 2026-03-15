@@ -16,7 +16,7 @@ export default function Heading({
   return (
     <Component
       className={cn(
-        'font-heading t-xl text-neutral-900 dark:text-neutral-200',
+        'font-heading text-xl leading-tight font-bold tracking-tight sm:text-2xl md:text-3xl text-neutral-900 dark:text-neutral-200',
         className
       )}
     >

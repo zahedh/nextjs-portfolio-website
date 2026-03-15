@@ -46,15 +46,15 @@ describe('utils', () => {
       expect(result).toBe('');
     });
 
-    it('GIVEN custom Tailwind classes WHEN merging THEN preserves custom classes', () => {
-      // Given - custom text size classes defined in Tailwind config
-      const classes = ['t-lg', 't-xl'];
+    it('GIVEN conflicting Tailwind text size classes WHEN merging THEN last class wins', () => {
+      // Given - conflicting text size classes
+      const classes = ['text-lg', 'text-xl'];
 
       // When
       const result = cn(...classes);
 
       // Then
-      expect(result).toBe('t-xl'); // Later class wins
+      expect(result).toBe('text-xl'); // Later class wins
     });
   });
 

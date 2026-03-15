@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Project image */}
-      <div className="flex items-center justify-center rounded-t-3xl bg-neutral-200/40 dark:bg-neutral-800/40">
+      <div className="card-image-wrapper">
         <div className="flex h-64 w-full items-center justify-center">
           {project.image ? (
             <Image
@@ -81,7 +81,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
-        <h3 className="card-title t-lg">{project.title}</h3>
+        <h3 className="card-title">{project.title}</h3>
         <div className="card-meta-row mb-6">
           <Building2 className="" size={16} />
           <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
@@ -104,7 +104,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {/* Description */}
             <div className="space-y-4">
               {project.description.map((paragraph, index) => (
-                <p key={index} className="card-description t-sm">
+                <p key={index} className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg">
                   {paragraph}
                 </p>
               ))}

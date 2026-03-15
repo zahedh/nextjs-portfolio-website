@@ -15,7 +15,7 @@ export default function BodyText({
   return (
     <Component
       className={cn(
-        'font-body t-sm text-neutral-900 dark:text-neutral-200',
+        'font-body text-sm leading-normal tracking-tight sm:text-base md:text-lg text-neutral-900 dark:text-neutral-200',
         className
       )}
     >

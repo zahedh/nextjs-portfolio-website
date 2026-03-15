@@ -15,7 +15,7 @@ export default function SubHeading({
   return (
     <Component
       className={cn(
-        'font-heading t-lg text-neutral-900 dark:text-neutral-200',
+        'font-heading text-lg leading-tight font-semibold tracking-tight sm:text-xl md:text-2xl text-neutral-900 dark:text-neutral-200',
         className
       )}
     >

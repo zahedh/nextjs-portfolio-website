@@ -4,28 +4,28 @@ import { en } from '@/language';
 /** Card component displaying about information with tagline and personal details. */
 export default function AboutMeCard() {
   return (
-    <div className="border-brand-300 flex w-full max-w-md flex-col gap-8 overflow-hidden rounded-3xl border-2 bg-neutral-50/90 p-8 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl lg:max-w-md dark:bg-neutral-900/95 dark:shadow-neutral-950/20">
+    <div className="card-surface flex w-full max-w-md flex-col gap-8 overflow-hidden p-8">
       {/* Tagline */}
-      <SubHeading className="text-brand-600 dark:text-brand-400 font-bold italic">
+      <SubHeading className="text-brand-600 dark:text-brand-400 text-base font-bold italic sm:text-lg md:text-xl">
         {en.aboutSection.tagline}
       </SubHeading>
 
       {/* What drives me */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="t-md font-semibold">
+        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.whatDrivesMeHeading}
         </SubHeading>
-        <BodyText className="text-sm leading-relaxed">
+        <BodyText className="text-sm leading-relaxed sm:text-sm md:text-sm">
           {en.aboutSection.whatDrivesMeText}
         </BodyText>
       </div>
 
       {/* Beyond coding */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="t-md font-semibold">
+        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.beyondCodingHeading}
         </SubHeading>
-        <BodyText as="div" className="text-sm leading-relaxed">
+        <BodyText as="div" className="text-sm leading-relaxed sm:text-sm md:text-sm">
           <p className="mb-1">{en.aboutSection.beyondCodingIntro}</p>
           <ul className="ml-4 list-disc space-y-1">
             {en.aboutSection.beyondCodingItems.map((item, index) => (
@@ -37,10 +37,10 @@ export default function AboutMeCard() {
 
       {/* Levelling up in life */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="t-md font-semibold">
+        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.levellingUpHeading}
         </SubHeading>
-        <BodyText className="text-sm leading-relaxed">
+        <BodyText className="text-sm leading-relaxed sm:text-sm md:text-sm">
           {en.aboutSection.levellingUpText}
         </BodyText>
       </div>

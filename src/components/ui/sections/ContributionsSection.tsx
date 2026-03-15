@@ -37,13 +37,13 @@ export default function ContributionsSection() {
     <>
       <PrimaryButton
         onClick={() => setSelectedYear(currentYear)}
-        className={selectedYear !== currentYear ? 'opacity-50' : ''}
+        className={selectedYear !== currentYear ? 'filter-inactive' : ''}
       >
         {currentYear}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedYear(previousYear)}
-        className={selectedYear !== previousYear ? 'opacity-50' : ''}
+        className={selectedYear !== previousYear ? 'filter-inactive' : ''}
       >
         {previousYear}
       </PrimaryButton>

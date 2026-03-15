@@ -59,12 +59,12 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       {/* Job header */}
       <div className="mt-6 mb-8 flex items-start gap-4">
         {/* Developer icon */}
-        <div className="border-brand-500 bg-brand-300 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border text-neutral-900 dark:text-neutral-200">
+        <div className="card-icon-box">
           <Code2 size={24} />
         </div>
 
         <div className="flex-1">
-          <h3 className="card-title t-lg">{job.title}</h3>
+          <h3 className="card-title">{job.title}</h3>
           <div className="flex flex-col gap-1 text-sm text-neutral-600 dark:text-neutral-400">
             <div className="flex items-center gap-2">
               <Building2 size={16} />
@@ -89,7 +89,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
         >
           <div ref={contentRef} className="space-y-4">
             {job.description.map((paragraph, index) => (
-              <p key={index} className="card-description t-sm">
+              <p key={index} className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg">
                 {paragraph}
               </p>
             ))}
@@ -98,7 +98,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
 
         {/* Subtle gradient fade */}
         {!isExpanded && showExpandButton && (
-          <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900" />
+          <div className="card-fade-gradient" />
         )}
       </div>
 

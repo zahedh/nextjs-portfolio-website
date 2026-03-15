@@ -46,19 +46,19 @@ export default function ProjectsSection() {
     <>
       <PrimaryButton
         onClick={() => setSelectedType('All')}
-        className={selectedType !== 'All' ? 'opacity-50' : ''}
+        className={selectedType !== 'All' ? 'filter-inactive' : ''}
       >
         {en.projectFilters.all}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Web')}
-        className={selectedType !== 'Web' ? 'opacity-50' : ''}
+        className={selectedType !== 'Web' ? 'filter-inactive' : ''}
       >
         {en.projectFilters.web}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'opacity-50' : ''}
+        className={selectedType !== 'Mobile' ? 'filter-inactive' : ''}
       >
         {en.projectFilters.mobile}
       </PrimaryButton>

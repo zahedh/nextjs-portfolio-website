@@ -8,14 +8,10 @@ interface StatCardProps {
 /** Card displaying a statistic. */
 export default function StatCard({ value, label }: StatCardProps) {
   return (
-    <div className="border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 px-5 py-3 shadow-lg backdrop-blur-sm xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-4 dark:bg-neutral-900/95 dark:shadow-neutral-950/20">
+    <div className="stat-card">
       <div className="text-center">
-        <BodyText className="font-heading text-brand-500 dark:text-brand-400 text-3xl font-bold xl:text-2xl 2xl:text-3xl">
-          {value}
-        </BodyText>
-        <BodyText className="text-xs font-semibold text-neutral-700 xl:text-[10px] 2xl:text-xs dark:text-neutral-300">
-          {label}
-        </BodyText>
+        <BodyText className="stat-card-value">{value}</BodyText>
+        <BodyText className="stat-card-label">{label}</BodyText>
       </div>
     </div>
   );
