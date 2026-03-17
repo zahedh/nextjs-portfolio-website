@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
-import { Building2, ChevronDown, CodeXml } from 'lucide-react';
+import { Building2, ChevronDown, Monitor, Smartphone } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 interface ProjectCardProps {
@@ -67,12 +67,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 width: 'auto',
                 objectFit: 'contain',
               }}
-              className="rounded-xl bg-neutral-100 shadow-md"
+              className="rounded-xl bg-neutral-100 shadow-md dark:bg-neutral-800"
               priority
             />
+          ) : project.projectType === 'Web' ? (
+            <Monitor
+              className="h-28 w-28 text-neutral-400 dark:text-neutral-600 sm:h-32 sm:w-32"
+              strokeWidth={1.5}
+            />
           ) : (
-            <CodeXml
-              className="h-16 w-16 text-neutral-400 dark:text-neutral-600"
+            <Smartphone
+              className="h-28 w-28 text-neutral-400 dark:text-neutral-600 sm:h-32 sm:w-32"
               strokeWidth={1.5}
             />
           )}
@@ -104,7 +109,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {/* Description */}
             <div className="space-y-4">
               {project.description.map((paragraph, index) => (
-                <p key={index} className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg">
+                <p
+                  key={index}
+                  className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg"
+                >
                   {paragraph}
                 </p>
               ))}

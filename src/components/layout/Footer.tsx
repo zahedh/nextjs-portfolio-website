@@ -63,8 +63,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <BodyText className="mt-6 text-sm text-neutral-600">
-        {en.footerSection.copyrightText}
+      <BodyText className="mt-6 flex flex-wrap items-center justify-center gap-x-2 text-sm text-neutral-600 dark:text-neutral-400">
+        <span>{en.footerSection.copyrightText}</span>
+        <span className="text-neutral-400 dark:text-neutral-500">·</span>
+        <a href="/privacy" className="link-accent">
+          {en.footerSection.privacyLinkLabel}
+        </a>
       </BodyText>
     </footer>
   );

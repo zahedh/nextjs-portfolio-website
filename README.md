@@ -45,6 +45,9 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - 🏆 Interactive skill tiles with categorization
 - 📲 Mobile hamburger menu
 - ♿ Accessibility-first components
+- 📜 Privacy policy page (`/privacy`)
+- 🔗 Custom 404 (not-found) page
+- 📝 Centralized UI copy via `src/language`
 
 <a id="project-structure"></a>
 
@@ -52,13 +55,16 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 
 High-level overview of the main folders:
 
-- `src/app` – Next.js routes, layouts, and pages (App Router)
-- `src/components` – Reusable UI components (buttons, cards, navigation, sections, etc.)
-- `src/data` – Static data (e.g. skills, content definitions)
+- `src/app` – Next.js routes, layouts, and pages (App Router); includes `(dashboard)` route group (home, `/privacy`)
+- `src/components` – Reusable UI components (buttons, cards, navigation, sections, text, media, etc.)
+- `src/data` – Static data (skills, projects, experience, about content)
 - `src/hooks` – Custom React hooks for UI and interaction logic
-- `src/lib` – Utilities, environment helpers, and shared logic
+- `src/language` – Centralized UI copy and translations (e.g. `english.ts`)
+- `src/lib` – Utilities, environment helpers, API clients (e.g. GitHub), and shared logic
+- `src/providers` – React context providers (e.g. global store)
 - `src/stores` – Zustand global store definitions
-- `src/styles` – Global styles (Tailwind entry point, global CSS)
+- `src/styles` – Global styles (Tailwind entry point, theme, components CSS)
+- `src/types` – TypeScript type definitions (e.g. GitHub API types)
 - `public` – Static assets (images, icons, etc.)
 
 <a id="getting-started"></a>
@@ -136,7 +142,7 @@ Run `npm run validate` before committing or deploying to ensure everything passe
 
 ## 🌍 Deployment
 
-This project is hosted on **Vercel** and optimised for similar platforms:
+This project is hosted on **Vercel** and is optimised for similar platforms (e.g. Vercel, Netlify). To deploy:
 
 <a id="license"></a>
 

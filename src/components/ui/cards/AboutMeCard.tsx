@@ -25,14 +25,14 @@ export default function AboutMeCard() {
         <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.beyondCodingHeading}
         </SubHeading>
-        <BodyText as="div" className="text-sm leading-relaxed sm:text-sm md:text-sm">
+        <div className="font-body text-sm leading-relaxed text-neutral-900 dark:text-neutral-200 sm:text-sm md:text-sm">
           <p className="mb-1">{en.aboutSection.beyondCodingIntro}</p>
           <ul className="ml-4 list-disc space-y-1">
             {en.aboutSection.beyondCodingItems.map((item, index) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
-        </BodyText>
+        </div>
       </div>
 
       {/* Levelling up in life */}

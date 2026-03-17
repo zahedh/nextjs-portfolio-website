@@ -18,7 +18,7 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Jan 2025',
     endDate: 'Present',
-    image: '/images/lightModeAbout.png',
+    image: '/images/lightModeAvatar.png',
     description: [
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
       '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',

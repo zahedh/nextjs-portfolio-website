@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Heading, BodyText } from '@/components';
+import { BodyText } from '@/components';
 import { PrimaryButton } from '@/components';
 import { en } from '@/language/english';
 
@@ -15,9 +15,9 @@ export default function NotFound() {
           {en.notFound.code}
         </div>
 
-        <Heading as="h1" className="text-center">
+        <h1 className="font-heading text-xl leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-200 sm:text-2xl md:text-3xl text-center">
           {en.notFound.heading}
-        </Heading>
+        </h1>
 
         <BodyText className="max-w-md text-center text-neutral-700 dark:text-neutral-300">
           {en.notFound.description}
