@@ -1,25 +1,20 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 
 type BodyTextProps = {
   children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements;
   className?: string;
 };
 
-export default function BodyText({
-  children,
-  as: Component = 'p',
-  className,
-}: BodyTextProps) {
+export default function BodyText({ children, className }: BodyTextProps) {
   return (
-    <Component
+    <p
       className={cn(
-        'font-body t-sm text-neutral-900 dark:text-neutral-200',
+        'font-body text-sm leading-normal tracking-tight text-neutral-900 sm:text-base md:text-lg dark:text-neutral-200',
         className
       )}
     >
       {children}
-    </Component>
+    </p>
   );
 }

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
-import { Building2, ChevronDown, CodeXml } from 'lucide-react';
+import { Building2, ChevronDown, Monitor, Smartphone } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 interface ProjectCardProps {
@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Project image */}
-      <div className="flex items-center justify-center rounded-t-2xl bg-neutral-200/40 dark:bg-neutral-800/40">
+      <div className="card-image-wrapper">
         <div className="flex h-64 w-full items-center justify-center">
           {project.image ? (
             <Image
@@ -67,12 +67,17 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 width: 'auto',
                 objectFit: 'contain',
               }}
-              className="rounded-xl bg-neutral-100 shadow-md"
+              className="rounded-xl bg-neutral-100 shadow-md dark:bg-neutral-800"
               priority
             />
+          ) : project.projectType === 'Web' ? (
+            <Monitor
+              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
+              strokeWidth={1.5}
+            />
           ) : (
-            <CodeXml
-              className="h-16 w-16 text-neutral-400 dark:text-neutral-600"
+            <Smartphone
+              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
               strokeWidth={1.5}
             />
           )}
@@ -81,7 +86,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
-        <h3 className="card-title t-lg">{project.title}</h3>
+        <h3 className="card-title">{project.title}</h3>
         <div className="card-meta-row mb-6">
           <Building2 className="" size={16} />
           <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
@@ -89,11 +94,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Expandable details */}
+        {/* Expandable details – scroll when constrained so content is never cut off */}
         <div
-          className="overflow-hidden"
+          className={
+            isExpanded ? 'overflow-x-hidden overflow-y-auto' : 'overflow-hidden'
+          }
           style={{
-            maxHeight: isExpanded ? `${contentHeight}px` : '0px',
+            maxHeight: isExpanded ? `min(${contentHeight}px, 70vh)` : '0px',
             transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             willChange: isExpanded ? 'max-height' : 'auto',
           }}
@@ -102,7 +109,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {/* Description */}
             <div className="space-y-4">
               {project.description.map((paragraph, index) => (
-                <p key={index} className="card-description t-sm">
+                <p
+                  key={index}
+                  className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg"
+                >
                   {paragraph}
                 </p>
               ))}

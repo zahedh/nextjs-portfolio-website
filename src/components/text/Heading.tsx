@@ -1,26 +1,21 @@
-import React, { JSX } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 
 type HeadingProps = {
   children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements; // Allows 'h1'–'h6'
   className?: string;
 };
 
 /** Semantic heading component wired to the heading type scale. */
-export default function Heading({
-  children,
-  as: Component = 'h2',
-  className,
-}: HeadingProps) {
+export default function Heading({ children, className }: HeadingProps) {
   return (
-    <Component
+    <h2
       className={cn(
-        'font-heading t-xl text-neutral-900 dark:text-neutral-200',
+        'font-heading text-xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-200',
         className
       )}
     >
       {children}
-    </Component>
+    </h2>
   );
 }

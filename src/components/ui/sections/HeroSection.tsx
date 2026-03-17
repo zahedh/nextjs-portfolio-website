@@ -1,5 +1,8 @@
+'use client';
+
 import { Heading, Section, SubHeading } from '@/components';
 import { AvatarGraphic } from '@/components/media';
+import { HeroFloatingOrbs } from '@/components/ui/animations';
 import { en } from '@/language';
 import { WavingHand } from '../animations/WavingHand';
 import { AnimatedText } from '../animations/AnimatedText';
@@ -8,25 +11,29 @@ import { AnimatedText } from '../animations/AnimatedText';
 export default function HeroSection() {
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="section-content flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
-        <AvatarGraphic className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48" />
-        <div className="flex flex-col text-center sm:text-left">
-          <SubHeading>
-            {en.heroSection.header}
-            <WavingHand />
-          </SubHeading>
-          <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:items-baseline">
-            <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
-            <Heading className="text-brand-600 dark:text-brand-300">
-              <AnimatedText
-                delay={1.4}
-                text={en.heroSection.subHeaderPartTwo}
-              />
-            </Heading>
+      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden sm:flex-row">
+        <HeroFloatingOrbs />
+
+        <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
+          <AvatarGraphic className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48" />
+          <div className="flex flex-col text-center sm:text-left">
+            <SubHeading>
+              {en.heroSection.header}
+              <WavingHand />
+            </SubHeading>
+            <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:items-baseline">
+              <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
+              <Heading className="text-brand-600 dark:text-brand-300">
+                <AnimatedText
+                  delay={1.4}
+                  text={en.heroSection.subHeaderPartTwo}
+                />
+              </Heading>
+            </div>
+            <SubHeading className="mt-4 max-w-2xl text-base leading-normal tracking-tight sm:text-lg md:text-xl">
+              <AnimatedText delay={2.4} text={en.heroSection.supportingText} />
+            </SubHeading>
           </div>
-          <SubHeading className="t-md mt-4 max-w-2xl">
-            <AnimatedText delay={2.4} text={en.heroSection.supportingText} />
-          </SubHeading>
         </div>
       </div>
     </Section>

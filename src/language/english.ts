@@ -13,10 +13,10 @@ export const en = {
   // Static Home Content
   sectionHeaders: {
     skillsCollage: 'What I Work Best With',
-    projects: "What I've Built",
+    projects: "What I've Worked On",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
-    contributionsSection: 'My GitHub Contributions',
+    contributionsSection: 'My GitHub Activity',
   },
 
   heroSection: {
@@ -154,6 +154,7 @@ export const en = {
     meetButtonLabel: 'Meet',
     connectHeader: 'Connect',
     copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
+    privacyLinkLabel: 'Privacy',
   },
 
   contributionsSection: {
@@ -173,5 +174,42 @@ export const en = {
     all: 'All',
     mobile: 'Mobile',
     web: 'Web',
+  },
+
+  notFound: {
+    heading: 'Page Not Found',
+    description: "Oops! The page you're looking for doesn't exist.",
+    returnHome: 'Return Home',
+    code: '404',
+  },
+
+  privacyPage: {
+    title: 'Privacy Policy',
+    lastUpdatedLabel: 'Last updated:',
+    intro:
+      'This site (zahedheidari.co.uk) is a personal portfolio. Below is how we handle information when you visit.',
+    sectionInfoWeCollect: 'Information we collect',
+    infoWeCollectIntro:
+      'We do not collect personal data through forms or accounts. The only data stored in your browser is:',
+    themePreferenceLabel: 'Theme preference',
+    themePreferenceDetail:
+      'Your choice of light or dark mode is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
+    sectionHowWeUse: 'How we use it',
+    howWeUseText:
+      'Theme preference is used only to display the site in your preferred appearance. We do not use it for analytics or advertising.',
+    sectionThirdParty: 'Third-party services',
+    thirdPartyIntro:
+      "This site is hosted on Vercel. When you load a page, Vercel may process requests (e.g. IP address, basic request data) as part of providing the service. Contribution data shown on the site is fetched from GitHub's API; that request is made server-side and does not send your personal data to GitHub.",
+    thirdPartyFuture:
+      'If we add analytics or other third-party tools in the future, we will update this policy and describe what data is collected and how it is used.',
+    sectionYourRights: 'Your rights',
+    yourRightsText:
+      "You can clear the theme preference at any time by clearing your browser's local storage for this site. If you are in the UK or EU, you have rights under applicable data protection laws (e.g. access, correction, deletion). To exercise them, contact us using the email in the footer.",
+    sectionChanges: 'Changes',
+    changesText:
+      'We may update this page occasionally. The "Last updated" date at the top will be revised when we do.',
+    contactIntro:
+      'If you have questions about this privacy policy, you can reach out at',
+    contactEmail: 'zahed.heidari2@gmail.com',
   },
 };

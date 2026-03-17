@@ -8,7 +8,7 @@ export default function HeaderFooter({
   children: React.ReactNode;
 }) {
   return (
-    <div className="pb-xs md:pb-md lg:pb-lg flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col pb-3 sm:pb-4 md:pb-16 lg:pb-24">
       <Header />
       <main className="w-full flex-grow">{children}</main>
       <Footer />

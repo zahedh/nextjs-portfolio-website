@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, IBM_Plex_Sans } from 'next/font/google';
 
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
-import '../styles/globals.css';
+import '../styles/index.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,9 +21,9 @@ const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {
-  title: 'Next.js Portfolio Website for Zahed Heidari',
+  title: 'Zahed Heidari',
   description:
-    "A portfolio website built with Next.js showcasing Zahed Heidari's projects and skills.",
+    "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
   authors: [{ name: 'Zahed Heidari' }],
   keywords: [
     'Zahed Heidari',
@@ -39,10 +39,37 @@ export const metadata: Metadata = {
     'Contact',
     'AI',
   ],
-  metadataBase: new URL('https://yourdomain.com'),
+  metadataBase: new URL('https://zahedheidari.co.uk'),
+  alternates: {
+    canonical: '/',
+  },
   robots: {
     index: true,
     follow: true,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: 'https://zahedheidari.co.uk',
+    siteName: 'Zahed Heidari',
+    title: 'Zahed Heidari - Web & Mobile Developer',
+    description:
+      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Zahed Heidari - Web & Mobile Developer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Zahed Heidari - Web & Mobile Developer',
+    description:
+      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+    images: ['/images/og-image.png'],
   },
   icons: {
     icon: [

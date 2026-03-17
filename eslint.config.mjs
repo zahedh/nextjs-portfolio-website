@@ -19,12 +19,7 @@ const eslintConfig = [
       'next-env.d.ts',
     ],
   },
-  ...compat.extends(
-    'next/core-web-vitals',
-    'next/typescript',
-    'plugin:@tanstack/eslint-plugin-query/recommended',
-    'prettier'
-  ),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     rules: {
       // Console warnings - catch forgotten debug logs

@@ -30,7 +30,10 @@ export default function ContributionsCalendar({
 
   return (
     <>
-      <div className="contributions-calendar" onMouseLeave={handleMouseLeave}>
+      <div
+        className="contributions-calendar card-surface p-8"
+        onMouseLeave={handleMouseLeave}
+      >
         <ActivityCalendar
           data={activities}
           theme={{
@@ -54,14 +57,9 @@ export default function ContributionsCalendar({
           blockMargin={size.blockMargin}
           blockRadius={size.blockRadius}
           style={{
-            borderStyle: 'solid',
-            borderWidth: '2px',
-            borderColor: isDark
-              ? 'var(--color-brand-300)'
-              : 'var(--color-brand-300)',
-            borderRadius: '1rem',
-            padding: '2rem',
-            transition: 'background-color 0.3s, color 0.3s, border-color 0.3s',
+            padding: 0,
+            border: 'none',
+            background: 'transparent',
           }}
           fontSize={size.fontSize}
           labels={{
@@ -93,7 +91,7 @@ export default function ContributionsCalendar({
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <div className="rounded-lg bg-neutral-900 px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:bg-neutral-100 dark:text-neutral-900">
+          <div className="contributions-tooltip-box">
             <div className="text-sm font-semibold whitespace-nowrap">
               {getContributionText(tooltip.count)}
             </div>
@@ -102,10 +100,7 @@ export default function ContributionsCalendar({
             </div>
           </div>
           {/* Tooltip arrow */}
-          <div
-            className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-neutral-900 dark:bg-neutral-100"
-            style={{ zIndex: -1 }}
-          />
+          <div className="contributions-tooltip-arrow" />
         </div>
       )}
     </>

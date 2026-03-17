@@ -26,15 +26,15 @@ export default function Footer() {
                 </BodyText>
               </div>
             </div>
-            <BodyText className="text-center italic">
+            <BodyText className="text-center">
               {en.footerSection.catchPhraseSupportingTextPart1}
-              <span className="font-semibold">
+              <span className="font-semibold italic">
                 {en.footerSection.catchPhraseSupportingTextPart2}
               </span>
             </BodyText>
           </div>
           <div className="footer-column lg:border-l-1">
-            <PrimaryButton>
+            <PrimaryButton hyperlink="documents/CV.pdf" target="_blank">
               <FileUser className="h-6 w-6" />
             </PrimaryButton>
             <PrimaryButton hyperlink="mailto:zahed.heidari2@gmail.com">
@@ -63,8 +63,12 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <BodyText className="mt-6 text-sm text-neutral-600">
-        {en.footerSection.copyrightText}
+      <BodyText className="mt-6 flex flex-wrap items-center justify-center gap-x-2 text-sm text-neutral-600 dark:text-neutral-400">
+        <span>{en.footerSection.copyrightText}</span>
+        <span className="text-neutral-400 dark:text-neutral-500">·</span>
+        <a href="/privacy" className="link-accent">
+          {en.footerSection.privacyLinkLabel}
+        </a>
       </BodyText>
     </footer>
   );
