@@ -71,7 +71,7 @@ export default function Section({
       {supportingText && (
         <BodyText
           className={clsx(
-            'my-6 sm:my-8 md:my-16 lg:my-24 italic',
+            'my-6 italic sm:my-8 md:my-16 lg:my-24',
             align === 'center' && 'text-center',
             align === 'right' && 'text-right'
           )}

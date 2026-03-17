@@ -30,7 +30,7 @@ export default function HeroSection() {
                 />
               </Heading>
             </div>
-            <SubHeading className="text-base leading-normal tracking-tight sm:text-lg md:text-xl mt-4 max-w-2xl">
+            <SubHeading className="mt-4 max-w-2xl text-base leading-normal tracking-tight sm:text-lg md:text-xl">
               <AnimatedText delay={2.4} text={en.heroSection.supportingText} />
             </SubHeading>
           </div>

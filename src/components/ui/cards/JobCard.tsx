@@ -89,7 +89,10 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
         >
           <div ref={contentRef} className="space-y-4">
             {job.description.map((paragraph, index) => (
-              <p key={index} className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg">
+              <p
+                key={index}
+                className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg"
+              >
                 {paragraph}
               </p>
             ))}

@@ -85,7 +85,7 @@
 
   /* Section subheading inside cards (e.g. privacy, legal) */
   .card-section-heading {
-    @apply mb-3 mt-8 text-brand-600 dark:text-brand-400;
+    @apply text-brand-600 dark:text-brand-400 mt-8 mb-3;
   }
 
   /* Muted/secondary text in cards */
@@ -100,12 +100,12 @@
 
   /* List inside card content */
   .card-list {
-    @apply mb-6 list-disc pl-6 font-body text-sm leading-relaxed text-neutral-700 dark:text-neutral-300 sm:text-base md:text-lg;
+    @apply font-body mb-6 list-disc pl-6 text-sm leading-relaxed text-neutral-700 sm:text-base md:text-lg dark:text-neutral-300;
   }
 
   /* Brand accent link (email, external) */
   .link-accent {
-    @apply font-semibold text-brand-600 underline decoration-brand-500 underline-offset-2 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300;
+    @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
   .card-expand-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 mt-6 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;

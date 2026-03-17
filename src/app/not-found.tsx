@@ -15,7 +15,7 @@ export default function NotFound() {
           {en.notFound.code}
         </div>
 
-        <h1 className="font-heading text-xl leading-tight font-bold tracking-tight text-neutral-900 dark:text-neutral-200 sm:text-2xl md:text-3xl text-center">
+        <h1 className="font-heading text-center text-xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-200">
           {en.notFound.heading}
         </h1>
 

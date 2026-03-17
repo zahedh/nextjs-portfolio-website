@@ -10,7 +10,7 @@ export default function BodyText({ children, className }: BodyTextProps) {
   return (
     <p
       className={cn(
-        'font-body text-sm leading-normal tracking-tight sm:text-base md:text-lg text-neutral-900 dark:text-neutral-200',
+        'font-body text-sm leading-normal tracking-tight text-neutral-900 sm:text-base md:text-lg dark:text-neutral-200',
         className
       )}
     >

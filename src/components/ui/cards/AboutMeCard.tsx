@@ -12,7 +12,7 @@ export default function AboutMeCard() {
 
       {/* What drives me */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
+        <SubHeading className="text-sm leading-tight font-semibold tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.whatDrivesMeHeading}
         </SubHeading>
         <BodyText className="text-sm leading-relaxed sm:text-sm md:text-sm">
@@ -22,10 +22,10 @@ export default function AboutMeCard() {
 
       {/* Beyond coding */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
+        <SubHeading className="text-sm leading-tight font-semibold tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.beyondCodingHeading}
         </SubHeading>
-        <div className="font-body text-sm leading-relaxed text-neutral-900 dark:text-neutral-200 sm:text-sm md:text-sm">
+        <div className="font-body text-sm leading-relaxed text-neutral-900 sm:text-sm md:text-sm dark:text-neutral-200">
           <p className="mb-1">{en.aboutSection.beyondCodingIntro}</p>
           <ul className="ml-4 list-disc space-y-1">
             {en.aboutSection.beyondCodingItems.map((item, index) => (
@@ -37,7 +37,7 @@ export default function AboutMeCard() {
 
       {/* Levelling up in life */}
       <div className="flex flex-col gap-2">
-        <SubHeading className="text-sm font-semibold leading-tight tracking-tight sm:text-base md:text-lg">
+        <SubHeading className="text-sm leading-tight font-semibold tracking-tight sm:text-base md:text-lg">
           {en.aboutSection.levellingUpHeading}
         </SubHeading>
         <BodyText className="text-sm leading-relaxed sm:text-sm md:text-sm">

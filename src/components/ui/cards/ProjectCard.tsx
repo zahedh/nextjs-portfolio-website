@@ -72,12 +72,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             />
           ) : project.projectType === 'Web' ? (
             <Monitor
-              className="h-28 w-28 text-neutral-400 dark:text-neutral-600 sm:h-32 sm:w-32"
+              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
               strokeWidth={1.5}
             />
           ) : (
             <Smartphone
-              className="h-28 w-28 text-neutral-400 dark:text-neutral-600 sm:h-32 sm:w-32"
+              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
               strokeWidth={1.5}
             />
           )}

@@ -10,7 +10,7 @@ export default function SubHeading({ children, className }: SubHeadingProps) {
   return (
     <h3
       className={cn(
-        'font-heading text-lg leading-tight font-semibold tracking-tight sm:text-xl md:text-2xl text-neutral-900 dark:text-neutral-200',
+        'font-heading text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-200',
         className
       )}
     >
