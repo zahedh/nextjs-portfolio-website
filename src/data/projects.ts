@@ -27,7 +27,7 @@ export const projects: Project[] = [
       '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',
       '✦ Features a dynamic project showcase with interactive Swiper carousel and expandable project cards.',
       '✦ Integrates the GitHub API to display a real-time contribution calendar showing open-source activity.',
-      '✦ Utilizes Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
+      '✦ Utilises Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
       '✦ Built with modern React patterns including hooks, context API, and client/server component architecture.',
       '✦ Deployed with continuous integration and automated builds for seamless updates.',
     ],
@@ -60,7 +60,7 @@ export const projects: Project[] = [
       '✦ Designed for scalability and performance across a multi-company technical ecosystem.',
       '✦ Involved in continuous development, optimisation, and integration of new features aligned with SMARTY’s growing service offerings.',
       '✦ Codebase actively maintained with modern development practices, including automated testing, code review, and refactoring for long-term stability.',
-      '✦ Collaboration across multiple development teams to ensure seamless integration between app, web, and backend services.',
+      '✦ Collaborated across multiple development teams to ensure seamless integration between app, web, and backend services.',
       '✦ Research and adoption of emerging technologies, including the modern use of AI tools to improve development efficiency and workflow automation.',
     ],
     skills: [
@@ -86,7 +86,7 @@ export const projects: Project[] = [
   {
     id: 'project-2',
     projectType: 'Web',
-    title: 'Curtains Made - E-Commerce & Stock Management',
+    title: 'Curtains Made — E-Commerce & Stock Management',
     company: 'Interlockdigital',
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
@@ -156,8 +156,8 @@ export const projects: Project[] = [
     image: '/images/michelinLogo.jpeg',
     description: [
       '✦ Led the development of an internal React Native mobile application for Michelin.',
-      '✦ Modernized and migrated the app from the legacy Alloy framework to React Native.',
-      '✦ Designed to accurately calculate and analyze costs associated with Michelin tyres.',
+      '✦ Modernised and migrated the app from the legacy Alloy framework to React Native.',
+      '✦ Designed to accurately calculate and analyse costs associated with Michelin tyres.',
       '✦ Delivered a robust and user-friendly solution for internal business processes.',
     ],
     skills: [
@@ -186,7 +186,7 @@ export const projects: Project[] = [
     description: [
       '✦ Contributed to the development of an internal React Native mobile application for Michelin.',
       '✦ Assisted in migrating the app from the legacy Alloy framework to React Native.',
-      '✦ Designed to streamline and digitize the truck auditing process for Michelin.',
+      '✦ Designed to streamline and digitise the truck auditing process for Michelin.',
       '✦ Delivered a reliable and efficient tool for internal operational audits.',
     ],
     skills: [
@@ -216,7 +216,7 @@ export const projects: Project[] = [
       "✦ Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
       "✦ Significantly reduced RedFred's production time for TheirCare PDFs through automation.",
       '✦ Dynamically generates content and layouts based on user-uploaded data.',
-      '✦ Efficiently produces up to 100 customized PDFs in under an hour.',
+      '✦ Efficiently produces up to 100 customised PDFs in under an hour.',
     ],
     skills: ['php', 'jquery', 'javascript', 'github', 'mysql', 'html', 'css'],
   },

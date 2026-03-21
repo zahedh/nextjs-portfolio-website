@@ -20,7 +20,7 @@ export const en = {
   },
 
   heroSection: {
-    header: "Hi, I'm Zahed!  ",
+    header: "Hi, I'm Zahed!",
     subHeaderPartOne: "I'm a...",
     subHeaderPartTwo: 'Web & Mobile Developer',
     supportingText:
@@ -41,7 +41,7 @@ export const en = {
     ],
     levellingUpHeading: 'Levelling up in life',
     levellingUpText:
-      'For me, growth means pushing past comfort zones - whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
+      'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
     statCards: {
       yearsExperienceLabel: 'Years Experience',
       enterpriseClientsLabel: 'Enterprise Clients',
@@ -60,7 +60,7 @@ export const en = {
   skillsCollageSection: {
     // Modern Web & Mobile Frameworks
     react: 'React',
-    nextJS: 'Next JS',
+    nextJS: 'Next.js',
     reactNative: 'React Native',
 
     // Core Languages
@@ -120,7 +120,7 @@ export const en = {
     gitHubCopilot: 'GH Copilot',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
-    noteBookLM: 'NoteBookLM',
+    noteBookLM: 'NotebookLM',
     promptEngineering: 'Prompt Engineering',
 
     // Operating Systems
@@ -148,7 +148,7 @@ export const en = {
     catchPhraseSubheader:
       'Blending design, development, and AI into cohesive systems.',
     catchPhraseSupportingTextPart1: 'Building something ambitious? ',
-    catchPhraseSupportingTextPart2: 'Let’s build it properly.',
+    catchPhraseSupportingTextPart2: "Let's build it properly.",
     contactHeader: 'Talk',
     talkButtonLabel: 'Talk',
     meetButtonLabel: 'Meet',
