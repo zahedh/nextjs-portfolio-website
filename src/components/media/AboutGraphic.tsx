@@ -30,7 +30,7 @@ export default function AboutGraphic({
           height: 'auto',
           maxWidth: '100%',
         }}
-        className={`dark:hidden h-auto ${className || ''}`}
+        className={`h-auto dark:hidden ${className || ''}`}
       />
       <Image
         src={DarkModeAbout}

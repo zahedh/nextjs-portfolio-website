@@ -15,7 +15,9 @@ export default function ThemeToggleGraphic({
 }: Props) {
   return (
     <>
-      <div className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}>
+      <div
+        className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}
+      >
         <Image
           src={LightModeToggle}
           alt={alt}

@@ -72,7 +72,7 @@ export default function ProjectsSection() {
       filterButtons={filterButtons}
     >
       <motion.div
-        className="relative isolate w-full min-w-0 max-w-full overflow-x-hidden lg:overflow-visible"
+        className="relative isolate w-full max-w-full min-w-0 overflow-x-hidden lg:overflow-visible"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}

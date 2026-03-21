@@ -11,8 +11,8 @@
     "prettier-check": "prettier --check .",
     "prettier-format": "prettier --write .",
     "prettier-check-format": "prettier --check . || prettier --write .",
-    "validate": "npm run type-check && npm run lint && npm run prettier-check-format",
-    "test": "jest"
+    "test": "jest",
+    "validate": "npm run type-check && npm run lint && npm run prettier-check-format && npm run test"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
