@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, IBM_Plex_Sans } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
 import '../styles/index.css';
@@ -111,6 +113,8 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           {children}
+          <Analytics />
+          <SpeedInsights />
         </body>
       </html>
     </GlobalStoreProvider>

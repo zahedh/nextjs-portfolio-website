@@ -8,9 +8,40 @@ export interface Project {
   description: string[];
   skills: string[];
   image?: string; // Path to project image (optional)
+  /** Public URL (live site, store listing, case study, etc.) */
+  url?: string;
 }
 
 export const projects: Project[] = [
+  {
+    id: 'project-8',
+    projectType: 'Web',
+    title: 'Render Lab — Video FX Editor',
+    company: 'Personal Project',
+    startDate: 'Mar 2025',
+    endDate: 'Present',
+    image: '/images/renderLabBanner.png',
+    description: [
+      '✦ A browser-based video effects editor with a dark UI and real-time preview — switch between ASCII, pixel sort, and pixelate modes.',
+      '✦ Fine-grained controls per effect: pixel size, palettes, dithering, saturation, contrast, brightness, and optional scanline-style treatments.',
+      '✦ End-to-end export workflow: resolution and FPS, WebM (VP9) output with quality and trim controls for efficient delivery.',
+      '✦ Built with React and TypeScript, focusing on a responsive control surface and canvas-driven video processing in the browser.',
+      '✦ Deployed on Vercel with Vercel Analytics and Speed Insights for usage and performance monitoring.',
+    ],
+    skills: [
+      'react',
+      'typescript',
+      'javascript',
+      'tailwind',
+      'html',
+      'css',
+      'github',
+      'vite',
+      'vercel',
+      'vercel-analytics',
+      'speed-insights',
+    ],
+  },
   {
     id: 'project-0',
     projectType: 'Web',
@@ -18,15 +49,17 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Jan 2025',
     endDate: 'Present',
+    url: 'https://zahedheidari.co.uk',
     image: '/images/lightModeAvatar.png',
     description: [
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
       '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',
       '✦ Features a dynamic project showcase with interactive Swiper carousel and expandable project cards.',
       '✦ Integrates the GitHub API to display a real-time contribution calendar showing open-source activity.',
-      '✦ Utilizes Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
+      '✦ Utilises Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
       '✦ Built with modern React patterns including hooks, context API, and client/server component architecture.',
       '✦ Deployed with continuous integration and automated builds for seamless updates.',
+      '✦ Integrated Vercel Analytics and Speed Insights for traffic and Core Web Vitals monitoring.',
     ],
     skills: [
       'next.js',
@@ -35,6 +68,8 @@ export const projects: Project[] = [
       'tailwind',
       'github',
       'vercel',
+      'vercel-analytics',
+      'speed-insights',
       'github-copilot',
       'figma',
       'vscode',
@@ -49,6 +84,7 @@ export const projects: Project[] = [
     company: 'Blue Beck Ltd',
     startDate: 'Mar 2023',
     endDate: 'Present',
+    url: 'https://smarty.co.uk/app',
     image: '/images/smartyLogo.png',
     description: [
       '✦ A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
@@ -56,7 +92,7 @@ export const projects: Project[] = [
       '✦ Designed for scalability and performance across a multi-company technical ecosystem.',
       '✦ Involved in continuous development, optimisation, and integration of new features aligned with SMARTY’s growing service offerings.',
       '✦ Codebase actively maintained with modern development practices, including automated testing, code review, and refactoring for long-term stability.',
-      '✦ Collaboration across multiple development teams to ensure seamless integration between app, web, and backend services.',
+      '✦ Collaborated across multiple development teams to ensure seamless integration between app, web, and backend services.',
       '✦ Research and adoption of emerging technologies, including the modern use of AI tools to improve development efficiency and workflow automation.',
     ],
     skills: [
@@ -82,16 +118,18 @@ export const projects: Project[] = [
   {
     id: 'project-2',
     projectType: 'Web',
-    title: 'Curtains E-Commerce Site & Stock Management Interface',
+    title: 'Curtains Made — E-Commerce & Stock Management',
     company: 'Interlockdigital',
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
+    url: 'https://www.curtainsmade.co.uk/',
+    image: '/images/curtainsmadeLogo.png',
     description: [
-      '✦ Revamp of a previous e-commerce site.',
-      "✦ Developed a programmatical bridge between the client's stock system and Oracle NetSuite.",
-      '✦ Created a front-end stock management system using VB.NET.',
-      '✦ Created an automated task scheduler that manages stock data and images periodically.',
-      '✦ Developed a script to send emails to customers/suppliers after an order had been made. Emails were created dynamically based on XSLT templates.',
+      '✦ E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
+      "✦ Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",
+      '✦ Built a front-end stock management interface using VB.NET on a bespoke CMS.',
+      '✦ Implemented an automated task scheduler to sync stock data and images on a schedule.',
+      '✦ Delivered post-order email flows to customers and suppliers using XSLT-driven templates.',
     ],
     skills: [
       'asp.net',
@@ -117,6 +155,7 @@ export const projects: Project[] = [
     startDate: 'Dec 2021',
     endDate: 'May 2022',
     image: '/images/staffordshireUniversityLogo.jpg',
+    url: 'https://github.com/zahedh/BeAware',
     description: [
       '✦ Developed a React Native mobile application as my final year project at Staffordshire University.',
       '✦ Integrated the UK Police API to provide real-time crime and policing data.',
@@ -149,8 +188,8 @@ export const projects: Project[] = [
     image: '/images/michelinLogo.jpeg',
     description: [
       '✦ Led the development of an internal React Native mobile application for Michelin.',
-      '✦ Modernized and migrated the app from the legacy Alloy framework to React Native.',
-      '✦ Designed to accurately calculate and analyze costs associated with Michelin tyres.',
+      '✦ Modernised and migrated the app from the legacy Alloy framework to React Native.',
+      '✦ Designed to accurately calculate and analyse costs associated with Michelin tyres.',
       '✦ Delivered a robust and user-friendly solution for internal business processes.',
     ],
     skills: [
@@ -179,7 +218,7 @@ export const projects: Project[] = [
     description: [
       '✦ Contributed to the development of an internal React Native mobile application for Michelin.',
       '✦ Assisted in migrating the app from the legacy Alloy framework to React Native.',
-      '✦ Designed to streamline and digitize the truck auditing process for Michelin.',
+      '✦ Designed to streamline and digitise the truck auditing process for Michelin.',
       '✦ Delivered a reliable and efficient tool for internal operational audits.',
     ],
     skills: [
@@ -209,22 +248,23 @@ export const projects: Project[] = [
       "✦ Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
       "✦ Significantly reduced RedFred's production time for TheirCare PDFs through automation.",
       '✦ Dynamically generates content and layouts based on user-uploaded data.',
-      '✦ Efficiently produces up to 100 customized PDFs in under an hour.',
+      '✦ Efficiently produces up to 100 customised PDFs in under an hour.',
     ],
     skills: ['php', 'jquery', 'javascript', 'github', 'mysql', 'html', 'css'],
   },
   {
     id: 'project-7',
     projectType: 'Mobile',
-    title: 'Warmshowers Mobile App',
+    title: 'Warmshowers — Mobile App',
     company: 'Interlockdigital',
     startDate: 'May 2020',
     endDate: 'Sep 2020',
+    url: 'https://www.warmshowers.org/',
     description: [
-      '✦ Co-developed the Warmshowers mobile app using the React Native framework under the company Interlockdigital.',
-      '✦ Application is published in both the Google Play and Apple App stores.',
-      '✦ The Warmshowers community holds over 150,000 members.',
-      '✦ The application provides over £50,000 in revenue a year to Warmshowers.',
+      '✦ Mobile app for Warmshowers (warmshowers.org) — a hospitality network connecting touring cyclists with hosts worldwide.',
+      '✦ Co-developed with React Native at Interlockdigital; published on Google Play and the App Store.',
+      '✦ The Warmshowers community includes 150,000+ members worldwide.',
+      '✦ The app contributes over £50,000 in annual revenue to the organisation.',
     ],
     skills: [
       'React Native',

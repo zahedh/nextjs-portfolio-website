@@ -11,7 +11,15 @@
   }
 
   .contributions-calendar {
-    @apply flex justify-center overflow-x-auto pb-12;
+    @apply flex justify-center overflow-hidden pb-12;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &,
+    & * {
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
     & footer {
       @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
     }
@@ -48,7 +56,7 @@
      🃏 CARD UTILITIES
      ========================= */
   .card-container {
-    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
+    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/96 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/[0.98] dark:shadow-neutral-950/20;
   }
 
   /* Shared card surface (bordered panel) for About, Contributions, etc. */
@@ -62,6 +70,11 @@
 
   .card-title {
     @apply mb-2 text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-100;
+  }
+
+  /* Project title as external link (hybrid with Visit project button) */
+  .card-title-link {
+    @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
   }
 
   .card-icon-box {
@@ -111,7 +124,7 @@
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 mt-6 flex w-full items-center justify-center gap-2 rounded-lg border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
   }
   .card-skills {
-    @apply flex flex-wrap gap-2;
+    @apply flex flex-wrap gap-2 overflow-visible p-1;
   }
 
   /* Stat card (metric tiles) */

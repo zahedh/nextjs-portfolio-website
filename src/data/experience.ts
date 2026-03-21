@@ -57,7 +57,7 @@ export const jobExperiences: JobExperience[] = [
       '✦ Led the development of an internal React Native mobile application for Michelin.',
       '✦ Converted legacy Alloy applications to a modern React Native framework.',
       '✦ Revamped an e-commerce site with a heavy focus on back-end development.',
-      "✦ Developed a programmatical bridge between a client's stock system and Oracle NetSuite.",
+      "✦ Developed a programmatic bridge between a client's stock system and Oracle NetSuite.",
       '✦ Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
       '✦ Developed a dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
       '✦ Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
@@ -94,7 +94,7 @@ export const jobExperiences: JobExperience[] = [
     description: [
       '✦ Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
       "✦ Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
-      '✦ Reduced PDF production time drastically - capable of creating 100 PDFs in under an hour with dynamic content generation.',
+      '✦ Reduced PDF production time drastically — capable of creating 100 PDFs in under an hour with dynamic content generation.',
     ],
     skills: [
       'React Native',

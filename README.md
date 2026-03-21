@@ -144,6 +144,12 @@ Run `npm run validate` before committing or deploying to ensure everything passe
 
 This project is hosted on **Vercel** and is optimised for similar platforms (e.g. Vercel, Netlify). To deploy:
 
+### Vercel Analytics & Speed Insights
+
+The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx) (`<Analytics />` and `<SpeedInsights />`). No extra env vars are required for the defaults.
+
+After deployment, open your project in the [Vercel dashboard](https://vercel.com/dashboard) and enable **Analytics** and **Speed Insights** for the project so data is collected and shown in Vercel.
+
 <a id="license"></a>
 
 ## 📄 License
