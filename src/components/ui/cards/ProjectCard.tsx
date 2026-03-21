@@ -79,7 +79,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Expandable details – scroll when constrained so content is never cut off */}
         <div
           className={
-            isExpanded ? 'overflow-visible' : 'overflow-hidden'
+            isExpanded
+              ? 'overflow-x-hidden overflow-y-auto'
+              : 'overflow-hidden'
           }
           style={{
             maxHeight: isExpanded ? `min(${contentHeight}px, 70vh)` : '0px',
