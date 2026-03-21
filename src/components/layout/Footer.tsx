@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { en } from '@/language';
 import { BodyText, SubHeading } from '../text';
 import { PrimaryButton, TertiaryButton } from '../ui';
@@ -66,9 +67,9 @@ export default function Footer() {
       <BodyText className="mt-6 flex flex-wrap items-center justify-center gap-x-2 text-sm text-neutral-600 dark:text-neutral-400">
         <span>{en.footerSection.copyrightText}</span>
         <span className="text-neutral-400 dark:text-neutral-500">·</span>
-        <a href="/privacy" className="link-accent">
+        <Link href="/privacy" className="link-accent">
           {en.footerSection.privacyLinkLabel}
-        </a>
+        </Link>
       </BodyText>
     </footer>
   );

@@ -122,12 +122,12 @@ export default function ProjectsSection() {
                 setActiveIndex(swiper.activeIndex);
               }}
             >
-              {filteredProjects.map((project) => (
+              {filteredProjects.map((project, index) => (
                 <SwiperSlide
                   key={project.id}
                   className="mb-16 flex items-center justify-center"
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard project={project} imagePriority={index === 0} />
                 </SwiperSlide>
               ))}
             </Swiper>

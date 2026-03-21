@@ -7,6 +7,31 @@ export const metadata: Metadata = {
   title: 'Privacy Policy | Zahed Heidari',
   description:
     'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+  alternates: {
+    canonical: '/privacy',
+  },
+  openGraph: {
+    title: 'Privacy Policy | Zahed Heidari',
+    description:
+      'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+    url: '/privacy',
+    type: 'website',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1024,
+        height: 682,
+        alt: 'Zahed Heidari - Web & Mobile Developer',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy | Zahed Heidari',
+    description:
+      'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+    images: ['/images/twitter-image.png'],
+  },
 };
 
 export default function PrivacyPage() {
@@ -20,6 +45,7 @@ export default function PrivacyPage() {
     <div className="screen-parent">
       <Section
         title={en.privacyPage.title}
+        titleAs="h1"
         showDivider={true}
         showBottomDivider={true}
       >

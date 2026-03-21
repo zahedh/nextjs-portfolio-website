@@ -28,11 +28,16 @@ const MAX_EXPAND_VH = 80;
 
 interface ProjectCardProps {
   project: Project;
+  /** First carousel slide only — avoids loading every project image as high priority. */
+  imagePriority?: boolean;
 }
 
 const externalRel = 'noopener noreferrer';
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  imagePriority = false,
+}: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -98,7 +103,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 objectFit: 'contain',
               }}
               className="rounded-xl bg-neutral-100 shadow-md dark:bg-neutral-800"
-              priority
+              priority={imagePriority}
             />
           ) : project.projectType === 'Web' ? (
             <Monitor

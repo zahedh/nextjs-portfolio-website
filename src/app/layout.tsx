@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
+        width: 1024,
+        height: 682,
         alt: 'Zahed Heidari - Web & Mobile Developer',
       },
     ],
@@ -71,7 +71,14 @@ export const metadata: Metadata = {
     title: 'Zahed Heidari - Web & Mobile Developer',
     description:
       "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
-    images: ['/images/og-image.png'],
+    images: [
+      {
+        url: '/images/twitter-image.png',
+        width: 1024,
+        height: 682,
+        alt: 'Zahed Heidari - Web & Mobile Developer',
+      },
+    ],
   },
   icons: {
     icon: [
