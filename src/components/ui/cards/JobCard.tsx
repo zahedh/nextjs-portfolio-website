@@ -6,8 +6,6 @@ import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
 import type { JobExperience } from '@/data/experience';
-import { useRef } from 'react';
-
 interface JobCardProps {
   job: JobExperience;
   isLeft?: boolean;
@@ -19,36 +17,13 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
     showExpandButton,
     contentHeight,
     contentRef,
-    handleToggle: originalHandleToggle,
+    handleToggle,
   } = useExpandableContent(300);
 
-  const cardRef = useRef<HTMLDivElement>(null);
   const jobSkills = getSkillsByIds(job.skills, skillsData);
 
-  const handleToggle = () => {
-    const wasExpanded = isExpanded;
-    originalHandleToggle();
-
-    if (!wasExpanded && cardRef.current) {
-      // Wait for the content to expand fully, then scroll
-      setTimeout(() => {
-        if (cardRef.current) {
-          const cardRect = cardRef.current.getBoundingClientRect();
-          const cardCenter = cardRect.top + cardRect.height / 2;
-          const viewportCenter = window.innerHeight / 2;
-          const scrollOffset = cardCenter - viewportCenter;
-
-          window.scrollBy({
-            top: scrollOffset,
-            behavior: 'smooth',
-          });
-        }
-      }, 250);
-    }
-  };
-
   return (
-    <div ref={cardRef} className="card-container p-6 md:p-8">
+    <div className="card-container p-6 md:p-8">
       {/* Date badge */}
       <div
         className={`card-date-badge -top-4 ${isLeft ? 'lg:right-6 lg:left-auto' : 'lg:left-6'}`}

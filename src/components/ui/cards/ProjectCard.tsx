@@ -16,7 +16,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
 
   useEffect(() => {
@@ -27,27 +26,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
-
-    if (!isExpanded && cardRef.current) {
-      // Wait for the content to expand fully, then scroll
-      setTimeout(() => {
-        if (cardRef.current) {
-          const cardRect = cardRef.current.getBoundingClientRect();
-          const cardCenter = cardRect.top + cardRect.height / 2;
-          const viewportCenter = window.innerHeight / 2;
-          const scrollOffset = cardCenter - viewportCenter;
-
-          window.scrollBy({
-            top: scrollOffset,
-            behavior: 'smooth',
-          });
-        }
-      }, 250);
-    }
   };
 
   return (
-    <div ref={cardRef} className="card-container mx-auto mt-6 w-full max-w-3xl">
+    <div className="card-container mx-auto mt-6 w-full max-w-3xl">
       {/* Date badge */}
       <div className="card-date-badge -top-3">
         {project.startDate} - {project.endDate}
