@@ -72,11 +72,11 @@ export default function ProjectsSection() {
       filterButtons={filterButtons}
     >
       <motion.div
-        className="relative isolate w-full overflow-hidden"
-        initial={{ opacity: 0, y: 30 }}
+        className="relative isolate w-full overflow-visible"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -127,7 +127,10 @@ export default function ProjectsSection() {
                   key={project.id}
                   className="mb-16 flex items-center justify-center"
                 >
-                  <ProjectCard project={project} imagePriority={index === 0} />
+                  <ProjectCard
+                    project={project}
+                    imagePriority={index === activeIndex}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

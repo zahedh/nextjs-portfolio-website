@@ -82,7 +82,7 @@
   }
 
   .card-image-wrapper {
-    @apply flex items-center justify-center rounded-t-3xl bg-neutral-200/40 dark:bg-neutral-800/40;
+    @apply block w-full rounded-t-3xl bg-neutral-200/40 dark:bg-neutral-800/40;
   }
 
   .card-fade-gradient {
@@ -155,6 +155,11 @@
 /* =========================
    🎨 SWIPER (project carousel)
    ========================= */
+/* Effect "cards" draws stacked slides outside the track — must not clip */
+.projects-section-swiper.swiper {
+  overflow: visible;
+}
+
 .swiper-pagination-bullet {
   background-color: #dd993c !important;
   opacity: 0.5;

@@ -120,8 +120,13 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           {children}
-          <Analytics />
-          <SpeedInsights />
+          {/* Only on Vercel: script URLs 404 on localhost and break the console */}
+          {process.env.VERCEL === '1' ? (
+            <>
+              <Analytics />
+              <SpeedInsights />
+            </>
+          ) : null}
         </body>
       </html>
     </GlobalStoreProvider>

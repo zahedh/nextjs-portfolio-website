@@ -146,7 +146,7 @@ This project is hosted on **Vercel** and is optimised for similar platforms (e.g
 
 ### Vercel Analytics & Speed Insights
 
-The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx) (`<Analytics />` and `<SpeedInsights />`). No extra env vars are required for the defaults.
+The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx). They render only when **`VERCEL=1`** (production deployments on Vercel), so **local `npm run dev`** does not request `/_vercel/...` scripts that would 404 on localhost. No extra env vars are required for the defaults.
 
 After deployment, open your project in the [Vercel dashboard](https://vercel.com/dashboard) and enable **Analytics** and **Speed Insights** for the project so data is collected and shown in Vercel.
 

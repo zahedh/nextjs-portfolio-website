@@ -15,7 +15,10 @@ export default function HeroSection() {
         <HeroFloatingOrbs />
 
         <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
-          <AvatarGraphic className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48" />
+          <AvatarGraphic
+            priority
+            className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48"
+          />
           <div className="flex flex-col text-center sm:text-left">
             <SubHeading as="h1">
               {en.heroSection.header}
