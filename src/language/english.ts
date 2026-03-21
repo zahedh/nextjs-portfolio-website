@@ -181,6 +181,8 @@ export const en = {
 
   projectCard: {
     titleLinkAria: 'Opens in a new tab',
+    /** Shown while fonts/layout preflight runs (duplicate hidden layer) */
+    expandPreparing: 'Preparing…',
   },
 
   notFound: {
