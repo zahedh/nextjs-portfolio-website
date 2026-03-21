@@ -56,7 +56,7 @@
      🃏 CARD UTILITIES
      ========================= */
   .card-container {
-    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
+    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/96 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/[0.98] dark:shadow-neutral-950/20;
   }
 
   /* Shared card surface (bordered panel) for About, Contributions, etc. */

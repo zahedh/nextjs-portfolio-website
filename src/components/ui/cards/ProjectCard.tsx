@@ -7,7 +7,12 @@ import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
 import { Building2, ChevronDown, ExternalLink, Monitor, Smartphone } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+
+/** Extra px so max-height isn’t 1–2px short after rounding / scrollbars */
+const CONTENT_HEIGHT_BUFFER_PX = 8;
+/** Cap expanded panel height so very long cards stay usable */
+const MAX_EXPAND_VH = 80;
 
 interface ProjectCardProps {
   project: Project;
@@ -22,11 +27,40 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
 
+  const measureContentHeight = useCallback(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    setContentHeight(
+      Math.ceil(el.scrollHeight) + CONTENT_HEIGHT_BUFFER_PX
+    );
+  }, []);
+
+  useLayoutEffect(() => {
+    measureContentHeight();
+  }, [project, measureContentHeight]);
+
+  useLayoutEffect(() => {
+    if (!isExpanded) return;
+    measureContentHeight();
+    const id = requestAnimationFrame(measureContentHeight);
+    return () => cancelAnimationFrame(id);
+  }, [isExpanded, measureContentHeight]);
+
   useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, [project]);
+    const el = contentRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      measureContentHeight();
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [measureContentHeight, project]);
+
+  useEffect(() => {
+    const onResize = () => measureContentHeight();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [measureContentHeight]);
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
@@ -106,7 +140,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               : 'overflow-hidden'
           }
           style={{
-            maxHeight: isExpanded ? `min(${contentHeight}px, 70vh)` : '0px',
+            maxHeight: isExpanded
+              ? `min(${contentHeight}px, ${MAX_EXPAND_VH}vh)`
+              : '0px',
             transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             willChange: isExpanded ? 'max-height' : 'auto',
           }}
