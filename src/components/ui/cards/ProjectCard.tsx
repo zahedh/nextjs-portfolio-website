@@ -88,33 +88,41 @@ export default function ProjectCard({
         {project.startDate} - {project.endDate}
       </div>
 
-      {/* Project image */}
+      {/* Project image — intrinsic dims + width/height both `auto` in style avoids next/image warnings
+          without `fill` (absolute positioning breaks Swiper cards effect / slide stacking). */}
       <div className="card-image-wrapper">
-        <div className="flex h-64 w-full items-center justify-center">
+        <div className="flex min-h-[16rem] w-full items-center justify-center py-2">
           {project.image ? (
             <Image
               src={project.image}
-              alt={project.title + ' preview'}
-              width={320}
-              height={192}
+              alt={`${project.title} preview`}
+              width={1200}
+              height={675}
+              sizes="(max-width: 768px) 100vw, min(768px, 100vw)"
+              className="rounded-xl bg-neutral-100 object-contain p-1 shadow-md dark:bg-neutral-800"
               style={{
-                maxHeight: '12rem',
                 width: 'auto',
-                objectFit: 'contain',
+                height: 'auto',
+                maxWidth: '100%',
+                maxHeight: '16rem',
               }}
-              className="rounded-xl bg-neutral-100 shadow-md dark:bg-neutral-800"
               priority={imagePriority}
-            />
-          ) : project.projectType === 'Web' ? (
-            <Monitor
-              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
-              strokeWidth={1.5}
+              fetchPriority={imagePriority ? 'high' : 'low'}
             />
           ) : (
-            <Smartphone
-              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
-              strokeWidth={1.5}
-            />
+            <div className="flex h-64 w-full items-center justify-center">
+              {project.projectType === 'Web' ? (
+                <Monitor
+                  className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
+                  strokeWidth={1.5}
+                />
+              ) : (
+                <Smartphone
+                  className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
+                  strokeWidth={1.5}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>

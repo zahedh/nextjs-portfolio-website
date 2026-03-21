@@ -25,8 +25,12 @@ export default function AboutGraphic({
         height={LightModeAbout.height}
         loading="eager"
         sizes={sizes}
-        style={{ width: '100%', height: 'auto' }}
-        className={`dark:hidden ${className || ''}`}
+        style={{
+          width: 'auto',
+          height: 'auto',
+          maxWidth: '100%',
+        }}
+        className={`dark:hidden h-auto ${className || ''}`}
       />
       <Image
         src={DarkModeAbout}
@@ -35,8 +39,12 @@ export default function AboutGraphic({
         height={DarkModeAbout.height}
         loading="eager"
         sizes={sizes}
-        style={{ width: '100%', height: 'auto' }}
-        className={`hidden dark:block ${className || ''}`}
+        style={{
+          width: 'auto',
+          height: 'auto',
+          maxWidth: '100%',
+        }}
+        className={`hidden h-auto dark:block ${className || ''}`}
       />
     </>
   );
