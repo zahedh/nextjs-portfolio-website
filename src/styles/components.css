@@ -155,9 +155,12 @@
 /* =========================
    🎨 SWIPER (project carousel)
    ========================= */
-/* Effect "cards" draws stacked slides outside the track — must not clip */
-.projects-section-swiper.swiper {
-  overflow: visible;
+/* Effect "cards" draws stacked slides outside the track — must not clip (lg+ only).
+   Applying overflow:visible on mobile caused horizontal page scroll + broken touch swiper. */
+@media (min-width: 1024px) {
+  .projects-section-swiper.swiper {
+    overflow: visible;
+  }
 }
 
 .swiper-pagination-bullet {
