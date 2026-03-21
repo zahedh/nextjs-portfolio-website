@@ -176,6 +176,10 @@ export const en = {
     web: 'Web',
   },
 
+  projectCard: {
+    titleLinkAria: 'Opens in a new tab',
+  },
+
   notFound: {
     heading: 'Page Not Found',
     description: "Oops! The page you're looking for doesn't exist.",

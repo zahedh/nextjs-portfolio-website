@@ -8,6 +8,8 @@ export interface Project {
   description: string[];
   skills: string[];
   image?: string; // Path to project image (optional)
+  /** Public URL (live site, store listing, case study, etc.) */
+  url?: string;
 }
 
 export const projects: Project[] = [
@@ -18,6 +20,7 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Jan 2025',
     endDate: 'Present',
+    url: 'https://zahedheidari.co.uk',
     image: '/images/lightModeAvatar.png',
     description: [
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
@@ -49,6 +52,7 @@ export const projects: Project[] = [
     company: 'Blue Beck Ltd',
     startDate: 'Mar 2023',
     endDate: 'Present',
+    url: 'https://smarty.co.uk/app',
     image: '/images/smartyLogo.png',
     description: [
       '✦ A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
@@ -82,16 +86,18 @@ export const projects: Project[] = [
   {
     id: 'project-2',
     projectType: 'Web',
-    title: 'Curtains E-Commerce Site & Stock Management Interface',
+    title: 'Curtains Made - E-Commerce & Stock Management',
     company: 'Interlockdigital',
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
+    url: 'https://www.curtainsmade.co.uk/',
+    image: '/images/curtainsmade-logo.png',
     description: [
-      '✦ Revamp of a previous e-commerce site.',
-      "✦ Developed a programmatical bridge between the client's stock system and Oracle NetSuite.",
-      '✦ Created a front-end stock management system using VB.NET.',
-      '✦ Created an automated task scheduler that manages stock data and images periodically.',
-      '✦ Developed a script to send emails to customers/suppliers after an order had been made. Emails were created dynamically based on XSLT templates.',
+      '✦ E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
+      "✦ Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",
+      '✦ Built a front-end stock management interface using VB.NET on a bespoke CMS.',
+      '✦ Implemented an automated task scheduler to sync stock data and images on a schedule.',
+      '✦ Delivered post-order email flows to customers and suppliers using XSLT-driven templates.',
     ],
     skills: [
       'asp.net',
@@ -117,6 +123,7 @@ export const projects: Project[] = [
     startDate: 'Dec 2021',
     endDate: 'May 2022',
     image: '/images/staffordshireUniversityLogo.jpg',
+    url: 'https://github.com/zahedh/BeAware',
     description: [
       '✦ Developed a React Native mobile application as my final year project at Staffordshire University.',
       '✦ Integrated the UK Police API to provide real-time crime and policing data.',
@@ -226,6 +233,7 @@ export const projects: Project[] = [
       '✦ The Warmshowers community holds over 150,000 members.',
       '✦ The application provides over £50,000 in revenue a year to Warmshowers.',
     ],
+    url: 'https://play.google.com/store/apps/details?id=org.warmshowers.app&hl=en_GB',
     skills: [
       'React Native',
       'node.js',

@@ -5,18 +5,22 @@ import Image from 'next/image';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
-import { Building2, ChevronDown, Monitor, Smartphone } from 'lucide-react';
+import { en } from '@/language';
+import { Building2, ChevronDown, ExternalLink, Monitor, Smartphone } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 interface ProjectCardProps {
   project: Project;
 }
 
+const externalRel = 'noopener noreferrer';
+
 export default function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
+  const projectUrl = project.url?.trim();
 
   useEffect(() => {
     if (contentRef.current) {
@@ -68,7 +72,25 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
-        <h3 className="card-title">{project.title}</h3>
+        <h3 className="card-title">
+          {projectUrl ? (
+            <a
+              href={projectUrl}
+              target="_blank"
+              rel={externalRel}
+              className="card-title-link"
+              aria-label={`${project.title} — ${en.projectCard.titleLinkAria}`}
+            >
+              <span>{project.title}</span>
+              <ExternalLink
+                className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5"
+                aria-hidden
+              />
+            </a>
+          ) : (
+            project.title
+          )}
+        </h3>
         <div className="card-meta-row mb-6">
           <Building2 className="" size={16} />
           <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">
