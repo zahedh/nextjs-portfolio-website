@@ -100,8 +100,7 @@ export function useBreakpoint(breakpoint: Breakpoint) {
   useLayoutEffect(() => {
     const minWidthQuery = `(min-width: ${BREAKPOINTS[breakpoint]}px)`;
     const mediaQueryList = window.matchMedia(minWidthQuery);
-    const syncMatchesFromViewport = () =>
-      setMatches(mediaQueryList.matches);
+    const syncMatchesFromViewport = () => setMatches(mediaQueryList.matches);
     syncMatchesFromViewport();
     mediaQueryList.addEventListener('change', syncMatchesFromViewport);
     return () =>

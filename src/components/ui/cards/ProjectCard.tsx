@@ -131,10 +131,12 @@ export default function ProjectCard({
         {project.startDate} - {project.endDate}
       </div>
 
-      {/* Project image — intrinsic dims + width/height both `auto` in style avoids next/image warnings
-          without `fill` (absolute positioning breaks Swiper cards effect / slide stacking). */}
+      {/*
+        Fixed h-64 + object-contain + max width & height 100%: full image stays visible (no cover crop),
+        scales to fit the box. Stays in document flow (no absolute fill) so Swiper cards stack correctly.
+      */}
       <div className="card-image-wrapper">
-        <div className="flex min-h-[16rem] w-full items-center justify-center py-2">
+        <div className="flex h-64 w-full min-w-0 items-center justify-center overflow-hidden px-1 py-2">
           {project.image ? (
             <Image
               src={project.image}
@@ -142,18 +144,18 @@ export default function ProjectCard({
               width={1200}
               height={675}
               sizes="(max-width: 768px) 100vw, min(768px, 100vw)"
-              className="rounded-xl bg-neutral-100 object-contain p-1 shadow-md dark:bg-neutral-800"
+              className="max-h-full max-w-full rounded-xl bg-neutral-100 object-contain p-1 shadow-md dark:bg-neutral-800"
               style={{
                 width: 'auto',
                 height: 'auto',
                 maxWidth: '100%',
-                maxHeight: '16rem',
+                maxHeight: '100%',
               }}
               priority={imagePriority}
               fetchPriority={imagePriority ? 'high' : 'low'}
             />
           ) : (
-            <div className="flex h-64 w-full items-center justify-center">
+            <div className="flex h-full w-full items-center justify-center">
               {project.projectType === 'Web' ? (
                 <Monitor
                   className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
@@ -228,21 +230,13 @@ export default function ProjectCard({
                   isExpanded ? 'overflow-x-hidden overflow-y-auto' : undefined
                 }
                 style={
-                  isExpanded
-                    ? { maxHeight: `${MAX_EXPAND_VH}vh` }
-                    : undefined
+                  isExpanded ? { maxHeight: `${MAX_EXPAND_VH}vh` } : undefined
                 }
               >
                 <div
                   className={`ease-out ${
-                    isExpanded
-                      ? 'opacity-100'
-                      : 'pointer-events-none opacity-0'
-                  } ${
-                    prefersReducedMotion
-                      ? ''
-                      : 'transition-opacity'
-                  }`}
+                    isExpanded ? 'opacity-100' : 'pointer-events-none opacity-0'
+                  } ${prefersReducedMotion ? '' : 'transition-opacity'}`}
                   style={{
                     transitionDuration: prefersReducedMotion
                       ? '0ms'
@@ -265,9 +259,7 @@ export default function ProjectCard({
             disabled={!expandReady}
             aria-busy={!expandReady}
             aria-expanded={isExpanded}
-            title={
-              !expandReady ? en.projectCard.expandPreparing : undefined
-            }
+            title={!expandReady ? en.projectCard.expandPreparing : undefined}
             className="card-expand-btn disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isExpanded ? 'Show less' : 'View details'}
