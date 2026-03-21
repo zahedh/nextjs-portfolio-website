@@ -79,7 +79,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Expandable details – scroll when constrained so content is never cut off */}
         <div
           className={
-            isExpanded ? 'overflow-x-hidden overflow-y-auto' : 'overflow-hidden'
+            isExpanded ? 'overflow-visible' : 'overflow-hidden'
           }
           style={{
             maxHeight: isExpanded ? `min(${contentHeight}px, 70vh)` : '0px',
@@ -87,7 +87,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             willChange: isExpanded ? 'max-height' : 'auto',
           }}
         >
-          <div ref={contentRef} className="space-y-6 pb-6">
+          <div ref={contentRef} className="space-y-6 pb-8">
             {/* Description */}
             <div className="space-y-4">
               {project.description.map((paragraph, index) => (

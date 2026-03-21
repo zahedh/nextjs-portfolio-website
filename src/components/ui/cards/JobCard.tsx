@@ -94,7 +94,7 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
       )}
 
       {/* Skills */}
-      <div className="card-skills">
+      <div className="card-skills pb-2">
         {jobSkills.map((skill) => (
           <SkillTile
             key={skill.id}
