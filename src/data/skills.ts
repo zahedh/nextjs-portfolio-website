@@ -23,6 +23,7 @@ import {
   SiXcode,
   SiMacos,
   SiJest,
+  SiVite,
   SiEslint,
   SiPrettier,
   SiLibreofficewriter,
@@ -32,7 +33,7 @@ import {
   SiWordpress,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
-import { Code2, Lightbulb, Sparkles, Network } from 'lucide-react';
+import { Activity, BarChart2, Code2, Lightbulb, Network, Sparkles } from 'lucide-react';
 import { en } from '@/language';
 import type { IconType } from 'react-icons';
 import type { LucideIcon } from 'lucide-react';
@@ -192,9 +193,27 @@ export const skillsData: Skill[] = [
     category: 'dev-tools',
   },
   {
+    id: 'vite',
+    label: en.skillsCollageSection.vite,
+    icon: SiVite,
+    category: 'dev-tools',
+  },
+  {
     id: 'vercel',
     label: en.skillsCollageSection.vercel,
     icon: SiVercel,
+    category: 'dev-tools',
+  },
+  {
+    id: 'vercel-analytics',
+    label: en.skillsCollageSection.vercelAnalytics,
+    icon: BarChart2,
+    category: 'dev-tools',
+  },
+  {
+    id: 'speed-insights',
+    label: en.skillsCollageSection.speedInsights,
+    icon: Activity,
     category: 'dev-tools',
   },
   {

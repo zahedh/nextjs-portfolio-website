@@ -93,12 +93,15 @@ export const en = {
     // Development Tools & IDEs
     github: 'GitHub',
     vercel: 'Vercel',
+    vercelAnalytics: 'Vercel Analytics',
+    speedInsights: 'Speed Insights',
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
 
     // Testing & Code Quality
     jest: 'Jest',
+    vite: 'Vite',
     eSLint: 'ESLint',
     prettier: 'Prettier',
 

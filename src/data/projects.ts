@@ -14,6 +14,35 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'project-8',
+    projectType: 'Web',
+    title: 'Render Lab — Video FX Editor',
+    company: 'Personal Project',
+    startDate: 'Mar 2025',
+    endDate: 'Present',
+    image: '/images/renderLabBanner.png',
+    description: [
+      '✦ A browser-based video effects editor with a dark UI and real-time preview — switch between ASCII, pixel sort, and pixelate modes.',
+      '✦ Fine-grained controls per effect: pixel size, palettes, dithering, saturation, contrast, brightness, and optional scanline-style treatments.',
+      '✦ End-to-end export workflow: resolution and FPS, WebM (VP9) output with quality and trim controls for efficient delivery.',
+      '✦ Built with React and TypeScript, focusing on a responsive control surface and canvas-driven video processing in the browser.',
+      '✦ Deployed on Vercel with Vercel Analytics and Speed Insights for usage and performance monitoring.',
+    ],
+    skills: [
+      'react',
+      'typescript',
+      'javascript',
+      'tailwind',
+      'html',
+      'css',
+      'github',
+      'vite',
+      'vercel',
+      'vercel-analytics',
+      'speed-insights',
+    ],
+  },
+  {
     id: 'project-0',
     projectType: 'Web',
     title: 'Portfolio Website',
@@ -30,6 +59,7 @@ export const projects: Project[] = [
       '✦ Utilises Tailwind CSS v4 for a custom design system with responsive layouts and dark mode support.',
       '✦ Built with modern React patterns including hooks, context API, and client/server component architecture.',
       '✦ Deployed with continuous integration and automated builds for seamless updates.',
+      '✦ Integrated Vercel Analytics and Speed Insights for traffic and Core Web Vitals monitoring.',
     ],
     skills: [
       'next.js',
@@ -38,6 +68,8 @@ export const projects: Project[] = [
       'tailwind',
       'github',
       'vercel',
+      'vercel-analytics',
+      'speed-insights',
       'github-copilot',
       'figma',
       'vscode',
@@ -91,7 +123,7 @@ export const projects: Project[] = [
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
     url: 'https://www.curtainsmade.co.uk/',
-    image: '/images/curtainsmade-logo.png',
+    image: '/images/curtainsmadeLogo.png',
     description: [
       '✦ E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
       "✦ Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",
@@ -228,7 +260,6 @@ export const projects: Project[] = [
     startDate: 'May 2020',
     endDate: 'Sep 2020',
     url: 'https://www.warmshowers.org/',
-    image: '/images/warmshowers-logo.png',
     description: [
       '✦ Mobile app for Warmshowers (warmshowers.org) — a hospitality network connecting touring cyclists with hosts worldwide.',
       '✦ Co-developed with React Native at Interlockdigital; published on Google Play and the App Store.',
