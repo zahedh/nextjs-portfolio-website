@@ -4,9 +4,10 @@ export const SKILL_TILE_TOOLTIP_GAP_PX = 8;
 /**
  * Anchor point for a fixed tooltip above a tile: horizontal center, top edge of the tile.
  */
-export function getSkillTileTooltipAnchor(
-  element: HTMLElement | null
-): { x: number; y: number } {
+export function getSkillTileTooltipAnchor(element: HTMLElement | null): {
+  x: number;
+  y: number;
+} {
   if (!element) {
     return { x: 0, y: 0 };
   }

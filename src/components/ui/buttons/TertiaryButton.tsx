@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ReactNode,
-} from 'react';
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 
 type TertiaryButtonProps = {
@@ -17,10 +13,7 @@ type TertiaryButtonProps = {
   target?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const tertiaryStyles = (
-  className: string | undefined,
-  iconOnly: boolean
-) =>
+const tertiaryStyles = (className: string | undefined, iconOnly: boolean) =>
   clsx(
     'inline-flex items-center justify-center gap-2',
     iconOnly ? 'p-2' : 'px-3 py-1.5',

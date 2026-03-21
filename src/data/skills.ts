@@ -33,7 +33,14 @@ import {
   SiWordpress,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
-import { Activity, BarChart2, Code2, Lightbulb, Network, Sparkles } from 'lucide-react';
+import {
+  Activity,
+  BarChart2,
+  Code2,
+  Lightbulb,
+  Network,
+  Sparkles,
+} from 'lucide-react';
 import { en } from '@/language';
 import type { IconType } from 'react-icons';
 import type { LucideIcon } from 'lucide-react';

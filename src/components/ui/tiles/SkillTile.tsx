@@ -72,7 +72,9 @@ export function SkillTile({
         )}
       >
         <Icon
-          className={compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-7 w-7 sm:h-8 sm:w-8'}
+          className={
+            compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-7 w-7 sm:h-8 sm:w-8'
+          }
         />
       </div>
       {tooltipNode}

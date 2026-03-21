@@ -6,8 +6,20 @@ import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
-import { Building2, ChevronDown, ExternalLink, Monitor, Smartphone } from 'lucide-react';
-import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import {
+  Building2,
+  ChevronDown,
+  ExternalLink,
+  Monitor,
+  Smartphone,
+} from 'lucide-react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from 'react';
 
 /** Extra px so max-height isn’t 1–2px short after rounding / scrollbars */
 const CONTENT_HEIGHT_BUFFER_PX = 8;
@@ -30,9 +42,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const measureContentHeight = useCallback(() => {
     const el = contentRef.current;
     if (!el) return;
-    setContentHeight(
-      Math.ceil(el.scrollHeight) + CONTENT_HEIGHT_BUFFER_PX
-    );
+    setContentHeight(Math.ceil(el.scrollHeight) + CONTENT_HEIGHT_BUFFER_PX);
   }, []);
 
   useLayoutEffect(() => {
@@ -135,9 +145,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Expandable details – scroll when constrained so content is never cut off */}
         <div
           className={
-            isExpanded
-              ? 'overflow-x-hidden overflow-y-auto'
-              : 'overflow-hidden'
+            isExpanded ? 'overflow-x-hidden overflow-y-auto' : 'overflow-hidden'
           }
           style={{
             maxHeight: isExpanded
