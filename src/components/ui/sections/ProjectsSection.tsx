@@ -13,16 +13,15 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
-/** Section container for highlighted projects. */
 export default function ProjectsSection() {
   const isLargeScreen = useBreakpoint('lg');
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [swiperReady, setSwiperReady] = useState(0);
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
 
-  // On mobile, when the active slide content resizes (e.g. card expand/collapse), tell Swiper to recalc height
   useEffect(() => {
     if (isLargeScreen) return;
     const swiper = swiperRef.current;
@@ -34,7 +33,7 @@ export default function ProjectsSection() {
     });
     ro.observe(slide);
     return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType]);
+  }, [isLargeScreen, activeIndex, selectedType, swiperReady]);
 
   const filteredProjects = useMemo(() => {
     return selectedType === 'All'
@@ -117,6 +116,7 @@ export default function ProjectsSection() {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
                 setActiveIndex(swiper.activeIndex);
+                setSwiperReady((r) => r + 1);
               }}
               onSlideChangeTransitionEnd={(swiper) => {
                 setActiveIndex(swiper.activeIndex);

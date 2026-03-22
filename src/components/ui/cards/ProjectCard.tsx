@@ -16,25 +16,18 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-/** Cap expanded panel height so very long cards stay usable (scroll inside) */
 const MAX_EXPAND_VH = 80;
-/**
- * Closing only — animating 0fr→1fr on open clips text behind overflow for the whole tween.
- * Opening uses 0ms on the row; smoothness comes from CONTENT_OPACITY_MS on the inner block.
- */
 const GRID_ROW_COLLAPSE_MS = 450;
 const GRID_ROW_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const CONTENT_OPACITY_MS = 420;
 
 interface ProjectCardProps {
   project: Project;
-  /** First carousel slide only — avoids loading every project image as high priority. */
   imagePriority?: boolean;
 }
 
 const externalRel = 'noopener noreferrer';
 
-/** Shared body: description + skill tiles (used for pre-layout + visible expand). */
 function ProjectCardDetails({
   project,
   projectSkills,
@@ -73,9 +66,9 @@ export default function ProjectCard({
   imagePriority = false,
 }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  /** Fonts + layout warmed (ghost layer); enables “View details” without post-click jump */
   const [expandReady, setExpandReady] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
 
@@ -105,6 +98,10 @@ export default function ProjectCard({
   }, [project.id]);
 
   useEffect(() => {
+    setImageError(false);
+  }, [project.id]);
+
+  useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => setPrefersReducedMotion(mq.matches);
     sync();
@@ -112,7 +109,6 @@ export default function ProjectCard({
     return () => mq.removeEventListener('change', sync);
   }, []);
 
-  /** Expanded state → 0ms so opening is instant (no clip). Collapsed → animate row shut. */
   const gridRowTransitionMs = prefersReducedMotion
     ? 0
     : isExpanded
@@ -126,18 +122,13 @@ export default function ProjectCard({
 
   return (
     <div className="card-container mx-auto mt-6 w-full max-w-3xl">
-      {/* Date badge */}
       <div className="card-date-badge -top-3">
         {project.startDate} - {project.endDate}
       </div>
 
-      {/*
-        Fixed h-64 + object-contain + max width & height 100%: full image stays visible (no cover crop),
-        scales to fit the box. Stays in document flow (no absolute fill) so Swiper cards stack correctly.
-      */}
       <div className="card-image-wrapper">
         <div className="flex h-64 w-full min-w-0 items-center justify-center overflow-hidden px-1 py-2">
-          {project.image ? (
+          {project.image && !imageError ? (
             <Image
               src={project.image}
               alt={`${project.title} preview`}
@@ -153,6 +144,7 @@ export default function ProjectCard({
               }}
               priority={imagePriority}
               fetchPriority={imagePriority ? 'high' : 'low'}
+              onError={() => setImageError(true)}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
@@ -170,9 +162,8 @@ export default function ProjectCard({
             </div>
           )}
         </div>
-      </div>
+        </div>
 
-      {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
         <h3 className="card-title">
           {projectUrl ? (
@@ -201,10 +192,6 @@ export default function ProjectCard({
         </div>
 
         <div className="relative">
-          {/*
-            Hidden duplicate at full content width: warms web fonts + line breaks + skill tile layout
-            before the user expands (avoids jump when swap metrics apply). Not interactive.
-          */}
           <div
             className="pointer-events-none invisible absolute top-0 right-0 left-0 -z-10 w-full overflow-visible select-none"
             aria-hidden
@@ -215,7 +202,6 @@ export default function ProjectCard({
             />
           </div>
 
-          {/* Row: instant open (no overflow clip), animated close. Content: opacity eases both ways. */}
           <div
             aria-hidden={!isExpanded}
             style={{
@@ -252,7 +238,6 @@ export default function ProjectCard({
             </div>
           </div>
 
-          {/* Expand/Collapse */}
           <button
             type="button"
             onClick={handleToggle}

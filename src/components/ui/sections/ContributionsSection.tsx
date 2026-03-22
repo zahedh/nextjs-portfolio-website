@@ -58,7 +58,7 @@ export default function ContributionsSection() {
       showBottomDivider
     >
       <motion.div
-        key={selectedYear} // This triggers re-animation when year changes
+        key={selectedYear}
         className="relative min-h-[400px] w-full"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
