@@ -84,6 +84,15 @@ export default function PrivacyPage() {
           </BodyText>
           <BodyText className="card-description mb-6">
             {en.privacyPage.thirdPartyFuture}
+            <a
+              href={en.privacyPage.thirdPartyVercelLinkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-accent"
+            >
+              {en.privacyPage.thirdPartyVercelLinkLabel}
+            </a>
+            .
           </BodyText>
 
           <SubHeading className="card-section-heading">
