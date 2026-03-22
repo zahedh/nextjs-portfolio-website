@@ -41,7 +41,16 @@ export default function Navbar({
 
   return (
     <nav className={clsx('flex items-center justify-between', className)}>
-      {showInitials && <InitialsGraphic className="-ml-4 h-16 w-20" />}
+      {showInitials && (
+        <Link
+          href="/"
+          onClick={handleHomeClick}
+          className="block transition-transform duration-150 active:scale-90"
+          aria-label={en.home}
+        >
+          <InitialsGraphic className="-ml-4 h-16 w-20" />
+        </Link>
+      )}
 
       {/* Desktop Navigation */}
       <ul className="hidden items-center gap-5 md:flex">

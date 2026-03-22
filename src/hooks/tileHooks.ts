@@ -1,25 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
-/**
- * Hook to manage tooltip state for skill tiles
- * Shows tooltip on both hover and click with auto-dismiss
- */
-export function useTooltip(duration: number = 2000) {
+export function useTooltip(duration: number = 2000, onExpire?: () => void) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
     if (showTooltip) {
       const timer = setTimeout(() => {
         setShowTooltip(false);
+        onExpire?.();
       }, duration);
 
       return () => clearTimeout(timer);
     }
-  }, [showTooltip, duration]);
+  }, [showTooltip, duration, onExpire]);
 
-  const handleClick = () => {
-    setShowTooltip(true);
-  };
+  const handleClick = () => setShowTooltip(true);
+  const dismiss = useCallback(() => setShowTooltip(false), []);
 
-  return { showTooltip, handleClick };
+  return { showTooltip, handleClick, dismiss };
 }
