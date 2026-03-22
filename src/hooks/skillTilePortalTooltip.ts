@@ -27,10 +27,11 @@ function ensureScrollListener() {
 export function useSkillTilePortalTooltip() {
   const [isHovering, setIsHovering] = useState(false);
   const clearHoverOnExpire = useCallback(() => setIsHovering(false), []);
-  const { showTooltip: showClickTooltip, handleClick, dismiss } = useTooltip(
-    CLICK_TOOLTIP_MS,
-    clearHoverOnExpire
-  );
+  const {
+    showTooltip: showClickTooltip,
+    handleClick,
+    dismiss,
+  } = useTooltip(CLICK_TOOLTIP_MS, clearHoverOnExpire);
   const tileRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
