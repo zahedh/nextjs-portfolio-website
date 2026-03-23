@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 type HeadingProps = {
   children: React.ReactNode;
   className?: string;
-  /** Semantic level; default `h2` for section titles. Use `h1` for a page-level title only. */
   as?: 'h1' | 'h2';
 };
 

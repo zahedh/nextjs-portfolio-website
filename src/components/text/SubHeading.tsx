@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 type SubHeadingProps = {
   children: React.ReactNode;
   className?: string;
-  /** Semantic level; default `h3`. Use `h1` for the hero intro line. */
   as?: 'h1' | 'h2' | 'h3';
 };
 
