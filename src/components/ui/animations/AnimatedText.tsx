@@ -5,7 +5,6 @@ type AnimatedTextProps = {
   text: string;
   className?: string;
   delay?: number;
-  /** When true, render in final state with no animation (e.g. on return visit). */
   skipAnimation?: boolean;
   onAnimationComplete?: () => void;
 };

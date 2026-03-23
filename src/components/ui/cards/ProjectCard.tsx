@@ -36,7 +36,7 @@ function ProjectCardDetails({
   projectSkills: Skill[];
 }) {
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-6 pb-3">
       <div className="space-y-4">
         {project.description.map((paragraph, index) => (
           <p

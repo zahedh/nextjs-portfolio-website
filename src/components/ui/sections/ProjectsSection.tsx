@@ -1,5 +1,7 @@
 'use client';
 import { ProjectCard, Section, PrimaryButton } from '@/components';
+import { useGlobalStore } from '@/providers/global-store-provider';
+import { projectMatchesSkill } from '@/lib/utils';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -21,6 +23,10 @@ export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
+  const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
+  const setSelectedSkillId = useGlobalStore(
+    (state) => state.setSelectedSkillId
+  );
 
   useEffect(() => {
     if (isLargeScreen) return;
@@ -33,16 +39,38 @@ export default function ProjectsSection() {
     });
     ro.observe(slide);
     return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType, swiperReady]);
+  }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
 
   const filteredProjects = useMemo(() => {
-    return selectedType === 'All'
-      ? projects
-      : projects.filter((project) => project.projectType === selectedType);
-  }, [selectedType]);
+    const typeFiltered =
+      selectedType === 'All'
+        ? [...projects]
+        : projects.filter((project) => project.projectType === selectedType);
+    if (!selectedSkillId) {
+      return typeFiltered;
+    }
+    const matching: typeof typeFiltered = [];
+    const nonMatching: typeof typeFiltered = [];
+    for (const project of typeFiltered) {
+      if (projectMatchesSkill(project, selectedSkillId)) {
+        matching.push(project);
+      } else {
+        nonMatching.push(project);
+      }
+    }
+    return [...matching, ...nonMatching];
+  }, [selectedType, selectedSkillId]);
 
   const filterButtons = (
     <>
+      {selectedSkillId && (
+        <PrimaryButton
+          onClick={() => setSelectedSkillId(null)}
+          className="filter-inactive"
+        >
+          {en.projectFilters.clearSkillFilter}
+        </PrimaryButton>
+      )}
       <PrimaryButton
         onClick={() => setSelectedType('All')}
         className={selectedType !== 'All' ? 'filter-inactive' : ''}
@@ -79,7 +107,7 @@ export default function ProjectsSection() {
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={selectedType}
+            key={`${selectedType}-${selectedSkillId ?? 'all'}`}
             initial={{ opacity: 0, scale: 0.98, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -8 }}
@@ -87,7 +115,7 @@ export default function ProjectsSection() {
             className="w-full"
           >
             <Swiper
-              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}`}
+              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}-${selectedSkillId ?? 'all'}`}
               className="projects-section-swiper w-full"
               spaceBetween={50}
               pagination={{

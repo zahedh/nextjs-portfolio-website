@@ -55,3 +55,24 @@ export function getSkillsByIds<T extends { id: string }>(
     .map((skillId) => skillsData.find((s) => s.id === skillId))
     .filter((skill): skill is T => skill !== undefined);
 }
+
+function normalizeSkillId(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[.\s-]/g, '')
+    .trim();
+}
+
+export function projectMatchesSkill(
+  project: { skills: string[] },
+  skillId: string
+): boolean {
+  const normalizedSkillId = normalizeSkillId(skillId);
+  return project.skills.some(
+    (projectSkill) => normalizeSkillId(projectSkill) === normalizedSkillId
+  );
+}
+
+export function scrollToProjectsSection(): void {
+  document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+}

@@ -184,6 +184,7 @@ export const en = {
     all: 'All',
     mobile: 'Mobile',
     web: 'Web',
+    clearSkillFilter: 'All skills',
   },
 
   projectCard: {

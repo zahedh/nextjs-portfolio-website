@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { IconType } from 'react-icons';
 import { createPortal } from 'react-dom';
+import { useDoubleActivation } from '@/hooks/useDoubleActivation';
 import { useSkillTilePortalTooltip } from '@/hooks/skillTilePortalTooltip';
 import { getSkillTileTooltipTransform } from '@/lib';
 
@@ -10,6 +11,7 @@ type SkillTileProps = {
   label: string;
   className?: string;
   compact?: boolean;
+  onClick?: () => void;
 };
 
 const tooltipSurfaceClass =
@@ -21,6 +23,7 @@ export function SkillTile({
   label,
   className,
   compact = false,
+  onClick,
 }: SkillTileProps) {
   const {
     tileRef,
@@ -30,6 +33,9 @@ export function SkillTile({
     onTileMouseEnter,
     onTileMouseLeave,
   } = useSkillTilePortalTooltip();
+
+  const isClickable = Boolean(onClick);
+  const tryDoubleActivate = useDoubleActivation(onClick, isClickable);
 
   const tooltipNode =
     mounted &&
@@ -54,10 +60,22 @@ export function SkillTile({
 
   return (
     <>
-      <div
+        <div
         ref={tileRef}
-        role="img"
+        role={isClickable ? 'button' : 'img'}
+        tabIndex={isClickable ? 0 : undefined}
         aria-label={label}
+        onClick={isClickable ? tryDoubleActivate : undefined}
+        onKeyDown={
+          isClickable
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  tryDoubleActivate();
+                }
+              }
+            : undefined
+        }
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
         className={clsx(
