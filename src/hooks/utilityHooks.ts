@@ -34,10 +34,16 @@ export function useTheme() {
   const store = useContext(GlobalStoreContext);
 
   useEffect(() => {
+    if (!store) return;
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark' && store) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
+    if (isDark) {
       document.documentElement.classList.add('dark');
       store.setState({ isDark: true });
+    } else {
+      document.documentElement.classList.remove('dark');
+      store.setState({ isDark: false });
     }
   }, [store]);
 

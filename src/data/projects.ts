@@ -52,6 +52,7 @@ export const projects: Project[] = [
     url: 'https://zahedheidari.co.uk',
     image: '/images/lightModeAvatar.png',
     description: [
+      '✦ Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
       '✦ Implements server-side rendering and static site generation for optimal performance and SEO.',
       '✦ Features a dynamic project showcase with interactive Swiper carousel and expandable project cards.',

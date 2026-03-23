@@ -202,7 +202,7 @@ export const en = {
       'We do not collect personal data through forms or accounts. The only data stored in your browser is:',
     themePreferenceLabel: 'Theme preference',
     themePreferenceDetail:
-      'Your choice of light or dark mode is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
+      'On first visit we follow your operating system preference (light or dark). Your manual choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
     sectionHowWeUse: 'How we use it',
     howWeUseText:
       'Theme preference is used only to display the site in your preferred appearance. We do not use it for analytics or advertising.',
