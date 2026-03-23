@@ -36,8 +36,11 @@ export function useTheme() {
   useEffect(() => {
     if (!store) return;
     const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const isDark =
+      storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
     if (isDark) {
       document.documentElement.classList.add('dark');
       store.setState({ isDark: true });

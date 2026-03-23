@@ -162,7 +162,7 @@ export default function ProjectCard({
             </div>
           )}
         </div>
-        </div>
+      </div>
 
       <div className="p-6 md:p-8">
         <h3 className="card-title">

@@ -6,11 +6,8 @@ import DarkModeAvatar from '../../../public/images/darkModeAvatar.png';
 
 type Props = {
   alt?: string;
-  /** Passed to the outer wrapper (e.g. `h-32 w-32 rounded-full`) */
   className?: string;
-  /** Responsive sizes hint for `next/image` when using `fill` */
   sizes?: string;
-  /** Set on the hero avatar so the visible image can be LCP (above the fold). */
   priority?: boolean;
 };
 
