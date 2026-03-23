@@ -1,3 +1,12 @@
+import type { ComponentType } from 'react';
+
+import { AvatarGraphic } from '@/components/media';
+
+export type ProjectImageComponentProps = {
+  alt?: string;
+  className?: string;
+};
+
 export interface Project {
   id: string;
   projectType: 'Mobile' | 'Web';
@@ -7,8 +16,8 @@ export interface Project {
   endDate: string;
   description: string[];
   skills: string[];
-  image?: string; // Path to project image (optional)
-  /** Public URL (live site, store listing, case study, etc.) */
+  image?: string;
+  imageComponent?: ComponentType<ProjectImageComponentProps>;
   url?: string;
 }
 
@@ -52,7 +61,7 @@ export const projects: Project[] = [
     startDate: 'Jan 2025',
     endDate: 'Present',
     url: 'https://zahedheidari.co.uk',
-    image: '/images/lightModeAvatar.png',
+    imageComponent: AvatarGraphic,
     description: [
       '✦ Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
