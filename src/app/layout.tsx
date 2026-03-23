@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/images/og-image.png',
-        width: 1200,
-        height: 630,
+        width: 1024,
+        height: 682,
         alt: 'Zahed Heidari - Web & Mobile Developer',
       },
     ],
@@ -71,7 +71,14 @@ export const metadata: Metadata = {
     title: 'Zahed Heidari - Web & Mobile Developer',
     description:
       "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
-    images: ['/images/og-image.png'],
+    images: [
+      {
+        url: '/images/twitter-image.png',
+        width: 1024,
+        height: 682,
+        alt: 'Zahed Heidari - Web & Mobile Developer',
+      },
+    ],
   },
   icons: {
     icon: [
@@ -102,6 +109,8 @@ export default function RootLayout({
                   const theme = localStorage.getItem('theme');
                   if (theme === 'dark') {
                     document.documentElement.classList.add('dark');
+                  } else if (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark');
                   }
                 })();
               `,
@@ -113,8 +122,13 @@ export default function RootLayout({
           suppressHydrationWarning
         >
           {children}
-          <Analytics />
-          <SpeedInsights />
+          {/* Only on Vercel: script URLs 404 on localhost and break the console */}
+          {process.env.VERCEL === '1' ? (
+            <>
+              <Analytics />
+              <SpeedInsights />
+            </>
+          ) : null}
         </body>
       </html>
     </GlobalStoreProvider>

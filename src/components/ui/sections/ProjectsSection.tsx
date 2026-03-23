@@ -13,16 +13,15 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
-/** Section container for highlighted projects. */
 export default function ProjectsSection() {
   const isLargeScreen = useBreakpoint('lg');
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [swiperReady, setSwiperReady] = useState(0);
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
 
-  // On mobile, when the active slide content resizes (e.g. card expand/collapse), tell Swiper to recalc height
   useEffect(() => {
     if (isLargeScreen) return;
     const swiper = swiperRef.current;
@@ -34,7 +33,7 @@ export default function ProjectsSection() {
     });
     ro.observe(slide);
     return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType]);
+  }, [isLargeScreen, activeIndex, selectedType, swiperReady]);
 
   const filteredProjects = useMemo(() => {
     return selectedType === 'All'
@@ -72,11 +71,11 @@ export default function ProjectsSection() {
       filterButtons={filterButtons}
     >
       <motion.div
-        className="relative isolate w-full overflow-hidden"
-        initial={{ opacity: 0, y: 30 }}
+        className="relative isolate w-full max-w-full min-w-0 overflow-x-hidden lg:overflow-visible"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -117,17 +116,21 @@ export default function ProjectsSection() {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
                 setActiveIndex(swiper.activeIndex);
+                setSwiperReady((r) => r + 1);
               }}
               onSlideChangeTransitionEnd={(swiper) => {
                 setActiveIndex(swiper.activeIndex);
               }}
             >
-              {filteredProjects.map((project) => (
+              {filteredProjects.map((project, index) => (
                 <SwiperSlide
                   key={project.id}
                   className="mb-16 flex items-center justify-center"
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    imagePriority={index === activeIndex}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

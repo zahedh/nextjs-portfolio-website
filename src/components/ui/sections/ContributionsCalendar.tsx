@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ActivityCalendar } from 'react-activity-calendar';
 import type { ActivityCalendarData } from '@/types/github';
 import { useTheme } from '@/hooks/utilityHooks';
@@ -82,27 +83,29 @@ export default function ContributionsCalendar({
       </div>
 
       {/* Custom Tooltip */}
-      {tooltip && (
-        <div
-          className="animate-in fade-in zoom-in-95 pointer-events-none fixed z-50 duration-150"
-          style={{
-            left: `${tooltip.x}px`,
-            top: `${tooltip.y}px`,
-            transform: 'translate(-50%, -100%)',
-          }}
-        >
-          <div className="contributions-tooltip-box">
-            <div className="text-sm font-semibold whitespace-nowrap">
-              {getContributionText(tooltip.count)}
+      {tooltip &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="animate-in fade-in zoom-in-95 pointer-events-none fixed z-50 duration-150"
+            style={{
+              left: `${tooltip.x}px`,
+              top: `${tooltip.y}px`,
+              transform: 'translate(-50%, -100%)',
+            }}
+          >
+            <div className="contributions-tooltip-box">
+              <div className="text-sm font-semibold whitespace-nowrap">
+                {getContributionText(tooltip.count)}
+              </div>
+              <div className="text-xs whitespace-nowrap opacity-75">
+                {formatTooltipDate(tooltip.date)}
+              </div>
             </div>
-            <div className="text-xs whitespace-nowrap opacity-75">
-              {formatTooltipDate(tooltip.date)}
-            </div>
-          </div>
-          {/* Tooltip arrow */}
-          <div className="contributions-tooltip-arrow" />
-        </div>
-      )}
+            <div className="contributions-tooltip-arrow" />
+          </div>,
+          document.body
+        )}
     </>
   );
 }

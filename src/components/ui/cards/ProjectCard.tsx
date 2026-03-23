@@ -3,6 +3,7 @@ import { SkillTile } from '@/components/ui/tiles';
 import Image from 'next/image';
 
 import { skillsData } from '@/data/skills';
+import type { Skill } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
@@ -13,108 +14,156 @@ import {
   Monitor,
   Smartphone,
 } from 'lucide-react';
-import {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
+import { useState, useEffect } from 'react';
 
-/** Extra px so max-height isn’t 1–2px short after rounding / scrollbars */
-const CONTENT_HEIGHT_BUFFER_PX = 8;
-/** Cap expanded panel height so very long cards stay usable */
 const MAX_EXPAND_VH = 80;
+const GRID_ROW_COLLAPSE_MS = 450;
+const GRID_ROW_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+const CONTENT_OPACITY_MS = 420;
 
 interface ProjectCardProps {
   project: Project;
+  imagePriority?: boolean;
 }
 
 const externalRel = 'noopener noreferrer';
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCardDetails({
+  project,
+  projectSkills,
+}: {
+  project: Project;
+  projectSkills: Skill[];
+}) {
+  return (
+    <div className="space-y-6 pb-8">
+      <div className="space-y-4">
+        {project.description.map((paragraph, index) => (
+          <p
+            key={index}
+            className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+      <div className="card-skills">
+        {projectSkills.map((skill) => (
+          <SkillTile
+            key={skill.id}
+            icon={skill.icon}
+            label={skill.label}
+            compact
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function ProjectCard({
+  project,
+  imagePriority = false,
+}: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [contentHeight, setContentHeight] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const [expandReady, setExpandReady] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
 
-  const measureContentHeight = useCallback(() => {
-    const el = contentRef.current;
-    if (!el) return;
-    setContentHeight(Math.ceil(el.scrollHeight) + CONTENT_HEIGHT_BUFFER_PX);
+  useEffect(() => {
+    setExpandReady(false);
+    let cancelled = false;
+
+    const markReady = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!cancelled) setExpandReady(true);
+        });
+      });
+    };
+
+    if (typeof document !== 'undefined' && document.fonts?.ready) {
+      void document.fonts.ready.then(() => {
+        if (!cancelled) markReady();
+      });
+    } else {
+      markReady();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [project.id]);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [project.id]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setPrefersReducedMotion(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
   }, []);
 
-  useLayoutEffect(() => {
-    measureContentHeight();
-  }, [project, measureContentHeight]);
-
-  useLayoutEffect(() => {
-    if (!isExpanded) return;
-    measureContentHeight();
-    const id = requestAnimationFrame(measureContentHeight);
-    return () => cancelAnimationFrame(id);
-  }, [isExpanded, measureContentHeight]);
-
-  useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => {
-      measureContentHeight();
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [measureContentHeight, project]);
-
-  useEffect(() => {
-    const onResize = () => measureContentHeight();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [measureContentHeight]);
+  const gridRowTransitionMs = prefersReducedMotion
+    ? 0
+    : isExpanded
+      ? 0
+      : GRID_ROW_COLLAPSE_MS;
 
   const handleToggle = () => {
+    if (!expandReady) return;
     setIsExpanded(!isExpanded);
   };
 
   return (
     <div className="card-container mx-auto mt-6 w-full max-w-3xl">
-      {/* Date badge */}
       <div className="card-date-badge -top-3">
         {project.startDate} - {project.endDate}
       </div>
 
-      {/* Project image */}
       <div className="card-image-wrapper">
-        <div className="flex h-64 w-full items-center justify-center">
-          {project.image ? (
+        <div className="flex h-64 w-full min-w-0 items-center justify-center overflow-hidden px-1 py-2">
+          {project.image && !imageError ? (
             <Image
               src={project.image}
-              alt={project.title + ' preview'}
-              width={320}
-              height={192}
+              alt={`${project.title} preview`}
+              width={1200}
+              height={675}
+              sizes="(max-width: 768px) 100vw, min(768px, 100vw)"
+              className="max-h-full max-w-full rounded-xl bg-neutral-100 object-contain p-1 shadow-md dark:bg-neutral-800"
               style={{
-                maxHeight: '12rem',
                 width: 'auto',
-                objectFit: 'contain',
+                height: 'auto',
+                maxWidth: '100%',
+                maxHeight: '100%',
               }}
-              className="rounded-xl bg-neutral-100 shadow-md dark:bg-neutral-800"
-              priority
-            />
-          ) : project.projectType === 'Web' ? (
-            <Monitor
-              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
-              strokeWidth={1.5}
+              priority={imagePriority}
+              fetchPriority={imagePriority ? 'high' : 'low'}
+              onError={() => setImageError(true)}
             />
           ) : (
-            <Smartphone
-              className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
-              strokeWidth={1.5}
-            />
+            <div className="flex h-full w-full items-center justify-center">
+              {project.projectType === 'Web' ? (
+                <Monitor
+                  className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
+                  strokeWidth={1.5}
+                />
+              ) : (
+                <Smartphone
+                  className="h-28 w-28 text-neutral-400 sm:h-32 sm:w-32 dark:text-neutral-600"
+                  strokeWidth={1.5}
+                />
+              )}
+            </div>
           )}
         </div>
       </div>
 
-      {/* Compact header - always visible */}
       <div className="p-6 md:p-8">
         <h3 className="card-title">
           {projectUrl ? (
@@ -142,56 +191,71 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* Expandable details – scroll when constrained so content is never cut off */}
-        <div
-          className={
-            isExpanded ? 'overflow-x-hidden overflow-y-auto' : 'overflow-hidden'
-          }
-          style={{
-            maxHeight: isExpanded
-              ? `min(${contentHeight}px, ${MAX_EXPAND_VH}vh)`
-              : '0px',
-            transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-            willChange: isExpanded ? 'max-height' : 'auto',
-          }}
-        >
-          <div ref={contentRef} className="space-y-6 pb-8">
-            {/* Description */}
-            <div className="space-y-4">
-              {project.description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="card-description text-sm leading-normal tracking-tight sm:text-base md:text-lg"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+        <div className="relative">
+          <div
+            className="pointer-events-none invisible absolute top-0 right-0 left-0 -z-10 w-full overflow-visible select-none"
+            aria-hidden
+          >
+            <ProjectCardDetails
+              project={project}
+              projectSkills={projectSkills}
+            />
+          </div>
 
-            {/* Skills */}
-            <div className="card-skills">
-              {projectSkills.map((skill) => (
-                <SkillTile
-                  key={skill.id}
-                  icon={skill.icon}
-                  label={skill.label}
-                  compact
-                />
-              ))}
+          <div
+            aria-hidden={!isExpanded}
+            style={{
+              display: 'grid',
+              gridTemplateRows: isExpanded ? '1fr' : '0fr',
+              transition: `grid-template-rows ${gridRowTransitionMs}ms ${GRID_ROW_EASING}`,
+            }}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div
+                className={
+                  isExpanded ? 'overflow-x-hidden overflow-y-auto' : undefined
+                }
+                style={
+                  isExpanded ? { maxHeight: `${MAX_EXPAND_VH}vh` } : undefined
+                }
+              >
+                <div
+                  className={`ease-out ${
+                    isExpanded ? 'opacity-100' : 'pointer-events-none opacity-0'
+                  } ${prefersReducedMotion ? '' : 'transition-opacity'}`}
+                  style={{
+                    transitionDuration: prefersReducedMotion
+                      ? '0ms'
+                      : `${CONTENT_OPACITY_MS}ms`,
+                  }}
+                >
+                  <ProjectCardDetails
+                    project={project}
+                    projectSkills={projectSkills}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Expand/Collapse button */}
-        <button onClick={handleToggle} className="card-expand-btn">
-          {isExpanded ? 'Show less' : 'View details'}
-          <ChevronDown
-            size={16}
-            className={`transition-transform duration-300 ${
-              isExpanded ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
+          <button
+            type="button"
+            onClick={handleToggle}
+            disabled={!expandReady}
+            aria-busy={!expandReady}
+            aria-expanded={isExpanded}
+            title={!expandReady ? en.projectCard.expandPreparing : undefined}
+            className="card-expand-btn disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isExpanded ? 'Show less' : 'View details'}
+            <ChevronDown
+              size={16}
+              className={`transition-transform duration-300 ${
+                isExpanded ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

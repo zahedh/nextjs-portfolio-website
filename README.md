@@ -1,5 +1,7 @@
 # 🌐 Next.js Portfolio Website
 
+**v1.0.0**
+
 A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase projects, experience, and skills with a strong focus on responsive design, accessibility, and maintainable architecture.
 
 ## 📚 Contents
@@ -18,6 +20,7 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 ## 🧰 Tech Stack
 
 - **Framework:** Next.js 15 (App Router)
+- **UI:** React 19
 - **Language:** TypeScript 5
 - **Styling:** Tailwind CSS v4
 - **Animations:** Motion (Framer Motion) 12.16
@@ -56,6 +59,7 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 High-level overview of the main folders:
 
 - `src/app` – Next.js routes, layouts, and pages (App Router); includes `(dashboard)` route group (home, `/privacy`)
+- `src/app/api` – Route Handlers (e.g. `/api/contributions` for GitHub contributions JSON)
 - `src/components` – Reusable UI components (buttons, cards, navigation, sections, text, media, etc.)
 - `src/data` – Static data (skills, projects, experience, about content)
 - `src/hooks` – Custom React hooks for UI and interaction logic
@@ -73,7 +77,7 @@ High-level overview of the main folders:
 
 ### Prerequisites
 
-- Node.js **18.17+** (match your deployment target, e.g. Vercel)
+- Node.js **18.18+** (or 20 LTS; match your deployment target, e.g. Vercel)
 - npm (or another Node.js package manager)
 - GitHub Personal Access Token (for contributions calendar feature)
 
@@ -82,7 +86,7 @@ High-level overview of the main folders:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/nextjs-portfolio-website.git
+git clone https://github.com/zahedh/nextjs-portfolio-website.git
 cd nextjs-portfolio-website
 ```
 
@@ -133,7 +137,7 @@ npm run prettier-check        # Check formatting with Prettier
 npm run prettier-format       # Format code with Prettier
 npm run prettier-check-format # Check, or format if needed
 
-npm run validate              # Type-check + lint + format check (full sanity check)
+npm run validate              # Type-check + lint + format check + test (full sanity check)
 ```
 
 Run `npm run validate` before committing or deploying to ensure everything passes.
@@ -146,7 +150,7 @@ This project is hosted on **Vercel** and is optimised for similar platforms (e.g
 
 ### Vercel Analytics & Speed Insights
 
-The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx) (`<Analytics />` and `<SpeedInsights />`). No extra env vars are required for the defaults.
+The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx). They render only when **`VERCEL=1`** (production deployments on Vercel), so **local `npm run dev`** does not request `/_vercel/...` scripts that would 404 on localhost. No extra env vars are required for the defaults.
 
 After deployment, open your project in the [Vercel dashboard](https://vercel.com/dashboard) and enable **Analytics** and **Speed Insights** for the project so data is collected and shown in Vercel.
 

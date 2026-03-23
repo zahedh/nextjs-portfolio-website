@@ -1,35 +1,42 @@
 'use client';
 
-import Image, { ImageProps } from 'next/image';
+import Image from 'next/image';
 import LightModeToggle from '../../../public/images/lightModeToggle.png';
 import DarkModeToggle from '../../../public/images/darkModeToggle.png';
 
-type Props = Omit<ImageProps, 'src' | 'alt'> & { alt?: string };
+type Props = {
+  alt?: string;
+  className?: string;
+};
 
 export default function ThemeToggleGraphic({
   alt = 'Theme toggle illustration',
-  sizes = '(max-width: 768px) 100vw, 800px',
-  className,
-  ...rest
+  className = '',
 }: Props) {
   return (
     <>
-      <Image
-        src={LightModeToggle}
-        alt={alt}
-        loading="eager"
-        sizes={sizes}
-        className={`dark:hidden ${className || ''}`}
-        {...rest}
-      />
-      <Image
-        src={DarkModeToggle}
-        alt={alt}
-        loading="eager"
-        sizes={sizes}
-        className={`hidden dark:block ${className || ''}`}
-        {...rest}
-      />
+      <div
+        className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}
+      >
+        <Image
+          src={LightModeToggle}
+          alt={alt}
+          fill
+          sizes="14px"
+          className="object-contain"
+        />
+      </div>
+      <div
+        className={`relative hidden shrink-0 overflow-hidden dark:block ${className}`}
+      >
+        <Image
+          src={DarkModeToggle}
+          alt={alt}
+          fill
+          sizes="14px"
+          className="object-contain"
+        />
+      </div>
     </>
   );
 }

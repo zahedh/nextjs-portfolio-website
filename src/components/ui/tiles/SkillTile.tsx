@@ -57,9 +57,18 @@ export function SkillTile({
     <>
       <div
         ref={tileRef}
+        role="button"
+        tabIndex={0}
+        aria-label={label}
         onClick={onTileClick}
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onTileClick();
+          }
+        }}
         className={clsx(
           compact
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'

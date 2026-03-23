@@ -105,6 +105,12 @@ export function getContributionText(count: number): string {
 export function useContributionTooltip(activities: ActivityCalendarData[]) {
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
+  useEffect(() => {
+    const dismiss = () => setTooltip(null);
+    document.addEventListener('touchstart', dismiss, { passive: true });
+    return () => document.removeEventListener('touchstart', dismiss);
+  }, []);
+
   const handleMouseEnter = (event: React.MouseEvent<SVGRectElement>) => {
     const target = event.currentTarget;
     const date = target.getAttribute('data-date');

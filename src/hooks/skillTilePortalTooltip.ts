@@ -10,15 +10,29 @@ import { useTooltip } from './tileHooks';
 
 const CLICK_TOOLTIP_MS = 2000;
 
-/**
- * Portal tooltip for skill tiles: position tracks the tile (scroll/resize while hovering),
- * combines hover + timed click tooltip from {@link useTooltip}.
- */
+const dismissCallbacks = new Set<() => void>();
+function dispatchDismiss() {
+  dismissCallbacks.forEach((cb) => cb());
+}
+
+let scrollListenerAdded = false;
+function ensureScrollListener() {
+  if (scrollListenerAdded || typeof document === 'undefined') return;
+  scrollListenerAdded = true;
+  const onScroll = () => dispatchDismiss();
+  document.addEventListener('scroll', onScroll, true);
+  window.addEventListener('scroll', onScroll, true);
+}
+
 export function useSkillTilePortalTooltip() {
-  const { showTooltip: showClickTooltip, handleClick } =
-    useTooltip(CLICK_TOOLTIP_MS);
-  const tileRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const clearHoverOnExpire = useCallback(() => setIsHovering(false), []);
+  const {
+    showTooltip: showClickTooltip,
+    handleClick,
+    dismiss,
+  } = useTooltip(CLICK_TOOLTIP_MS, clearHoverOnExpire);
+  const tileRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
@@ -30,13 +44,25 @@ export function useSkillTilePortalTooltip() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    ensureScrollListener();
+    const dismissAll = () => {
+      setIsHovering(false);
+      dismiss();
+    };
+    dismissCallbacks.add(dismissAll);
+    return () => {
+      dismissCallbacks.delete(dismissAll);
+    };
+  }, [dismiss]);
+
   useLayoutEffect(() => {
     if (!isHovering && !showClickTooltip) return;
     updateTooltipPosition();
   }, [isHovering, showClickTooltip, updateTooltipPosition]);
 
   useEffect(() => {
-    if (!isHovering) return;
+    if (!isHovering && !showClickTooltip) return;
     const onScrollOrResize = () => updateTooltipPosition();
     window.addEventListener('scroll', onScrollOrResize, true);
     window.addEventListener('resize', onScrollOrResize);
@@ -44,11 +70,12 @@ export function useSkillTilePortalTooltip() {
       window.removeEventListener('scroll', onScrollOrResize, true);
       window.removeEventListener('resize', onScrollOrResize);
     };
-  }, [isHovering, updateTooltipPosition]);
+  }, [isHovering, showClickTooltip, updateTooltipPosition]);
 
   const tooltipVisible = isHovering || showClickTooltip;
 
   const onTileClick = () => {
+    dispatchDismiss();
     updateTooltipPosition();
     handleClick();
   };

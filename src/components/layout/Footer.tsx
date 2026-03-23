@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { en } from '@/language';
 import { BodyText, SubHeading } from '../text';
 import { PrimaryButton, TertiaryButton } from '../ui';
@@ -34,10 +35,17 @@ export default function Footer() {
             </BodyText>
           </div>
           <div className="footer-column lg:border-l-1">
-            <PrimaryButton hyperlink="documents/CV.pdf" target="_blank">
+            <PrimaryButton
+              hyperlink="documents/CV.pdf"
+              target="_blank"
+              aria-label={en.footerSection.ariaDownloadCV}
+            >
               <FileUser className="h-6 w-6" />
             </PrimaryButton>
-            <PrimaryButton hyperlink="mailto:zahed.heidari2@gmail.com">
+            <PrimaryButton
+              hyperlink="mailto:zahed.heidari2@gmail.com"
+              aria-label={en.footerSection.ariaSendEmail}
+            >
               <Mail className="h-6 w-6" />
             </PrimaryButton>
           </div>
@@ -45,18 +53,21 @@ export default function Footer() {
             <TertiaryButton
               hyperlink="https://www.linkedin.com/in/zahed-heidari-56602b183/"
               target="_blank"
+              aria-label={en.footerSection.ariaLinkedIn}
             >
               <SiLinkedin className="h-6 w-6" />
             </TertiaryButton>
             <TertiaryButton
               hyperlink="https://github.com/zahedh"
               target="_blank"
+              aria-label={en.footerSection.ariaGitHub}
             >
               <SiGithub className="h-6 w-6" />
             </TertiaryButton>
             <TertiaryButton
               hyperlink="https://sessionize.com/zahedheidari/"
               target="_blank"
+              aria-label={en.footerSection.ariaSessionize}
             >
               <SiSessionize className="h-6 w-6" />
             </TertiaryButton>
@@ -66,9 +77,9 @@ export default function Footer() {
       <BodyText className="mt-6 flex flex-wrap items-center justify-center gap-x-2 text-sm text-neutral-600 dark:text-neutral-400">
         <span>{en.footerSection.copyrightText}</span>
         <span className="text-neutral-400 dark:text-neutral-500">·</span>
-        <a href="/privacy" className="link-accent">
+        <Link href="/privacy" className="link-accent">
           {en.footerSection.privacyLinkLabel}
-        </a>
+        </Link>
       </BodyText>
     </footer>
   );

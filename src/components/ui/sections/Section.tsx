@@ -5,6 +5,8 @@ import SectionDivider from './SectionDivider';
 
 type SectionProps = {
   title?: string;
+  /** Use `h1` only when this section title is the main page heading (e.g. legal pages). */
+  titleAs?: 'h1' | 'h2';
   subheading?: string;
   align?: 'left' | 'center' | 'right';
   italicize?: boolean;
@@ -22,6 +24,7 @@ type SectionProps = {
 /** Generic layout section used to structure page content. */
 export default function Section({
   title,
+  titleAs = 'h2',
   subheading,
   align = 'left',
   italicize = true,
@@ -40,6 +43,7 @@ export default function Section({
       {title && (
         <div className="mb-2 flex w-full items-center justify-between gap-4">
           <Heading
+            as={titleAs}
             className={clsx(
               align === 'center' && 'text-center',
               align === 'right' && 'text-right',

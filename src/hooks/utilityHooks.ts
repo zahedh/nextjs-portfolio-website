@@ -1,5 +1,11 @@
 'use client';
-import { useEffect, useContext, useState, useRef } from 'react';
+import {
+  useEffect,
+  useContext,
+  useState,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import {
   useGlobalStore,
@@ -28,10 +34,19 @@ export function useTheme() {
   const store = useContext(GlobalStoreContext);
 
   useEffect(() => {
+    if (!store) return;
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark' && store) {
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    const isDark =
+      storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
+    if (isDark) {
       document.documentElement.classList.add('dark');
       store.setState({ isDark: true });
+    } else {
+      document.documentElement.classList.remove('dark');
+      store.setState({ isDark: false });
     }
   }, [store]);
 
@@ -83,22 +98,22 @@ export function useExpandableContent(maxHeight: number = 300) {
   };
 }
 
-/** Detects if the viewport matches or exceeds a given Tailwind breakpoint. */
+/**
+ * Detects if the viewport matches or exceeds a given Tailwind breakpoint.
+ * Initial state is always `false` so SSR and first client render match (avoids hydration mismatch).
+ * Sync runs in `useLayoutEffect` so the correct mode applies before paint.
+ */
 export function useBreakpoint(breakpoint: Breakpoint) {
-  const [matches, setMatches] = useState(
-    typeof window !== 'undefined'
-      ? window.innerWidth >= BREAKPOINTS[breakpoint]
-      : false
-  );
+  const [matches, setMatches] = useState(false);
 
-  useEffect(() => {
-    const checkBreakpoint = () => {
-      setMatches(window.innerWidth >= BREAKPOINTS[breakpoint]);
-    };
-
-    checkBreakpoint();
-    window.addEventListener('resize', checkBreakpoint);
-    return () => window.removeEventListener('resize', checkBreakpoint);
+  useLayoutEffect(() => {
+    const minWidthQuery = `(min-width: ${BREAKPOINTS[breakpoint]}px)`;
+    const mediaQueryList = window.matchMedia(minWidthQuery);
+    const syncMatchesFromViewport = () => setMatches(mediaQueryList.matches);
+    syncMatchesFromViewport();
+    mediaQueryList.addEventListener('change', syncMatchesFromViewport);
+    return () =>
+      mediaQueryList.removeEventListener('change', syncMatchesFromViewport);
   }, [breakpoint]);
 
   return matches;
