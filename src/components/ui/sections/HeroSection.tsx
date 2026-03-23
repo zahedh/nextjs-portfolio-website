@@ -3,12 +3,20 @@
 import { BodyText, Section, SubHeading } from '@/components';
 import { AvatarGraphic } from '@/components/media';
 import { HeroFloatingOrbs } from '@/components/ui/animations';
+import { useGlobalStore } from '@/providers/global-store-provider';
 import { en } from '@/language';
 import { WavingHand } from '../animations/WavingHand';
 import { AnimatedText } from '../animations/AnimatedText';
 
 /** Hero section introducing the portfolio and primary value proposition. */
 export default function HeroSection() {
+  const heroAnimationComplete = useGlobalStore(
+    (state) => state.heroAnimationComplete
+  );
+  const setHeroAnimationComplete = useGlobalStore(
+    (state) => state.setHeroAnimationComplete
+  );
+
   return (
     <Section anchor="home" showDivider={false}>
       <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden sm:flex-row">
@@ -30,11 +38,17 @@ export default function HeroSection() {
                 <AnimatedText
                   delay={1.4}
                   text={en.heroSection.subHeaderPartTwo}
+                  skipAnimation={heroAnimationComplete}
                 />
               </span>
             </h2>
             <BodyText className="mt-4 max-w-2xl text-center text-base leading-normal tracking-tight sm:text-left sm:text-lg md:text-xl">
-              <AnimatedText delay={2.4} text={en.heroSection.supportingText} />
+              <AnimatedText
+                delay={2.4}
+                text={en.heroSection.supportingText}
+                skipAnimation={heroAnimationComplete}
+                onAnimationComplete={setHeroAnimationComplete}
+              />
             </BodyText>
           </div>
         </div>
