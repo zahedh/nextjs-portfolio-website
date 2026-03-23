@@ -3,7 +3,7 @@
 import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { scrollToProjectsSection } from '@/lib/utils';
+import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/utils';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion } from 'motion/react';
@@ -15,6 +15,9 @@ export default function SkillsSection() {
   );
 
   const handleSkillClick = (skillId: string) => {
+    if (!hasAnyProjectForSkill(skillId)) {
+      return;
+    }
     setSelectedSkillId(skillId);
     scrollToProjectsSection();
   };

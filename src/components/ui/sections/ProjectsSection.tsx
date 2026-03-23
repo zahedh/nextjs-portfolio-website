@@ -2,6 +2,7 @@
 import { ProjectCard, Section, PrimaryButton } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { projectMatchesSkill } from '@/lib/utils';
+import { skillsData } from '@/data';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -42,35 +43,38 @@ export default function ProjectsSection() {
   }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
 
   const filteredProjects = useMemo(() => {
-    const typeFiltered =
-      selectedType === 'All'
-        ? [...projects]
-        : projects.filter((project) => project.projectType === selectedType);
-    if (!selectedSkillId) {
-      return typeFiltered;
+    if (selectedSkillId) {
+      return projects.filter((project) =>
+        projectMatchesSkill(project, selectedSkillId)
+      );
     }
-    const matching: typeof typeFiltered = [];
-    const nonMatching: typeof typeFiltered = [];
-    for (const project of typeFiltered) {
-      if (projectMatchesSkill(project, selectedSkillId)) {
-        matching.push(project);
-      } else {
-        nonMatching.push(project);
-      }
+    if (selectedType === 'All') {
+      return [...projects];
     }
-    return [...matching, ...nonMatching];
+    return projects.filter((project) => project.projectType === selectedType);
   }, [selectedType, selectedSkillId]);
 
-  const filterButtons = (
+  const selectedSkillLabel = selectedSkillId
+    ? skillsData.find((s) => s.id === selectedSkillId)?.label ?? selectedSkillId
+    : null;
+
+  const filterButtons = selectedSkillId ? (
+    <div className="flex flex-wrap items-center justify-end gap-3">
+      <span
+        className="text-brand-600 dark:text-brand-300 font-heading text-sm font-semibold tracking-tight sm:text-base"
+        aria-live="polite"
+      >
+        {selectedSkillLabel}
+      </span>
+      <PrimaryButton
+        onClick={() => setSelectedSkillId(null)}
+        className="filter-inactive"
+      >
+        {en.projectFilters.clearSkillFilter}
+      </PrimaryButton>
+    </div>
+  ) : (
     <>
-      {selectedSkillId && (
-        <PrimaryButton
-          onClick={() => setSelectedSkillId(null)}
-          className="filter-inactive"
-        >
-          {en.projectFilters.clearSkillFilter}
-        </PrimaryButton>
-      )}
       <PrimaryButton
         onClick={() => setSelectedType('All')}
         className={selectedType !== 'All' ? 'filter-inactive' : ''}

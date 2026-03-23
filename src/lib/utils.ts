@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { projects } from '@/data/projects';
+
 /** Combines and intelligently merges Tailwind class names. */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -71,6 +73,10 @@ export function projectMatchesSkill(
   return project.skills.some(
     (projectSkill) => normalizeSkillId(projectSkill) === normalizedSkillId
   );
+}
+
+export function hasAnyProjectForSkill(skillId: string): boolean {
+  return projects.some((project) => projectMatchesSkill(project, skillId));
 }
 
 export function scrollToProjectsSection(): void {
