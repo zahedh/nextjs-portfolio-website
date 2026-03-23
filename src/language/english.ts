@@ -158,7 +158,14 @@ export const en = {
     connectHeader: 'Connect',
     copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
     privacyLinkLabel: 'Privacy',
+    ariaDownloadCV: 'Download CV',
+    ariaSendEmail: 'Send email to Zahed',
+    ariaLinkedIn: 'LinkedIn profile',
+    ariaGitHub: 'GitHub profile',
+    ariaSessionize: 'Sessionize profile',
   },
+
+  themeToggle: 'Toggle light or dark mode',
 
   contributionsSection: {
     loading: 'Loading contributions...',
