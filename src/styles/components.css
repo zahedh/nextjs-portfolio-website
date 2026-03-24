@@ -155,11 +155,6 @@
 /* =========================
    🎨 SWIPER (project carousel)
    ========================= */
-@media (min-width: 1024px) {
-  .projects-section-swiper.swiper {
-    overflow: visible;
-  }
-}
 
 .swiper-pagination-bullet {
   background-color: #dd993c !important;

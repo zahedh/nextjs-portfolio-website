@@ -55,7 +55,8 @@ export default function ProjectsSection() {
   }, [selectedType, selectedSkillId]);
 
   const selectedSkillLabel = selectedSkillId
-    ? skillsData.find((s) => s.id === selectedSkillId)?.label ?? selectedSkillId
+    ? (skillsData.find((s) => s.id === selectedSkillId)?.label ??
+      selectedSkillId)
     : null;
 
   const filterButtons = selectedSkillId ? (
@@ -103,7 +104,7 @@ export default function ProjectsSection() {
       filterButtons={filterButtons}
     >
       <motion.div
-        className="relative isolate w-full max-w-full min-w-0 overflow-x-hidden lg:overflow-visible"
+        className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}

@@ -100,7 +100,11 @@ export default function RootLayout({
 }>) {
   return (
     <GlobalStoreProvider>
-      <html lang="en" className={fontClasses} suppressHydrationWarning>
+      <html
+        lang="en"
+        className={`${fontClasses} max-xl:overflow-x-clip`}
+        suppressHydrationWarning
+      >
         <head>
           <script
             dangerouslySetInnerHTML={{
@@ -118,7 +122,7 @@ export default function RootLayout({
           />
         </head>
         <body
-          className="prime-parent bg-neutral-100 antialiased dark:bg-neutral-900"
+          className="prime-parent bg-neutral-100 antialiased max-xl:overflow-x-clip dark:bg-neutral-900"
           suppressHydrationWarning
         >
           {children}

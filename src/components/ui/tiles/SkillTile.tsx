@@ -60,7 +60,7 @@ export function SkillTile({
 
   return (
     <>
-        <div
+      <div
         ref={tileRef}
         role={isClickable ? 'button' : 'img'}
         tabIndex={isClickable ? 0 : undefined}

@@ -14,7 +14,7 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-1',
     title: 'Developer',
     company: 'Blue Beck Ltd',
-    location: 'Macclesfield, England, United Kingdom',
+    location: 'Macclesfield, UK',
     startDate: 'Mar 2023',
     endDate: 'Present',
     description: [
@@ -50,7 +50,7 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-2',
     title: 'Senior Web Solutions Developer',
     company: 'Interlockdigital',
-    location: 'Stoke-on-Trent, England, United Kingdom',
+    location: 'Stoke-on-Trent, UK',
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
     description: [
@@ -88,7 +88,7 @@ export const jobExperiences: JobExperience[] = [
     id: 'job-3',
     title: 'Junior Web Solutions Developer',
     company: 'Interlockdigital',
-    location: 'Stoke-on-Trent, England, United Kingdom',
+    location: 'Stoke-on-Trent, UK',
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     description: [
