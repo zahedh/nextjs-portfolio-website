@@ -23,22 +23,53 @@ export function createEscapeHandler(callback: () => void) {
 
 const SMOOTH_SCROLL_MAX_DISTANCE_RATIO = 1.5;
 
+/** Matches Tailwind `lg` — below this, long smooth scroll is more likely to jank. */
+function isNarrowViewport(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(max-width: 1023px)').matches;
+}
+
 function prefersReducedMotion(): boolean {
   if (typeof window === 'undefined') return false;
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/** Shared distance cap for “short enough to smooth” (mobile section links + desktop scroll-to-top). */
 function scrollBehaviorForDistance(distancePx: number): ScrollBehavior {
   if (prefersReducedMotion()) return 'auto';
   const maxDistance = window.innerHeight * SMOOTH_SCROLL_MAX_DISTANCE_RATIO;
   return distancePx <= maxDistance ? 'smooth' : 'auto';
 }
 
-/** Scrolls an element into view; smooth only for short travel, instant for long jumps. */
+/**
+ * Section / in-page anchors: always smooth on wide viewports; on narrow, same distance cap as before.
+ */
+function scrollBehaviorForAnchor(distancePx: number): ScrollBehavior {
+  if (prefersReducedMotion()) return 'auto';
+  if (!isNarrowViewport()) {
+    return 'smooth';
+  }
+  return scrollBehaviorForDistance(distancePx);
+}
+
+/**
+ * Home / scroll-to-top: stricter on mobile (smooth only when already near the top); desktop uses distance cap.
+ */
+function scrollToTopBehavior(): ScrollBehavior {
+  if (prefersReducedMotion()) return 'auto';
+  const distance = window.scrollY;
+  if (isNarrowViewport()) {
+    const maxSmooth = window.innerHeight * 0.4;
+    return distance <= maxSmooth ? 'smooth' : 'auto';
+  }
+  return scrollBehaviorForDistance(distance);
+}
+
+/** Scrolls an element into view (section anchors). */
 export function scrollElementIntoViewAdaptive(el: Element): void {
   const rect = el.getBoundingClientRect();
   const distance = Math.abs(rect.top);
-  const behavior = scrollBehaviorForDistance(distance);
+  const behavior = scrollBehaviorForAnchor(distance);
   el.scrollIntoView({ behavior, block: 'start' });
 }
 
@@ -51,7 +82,7 @@ function anchorSelectorFromHref(href: string): string | null {
 }
 
 /**
- * In-page anchor navigation: smooth only for short scroll distance; long jumps use instant scroll.
+ * In-page anchor navigation: smooth on desktop; on mobile, long jumps use instant scroll.
  * @param e - React mouse event from clicking an anchor link
  */
 export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -66,14 +97,12 @@ export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 /**
- * Scrolls to the top of the page; smooth only when already near the top.
+ * Scrolls to the top of the page. On mobile, smooth only when already near the top.
  * @param e - Optional React mouse event to prevent default behavior
  */
 export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
   e?.preventDefault();
-  const distance = window.scrollY;
-  const behavior = scrollBehaviorForDistance(distance);
-  window.scrollTo({ top: 0, behavior });
+  window.scrollTo({ top: 0, behavior: scrollToTopBehavior() });
 }
 
 function normalizeSkillId(s: string): string {
