@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Section } from '@/components';
 import { SubHeading, BodyText } from '@/components/text';
+import { socialShareImageMeta } from '@/lib/social-metadata';
 import { en } from '@/language';
 
 export const metadata: Metadata = {
@@ -16,21 +17,14 @@ export const metadata: Metadata = {
       'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
     url: '/privacy',
     type: 'website',
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1024,
-        height: 682,
-        alt: 'Zahed Heidari - Web & Mobile Developer',
-      },
-    ],
+    images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Privacy Policy | Zahed Heidari',
     description:
       'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
-    images: ['/images/twitter-card.png'],
+    images: [socialShareImageMeta],
   },
 };
 
