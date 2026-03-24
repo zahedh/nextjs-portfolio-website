@@ -43,26 +43,29 @@ export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function normalizeSkillId(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[.\s-]/g, '')
+    .trim();
+}
+
 /**
- * Maps skill IDs to their corresponding skill objects
- * @param skillIds - Array of skill identifier strings
- * @param skillsData - Complete dataset of skill objects
- * @returns Array of skill objects that match the provided IDs
+ * Maps skill IDs to their corresponding skill objects.
+ * Uses the same normalisation as {@link projectMatchesSkill} (e.g. `vb.net` ↔ `vb-net`, `next.js` ↔ `nextjs`).
  */
 export function getSkillsByIds<T extends { id: string }>(
   skillIds: string[],
   skillsData: T[]
 ): T[] {
   return skillIds
-    .map((skillId) => skillsData.find((s) => s.id === skillId))
+    .map((skillId) => {
+      const exact = skillsData.find((s) => s.id === skillId);
+      if (exact) return exact;
+      const n = normalizeSkillId(skillId);
+      return skillsData.find((s) => normalizeSkillId(s.id) === n);
+    })
     .filter((skill): skill is T => skill !== undefined);
-}
-
-function normalizeSkillId(s: string): string {
-  return s
-    .toLowerCase()
-    .replace(/[.\s-]/g, '')
-    .trim();
 }
 
 export function projectMatchesSkill(
