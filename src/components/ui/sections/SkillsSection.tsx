@@ -6,10 +6,11 @@ import { useGlobalStore } from '@/providers/global-store-provider';
 import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/utils';
 import { en } from '@/language';
 import { skillsData } from '@/data';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
+  const prefersReducedMotion = useReducedMotion();
   const setSelectedSkillId = useGlobalStore(
     (state) => state.setSelectedSkillId
   );
@@ -29,27 +30,40 @@ export default function SkillsSection() {
           const row = Math.floor(index / 8);
           const direction = row % 2 === 0 ? 1 : -1;
           const offset = (index % 8) * 0.5;
+          const stagger = Math.min(index * 0.02, 0.45);
 
           return (
             <motion.div
               key={skill.id}
               className="relative hover:z-[100]"
-              initial={{ opacity: 0, y: 20 }}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 18 }
+              }
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              animate={{
-                x: [0, direction * 5, 0],
+              viewport={{
+                once: true,
+                margin: '25% 0px',
+                amount: 0.15,
               }}
+              animate={
+                prefersReducedMotion ? undefined : { x: [0, direction * 5, 0] }
+              }
               transition={{
-                opacity: { duration: 0.5, delay: index * 0.03 },
-                y: { duration: 0.5, delay: index * 0.03 },
-                x: {
-                  duration: 4 + offset,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: offset,
-                  repeatType: 'loop',
-                },
+                opacity: { duration: 0.45, delay: stagger },
+                y: { duration: 0.45, delay: stagger },
+                ...(prefersReducedMotion
+                  ? {}
+                  : {
+                      x: {
+                        duration: 4 + offset,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: offset,
+                        repeatType: 'loop',
+                      },
+                    }),
               }}
             >
               <SkillTile
