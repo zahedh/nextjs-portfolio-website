@@ -36,7 +36,7 @@ function ProjectCardDetails({
   projectSkills: Skill[];
 }) {
   return (
-    <div className="space-y-6 pb-8">
+    <div className="space-y-6 pb-3">
       <div className="space-y-4">
         {project.description.map((paragraph, index) => (
           <p
@@ -71,6 +71,7 @@ export default function ProjectCard({
   const [imageError, setImageError] = useState(false);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
+  const ImageComponent = project.imageComponent;
 
   useEffect(() => {
     setExpandReady(false);
@@ -128,7 +129,12 @@ export default function ProjectCard({
 
       <div className="card-image-wrapper">
         <div className="flex h-64 w-full min-w-0 items-center justify-center overflow-hidden px-1 py-2">
-          {project.image && !imageError ? (
+          {ImageComponent ? (
+            <ImageComponent
+              alt={`${project.title} preview`}
+              className="h-40 w-40 shrink-0 rounded-xl object-cover shadow-md sm:h-48 sm:w-48"
+            />
+          ) : project.image && !imageError ? (
             <Image
               src={project.image}
               alt={`${project.title} preview`}

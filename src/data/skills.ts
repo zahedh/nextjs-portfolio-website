@@ -36,10 +36,13 @@ import { FaWindows } from 'react-icons/fa';
 import {
   Activity,
   BarChart2,
+  Bot,
   Code2,
   Lightbulb,
+  MousePointer2,
   Network,
   Sparkles,
+  WandSparkles,
 } from 'lucide-react';
 import { en } from '@/language';
 import type { IconType } from 'react-icons';
@@ -200,6 +203,12 @@ export const skillsData: Skill[] = [
     category: 'dev-tools',
   },
   {
+    id: 'cursor',
+    label: en.skillsCollageSection.cursor,
+    icon: MousePointer2,
+    category: 'dev-tools',
+  },
+  {
     id: 'vite',
     label: en.skillsCollageSection.vite,
     icon: SiVite,
@@ -345,6 +354,18 @@ export const skillsData: Skill[] = [
     id: 'prompt-engineering',
     label: en.skillsCollageSection.promptEngineering,
     icon: Lightbulb,
+    category: 'ai',
+  },
+  {
+    id: 'generative-ai',
+    label: en.skillsCollageSection.generativeAI,
+    icon: WandSparkles,
+    category: 'ai',
+  },
+  {
+    id: 'agentic-ai',
+    label: en.skillsCollageSection.agenticAI,
+    icon: Bot,
     category: 'ai',
   },
 

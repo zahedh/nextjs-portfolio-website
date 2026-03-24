@@ -92,6 +92,7 @@ export const en = {
 
     // Development Tools & IDEs
     github: 'GitHub',
+    cursor: 'Cursor',
     vercel: 'Vercel',
     vercelAnalytics: 'Vercel Analytics',
     speedInsights: 'Speed Insights',
@@ -125,6 +126,8 @@ export const en = {
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
     promptEngineering: 'Prompt Engineering',
+    generativeAI: 'Generative AI',
+    agenticAI: 'Agentic AI',
 
     // Operating Systems
     macOS: 'macOS',
@@ -184,6 +187,7 @@ export const en = {
     all: 'All',
     mobile: 'Mobile',
     web: 'Web',
+    clearSkillFilter: 'All skills',
   },
 
   projectCard: {

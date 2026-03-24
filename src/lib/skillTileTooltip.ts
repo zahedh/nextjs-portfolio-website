@@ -1,5 +1,5 @@
 /** Vertical gap (px) between tooltip bottom edge and tile top — matches translate calc. */
-export const SKILL_TILE_TOOLTIP_GAP_PX = 8;
+export const SKILL_TILE_TOOLTIP_GAP_PX = 4;
 
 /**
  * Anchor point for a fixed tooltip above a tile: horizontal center, top edge of the tile.

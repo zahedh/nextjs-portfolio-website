@@ -1,5 +1,8 @@
 'use client';
 import { ProjectCard, Section, PrimaryButton } from '@/components';
+import { useGlobalStore } from '@/providers/global-store-provider';
+import { projectMatchesSkill } from '@/lib/utils';
+import { skillsData } from '@/data';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -21,6 +24,10 @@ export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
+  const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
+  const setSelectedSkillId = useGlobalStore(
+    (state) => state.setSelectedSkillId
+  );
 
   useEffect(() => {
     if (isLargeScreen) return;
@@ -33,15 +40,41 @@ export default function ProjectsSection() {
     });
     ro.observe(slide);
     return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType, swiperReady]);
+  }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
 
   const filteredProjects = useMemo(() => {
-    return selectedType === 'All'
-      ? projects
-      : projects.filter((project) => project.projectType === selectedType);
-  }, [selectedType]);
+    if (selectedSkillId) {
+      return projects.filter((project) =>
+        projectMatchesSkill(project, selectedSkillId)
+      );
+    }
+    if (selectedType === 'All') {
+      return [...projects];
+    }
+    return projects.filter((project) => project.projectType === selectedType);
+  }, [selectedType, selectedSkillId]);
 
-  const filterButtons = (
+  const selectedSkillLabel = selectedSkillId
+    ? (skillsData.find((s) => s.id === selectedSkillId)?.label ??
+      selectedSkillId)
+    : null;
+
+  const filterButtons = selectedSkillId ? (
+    <div className="flex flex-wrap items-center justify-end gap-3">
+      <span
+        className="text-brand-600 dark:text-brand-300 font-heading text-sm font-semibold tracking-tight sm:text-base"
+        aria-live="polite"
+      >
+        {selectedSkillLabel}
+      </span>
+      <PrimaryButton
+        onClick={() => setSelectedSkillId(null)}
+        className="filter-inactive"
+      >
+        {en.projectFilters.clearSkillFilter}
+      </PrimaryButton>
+    </div>
+  ) : (
     <>
       <PrimaryButton
         onClick={() => setSelectedType('All')}
@@ -71,7 +104,7 @@ export default function ProjectsSection() {
       filterButtons={filterButtons}
     >
       <motion.div
-        className="relative isolate w-full max-w-full min-w-0 overflow-x-hidden lg:overflow-visible"
+        className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -79,7 +112,7 @@ export default function ProjectsSection() {
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={selectedType}
+            key={`${selectedType}-${selectedSkillId ?? 'all'}`}
             initial={{ opacity: 0, scale: 0.98, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: -8 }}
@@ -87,7 +120,7 @@ export default function ProjectsSection() {
             className="w-full"
           >
             <Swiper
-              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}`}
+              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}-${selectedSkillId ?? 'all'}`}
               className="projects-section-swiper w-full"
               spaceBetween={50}
               pagination={{

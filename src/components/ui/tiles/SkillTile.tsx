@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import { IconType } from 'react-icons';
 import { createPortal } from 'react-dom';
+import { useDoubleActivation } from '@/hooks/useDoubleActivation';
 import { useSkillTilePortalTooltip } from '@/hooks/skillTilePortalTooltip';
 import { getSkillTileTooltipTransform } from '@/lib';
 
@@ -10,6 +11,7 @@ type SkillTileProps = {
   label: string;
   className?: string;
   compact?: boolean;
+  onClick?: () => void;
 };
 
 const tooltipSurfaceClass =
@@ -21,16 +23,19 @@ export function SkillTile({
   label,
   className,
   compact = false,
+  onClick,
 }: SkillTileProps) {
   const {
     tileRef,
     mounted,
     tooltipVisible,
     tooltipPos,
-    onTileClick,
     onTileMouseEnter,
     onTileMouseLeave,
   } = useSkillTilePortalTooltip();
+
+  const isClickable = Boolean(onClick);
+  const tryDoubleActivate = useDoubleActivation(onClick, isClickable);
 
   const tooltipNode =
     mounted &&
@@ -57,25 +62,29 @@ export function SkillTile({
     <>
       <div
         ref={tileRef}
-        role="button"
-        tabIndex={0}
+        role={isClickable ? 'button' : 'img'}
+        tabIndex={isClickable ? 0 : undefined}
         aria-label={label}
-        onClick={onTileClick}
+        onClick={isClickable ? tryDoubleActivate : undefined}
+        onKeyDown={
+          isClickable
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  tryDoubleActivate();
+                }
+              }
+            : undefined
+        }
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onTileClick();
-          }
-        }}
         className={clsx(
           compact
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
             : 'relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',
           'rounded-full',
           'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
-          'shadow-sm transition-all duration-300 hover:scale-110',
+          'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
           'hover:bg-brand-500 cursor-pointer',
           className
         )}

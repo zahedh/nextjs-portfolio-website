@@ -2,12 +2,26 @@
 
 import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
+import { useGlobalStore } from '@/providers/global-store-provider';
+import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/utils';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion } from 'motion/react';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
+  const setSelectedSkillId = useGlobalStore(
+    (state) => state.setSelectedSkillId
+  );
+
+  const handleSkillClick = (skillId: string) => {
+    if (!hasAnyProjectForSkill(skillId)) {
+      return;
+    }
+    setSelectedSkillId(skillId);
+    scrollToProjectsSection();
+  };
+
   return (
     <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
       <div className="section-content mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-6">
@@ -18,7 +32,7 @@ export default function SkillsSection() {
 
           return (
             <motion.div
-              key={index}
+              key={skill.id}
               className="relative hover:z-[100]"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +52,11 @@ export default function SkillsSection() {
                 },
               }}
             >
-              <SkillTile icon={skill.icon} label={skill.label} />
+              <SkillTile
+                icon={skill.icon}
+                label={skill.label}
+                onClick={() => handleSkillClick(skill.id)}
+              />
             </motion.div>
           );
         })}

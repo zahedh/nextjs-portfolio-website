@@ -1,3 +1,12 @@
+import type { ComponentType } from 'react';
+
+import { AvatarGraphic } from '@/components/media';
+
+export type ProjectImageComponentProps = {
+  alt?: string;
+  className?: string;
+};
+
 export interface Project {
   id: string;
   projectType: 'Mobile' | 'Web';
@@ -7,8 +16,8 @@ export interface Project {
   endDate: string;
   description: string[];
   skills: string[];
-  image?: string; // Path to project image (optional)
-  /** Public URL (live site, store listing, case study, etc.) */
+  image?: string;
+  imageComponent?: ComponentType<ProjectImageComponentProps>;
   url?: string;
 }
 
@@ -20,7 +29,6 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Mar 2025',
     endDate: 'Present',
-    image: '/images/renderLabBanner.png',
     description: [
       '✦ A browser-based video effects editor with a dark UI and real-time preview — switch between ASCII, pixel sort, and pixelate modes.',
       '✦ Fine-grained controls per effect: pixel size, palettes, dithering, saturation, contrast, brightness, and optional scanline-style treatments.',
@@ -32,6 +40,7 @@ export const projects: Project[] = [
       'react',
       'typescript',
       'javascript',
+      'prettier',
       'tailwind',
       'html',
       'css',
@@ -40,6 +49,11 @@ export const projects: Project[] = [
       'vercel',
       'vercel-analytics',
       'speed-insights',
+      'prompt-engineering',
+      'generative-ai',
+      'agentic-ai',
+      'cursor',
+      'notion',
     ],
   },
   {
@@ -50,7 +64,7 @@ export const projects: Project[] = [
     startDate: 'Jan 2025',
     endDate: 'Present',
     url: 'https://zahedheidari.co.uk',
-    image: '/images/lightModeAvatar.png',
+    imageComponent: AvatarGraphic,
     description: [
       '✦ Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
@@ -63,19 +77,29 @@ export const projects: Project[] = [
       '✦ Integrated Vercel Analytics and Speed Insights for traffic and Core Web Vitals monitoring.',
     ],
     skills: [
-      'next.js',
+      'nextjs',
       'react',
       'typescript',
+      'javascript',
+      'jest',
+      'prettier',
       'tailwind',
+      'html',
+      'css',
       'github',
+      'rest-api',
       'vercel',
       'vercel-analytics',
       'speed-insights',
       'github-copilot',
       'figma',
+      'notion',
       'vscode',
+      'cursor',
       'chatgpt',
       'prompt-engineering',
+      'generative-ai',
+      'agentic-ai',
     ],
   },
   {
@@ -100,6 +124,10 @@ export const projects: Project[] = [
       'react',
       'React Native',
       'typescript',
+      'javascript',
+      'jest',
+      'prettier',
+      'firebase',
       'tailwind',
       'github-copilot',
       'figma',
@@ -108,12 +136,17 @@ export const projects: Project[] = [
       'prompt-engineering',
       'jira',
       'xcode',
+      'objective-c',
       'android-studio',
       'postman',
+      'rest-api',
       'slack',
+      'notion',
       'gemini',
       'chatgpt',
       'notebooklm',
+      'generative-ai',
+      'agentic-ai',
     ],
   },
   {
@@ -133,8 +166,9 @@ export const projects: Project[] = [
       '✦ Delivered post-order email flows to customers and suppliers using XSLT-driven templates.',
     ],
     skills: [
-      'asp.net',
-      'vb.net',
+      'aspnet',
+      'dotnet',
+      'vb-net',
       'jquery',
       'xml',
       'github',
@@ -142,6 +176,7 @@ export const projects: Project[] = [
       'agile',
       'jira',
       'postman',
+      'rest-api',
       'mysql',
       'oracle-netsuite',
       'html',
@@ -199,6 +234,7 @@ export const projects: Project[] = [
       'javascript',
       'jsx',
       'github',
+      'rest-api',
       'android-studio',
       'xcode',
       'xml',
@@ -228,6 +264,7 @@ export const projects: Project[] = [
       'javascript',
       'jsx',
       'github',
+      'rest-api',
       'android-studio',
       'xcode',
       'xml',
@@ -251,7 +288,16 @@ export const projects: Project[] = [
       '✦ Dynamically generates content and layouts based on user-uploaded data.',
       '✦ Efficiently produces up to 100 customised PDFs in under an hour.',
     ],
-    skills: ['php', 'jquery', 'javascript', 'github', 'mysql', 'html', 'css'],
+    skills: [
+      'php',
+      'wordpress',
+      'jquery',
+      'javascript',
+      'github',
+      'mysql',
+      'html',
+      'css',
+    ],
   },
   {
     id: 'project-7',
@@ -269,17 +315,16 @@ export const projects: Project[] = [
     ],
     skills: [
       'React Native',
+      'react',
       'node.js',
       'javascript',
       'jsx',
       'github',
+      'firebase',
       'android-studio',
       'xcode',
       'xml',
       'objective-c',
-      'html',
-      'css',
-      'wordpress',
     ],
   },
 ];
