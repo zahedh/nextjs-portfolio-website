@@ -21,26 +21,59 @@ export function createEscapeHandler(callback: () => void) {
   };
 }
 
+const SMOOTH_SCROLL_MAX_DISTANCE_RATIO = 1.5;
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function scrollBehaviorForDistance(distancePx: number): ScrollBehavior {
+  if (prefersReducedMotion()) return 'auto';
+  const maxDistance = window.innerHeight * SMOOTH_SCROLL_MAX_DISTANCE_RATIO;
+  return distancePx <= maxDistance ? 'smooth' : 'auto';
+}
+
+/** Scrolls an element into view; smooth only for short travel, instant for long jumps. */
+export function scrollElementIntoViewAdaptive(el: Element): void {
+  const rect = el.getBoundingClientRect();
+  const distance = Math.abs(rect.top);
+  const behavior = scrollBehaviorForDistance(distance);
+  el.scrollIntoView({ behavior, block: 'start' });
+}
+
+function anchorSelectorFromHref(href: string): string | null {
+  const i = href.indexOf('#');
+  if (i === -1) return null;
+  const hash = href.slice(i);
+  if (hash.length <= 1) return null;
+  return hash;
+}
+
 /**
- * Handles smooth scrolling to an anchor element on the page
- * Prevents default anchor behavior and uses scrollIntoView with smooth animation
+ * In-page anchor navigation: smooth only for short scroll distance; long jumps use instant scroll.
  * @param e - React mouse event from clicking an anchor link
  */
 export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
   e.preventDefault();
   const href = e.currentTarget.getAttribute('href');
-  if (href) {
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
-  }
+  if (!href) return;
+  const selector = anchorSelectorFromHref(href);
+  if (!selector) return;
+  const el = document.querySelector(selector);
+  if (!el) return;
+  scrollElementIntoViewAdaptive(el);
 }
 
 /**
- * Scrolls to the top of the page with smooth animation
+ * Scrolls to the top of the page; smooth only when already near the top.
  * @param e - Optional React mouse event to prevent default behavior
  */
 export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
   e?.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const distance = window.scrollY;
+  const behavior = scrollBehaviorForDistance(distance);
+  window.scrollTo({ top: 0, behavior });
 }
 
 function normalizeSkillId(s: string): string {
@@ -83,5 +116,7 @@ export function hasAnyProjectForSkill(skillId: string): boolean {
 }
 
 export function scrollToProjectsSection(): void {
-  document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+  const el = document.querySelector('#projects');
+  if (!el) return;
+  scrollElementIntoViewAdaptive(el);
 }
