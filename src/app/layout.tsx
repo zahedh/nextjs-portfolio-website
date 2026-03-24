@@ -73,7 +73,7 @@ export const metadata: Metadata = {
       "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
     images: [
       {
-        url: '/images/twitter-image.png',
+        url: '/images/twitter-card.png',
         width: 1024,
         height: 682,
         alt: 'Zahed Heidari - Web & Mobile Developer',

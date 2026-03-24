@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: 'Privacy Policy | Zahed Heidari',
     description:
       'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
-    images: ['/images/twitter-image.png'],
+    images: ['/images/twitter-card.png'],
   },
 };
 
