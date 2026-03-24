@@ -3,6 +3,7 @@ import { Inter, IBM_Plex_Sans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { socialShareImageMeta } from '@/lib/social-metadata';
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
 import '../styles/index.css';
 
@@ -57,28 +58,14 @@ export const metadata: Metadata = {
     title: 'Zahed Heidari - Web & Mobile Developer',
     description:
       "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
-    images: [
-      {
-        url: '/images/og-image.png',
-        width: 1024,
-        height: 682,
-        alt: 'Zahed Heidari - Web & Mobile Developer',
-      },
-    ],
+    images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Zahed Heidari - Web & Mobile Developer',
     description:
       "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
-    images: [
-      {
-        url: '/images/twitter-card.png',
-        width: 1024,
-        height: 682,
-        alt: 'Zahed Heidari - Web & Mobile Developer',
-      },
-    ],
+    images: [socialShareImageMeta],
   },
   icons: {
     icon: [
