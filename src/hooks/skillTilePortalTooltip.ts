@@ -30,12 +30,13 @@ export function useSkillTilePortalTooltip() {
 
   useEffect(() => {
     if (!isHovering) return;
-    const onScrollOrResize = () => updateTooltipPosition();
-    window.addEventListener('scroll', onScrollOrResize, true);
-    window.addEventListener('resize', onScrollOrResize);
+    const onScroll = () => setIsHovering(false);
+    const onResize = () => updateTooltipPosition();
+    window.addEventListener('scroll', onScroll, true);
+    window.addEventListener('resize', onResize);
     return () => {
-      window.removeEventListener('scroll', onScrollOrResize, true);
-      window.removeEventListener('resize', onScrollOrResize);
+      window.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('resize', onResize);
     };
   }, [isHovering, updateTooltipPosition]);
 
