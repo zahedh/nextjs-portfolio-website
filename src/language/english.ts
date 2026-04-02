@@ -192,8 +192,34 @@ export const en = {
 
   projectCard: {
     titleLinkAria: 'Opens in a new tab',
-    /** Shown while fonts/layout preflight runs (duplicate hidden layer) */
-    expandPreparing: 'Preparing…',
+    fullCaseStudy: 'Full case study',
+    viewProject: 'View project',
+    viewProjectArrow: '→',
+  },
+
+  projectDisplay: {
+    statusActive: 'Active',
+    statusCompleted: 'Completed',
+    platformWeb: 'Web',
+    platformMobile: 'Mobile',
+    timelineLabel: 'Timeline',
+    platformLabel: 'Platform',
+    contextLabel: 'Context',
+    personalTag: 'Personal',
+    statusLabel: 'Status',
+    sectionOverview: 'Overview',
+    sectionFeatures: 'Features',
+    sectionTechStack: 'Tech stack',
+    sectionLinks: 'Links',
+    sectionMetadata: 'Details',
+    visitLive: 'Visit live site',
+    keyFeaturesSummary: 'Key features',
+    techStackSummary: 'Technologies',
+    moreSkills: '+{{count}} more',
+  },
+
+  projectDetailPanel: {
+    closeLabel: 'Close project details',
   },
 
   notFound: {

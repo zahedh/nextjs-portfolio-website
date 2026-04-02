@@ -127,6 +127,33 @@
     @apply flex flex-wrap gap-2 overflow-visible p-1;
   }
 
+  /* Scrollable project description preview — thin brand scrollbars (Firefox + WebKit) */
+  .project-card-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(221 153 60 / 0.45) transparent;
+  }
+  .dark .project-card-scroll {
+    scrollbar-color: rgb(152 99 27 / 0.42) transparent;
+  }
+  .project-card-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .project-card-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .project-card-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-brand-400/55;
+  }
+  .project-card-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-500/70;
+  }
+  .dark .project-card-scroll::-webkit-scrollbar-thumb {
+    @apply bg-brand-500/45;
+  }
+  .dark .project-card-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-400/60;
+  }
+
   /* Stat card (metric tiles) */
   .stat-card {
     @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 px-5 py-3 shadow-lg backdrop-blur-sm xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-4 dark:bg-neutral-900/95 dark:shadow-neutral-950/20;

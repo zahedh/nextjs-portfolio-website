@@ -1,8 +1,9 @@
 'use client';
-import { ProjectCard, Section, PrimaryButton } from '@/components';
+import { ProjectCard, ProjectDetailPanel, Section, PrimaryButton } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { projectMatchesSkill } from '@/lib/utils';
 import { skillsData } from '@/data';
+import type { Project } from '@/data/projects';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -24,6 +25,8 @@ export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
+  const [panelProject, setPanelProject] = useState<Project | null>(null);
+  const [panelOpen, setPanelOpen] = useState(false);
   const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
   const setSelectedSkillId = useGlobalStore(
     (state) => state.setSelectedSkillId
@@ -97,12 +100,31 @@ export default function ProjectsSection() {
     </>
   );
 
+  const handleOpenFullDetails = (project: Project) => {
+    setPanelProject(project);
+    setPanelOpen(true);
+  };
+
+  const handleClosePanel = () => {
+    setPanelOpen(false);
+  };
+
+  const handlePanelExitComplete = () => {
+    setPanelProject(null);
+  };
+
   return (
     <Section
       anchor="projects"
       title={en.sectionHeaders.projects}
       filterButtons={filterButtons}
     >
+      <ProjectDetailPanel
+        project={panelProject}
+        open={panelOpen}
+        onClose={handleClosePanel}
+        onExitComplete={handlePanelExitComplete}
+      />
       <motion.div
         className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
         initial={{ opacity: 0, y: 24 }}
@@ -163,6 +185,7 @@ export default function ProjectsSection() {
                   <ProjectCard
                     project={project}
                     imagePriority={index === activeIndex}
+                    onOpenFullDetails={handleOpenFullDetails}
                   />
                 </SwiperSlide>
               ))}
