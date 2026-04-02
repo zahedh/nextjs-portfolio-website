@@ -28,8 +28,11 @@ export const en = {
   },
 
   aboutSection: {
+    /** Used for `aria-label` on the stats panel (no visible heading). */
     highlightsHeading: 'Quick snapshot',
     tagline: 'Tech loving, gym obsessed problem solver',
+    introParagraph:
+      'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
     whatDrivesMeHeading: 'What drives me',
     whatDrivesMeText:
       "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
@@ -52,7 +55,7 @@ export const en = {
       appsPublishedLabel: 'Apps Published',
       appsPublishedValue: 'iOS & Android',
       aiWorkflowsLabel: 'Workflows',
-      aiWorkflowsValue: 'AI-Enhanced',
+      aiWorkflowsValue: 'AI-Integrated',
       degreeLabel: 'Degree',
       degreeValue: '1st Class',
     },

@@ -1,5 +1,10 @@
 'use client';
-import { ProjectCard, ProjectDetailPanel, Section, PrimaryButton } from '@/components';
+import {
+  ProjectCard,
+  ProjectDetailPanel,
+  Section,
+  PrimaryButton,
+} from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { projectMatchesSkill } from '@/lib/utils';
 import { skillsData } from '@/data';

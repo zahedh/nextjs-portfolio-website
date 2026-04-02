@@ -1,10 +1,18 @@
-export { default as AboutMeCard } from './AboutMeCard';
+export {
+  AboutBeyondCodingCard,
+  AboutLevellingUpCard,
+  AboutWhatDrivesCard,
+} from './AboutBentoCards';
 export { default as AboutHighlightsPanel } from './AboutHighlightsPanel';
 export { FeatureList } from './FeatureList';
 export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';
 export { ProjectLinks } from './ProjectLinks';
-export { ProjectMeta, ProjectStatusBadge } from './ProjectMeta';
+export {
+  ProjectMeta,
+  ProjectPlatformTag,
+  ProjectStatusBadge,
+} from './ProjectMeta';
 export { default as ProjectCard } from './ProjectCard';
 export { default as ProjectDetailPanel } from './ProjectDetailPanel';
 export { TechStack } from './TechStack';

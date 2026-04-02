@@ -20,6 +20,31 @@ function MetaRow({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
+/** Web / Mobile — brand pill so the role reads clearly next to date + status. */
+export function ProjectPlatformTag({
+  project,
+  className,
+}: {
+  project: Project;
+  className?: string;
+}) {
+  const platform =
+    project.projectType === 'Web'
+      ? en.projectDisplay.platformWeb
+      : en.projectDisplay.platformMobile;
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap shadow-sm sm:text-xs',
+        'border-brand-500/60 bg-brand-300/45 text-brand-900 dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-brand-50',
+        className
+      )}
+    >
+      {platform}
+    </span>
+  );
+}
+
 /** Prominent pill for Active vs Completed — used on cards and detail panel. */
 export function ProjectStatusBadge({
   project,
@@ -56,10 +81,6 @@ export function ProjectMeta({
   variant?: 'compact' | 'panel' | 'ribbon';
   className?: string;
 }) {
-  const platform =
-    project.projectType === 'Web'
-      ? en.projectDisplay.platformWeb
-      : en.projectDisplay.platformMobile;
   const timeline = formatProjectTimeline(project);
 
   if (variant === 'ribbon') {
@@ -77,7 +98,7 @@ export function ProjectMeta({
         <span className="text-neutral-300 dark:text-neutral-600" aria-hidden>
           ·
         </span>
-        <span>{platform}</span>
+        <ProjectPlatformTag project={project} />
         <span className="text-neutral-300 dark:text-neutral-600" aria-hidden>
           ·
         </span>
@@ -98,7 +119,7 @@ export function ProjectMeta({
         <span className="text-neutral-400 dark:text-neutral-500" aria-hidden>
           ·
         </span>
-        <span>{platform}</span>
+        <ProjectPlatformTag project={project} />
         <span className="text-neutral-400 dark:text-neutral-500" aria-hidden>
           ·
         </span>
@@ -115,7 +136,10 @@ export function ProjectMeta({
       )}
     >
       <MetaRow label={en.projectDisplay.timelineLabel} value={timeline} />
-      <MetaRow label={en.projectDisplay.platformLabel} value={platform} />
+      <MetaRow
+        label={en.projectDisplay.platformLabel}
+        value={<ProjectPlatformTag project={project} />}
+      />
       <MetaRow label={en.projectDisplay.contextLabel} value={project.company} />
       <MetaRow
         label={en.projectDisplay.statusLabel}

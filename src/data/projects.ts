@@ -27,8 +27,8 @@ export const projects: Project[] = [
     projectType: 'Web',
     title: 'Render Lab — Video FX Editor',
     company: 'Personal Project',
-    startDate: 'Mar 2025',
-    endDate: 'Present',
+    startDate: 'Mar 2026',
+    endDate: 'Mar 2026',
     description: [
       '✦ A browser-based video effects editor with a dark UI and real-time preview — switch between ASCII, pixel sort, and pixelate modes.',
       '✦ Fine-grained controls per effect: pixel size, palettes, dithering, saturation, contrast, brightness, and optional scanline-style treatments.',

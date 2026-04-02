@@ -60,7 +60,7 @@
    * Pair with .surface-card-interactive for hover lift (carousel tiles, links).
    */
   .surface-card {
-    @apply rounded-2xl border-2 border-brand-300/85 bg-neutral-50/92 shadow-sm dark:border-brand-700/45 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+    @apply rounded-2xl border-2 border-brand-500/95 bg-neutral-50/92 shadow-sm dark:border-brand-400/75 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
   }
   .surface-card-interactive {
     @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
@@ -72,7 +72,7 @@
 
   /* Shared card surface (bordered panel) — prefer .surface-card for new work */
   .card-surface {
-    @apply rounded-2xl border-2 border-brand-300/85 bg-neutral-50/92 shadow-sm dark:border-brand-700/45 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+    @apply rounded-2xl border-2 border-brand-500/95 bg-neutral-50/92 shadow-sm dark:border-brand-400/75 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
   }
 
   /** Subtle integrated meta line (timeline · platform · status) */

@@ -38,7 +38,7 @@ function useAnimationProfile(
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-400">
+    <p className="mb-3 text-xs font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400">
       {children}
     </p>
   );
@@ -155,7 +155,7 @@ export default function ProjectDetailPanel({
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg dark:bg-neutral-900/95 md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-2xl md:border-2 md:pt-0"
+              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-2xl md:border-2 md:pt-0 dark:bg-neutral-900/95"
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}
@@ -171,7 +171,7 @@ export default function ProjectDetailPanel({
               <header className="border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5">
                 <h2
                   id={titleId}
-                  className="card-title text-neutral-900 dark:text-neutral-100 min-w-0 flex-1 text-left text-xl font-bold leading-tight sm:text-2xl md:text-3xl"
+                  className="card-title min-w-0 flex-1 text-left text-xl leading-tight font-bold text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100"
                 >
                   <span className="line-clamp-3">{project.title}</span>
                 </h2>
@@ -179,7 +179,7 @@ export default function ProjectDetailPanel({
                   ref={closeRef}
                   type="button"
                   onClick={onClose}
-                  className="border-brand-500 bg-brand-300 hover:bg-brand-500 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200 md:h-11 md:w-11"
+                  className="border-brand-500 bg-brand-300 hover:bg-brand-500 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 md:h-11 md:w-11 dark:text-neutral-200"
                   aria-label={en.projectDetailPanel.closeLabel}
                 >
                   <X className="h-6 w-6" aria-hidden />
@@ -188,8 +188,8 @@ export default function ProjectDetailPanel({
 
               <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
                 {/* Mobile: single scroll; desktop: left column only scrolls */}
-                <div className="project-card-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden md:hidden">
-                  <div className="flex flex-col gap-8 px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4">
+                <div className="project-card-scroll min-h-0 flex-1 overflow-x-hidden overflow-y-auto md:hidden">
+                  <div className="flex flex-col gap-8 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
                     <ProjectMeta project={project} variant="ribbon" />
                     <ProjectHeroMedia project={project} density="compact" />
                     {overview ? (
@@ -198,11 +198,11 @@ export default function ProjectDetailPanel({
                       </p>
                     ) : null}
                     <details className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100 [&::-webkit-details-marker]:hidden">
                         {en.projectDisplay.keyFeaturesSummary}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
-                      <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
+                      <div className="border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60">
                         <FeatureList lines={project.description} />
                       </div>
                     </details>
@@ -210,11 +210,11 @@ export default function ProjectDetailPanel({
                       className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60"
                       open
                     >
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100 [&::-webkit-details-marker]:hidden">
                         {en.projectDisplay.techStackSummary}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
-                      <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
+                      <div className="border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60">
                         <TechStack skills={projectSkills} />
                       </div>
                     </details>
@@ -230,8 +230,8 @@ export default function ProjectDetailPanel({
                 </div>
 
                 {/* Desktop: left scrolls; image + details stay fixed (no shared scroll with sticky) */}
-                <div className="project-card-scroll hidden min-h-0 min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden md:flex">
-                  <div className="flex min-w-0 flex-col gap-10 px-8 pb-10 pt-6">
+                <div className="project-card-scroll hidden min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto md:flex">
+                  <div className="flex min-w-0 flex-col gap-10 px-8 pt-6 pb-10">
                     <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
                       <SectionLabel>
                         {en.projectDisplay.sectionOverview}
@@ -265,7 +265,7 @@ export default function ProjectDetailPanel({
                   </div>
                 </div>
 
-                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:min-w-[260px] md:max-w-sm md:flex-shrink-0 md:border-l md:border-t-0 md:px-8 md:pb-10 md:pt-6 dark:border-neutral-700/50">
+                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l md:px-8 md:pt-6 md:pb-10 dark:border-neutral-700/50">
                   <ProjectHeroMedia project={project} density="compact" />
                   <div>
                     <SectionLabel>

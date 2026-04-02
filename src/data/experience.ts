@@ -9,6 +9,11 @@ export interface JobExperience {
   skills: string[];
 }
 
+/** Current role — `endDate` is typically `"Present"`. */
+export function isJobActive(job: JobExperience): boolean {
+  return job.endDate.trim().toLowerCase() === 'present';
+}
+
 export const jobExperiences: JobExperience[] = [
   {
     id: 'job-1',
@@ -92,6 +97,8 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     description: [
+      '✦ Contributed to both React Native and WordPress client projects, delivering features, fixes, and production-ready updates across mobile and web.',
+      '✦ Gained early experience delivering production-ready features across mobile and web projects in a client-focused environment.',
       '✦ Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
       "✦ Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
       '✦ Reduced PDF production time drastically — capable of creating 100 PDFs in under an hour with dynamic content generation.',
