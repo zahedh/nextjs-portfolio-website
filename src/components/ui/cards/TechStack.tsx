@@ -3,6 +3,10 @@ import type { Skill } from '@/data/skills';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 
+/**
+ * Tech icons use the same SkillTile hover language as the Skills section
+ * (scale + brand fill) — no secondary ring/hover system.
+ */
 export function TechStack({
   skills,
   maxIcons,
@@ -21,7 +25,7 @@ export function TechStack({
   return (
     <div
       className={cn(
-        'group/stack flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3',
+        'flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3',
         className
       )}
     >
@@ -31,12 +35,11 @@ export function TechStack({
           icon={skill.icon}
           label={skill.label}
           compact
-          className="transition-shadow duration-200 group-hover/stack:shadow-md group-hover/stack:ring-2 group-hover/stack:ring-brand-500/35"
         />
       ))}
       {extra > 0 && (
         <span
-          className="text-brand-600 dark:text-brand-400 inline-flex h-10 items-center rounded-full border border-brand-500/40 bg-brand-300/30 px-3 text-xs font-semibold dark:bg-brand-700/30"
+          className="text-brand-600 dark:text-brand-400 inline-flex h-10 items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold dark:bg-brand-800/30"
           aria-label={en.projectDisplay.moreSkills.replace(
             '{{count}}',
             String(extra)

@@ -85,7 +85,8 @@ export function SkillTile({
           'rounded-full',
           'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
-          'hover:bg-brand-500 cursor-pointer',
+          'hover:bg-brand-500',
+          isClickable ? 'cursor-pointer' : 'cursor-default',
           className
         )}
       >

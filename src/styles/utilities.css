@@ -3,7 +3,7 @@
    ========================= */
 @layer utilities {
   .prime-parent {
-    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-64;
+    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-80;
   }
 
   .screen-parent {
@@ -16,7 +16,7 @@
   }
 
   .section-content {
-    @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-6;
+    @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-10;
   }
 
   /* =========================

@@ -28,6 +28,7 @@ export const en = {
   },
 
   aboutSection: {
+    highlightsHeading: 'Quick snapshot',
     tagline: 'Tech loving, gym obsessed problem solver',
     whatDrivesMeHeading: 'What drives me',
     whatDrivesMeText:
@@ -204,16 +205,16 @@ export const en = {
     platformMobile: 'Mobile',
     timelineLabel: 'Timeline',
     platformLabel: 'Platform',
-    contextLabel: 'Context',
+    contextLabel: 'Organisation',
     personalTag: 'Personal',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
-    sectionFeatures: 'Features',
+    sectionFeatures: 'Full description',
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
     sectionMetadata: 'Details',
     visitLive: 'Visit live site',
-    keyFeaturesSummary: 'Key features',
+    keyFeaturesSummary: 'Full description',
     techStackSummary: 'Technologies',
     moreSkills: '+{{count}} more',
   },

@@ -55,13 +55,29 @@
   /* =========================
      🃏 CARD UTILITIES
      ========================= */
+  /**
+   * Unified portfolio surfaces — Projects, About, Highlights, modals.
+   * Pair with .surface-card-interactive for hover lift (carousel tiles, links).
+   */
+  .surface-card {
+    @apply rounded-2xl border-2 border-brand-300/85 bg-neutral-50/92 shadow-sm dark:border-brand-700/45 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+  }
+  .surface-card-interactive {
+    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
+  }
+
   .card-container {
     @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/96 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/[0.98] dark:shadow-neutral-950/20;
   }
 
-  /* Shared card surface (bordered panel) for About, Contributions, etc. */
+  /* Shared card surface (bordered panel) — prefer .surface-card for new work */
   .card-surface {
-    @apply border-brand-300 rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
+    @apply rounded-2xl border-2 border-brand-300/85 bg-neutral-50/92 shadow-sm dark:border-brand-700/45 dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+  }
+
+  /** Subtle integrated meta line (timeline · platform · status) */
+  .meta-row-subtle {
+    @apply text-[11px] leading-relaxed tracking-wide text-neutral-500 sm:text-xs dark:text-neutral-400;
   }
 
   .card-date-badge {
@@ -131,6 +147,7 @@
   .project-card-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(221 153 60 / 0.45) transparent;
+    overscroll-behavior-y: contain;
   }
   .dark .project-card-scroll {
     scrollbar-color: rgb(152 99 27 / 0.42) transparent;

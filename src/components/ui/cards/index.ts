@@ -1,9 +1,10 @@
 export { default as AboutMeCard } from './AboutMeCard';
+export { default as AboutHighlightsPanel } from './AboutHighlightsPanel';
 export { FeatureList } from './FeatureList';
 export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';
 export { ProjectLinks } from './ProjectLinks';
-export { ProjectMeta } from './ProjectMeta';
+export { ProjectMeta, ProjectStatusBadge } from './ProjectMeta';
 export { default as ProjectCard } from './ProjectCard';
 export { default as ProjectDetailPanel } from './ProjectDetailPanel';
 export { TechStack } from './TechStack';

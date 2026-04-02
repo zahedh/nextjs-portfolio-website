@@ -6,12 +6,12 @@ import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
 import type { JobExperience } from '@/data/experience';
+
 interface JobCardProps {
   job: JobExperience;
-  isLeft?: boolean;
 }
 
-export default function JobCard({ job, isLeft = false }: JobCardProps) {
+export default function JobCard({ job }: JobCardProps) {
   const {
     isExpanded,
     showExpandButton,
@@ -23,17 +23,13 @@ export default function JobCard({ job, isLeft = false }: JobCardProps) {
   const jobSkills = getSkillsByIds(job.skills, skillsData);
 
   return (
-    <div className="card-container p-6 md:p-8">
-      {/* Date badge */}
-      <div
-        className={`card-date-badge -top-4 ${isLeft ? 'lg:right-6 lg:left-auto' : 'lg:left-6'}`}
-      >
-        {job.startDate} - {job.endDate}
-      </div>
+    <div className="surface-card p-6 md:p-8">
+      <p className="mb-6 inline-flex max-w-full rounded-full bg-brand-300/35 px-4 py-1.5 text-xs font-semibold text-neutral-900 dark:bg-brand-700/40 dark:text-neutral-100">
+        {job.startDate} – {job.endDate}
+      </p>
 
       {/* Job header */}
-      <div className="mt-6 mb-8 flex items-start gap-4">
-        {/* Developer icon */}
+      <div className="mb-8 flex items-start gap-4">
         <div className="card-icon-box">
           <Code2 size={24} />
         </div>

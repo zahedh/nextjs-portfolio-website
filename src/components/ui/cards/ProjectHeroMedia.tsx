@@ -9,11 +9,14 @@ import { useEffect, useState } from 'react';
 export function ProjectHeroMedia({
   project,
   imagePriority = false,
+  density = 'default',
   className,
   frameClassName,
 }: {
   project: Project;
   imagePriority?: boolean;
+  /** Default: carousel / listing — short fixed frame, contain (no crop/stretch). */
+  density?: 'default' | 'compact';
   className?: string;
   /** Classes for the inner media frame (image / icon box) */
   frameClassName?: string;
@@ -25,6 +28,20 @@ export function ProjectHeroMedia({
     setImageError(false);
   }, [project.id]);
 
+  /** Carousel: fixed height so every slide aligns; modal: smaller capped frame. */
+  const frame = cn(
+    'relative w-full overflow-hidden bg-neutral-100/85 dark:bg-neutral-800/55',
+    density === 'compact'
+      ? 'h-40 max-h-[min(200px,36vh)] sm:h-44'
+      : 'h-36 sm:h-40 md:h-44',
+    frameClassName
+  );
+
+  const rasterSizes =
+    density === 'compact'
+      ? '(max-width: 768px) 100vw, 320px'
+      : '(max-width: 768px) 100vw, 672px';
+
   return (
     <div
       className={cn(
@@ -32,51 +49,61 @@ export function ProjectHeroMedia({
         className
       )}
     >
-      <div
-        className={cn(
-          'flex min-h-[200px] w-full items-center justify-center p-4 md:min-h-[240px]',
-          frameClassName
-        )}
-      >
-        {ImageComponent ? (
-          <ImageComponent
-            alt={`${project.title} preview`}
-            className="h-44 w-44 shrink-0 rounded-xl object-cover shadow-md sm:h-52 sm:w-52"
-          />
-        ) : project.image && !imageError ? (
+      {ImageComponent ? (
+        <div
+          className={cn(
+            frame,
+            'flex items-center justify-center p-4 sm:p-5'
+          )}
+        >
+          {/* Explicit box so components using next/image `fill` (e.g. AvatarGraphic) get a sized containing block */}
+          <div className="relative mx-auto h-32 w-32 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-36 sm:w-36 md:h-40 md:w-40">
+            <ImageComponent
+              alt={`${project.title} preview`}
+              className="h-full w-full rounded-xl"
+            />
+          </div>
+        </div>
+      ) : project.image && !imageError ? (
+        <div
+          className={cn(
+            frame,
+            'flex items-center justify-center p-4 sm:p-5'
+          )}
+        >
           <Image
             src={project.image}
             alt={`${project.title} preview`}
             width={1200}
             height={675}
-            sizes="(max-width: 768px) 100vw, 400px"
-            className="max-h-[min(280px,50vh)] max-w-full rounded-xl bg-neutral-100 object-contain p-1 shadow-md dark:bg-neutral-800"
-            style={{
-              width: 'auto',
-              height: 'auto',
-              maxWidth: '100%',
-              maxHeight: '100%',
-            }}
+            sizes={rasterSizes}
+            className="max-h-full max-w-full object-contain object-center"
             priority={imagePriority}
             fetchPriority={imagePriority ? 'high' : 'low'}
             onError={() => setImageError(true)}
           />
-        ) : (
-          <div className="flex h-40 w-full items-center justify-center">
-            {project.projectType === 'Web' ? (
-              <Monitor
-                className="h-24 w-24 text-neutral-400 dark:text-neutral-600"
-                strokeWidth={1.5}
-              />
-            ) : (
-              <Smartphone
-                className="h-24 w-24 text-neutral-400 dark:text-neutral-600"
-                strokeWidth={1.5}
-              />
-            )}
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div
+          className={cn(
+            frame,
+            'flex items-center justify-center',
+            density === 'compact' ? 'min-h-[120px]' : ''
+          )}
+        >
+          {project.projectType === 'Web' ? (
+            <Monitor
+              className="h-16 w-16 text-neutral-400 dark:text-neutral-600 sm:h-20 sm:w-20"
+              strokeWidth={1.5}
+            />
+          ) : (
+            <Smartphone
+              className="h-16 w-16 text-neutral-400 dark:text-neutral-600 sm:h-20 sm:w-20"
+              strokeWidth={1.5}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }

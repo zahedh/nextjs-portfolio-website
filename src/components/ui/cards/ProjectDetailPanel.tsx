@@ -8,18 +8,13 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
 import { BREAKPOINTS } from '@/hooks/utilityHooks';
-import {
-  getProjectOverviewParagraph,
-  isProjectActive,
-} from '@/lib/projectDisplay';
+import { getProjectOverviewParagraph } from '@/lib/projectDisplay';
 import { getSkillsByIds } from '@/lib/utils';
 import { en } from '@/language';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronDown, ExternalLink, X } from 'lucide-react';
+import { ChevronDown, X } from 'lucide-react';
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-
-const externalRel = 'noopener noreferrer';
 
 interface ProjectDetailPanelProps {
   project: Project | null;
@@ -43,45 +38,9 @@ function useAnimationProfile(
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="mb-2 text-[10px] font-semibold tracking-[0.18em] text-neutral-500 uppercase dark:text-neutral-400">
+    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-600 dark:text-neutral-400">
       {children}
     </p>
-  );
-}
-
-function ProjectTagPills({ project }: { project: Project }) {
-  const items: { key: string; label: string }[] = [];
-  if (project.company === 'Personal Project') {
-    items.push({
-      key: 'personal',
-      label: en.projectDisplay.personalTag,
-    });
-  }
-  items.push({
-    key: 'platform',
-    label:
-      project.projectType === 'Web'
-        ? en.projectDisplay.platformWeb
-        : en.projectDisplay.platformMobile,
-  });
-  items.push({
-    key: 'status',
-    label: isProjectActive(project)
-      ? en.projectDisplay.statusActive
-      : en.projectDisplay.statusCompleted,
-  });
-
-  return (
-    <div className="flex flex-wrap gap-2">
-      {items.map(({ key, label }) => (
-        <span
-          key={key}
-          className="rounded-full border border-brand-500/45 bg-brand-300/25 px-2.5 py-1 text-xs font-semibold tracking-tight text-neutral-900 dark:bg-brand-800/35 dark:text-neutral-100"
-        >
-          {label}
-        </span>
-      ))}
-    </div>
   );
 }
 
@@ -196,7 +155,7 @@ export default function ProjectDetailPanel({
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="border-brand-300 flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 bg-neutral-50/95 shadow-2xl backdrop-blur-xl dark:border-neutral-700/50 dark:bg-neutral-900/95 md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-3xl md:border-2 md:pt-0"
+              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg dark:bg-neutral-900/95 md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-2xl md:border-2 md:pt-0"
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}
@@ -212,25 +171,9 @@ export default function ProjectDetailPanel({
               <header className="border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5">
                 <h2
                   id={titleId}
-                  className="card-title min-w-0 flex-1 text-left text-xl font-bold leading-tight sm:text-2xl md:text-3xl"
+                  className="card-title text-neutral-900 dark:text-neutral-100 min-w-0 flex-1 text-left text-xl font-bold leading-tight sm:text-2xl md:text-3xl"
                 >
-                  {projectUrl ? (
-                    <a
-                      href={projectUrl}
-                      target="_blank"
-                      rel={externalRel}
-                      className="card-title-link"
-                      aria-label={`${project.title} — ${en.projectCard.titleLinkAria}`}
-                    >
-                      <span className="line-clamp-3">{project.title}</span>
-                      <ExternalLink
-                        className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5"
-                        aria-hidden
-                      />
-                    </a>
-                  ) : (
-                    <span className="line-clamp-3">{project.title}</span>
-                  )}
+                  <span className="line-clamp-3">{project.title}</span>
                 </h2>
                 <button
                   ref={closeRef}
@@ -243,51 +186,53 @@ export default function ProjectDetailPanel({
                 </button>
               </header>
 
-              <div className="project-card-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-                {/* Mobile */}
-                <div className="flex flex-col gap-6 px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4 md:hidden">
-                  <ProjectTagPills project={project} />
-                  <ProjectHeroMedia project={project} />
-                  {overview ? (
-                    <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                      {overview}
-                    </p>
-                  ) : null}
-                  <details className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
-                      {en.projectDisplay.keyFeaturesSummary}
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
-                    </summary>
-                    <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
-                      <FeatureList lines={project.description} />
-                    </div>
-                  </details>
-                  <details
-                    className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60"
-                    open
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
-                      {en.projectDisplay.techStackSummary}
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
-                    </summary>
-                    <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
-                      <TechStack skills={projectSkills} />
-                    </div>
-                  </details>
-                  {projectUrl ? (
-                    <ProjectLinks url={projectUrl} fullWidth />
-                  ) : null}
-                  <ProjectMeta
-                    project={project}
-                    variant="compact"
-                    className="text-center text-xs opacity-90"
-                  />
+              <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
+                {/* Mobile: single scroll; desktop: left column only scrolls */}
+                <div className="project-card-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden md:hidden">
+                  <div className="flex flex-col gap-8 px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4">
+                    <ProjectMeta project={project} variant="ribbon" />
+                    <ProjectHeroMedia project={project} density="compact" />
+                    {overview ? (
+                      <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+                        {overview}
+                      </p>
+                    ) : null}
+                    <details className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
+                        {en.projectDisplay.keyFeaturesSummary}
+                        <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                      </summary>
+                      <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
+                        <FeatureList lines={project.description} />
+                      </div>
+                    </details>
+                    <details
+                      className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60"
+                      open
+                    >
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 [&::-webkit-details-marker]:hidden dark:text-neutral-100">
+                        {en.projectDisplay.techStackSummary}
+                        <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                      </summary>
+                      <div className="border-t border-neutral-200/70 px-4 pb-4 pt-3 dark:border-neutral-700/60">
+                        <TechStack skills={projectSkills} />
+                      </div>
+                    </details>
+                    {projectUrl ? (
+                      <ProjectLinks url={projectUrl} fullWidth />
+                    ) : null}
+                    <ProjectMeta
+                      project={project}
+                      variant="compact"
+                      className="text-center text-xs opacity-90"
+                    />
+                  </div>
                 </div>
 
-                {/* Desktop */}
-                <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_minmax(280px,34%)] md:gap-x-10 md:gap-y-8 md:px-8 md:pb-10 md:pt-6">
-                  <div className="flex min-w-0 flex-col gap-8">
-                    <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
+                {/* Desktop: left scrolls; image + details stay fixed (no shared scroll with sticky) */}
+                <div className="project-card-scroll hidden min-h-0 min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden md:flex">
+                  <div className="flex min-w-0 flex-col gap-10 px-8 pb-10 pt-6">
+                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
                       <SectionLabel>
                         {en.projectDisplay.sectionOverview}
                       </SectionLabel>
@@ -297,13 +242,13 @@ export default function ProjectDetailPanel({
                         </p>
                       ) : null}
                     </section>
-                    <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
+                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
                       <SectionLabel>
                         {en.projectDisplay.sectionFeatures}
                       </SectionLabel>
                       <FeatureList lines={project.description} />
                     </section>
-                    <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
+                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
                       <SectionLabel>
                         {en.projectDisplay.sectionTechStack}
                       </SectionLabel>
@@ -318,16 +263,17 @@ export default function ProjectDetailPanel({
                       </section>
                     ) : null}
                   </div>
-                  <aside className="flex min-w-0 flex-col gap-6 md:sticky md:top-4 md:self-start">
-                    <ProjectHeroMedia project={project} />
-                    <div>
-                      <SectionLabel>
-                        {en.projectDisplay.sectionMetadata}
-                      </SectionLabel>
-                      <ProjectMeta project={project} variant="panel" />
-                    </div>
-                  </aside>
                 </div>
+
+                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:min-w-[260px] md:max-w-sm md:flex-shrink-0 md:border-l md:border-t-0 md:px-8 md:pb-10 md:pt-6 dark:border-neutral-700/50">
+                  <ProjectHeroMedia project={project} density="compact" />
+                  <div>
+                    <SectionLabel>
+                      {en.projectDisplay.sectionMetadata}
+                    </SectionLabel>
+                    <ProjectMeta project={project} variant="panel" />
+                  </div>
+                </aside>
               </div>
             </motion.div>
           </div>

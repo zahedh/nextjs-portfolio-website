@@ -32,7 +32,7 @@ export default function ExperienceSection() {
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 >
-                  <JobCard job={job} isLeft={isLeft} />
+                  <JobCard job={job} />
                 </motion.div>
 
                 {/* Year marker on opposite side - Desktop only */}
@@ -73,7 +73,7 @@ export default function ExperienceSection() {
                   viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
                 >
-                  <JobCard job={job} isLeft={false} />
+                  <JobCard job={job} />
                 </motion.div>
               </div>
             );

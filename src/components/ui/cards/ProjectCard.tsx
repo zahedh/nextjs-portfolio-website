@@ -34,37 +34,39 @@ export default function ProjectCard({
   return (
     <div
       className={cn(
-        'group relative mx-auto mt-6 w-full max-w-2xl overflow-hidden rounded-2xl border-2 border-brand-300/70 bg-neutral-50/96 shadow-lg backdrop-blur-sm transition duration-200 dark:bg-neutral-900/[0.98] dark:shadow-neutral-950/25',
-        'hover:-translate-y-0.5 hover:shadow-xl',
-        'md:hover:scale-[1.01] md:hover:ring-2 md:hover:ring-brand-500/35'
+        'surface-card surface-card-interactive group relative mx-auto mt-6 w-full max-w-2xl overflow-hidden 2xl:max-w-xl',
+        /* Flatter tile: border carries depth; minimal shadow + hover */
+        'shadow-none hover:-translate-y-px hover:shadow-sm dark:shadow-none dark:hover:shadow-neutral-950/15',
+        'md:hover:ring-1 md:hover:ring-brand-500/15'
       )}
     >
-      <div className="card-date-badge -top-3 z-20">
-        {project.startDate} - {project.endDate}
-      </div>
-
-      <div className="relative">
+      <button
+        type="button"
+        onClick={() => onOpenFullDetails(project)}
+        className="group/hero relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-offset-neutral-900"
+        aria-label={`${en.projectCard.viewProject}: ${project.title}`}
+      >
         <ProjectHeroMedia
           project={project}
           imagePriority={imagePriority}
           className="rounded-none border-0 shadow-none"
         />
+        {/* Light bottom fade only — keeps “View project” readable without darkening the whole image */}
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-900/25 to-transparent sm:h-20 dark:from-black/35"
           aria-hidden
         />
         {mounted && (
-          <div
-            className="pointer-events-none absolute right-4 bottom-4 hidden text-sm font-semibold text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 md:block"
-            aria-hidden
-          >
+          <span className="pointer-events-none absolute right-3 bottom-3 text-sm font-semibold text-white drop-shadow-sm opacity-100 sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4">
             {en.projectCard.viewProject} {en.projectCard.viewProjectArrow}
-          </div>
+          </span>
         )}
-      </div>
+      </button>
 
       <div className="space-y-4 p-6">
-        <h3 className="card-title line-clamp-2">
+        <ProjectMeta project={project} variant="ribbon" />
+
+        <h3 className="card-title line-clamp-2 pt-1">
           {projectUrl ? (
             <a
               href={projectUrl}
@@ -91,8 +93,6 @@ export default function ProjectCard({
         ) : null}
 
         <TechStack skills={projectSkills} maxIcons={5} />
-
-        <ProjectMeta project={project} variant="compact" />
 
         <button
           type="button"
