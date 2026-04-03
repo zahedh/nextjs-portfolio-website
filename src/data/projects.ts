@@ -157,7 +157,6 @@ export const projects: Project[] = [
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
     url: 'https://www.curtainsmade.co.uk/',
-    image: '/images/curtainsmadeLogo.png',
     description: [
       '✦ E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
       "✦ Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",
