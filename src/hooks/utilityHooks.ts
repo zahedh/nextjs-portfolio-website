@@ -5,7 +5,9 @@ import {
   useState,
   useRef,
   useLayoutEffect,
+  useCallback,
 } from 'react';
+import { flushSync } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
 import {
   useGlobalStore,
@@ -39,15 +41,10 @@ export function useTheme() {
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-    const isDark =
+    const shouldBeDark =
       storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      store.setState({ isDark: true });
-    } else {
-      document.documentElement.classList.remove('dark');
-      store.setState({ isDark: false });
-    }
+    document.documentElement.classList.toggle('dark', shouldBeDark);
+    store.setState({ isDark: shouldBeDark });
   }, [store]);
 
   return { isDark, toggleTheme };
@@ -70,10 +67,8 @@ export function useExpandableContent(maxHeight: number = 300) {
       setShowExpandButton(fullHeight > maxHeight);
     };
 
-    // Initial check
     checkOverflow();
 
-    // Watch for size changes with ResizeObserver
     const resizeObserver = new ResizeObserver(() => {
       checkOverflow();
     });
@@ -85,9 +80,19 @@ export function useExpandableContent(maxHeight: number = 300) {
     };
   }, [maxHeight]);
 
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+  const handleToggle = useCallback(() => {
+    const content = contentRef.current;
+    if (!content) {
+      setIsExpanded((prev) => !prev);
+      return;
+    }
+    flushSync(() => setContentHeight(content.scrollHeight));
+    if (isExpanded) {
+      requestAnimationFrame(() => setIsExpanded(false));
+    } else {
+      setIsExpanded(true);
+    }
+  }, [isExpanded]);
 
   return {
     isExpanded,
@@ -117,4 +122,13 @@ export function useBreakpoint(breakpoint: Breakpoint) {
   }, [breakpoint]);
 
   return matches;
+}
+
+/** True after mount — use for portals and other browser-only APIs that must not run during SSR. */
+export function useClientMounted(): boolean {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
 }

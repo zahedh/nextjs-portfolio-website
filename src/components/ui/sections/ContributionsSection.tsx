@@ -37,13 +37,13 @@ export default function ContributionsSection() {
     <>
       <PrimaryButton
         onClick={() => setSelectedYear(currentYear)}
-        className={selectedYear !== currentYear ? 'filter-inactive' : ''}
+        className={selectedYear !== currentYear ? 'btn-toggle-idle' : ''}
       >
         {currentYear}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedYear(previousYear)}
-        className={selectedYear !== previousYear ? 'filter-inactive' : ''}
+        className={selectedYear !== previousYear ? 'btn-toggle-idle' : ''}
       >
         {previousYear}
       </PrimaryButton>

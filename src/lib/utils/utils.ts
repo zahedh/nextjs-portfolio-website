@@ -1,8 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { projects } from '@/data/projects';
-
 /** Combines and intelligently merges Tailwind class names. */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,8 +12,8 @@ export function cn(...inputs: ClassValue[]) {
  * @returns KeyboardEvent handler function
  */
 export function createEscapeHandler(callback: () => void) {
-  return (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+  return (keyboardEvent: KeyboardEvent) => {
+    if (keyboardEvent.key === 'Escape') {
       callback();
     }
   };
@@ -66,47 +64,50 @@ function scrollToTopBehavior(): ScrollBehavior {
 }
 
 /** Scrolls an element into view (section anchors). */
-export function scrollElementIntoViewAdaptive(el: Element): void {
-  const rect = el.getBoundingClientRect();
+export function scrollElementIntoViewAdaptive(element: Element): void {
+  const rect = element.getBoundingClientRect();
   const distance = Math.abs(rect.top);
   const behavior = scrollBehaviorForAnchor(distance);
-  el.scrollIntoView({ behavior, block: 'start' });
+  element.scrollIntoView({ behavior, block: 'start' });
 }
 
 function anchorSelectorFromHref(href: string): string | null {
-  const i = href.indexOf('#');
-  if (i === -1) return null;
-  const hash = href.slice(i);
+  const hashIndex = href.indexOf('#');
+  if (hashIndex === -1) return null;
+  const hash = href.slice(hashIndex);
   if (hash.length <= 1) return null;
   return hash;
 }
 
 /**
  * In-page anchor navigation: smooth on desktop; on mobile, long jumps use instant scroll.
- * @param e - React mouse event from clicking an anchor link
+ * @param mouseEvent - React mouse event from clicking an anchor link
  */
-export function handleSmoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
-  e.preventDefault();
-  const href = e.currentTarget.getAttribute('href');
+export function handleSmoothScroll(
+  mouseEvent: React.MouseEvent<HTMLAnchorElement>
+) {
+  mouseEvent.preventDefault();
+  const href = mouseEvent.currentTarget.getAttribute('href');
   if (!href) return;
   const selector = anchorSelectorFromHref(href);
   if (!selector) return;
-  const el = document.querySelector(selector);
-  if (!el) return;
-  scrollElementIntoViewAdaptive(el);
+  const element = document.querySelector(selector);
+  if (!element) return;
+  scrollElementIntoViewAdaptive(element);
 }
 
 /**
  * Scrolls to the top of the page. On mobile, smooth only when already near the top.
- * @param e - Optional React mouse event to prevent default behavior
+ * @param mouseEvent - Optional React mouse event to prevent default behavior
  */
-export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
-  e?.preventDefault();
+export function scrollToTop(mouseEvent?: React.MouseEvent<HTMLAnchorElement>) {
+  mouseEvent?.preventDefault();
   window.scrollTo({ top: 0, behavior: scrollToTopBehavior() });
 }
 
-function normalizeSkillId(s: string): string {
-  return s
+/** Normalises skill IDs for loose matching (e.g. `vb.net` ↔ `vb-net`, `next.js` ↔ `nextjs`). */
+export function normalizeSkillId(rawId: string): string {
+  return rawId
     .toLowerCase()
     .replace(/[.\s-]/g, '')
     .trim();
@@ -114,7 +115,7 @@ function normalizeSkillId(s: string): string {
 
 /**
  * Maps skill IDs to their corresponding skill objects.
- * Uses the same normalisation as {@link projectMatchesSkill} (e.g. `vb.net` ↔ `vb-net`, `next.js` ↔ `nextjs`).
+ * Uses the same normalisation as `projectMatchesSkill` in `@/lib/project` (e.g. `vb.net` ↔ `vb-net`).
  */
 export function getSkillsByIds<T extends { id: string }>(
   skillIds: string[],
@@ -122,30 +123,12 @@ export function getSkillsByIds<T extends { id: string }>(
 ): T[] {
   return skillIds
     .map((skillId) => {
-      const exact = skillsData.find((s) => s.id === skillId);
+      const exact = skillsData.find((skill) => skill.id === skillId);
       if (exact) return exact;
-      const n = normalizeSkillId(skillId);
-      return skillsData.find((s) => normalizeSkillId(s.id) === n);
+      const normalized = normalizeSkillId(skillId);
+      return skillsData.find(
+        (skill) => normalizeSkillId(skill.id) === normalized
+      );
     })
     .filter((skill): skill is T => skill !== undefined);
-}
-
-export function projectMatchesSkill(
-  project: { skills: string[] },
-  skillId: string
-): boolean {
-  const normalizedSkillId = normalizeSkillId(skillId);
-  return project.skills.some(
-    (projectSkill) => normalizeSkillId(projectSkill) === normalizedSkillId
-  );
-}
-
-export function hasAnyProjectForSkill(skillId: string): boolean {
-  return projects.some((project) => projectMatchesSkill(project, skillId));
-}
-
-export function scrollToProjectsSection(): void {
-  const el = document.querySelector('#projects');
-  if (!el) return;
-  scrollElementIntoViewAdaptive(el);
 }

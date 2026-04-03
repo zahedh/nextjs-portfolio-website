@@ -1,85 +1,122 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useId, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'motion/react';
-import { en } from '@/language';
-import { ThemeToggleButton, BurgerMenuButton, CloseButton } from '../buttons';
 import {
-  createEscapeHandler,
-  scrollToTop,
-  handleSmoothScroll,
-} from '@/lib/utils';
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type PanInfo,
+} from 'motion/react';
+import { en } from '@/language';
+import {
+  ThemeToggleButton,
+  BurgerMenuButton,
+  DismissButton,
+} from '@/components/ui/buttons';
+import {
+  useBodyScrollLock,
+  useEscapeKeydown,
+  useFocusCloseButtonOnOpen,
+} from '@/hooks/overlayHooks';
+import { scrollToTop, handleSmoothScroll } from '@/lib/utils';
+import {
+  MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX,
+  MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX,
+  getMobileMenuOverlayTransition,
+  getMobileMenuPanelTransition,
+} from '@/lib/ui-logic';
 
-/** Slide-in mobile navigation drawer with backdrop and keyboard support. */
+/**
+ * Slide-in mobile navigation drawer with backdrop, swipe-to-dismiss, scroll lock,
+ * Escape to close, and focus management on the dismiss control while open.
+ */
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuId = useId();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const noMotion = Boolean(prefersReducedMotion);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  useBodyScrollLock(isOpen);
+  useEscapeKeydown(isOpen, () => setIsOpen(false));
+  useFocusCloseButtonOnOpen(isOpen, closeRef);
 
-  // Close menu on ESC key
-  useEffect(() => {
-    if (!isOpen) return;
+  const overlayTransition = getMobileMenuOverlayTransition(noMotion);
+  const panelTransition = getMobileMenuPanelTransition(noMotion);
 
-    const handleEscape = createEscapeHandler(() => setIsOpen(false));
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
+  const handleDragEnd = useCallback(
+    (
+      _event: MouseEvent | TouchEvent | PointerEvent,
+      info: PanInfo
+    ) => {
+      if (noMotion) return;
+      if (
+        info.offset.x > MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX ||
+        info.velocity.x > MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX
+      ) {
+        setIsOpen(false);
+      }
+    },
+    [noMotion]
+  );
 
   return (
     <>
-      <BurgerMenuButton onClick={() => setIsOpen(!isOpen)} />
+      {isOpen ? (
+        <DismissButton
+          ref={closeRef}
+          variant="plainNav"
+          onClick={() => setIsOpen(false)}
+          aria-label={en.closeMenu}
+          aria-controls={menuId}
+        />
+      ) : (
+        <BurgerMenuButton
+          aria-expanded={isOpen}
+          aria-controls={menuId}
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      )}
 
-      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              transition={overlayTransition}
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu Panel */}
             <motion.div
+              id={menuId}
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation menu"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              initial={noMotion ? { opacity: 0 } : { x: '100%' }}
+              animate={noMotion ? { opacity: 1 } : { x: 0 }}
+              exit={noMotion ? { opacity: 0 } : { x: '100%' }}
+              transition={panelTransition}
+              drag={noMotion ? false : 'x'}
+              dragConstraints={{ left: 0, right: 320 }}
+              dragElastic={0.06}
+              dragMomentum={false}
+              onDragEnd={handleDragEnd}
               className="mobile-menu-panel"
             >
-              <CloseButton onClick={() => setIsOpen(false)} />
-
-              <nav className="flex flex-col items-center gap-8 p-8 pt-16">
+              <nav className="flex flex-col items-center gap-8 p-8 pt-8">
                 <Link
                   href="/"
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      e.preventDefault();
-                      scrollToTop(e);
+                      mouseEvent.preventDefault();
+                      scrollToTop(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -89,9 +126,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#skills' : '/#skills'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -101,9 +138,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#projects' : '/#projects'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -113,9 +150,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#about' : '/#about'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -125,9 +162,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#experience' : '/#experience'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -137,9 +174,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#contributions' : '/#contributions'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -149,9 +186,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#contact' : '/#contact'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}

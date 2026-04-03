@@ -1,8 +1,15 @@
 'use client';
-import { ProjectCard, Section, PrimaryButton } from '@/components';
+import {
+  ProjectCard,
+  ProjectDetailPanel,
+  Section,
+  PrimaryButton,
+  CalloutWrapper,
+} from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { projectMatchesSkill } from '@/lib/utils';
+import { getFilteredProjectsForSection } from '@/lib/project';
 import { skillsData } from '@/data';
+import type { Project } from '@/data/projects';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
@@ -12,8 +19,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-cards';
 import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSwiperActiveSlideResize } from '@/hooks/projectHooks';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
 export default function ProjectsSection() {
@@ -24,38 +32,30 @@ export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
     'All'
   );
+  const [panelProject, setPanelProject] = useState<Project | null>(null);
+  const [panelOpen, setPanelOpen] = useState(false);
   const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
   const setSelectedSkillId = useGlobalStore(
     (state) => state.setSelectedSkillId
   );
 
-  useEffect(() => {
-    if (isLargeScreen) return;
-    const swiper = swiperRef.current;
-    if (!swiper?.slides?.length) return;
-    const slide = swiper.slides[activeIndex];
-    if (!slide) return;
-    const ro = new ResizeObserver(() => {
-      swiper.update();
-    });
-    ro.observe(slide);
-    return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
+  useSwiperActiveSlideResize({
+    isLargeScreen,
+    swiperRef,
+    activeIndex,
+    selectedType,
+    selectedSkillId,
+    swiperReady,
+  });
 
-  const filteredProjects = useMemo(() => {
-    if (selectedSkillId) {
-      return projects.filter((project) =>
-        projectMatchesSkill(project, selectedSkillId)
-      );
-    }
-    if (selectedType === 'All') {
-      return [...projects];
-    }
-    return projects.filter((project) => project.projectType === selectedType);
-  }, [selectedType, selectedSkillId]);
+  const filteredProjects = useMemo(
+    () =>
+      getFilteredProjectsForSection(projects, selectedType, selectedSkillId),
+    [selectedType, selectedSkillId]
+  );
 
   const selectedSkillLabel = selectedSkillId
-    ? (skillsData.find((s) => s.id === selectedSkillId)?.label ??
+    ? (skillsData.find((skill) => skill.id === selectedSkillId)?.label ??
       selectedSkillId)
     : null;
 
@@ -67,35 +67,51 @@ export default function ProjectsSection() {
       >
         {selectedSkillLabel}
       </span>
-      <PrimaryButton
-        onClick={() => setSelectedSkillId(null)}
-        className="filter-inactive"
-      >
-        {en.projectFilters.clearSkillFilter}
-      </PrimaryButton>
+      <CalloutWrapper>
+        <PrimaryButton
+          onClick={() => setSelectedSkillId(null)}
+          aria-label={en.projectFilters.clearSkillFilterAriaLabel}
+          className="btn-callout"
+        >
+          {en.projectFilters.clearSkillFilter}
+        </PrimaryButton>
+      </CalloutWrapper>
     </div>
   ) : (
     <>
       <PrimaryButton
         onClick={() => setSelectedType('All')}
-        className={selectedType !== 'All' ? 'filter-inactive' : ''}
+        className={selectedType !== 'All' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.all}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Web')}
-        className={selectedType !== 'Web' ? 'filter-inactive' : ''}
+        className={selectedType !== 'Web' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.web}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'filter-inactive' : ''}
+        className={selectedType !== 'Mobile' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.mobile}
       </PrimaryButton>
     </>
   );
+
+  const handleOpenFullDetails = (project: Project) => {
+    setPanelProject(project);
+    setPanelOpen(true);
+  };
+
+  const handleClosePanel = () => {
+    setPanelOpen(false);
+  };
+
+  const handlePanelExitComplete = () => {
+    setPanelProject(null);
+  };
 
   return (
     <Section
@@ -103,6 +119,12 @@ export default function ProjectsSection() {
       title={en.sectionHeaders.projects}
       filterButtons={filterButtons}
     >
+      <ProjectDetailPanel
+        project={panelProject}
+        open={panelOpen}
+        onClose={handleClosePanel}
+        onExitComplete={handlePanelExitComplete}
+      />
       <motion.div
         className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
         initial={{ opacity: 0, y: 24 }}
@@ -149,7 +171,7 @@ export default function ProjectsSection() {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
                 setActiveIndex(swiper.activeIndex);
-                setSwiperReady((r) => r + 1);
+                setSwiperReady((count) => count + 1);
               }}
               onSlideChangeTransitionEnd={(swiper) => {
                 setActiveIndex(swiper.activeIndex);
@@ -163,6 +185,7 @@ export default function ProjectsSection() {
                   <ProjectCard
                     project={project}
                     imagePriority={index === activeIndex}
+                    onOpenFullDetails={handleOpenFullDetails}
                   />
                 </SwiperSlide>
               ))}

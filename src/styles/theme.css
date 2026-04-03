@@ -44,3 +44,8 @@
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
 }
+
+/* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */
+html {
+  scrollbar-gutter: stable;
+}

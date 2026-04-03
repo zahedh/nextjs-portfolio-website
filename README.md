@@ -1,6 +1,6 @@
 # 🌐 Next.js Portfolio Website
 
-**v1.0.0**
+**v1.1.0**
 
 A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase projects, experience, and skills with a strong focus on responsive design, accessibility, and maintainable architecture.
 
@@ -22,7 +22,7 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - **Framework:** Next.js 15 (App Router)
 - **UI:** React 19
 - **Language:** TypeScript 5
-- **Styling:** Tailwind CSS v4
+- **Styling:** Tailwind CSS v4, with **clsx** + **tailwind-merge** for conditional / merged class names
 - **Animations:** Motion (Framer Motion) 12.16
 - **UI Libraries:**
   - Swiper 12.1 (Project carousel)
@@ -41,11 +41,11 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - ⚡ Static & server rendering for SEO and performance
 - 🎨 Fully responsive design (mobile, tablet, desktop)
 - 🌗 Light / dark mode theme toggle
-- 💼 Project showcase with Swiper carousel and filtering
+- 💼 **Projects:** Swiper carousel (card-style slides on large viewports), **All / Web / Mobile** filters, and **expandable in-card details** (full write-up and tech stack). Skills used on at least one project can be clicked in the skills section to **scroll to projects and filter** the carousel (global state)
 - 📊 GitHub contributions calendar with year filtering
 - 📅 Timeline-based experience section
 - 🎭 Smooth animations and transitions
-- 🏆 Interactive skill tiles with categorization
+- 🏆 Skill collage sourced from `src/data/skills.ts` with icon tiles and tooltips
 - 📲 Mobile hamburger menu
 - ♿ Accessibility-first components
 - 📜 Privacy policy page (`/privacy`)
@@ -64,12 +64,25 @@ High-level overview of the main folders:
 - `src/data` – Static data (skills, projects, experience, about content)
 - `src/hooks` – Custom React hooks for UI and interaction logic
 - `src/language` – Centralized UI copy and translations (e.g. `english.ts`)
-- `src/lib` – Utilities, environment helpers, API clients (e.g. GitHub), and shared logic
+- `src/lib` – Shared logic and small modules (see below)
 - `src/providers` – React context providers (e.g. global store)
 - `src/stores` – Zustand global store definitions
 - `src/styles` – Global styles (Tailwind entry point, theme, components CSS)
 - `src/types` – TypeScript type definitions (e.g. GitHub API types)
-- `public` – Static assets (images, icons, etc.)
+- `public` – Static assets (images, icons, CV, etc.)
+
+**`src/lib` modules** (import from `@/lib/…` or the barrel [`src/lib/index.ts`](src/lib/index.ts) where re-exported):
+
+| File | Purpose |
+|------|--------|
+| [`utils.ts`](src/lib/utils.ts) | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
+| [`dateUtils.ts`](src/lib/dateUtils.ts) | Years-of-experience style date helpers |
+| [`env.ts`](src/lib/env.ts) | Typed access to env (e.g. `GITHUB_TOKEN`) |
+| [`social-metadata.ts`](src/lib/social-metadata.ts) | Open Graph / Twitter Card defaults for `layout` metadata |
+| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips |
+| [`api/githubApi.ts`](src/lib/api/githubApi.ts) | GitHub GraphQL client for the contributions API route |
+
+Tests colocated with logic: [`utils.test.ts`](src/lib/utils.test.ts), [`dateUtils.test.ts`](src/lib/dateUtils.test.ts).
 
 <a id="getting-started"></a>
 

@@ -11,7 +11,6 @@ export function getYearsOfExperience(
   const years = today.getFullYear() - start.getFullYear();
   const monthDiff = today.getMonth() - start.getMonth();
 
-  // If we haven't reached the anniversary month yet, subtract a year
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < start.getDate())) {
     return years - 1;
   }
