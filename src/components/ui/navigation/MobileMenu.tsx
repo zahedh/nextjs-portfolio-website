@@ -1,9 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'motion/react';
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type PanInfo,
+} from 'motion/react';
 import { en } from '@/language';
 import {
   ThemeToggleButton,
@@ -16,23 +21,48 @@ import {
   handleSmoothScroll,
 } from '@/lib/utils';
 
+/** Minimum horizontal drag (px) toward the screen edge to dismiss. */
+const SWIPE_DISMISS_OFFSET_PX = 56;
+/** Flick velocity (px/s) toward the edge that dismisses even with a short drag. */
+const SWIPE_DISMISS_VELOCITY_PX = 420;
+
 /** Slide-in mobile navigation drawer with backdrop and keyboard support. */
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuId = useId();
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const noMotion = Boolean(prefersReducedMotion);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
+  const overlayTransition = noMotion
+    ? { duration: 0 }
+    : { duration: 0.2 };
+
+  const panelTransition = noMotion
+    ? { duration: 0 }
+    : { type: 'spring' as const, damping: 30, stiffness: 300 };
+
   useEffect(() => {
-    if (isOpen) {
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+    if (!isOpen) {
+      return;
     }
+
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
     return () => {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [isOpen]);
 
@@ -44,9 +74,49 @@ export default function MobileMenu() {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
+    return () => {
+      cancelAnimationFrame(frameId);
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [isOpen]);
+
+  const handleDragEnd = useCallback(
+    (
+      _event: MouseEvent | TouchEvent | PointerEvent,
+      info: PanInfo
+    ) => {
+      if (noMotion) return;
+      if (
+        info.offset.x > SWIPE_DISMISS_OFFSET_PX ||
+        info.velocity.x > SWIPE_DISMISS_VELOCITY_PX
+      ) {
+        setIsOpen(false);
+      }
+    },
+    [noMotion]
+  );
+
   return (
     <>
-      <BurgerMenuButton onClick={() => setIsOpen(!isOpen)} />
+      {isOpen ? (
+        <DismissButton
+          ref={closeRef}
+          variant="plainNav"
+          onClick={() => setIsOpen(false)}
+          aria-label={en.closeMenu}
+          aria-controls={menuId}
+        />
+      ) : (
+        <BurgerMenuButton
+          aria-expanded={isOpen}
+          aria-controls={menuId}
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      )}
 
       <AnimatePresence>
         {isOpen && (
@@ -55,28 +125,28 @@ export default function MobileMenu() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/50 md:hidden"
+              transition={overlayTransition}
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
               onClick={() => setIsOpen(false)}
             />
 
             <motion.div
+              id={menuId}
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation menu"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              initial={noMotion ? { opacity: 0 } : { x: '100%' }}
+              animate={noMotion ? { opacity: 1 } : { x: 0 }}
+              exit={noMotion ? { opacity: 0 } : { x: '100%' }}
+              transition={panelTransition}
+              drag={noMotion ? false : 'x'}
+              dragConstraints={{ left: 0, right: 320 }}
+              dragElastic={0.06}
+              dragMomentum={false}
+              onDragEnd={handleDragEnd}
               className="mobile-menu-panel"
             >
-              <DismissButton
-                variant="plain"
-                onClick={() => setIsOpen(false)}
-                aria-label={en.closeMenu}
-              />
-
-              <nav className="flex flex-col items-center gap-8 p-8 pt-16">
+              <nav className="flex flex-col items-center gap-8 p-8 pt-8">
                 <Link
                   href="/"
                   onClick={(mouseEvent) => {

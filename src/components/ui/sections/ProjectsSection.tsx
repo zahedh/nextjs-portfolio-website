@@ -4,6 +4,7 @@ import {
   ProjectDetailPanel,
   Section,
   PrimaryButton,
+  CalloutWrapper,
 } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { isProjectActive } from '@/lib/ui-logic';
@@ -81,12 +82,15 @@ export default function ProjectsSection() {
       >
         {selectedSkillLabel}
       </span>
-      <PrimaryButton
-        onClick={() => setSelectedSkillId(null)}
-        aria-label={en.projectFilters.clearSkillFilterAriaLabel}
-      >
-        {en.projectFilters.clearSkillFilter}
-      </PrimaryButton>
+      <CalloutWrapper>
+        <PrimaryButton
+          onClick={() => setSelectedSkillId(null)}
+          aria-label={en.projectFilters.clearSkillFilterAriaLabel}
+          className="btn-callout"
+        >
+          {en.projectFilters.clearSkillFilter}
+        </PrimaryButton>
+      </CalloutWrapper>
     </div>
   ) : (
     <>
