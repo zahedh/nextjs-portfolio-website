@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { isProjectActive } from '@/lib/projectDisplay';
-import { projectMatchesSkill } from '@/lib/utils';
+import { projectMatchesSkill } from '@/lib/projectSkills';
 import { skillsData } from '@/data';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';

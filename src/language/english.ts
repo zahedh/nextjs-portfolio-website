@@ -9,6 +9,7 @@ export const en = {
   activity: 'Activity',
   contact: 'Contact',
   cV: 'CV',
+  closeMenu: 'Close menu',
 
   // Static Home Content
   sectionHeaders: {
@@ -123,17 +124,6 @@ export const en = {
 
     // Methodologies
     agile: 'Agile Methodologies',
-  },
-
-  projectsSection: {
-    backToProjectsLabel: 'Back to Projects',
-    summaryHeader: 'Summary',
-    technologiesHeader: 'Technologies',
-    coreDevelopmentSubheader: 'Core Development',
-    stylingSubheader: 'Styling & UI',
-    toolsSubheader: 'Tools & Workflow',
-    backendSubheader: 'Backend & APIs',
-    lessonsLearnedHeader: 'Lessons Learned',
   },
 
   footerSection: {

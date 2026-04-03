@@ -8,7 +8,7 @@ import { en } from '@/language';
 import {
   ThemeToggleButton,
   BurgerMenuButton,
-  CloseButton,
+  DismissButton,
 } from '@/components/ui/buttons';
 import {
   createEscapeHandler,
@@ -70,7 +70,11 @@ export default function MobileMenu() {
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
               className="mobile-menu-panel"
             >
-              <CloseButton onClick={() => setIsOpen(false)} />
+              <DismissButton
+                variant="plain"
+                onClick={() => setIsOpen(false)}
+                aria-label={en.closeMenu}
+              />
 
               <nav className="flex flex-col items-center gap-8 p-8 pt-16">
                 <Link

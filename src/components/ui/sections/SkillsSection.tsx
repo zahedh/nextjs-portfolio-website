@@ -3,7 +3,7 @@
 import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/utils';
+import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/projectSkills';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion, useReducedMotion } from 'motion/react';
@@ -65,9 +65,7 @@ export default function SkillsSection() {
         <motion.div
           className="flex flex-wrap items-center justify-center gap-2 sm:gap-3"
           animate={
-            prefersReducedMotion
-              ? undefined
-              : { opacity: [0.88, 1, 0.88] }
+            prefersReducedMotion ? undefined : { opacity: [0.88, 1, 0.88] }
           }
           transition={
             prefersReducedMotion
@@ -82,11 +80,7 @@ export default function SkillsSection() {
           <motion.span
             aria-hidden
             className="text-brand-600 dark:text-brand-400 inline-flex shrink-0"
-            animate={
-              prefersReducedMotion
-                ? undefined
-                : { scale: [1, 1.08, 1] }
-            }
+            animate={prefersReducedMotion ? undefined : { scale: [1, 1.08, 1] }}
             transition={
               prefersReducedMotion
                 ? undefined

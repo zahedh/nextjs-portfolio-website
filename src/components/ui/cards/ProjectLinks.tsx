@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { CalloutWrapper } from '@/components';
 import { en } from '@/language';
@@ -19,9 +19,7 @@ export function ProjectLinks({
   if (!trimmed) return null;
 
   return (
-    <CalloutWrapper
-      className={fullWidth ? 'block w-full' : undefined}
-    >
+    <CalloutWrapper className={fullWidth ? 'block w-full' : undefined}>
       <a
         href={trimmed}
         target="_blank"

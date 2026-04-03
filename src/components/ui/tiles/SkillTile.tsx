@@ -66,7 +66,10 @@ export function SkillTile({
         onKeyDown={
           isClickable
             ? (keyboardEvent: React.KeyboardEvent<HTMLDivElement>) => {
-                if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+                if (
+                  keyboardEvent.key === 'Enter' ||
+                  keyboardEvent.key === ' '
+                ) {
                   keyboardEvent.preventDefault();
                   tryDoubleActivate();
                 }

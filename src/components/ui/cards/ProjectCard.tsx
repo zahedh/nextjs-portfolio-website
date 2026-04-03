@@ -63,7 +63,11 @@ export default function ProjectCard({
           <p className="body-text-muted line-clamp-2">{excerpt}</p>
         ) : null}
 
-        <TechStack skills={projectSkills} maxIcons={5} />
+        <TechStack
+          skills={projectSkills}
+          maxIcons={5}
+          onMoreClick={() => onOpenFullDetails(project)}
+        />
 
         <button
           type="button"

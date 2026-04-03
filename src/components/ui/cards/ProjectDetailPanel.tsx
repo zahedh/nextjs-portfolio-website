@@ -10,9 +10,10 @@ import type { Project } from '@/data/projects';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 import { getProjectExcerptLine } from '@/lib/projectDisplay';
 import { getSkillsByIds } from '@/lib/utils';
+import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { ChevronDown, X } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -76,6 +77,14 @@ export default function ProjectDetailPanel({
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
   const overview = getProjectExcerptLine(project);
+
+  /** Avoid repeating the overview line in the full description when both are shown. */
+  const featureLinesForList =
+    overview && project.description.length > 1
+      ? project.description.slice(1)
+      : overview && project.description.length === 1
+        ? []
+        : project.description;
 
   const noMotion = Boolean(prefersReducedMotion);
 
@@ -146,15 +155,12 @@ export default function ProjectDetailPanel({
                 >
                   <span className="line-clamp-3">{project.title}</span>
                 </h2>
-                <button
+                <DismissButton
                   ref={closeRef}
-                  type="button"
+                  variant="brand"
                   onClick={onClose}
-                  className="brand-icon-btn h-12 w-12 md:h-11 md:w-11"
                   aria-label={en.projectDetailPanel.closeLabel}
-                >
-                  <X className="h-6 w-6" aria-hidden />
-                </button>
+                />
               </header>
 
               <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
@@ -168,7 +174,12 @@ export default function ProjectDetailPanel({
                       <ProjectMeta project={project} variant="ribbon" />
                     </section>
                     {projectUrl ? (
-                      <ProjectLinks url={projectUrl} fullWidth />
+                      <section>
+                        <SectionLabel>
+                          {en.projectDisplay.sectionLinks}
+                        </SectionLabel>
+                        <ProjectLinks url={projectUrl} fullWidth />
+                      </section>
                     ) : null}
                     <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
                       <SectionLabel>
@@ -178,15 +189,17 @@ export default function ProjectDetailPanel({
                         <p className="body-text-muted text-base">{overview}</p>
                       ) : null}
                     </section>
-                    <details className="detail-accordion group">
-                      <summary className="detail-accordion-trigger">
-                        {en.projectDisplay.sectionFeatures}
-                        <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
-                      </summary>
-                      <div className="detail-accordion-body">
-                        <FeatureList lines={project.description} />
-                      </div>
-                    </details>
+                    {featureLinesForList.length > 0 ? (
+                      <details className="detail-accordion group">
+                        <summary className="detail-accordion-trigger">
+                          {en.projectDisplay.sectionFeatures}
+                          <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
+                        </summary>
+                        <div className="detail-accordion-body">
+                          <FeatureList lines={featureLinesForList} />
+                        </div>
+                      </details>
+                    ) : null}
                     <details className="detail-accordion group" open>
                       <summary className="detail-accordion-trigger">
                         {en.projectDisplay.sectionTechStack}
@@ -211,12 +224,14 @@ export default function ProjectDetailPanel({
                         </p>
                       ) : null}
                     </section>
-                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
-                      <SectionLabel>
-                        {en.projectDisplay.sectionFeatures}
-                      </SectionLabel>
-                      <FeatureList lines={project.description} />
-                    </section>
+                    {featureLinesForList.length > 0 ? (
+                      <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
+                        <SectionLabel>
+                          {en.projectDisplay.sectionFeatures}
+                        </SectionLabel>
+                        <FeatureList lines={featureLinesForList} />
+                      </section>
+                    ) : null}
                     <section>
                       <SectionLabel>
                         {en.projectDisplay.sectionTechStack}
@@ -235,7 +250,12 @@ export default function ProjectDetailPanel({
                     <ProjectMeta project={project} variant="panel" />
                   </div>
                   {projectUrl ? (
-                    <ProjectLinks url={projectUrl} fullWidth />
+                    <section>
+                      <SectionLabel>
+                        {en.projectDisplay.sectionLinks}
+                      </SectionLabel>
+                      <ProjectLinks url={projectUrl} fullWidth />
+                    </section>
                   ) : null}
                 </aside>
               </div>

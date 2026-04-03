@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useTheme } from '@/hooks/utilityHooks';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';

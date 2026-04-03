@@ -57,7 +57,7 @@ export default function JobCard({ job }: JobCardProps) {
         <div className="flex flex-wrap items-center gap-2 self-start">
           <p
             className={cn(
-              'inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm font-semibold leading-snug',
+              'inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold',
               active ? datePillActive : datePillInactive
             )}
             aria-label={`${job.startDate} to ${job.endDate}`}
@@ -75,7 +75,7 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         <div className="min-w-0">
-          <h3 className="mb-2 text-xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100">
+          <h3 className="mb-2 text-xl leading-tight font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100">
             {job.title}
           </h3>
           <div className="flex flex-col gap-1.5 text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
