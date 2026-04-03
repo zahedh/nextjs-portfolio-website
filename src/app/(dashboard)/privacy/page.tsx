@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Section } from '@/components';
 import { SubHeading, BodyText } from '@/components/text';
-import { socialShareImageMeta } from '@/lib/social-metadata';
+import { socialShareImageMeta } from '@/lib/meta';
 import { en } from '@/language';
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
         showDivider={true}
         showBottomDivider={true}
       >
-        <div className="card-surface mx-auto max-w-3xl p-6 md:p-8">
+        <div className="surface-card mx-auto max-w-3xl p-6 md:p-8">
           <BodyText className="card-meta mb-6">
             {en.privacyPage.lastUpdatedLabel} {lastUpdatedDate}
           </BodyText>

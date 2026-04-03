@@ -2,8 +2,9 @@
    🧱 STRUCTURAL UTILITIES
    ========================= */
 @layer utilities {
+  /* max-width + horizontally centered in the viewport (mx-auto), gutters via padding */
   .prime-parent {
-    @apply mx-4 sm:mx-6 md:mx-8 lg:mx-10 xl:mx-10 2xl:mx-64;
+    @apply mx-auto w-full max-w-[115rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-10 2xl:px-15;
   }
 
   .screen-parent {
@@ -11,18 +12,12 @@
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4 border-neutral-900 dark:border-neutral-200;
-    scroll-margin-top: 4rem; /* Offset for sticky header */
+    @apply flex w-full flex-col items-start justify-center gap-4;
+    /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
+    scroll-margin-top: 5rem;
   }
 
   .section-content {
-    @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-6;
-  }
-
-  /* =========================
-     💬 LABELS
-     ========================= */
-  .hover-tooltip {
-    @apply pointer-events-none absolute -top-10 left-1/2 z-[9999] -translate-x-1/2 rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 dark:bg-neutral-100 dark:text-neutral-900;
+    @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-10;
   }
 }

@@ -1,6 +1,6 @@
 # 🌐 Next.js Portfolio Website
 
-**v1.0.0**
+**v1.1.0**
 
 A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase projects, experience, and skills with a strong focus on responsive design, accessibility, and maintainable architecture.
 

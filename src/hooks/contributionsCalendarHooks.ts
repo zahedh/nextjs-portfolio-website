@@ -16,67 +16,31 @@ export type TooltipData = {
   y: number;
 };
 
+/** Single source of truth for breakpoint-to-size mapping. */
+function calendarSizeForWidth(width: number): CalendarSize {
+  if (width < 640)
+    return { blockSize: 14, blockMargin: 4, blockRadius: 2, fontSize: 13 };
+  if (width < 768)
+    return { blockSize: 15, blockMargin: 4, blockRadius: 3, fontSize: 14 };
+  if (width < 1024)
+    return { blockSize: 16, blockMargin: 5, blockRadius: 3, fontSize: 15 };
+  if (width < 1280)
+    return { blockSize: 18, blockMargin: 5, blockRadius: 3, fontSize: 16 };
+  return { blockSize: 20, blockMargin: 6, blockRadius: 4, fontSize: 16 };
+}
+
 export function getInitialSize(): CalendarSize {
   if (typeof window === 'undefined') {
-    return { blockSize: 18, blockMargin: 5, blockRadius: 3, fontSize: 14 };
+    return calendarSizeForWidth(1280);
   }
-  const width = window.innerWidth;
-  if (width < 640) {
-    return { blockSize: 14, blockMargin: 4, blockRadius: 2, fontSize: 13 };
-  } else if (width < 768) {
-    return { blockSize: 15, blockMargin: 4, blockRadius: 3, fontSize: 14 };
-  } else if (width < 1024) {
-    return { blockSize: 16, blockMargin: 5, blockRadius: 3, fontSize: 15 };
-  } else if (width < 1280) {
-    return { blockSize: 18, blockMargin: 5, blockRadius: 3, fontSize: 16 };
-  } else {
-    return { blockSize: 20, blockMargin: 6, blockRadius: 4, fontSize: 16 };
-  }
+  return calendarSizeForWidth(window.innerWidth);
 }
 
 export function useResponsiveCalendarSize(
   setSize: (size: CalendarSize) => void
 ) {
   useEffect(() => {
-    const updateSize = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setSize({
-          blockSize: 14,
-          blockMargin: 4,
-          blockRadius: 2,
-          fontSize: 13,
-        });
-      } else if (width < 768) {
-        setSize({
-          blockSize: 15,
-          blockMargin: 4,
-          blockRadius: 3,
-          fontSize: 14,
-        });
-      } else if (width < 1024) {
-        setSize({
-          blockSize: 16,
-          blockMargin: 5,
-          blockRadius: 3,
-          fontSize: 15,
-        });
-      } else if (width < 1280) {
-        setSize({
-          blockSize: 18,
-          blockMargin: 5,
-          blockRadius: 3,
-          fontSize: 16,
-        });
-      } else {
-        setSize({
-          blockSize: 20,
-          blockMargin: 6,
-          blockRadius: 4,
-          fontSize: 16,
-        });
-      }
-    };
+    const updateSize = () => setSize(calendarSizeForWidth(window.innerWidth));
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
@@ -114,11 +78,10 @@ export function useContributionTooltip(activities: ActivityCalendarData[]) {
   const handleMouseEnter = (event: React.MouseEvent<SVGRectElement>) => {
     const target = event.currentTarget;
     const date = target.getAttribute('data-date');
-    const level = target.getAttribute('data-level');
 
-    if (!date || level === null) return;
+    if (!date) return;
 
-    const activity = activities.find((a) => a.date === date);
+    const activity = activities.find((entry) => entry.date === date);
     if (!activity) return;
 
     const rect = target.getBoundingClientRect();

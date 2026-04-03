@@ -1,5 +1,5 @@
 /* =========================
-   📐 LAYOUT COMPONENTS (timeline, footer, contributions)
+   ðŸ“ LAYOUT COMPONENTS (timeline, footer, contributions)
    ========================= */
 @layer utilities {
   .timeline-position {
@@ -37,7 +37,7 @@
   }
 
   /* =========================
-     🔗 NAVIGATION
+     ðŸ”— NAVIGATION
      ========================= */
   .nav-link {
     @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-base leading-normal font-bold tracking-tight text-neutral-900 dark:text-neutral-200;
@@ -53,78 +53,172 @@
   }
 
   /* =========================
-     🃏 CARD UTILITIES
+     ðŸƒ CARD UTILITIES
      ========================= */
-  .card-container {
-    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/96 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/[0.98] dark:shadow-neutral-950/20;
+  .surface-card {
+    @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
   }
-
-  /* Shared card surface (bordered panel) for About, Contributions, etc. */
-  .card-surface {
-    @apply border-brand-300 rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
+  .surface-card-interactive {
+    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
   }
-
-  .card-date-badge {
-    @apply bg-brand-300 dark:bg-brand-400 absolute left-6 flex w-[200px] items-center justify-center rounded-full px-5 py-2 text-sm font-bold text-neutral-900 dark:text-neutral-100;
+  .surface-card-flat {
+    @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
   }
-
+  .meta-row-subtle {
+    @apply text-[11px] leading-relaxed tracking-wide text-neutral-500 sm:text-xs dark:text-neutral-400;
+  }
   .card-title {
     @apply mb-2 text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-100;
   }
-
-  /* Project title as external link (hybrid with Visit project button) */
   .card-title-link {
     @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
   }
-
-  .card-icon-box {
-    @apply border-brand-500 bg-brand-300 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border text-neutral-900 dark:text-neutral-200;
-  }
-
-  .card-image-wrapper {
-    @apply block w-full rounded-t-3xl bg-neutral-200/40 dark:bg-neutral-800/40;
-  }
-
   .card-fade-gradient {
     @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
-  }
-
-  .card-meta-row {
-    @apply flex items-center gap-2 text-neutral-600 dark:text-neutral-400;
   }
   .card-description {
     @apply text-neutral-700 dark:text-neutral-300;
   }
-
-  /* Section subheading inside cards (e.g. privacy, legal) */
   .card-section-heading {
     @apply text-brand-600 dark:text-brand-400 mt-8 mb-3;
   }
-
-  /* Muted/secondary text in cards */
   .card-meta {
     @apply text-neutral-600 dark:text-neutral-400;
   }
-
-  /* Footer/contact block at bottom of card */
   .card-footer-note {
     @apply mt-10 border-t border-neutral-300 pt-6 text-sm text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
   }
-
-  /* List inside card content */
   .card-list {
     @apply font-body mb-6 list-disc pl-6 text-sm leading-relaxed text-neutral-700 sm:text-base md:text-lg dark:text-neutral-300;
   }
-
-  /* Brand accent link (email, external) */
   .link-accent {
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
-  .card-expand-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
+
+  /** JobCard date range pill — base + active/current vs inactive/past */
+  .job-date-pill {
+    @apply inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold;
   }
-  .card-skills {
-    @apply flex flex-wrap gap-2 overflow-visible p-1;
+  .job-date-pill-inactive {
+    @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
+  }
+  .job-date-pill-active {
+    @apply border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/60 dark:bg-brand-500/35 dark:text-neutral-50;
+  }
+
+  /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
+   * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
+   * 2. Primary: PrimaryButton base without btn-toggle-idle; optional btn-primary-sm for compact actions
+   * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
+   * 4. Tertiary: TertiaryButton
+   */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 font-heading text-base leading-normal font-bold tracking-tight bg-brand-500 text-neutral-900 dark:text-neutral-200 shadow-sm transition-colors duration-150 hover:bg-brand-600;
+  }
+  .btn-callout {
+    @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
+  }
+  /** Compact primary - smaller type than default pills; roomier padding than initial sm token */
+  .btn-primary-sm {
+    @apply px-4 py-2.5 text-sm leading-snug font-bold;
+  }
+  .btn-callout-ping-anchor {
+    @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
+  }
+  .btn-callout-ping-ring {
+    @apply bg-brand-400 dark:bg-brand-300 absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none;
+  }
+  .btn-callout-ping-core {
+    @apply bg-brand-500 relative inline-flex h-3 w-3 rounded-full ring-2 ring-white dark:ring-neutral-900;
+  }
+  .btn-brand-link,
+  .brand-link-btn {
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 inline-flex items-center justify-center gap-2 rounded-full border text-sm font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
+  }
+  .btn-card-expand,
+  .card-expand-btn {
+    @apply font-heading border-brand-500 bg-brand-300 hover:bg-brand-500 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-sm font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
+  }
+  .brand-pill {
+    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs;
+  }
+  .brand-pill-active {
+    @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-neutral-900 shadow-sm dark:text-neutral-200;
+  }
+  .brand-pill-inactive {
+    @apply border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100;
+  }
+  .brand-icon-btn {
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
+  }
+  .section-label {
+    @apply font-heading mb-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
+  }
+  .skill-tile-tooltip {
+    @apply pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
+  }
+  .more-pill {
+    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+  }
+  .body-text-muted {
+    @apply text-sm leading-relaxed text-neutral-600 dark:text-neutral-400;
+  }
+  .detail-accordion {
+    @apply rounded-xl border border-neutral-200/80 dark:border-neutral-700/60;
+  }
+  .detail-accordion-trigger {
+    @apply font-heading flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400 [&::-webkit-details-marker]:hidden;
+  }
+  .detail-accordion-body {
+    @apply border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60;
+  }
+  .dialog-backdrop {
+    @apply absolute inset-0 bg-neutral-900/55 backdrop-blur-md dark:bg-black/65;
+  }
+  .dialog-header {
+    @apply border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5;
+  }
+  .hero-btn-area {
+    @apply focus-visible:ring-brand-500 relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
+  }
+  .hero-fade-overlay {
+    @apply pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-900/25 to-transparent sm:h-20 dark:from-black/35;
+  }
+  .hero-hover-label {
+    @apply pointer-events-none absolute right-3 bottom-3 text-sm font-semibold text-white opacity-100 drop-shadow-sm sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4;
+  }
+  .feature-list-item {
+    @apply flex gap-3 text-sm leading-relaxed text-neutral-600 md:text-base dark:text-neutral-400;
+  }
+  .feature-list-bullet {
+    @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
+  }
+  /* Scrollable project description preview - thin brand scrollbars (Firefox + WebKit) */
+  .project-card-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(221 153 60 / 0.45) transparent;
+    overscroll-behavior-y: contain;
+  }
+  .dark .project-card-scroll {
+    scrollbar-color: rgb(152 99 27 / 0.42) transparent;
+  }
+  .project-card-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .project-card-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .project-card-scroll::-webkit-scrollbar-thumb {
+    @apply bg-brand-400/55 rounded-full;
+  }
+  .project-card-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-500/70;
+  }
+  .dark .project-card-scroll::-webkit-scrollbar-thumb {
+    @apply bg-brand-500/45;
+  }
+  .dark .project-card-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-400/60;
   }
 
   /* Stat card (metric tiles) */
@@ -138,7 +232,8 @@
     @apply text-xs font-semibold text-neutral-700 sm:text-xs md:text-xs lg:text-xs xl:text-[10px] 2xl:text-xs dark:text-neutral-300;
   }
 
-  /* Filter / toggle inactive state */
+  /* Legacy alias - prefer btn-toggle-idle in new markup */
+  .btn-toggle-idle,
   .filter-inactive {
     @apply opacity-50;
   }
@@ -153,7 +248,7 @@
 }
 
 /* =========================
-   🎨 SWIPER (project carousel)
+   ðŸŽ¨ SWIPER (project carousel)
    ========================= */
 
 .swiper-pagination-bullet {
@@ -174,6 +269,64 @@
 .swiper-button-next:after,
 .swiper-button-prev:after {
   font-size: 24px !important;
+}
+
+/* Active project card: directional depth + warm ambient (non-inset box-shadow only) */
+.projects-section-swiper .swiper-slide-active .project-card {
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--color-neutral-900) 8%, transparent),
+    0 8px 24px -10px
+      color-mix(in srgb, var(--color-neutral-900) 10%, transparent),
+    0 14px 36px -12px
+      color-mix(in srgb, var(--color-brand-400) 30%, transparent),
+    0 22px 52px -16px
+      color-mix(in srgb, var(--color-brand-500) 18%, transparent),
+    10px 16px 40px -14px
+      color-mix(in srgb, var(--color-brand-500) 12%, transparent);
+  transition:
+    box-shadow 200ms ease-out,
+    transform 200ms ease-out;
+}
+
+.projects-section-swiper .swiper-slide-active .project-card:hover,
+.projects-section-swiper .swiper-slide-active .project-card:focus-within {
+  box-shadow:
+    0 2px 4px color-mix(in srgb, var(--color-neutral-900) 10%, transparent),
+    0 10px 28px -8px
+      color-mix(in srgb, var(--color-neutral-900) 12%, transparent),
+    0 14px 40px -10px
+      color-mix(in srgb, var(--color-brand-400) 38%, transparent),
+    0 24px 56px -12px
+      color-mix(in srgb, var(--color-brand-500) 24%, transparent),
+    12px 18px 44px -12px
+      color-mix(in srgb, var(--color-brand-500) 16%, transparent);
+}
+
+.dark .projects-section-swiper .swiper-slide-active .project-card {
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--color-neutral-900) 14%, transparent),
+    0 8px 22px -10px
+      color-mix(in srgb, var(--color-neutral-900) 16%, transparent),
+    0 14px 34px -12px
+      color-mix(in srgb, var(--color-brand-400) 22%, transparent),
+    0 20px 44px -16px
+      color-mix(in srgb, var(--color-brand-500) 14%, transparent),
+    10px 14px 36px -14px
+      color-mix(in srgb, var(--color-brand-500) 10%, transparent);
+}
+
+.dark .projects-section-swiper .swiper-slide-active .project-card:hover,
+.dark .projects-section-swiper .swiper-slide-active .project-card:focus-within {
+  box-shadow:
+    0 2px 4px color-mix(in srgb, var(--color-neutral-900) 18%, transparent),
+    0 10px 26px -8px
+      color-mix(in srgb, var(--color-neutral-900) 18%, transparent),
+    0 14px 38px -10px
+      color-mix(in srgb, var(--color-brand-400) 28%, transparent),
+    0 22px 50px -12px
+      color-mix(in srgb, var(--color-brand-500) 18%, transparent),
+    12px 16px 40px -12px
+      color-mix(in srgb, var(--color-brand-500) 12%, transparent);
 }
 
 @media (min-width: 1280px) {

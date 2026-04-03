@@ -9,6 +9,7 @@ export const en = {
   activity: 'Activity',
   contact: 'Contact',
   cV: 'CV',
+  closeMenu: 'Close menu',
 
   // Static Home Content
   sectionHeaders: {
@@ -29,32 +30,15 @@ export const en = {
 
   aboutSection: {
     tagline: 'Tech loving, gym obsessed problem solver',
-    whatDrivesMeHeading: 'What drives me',
-    whatDrivesMeText:
+    introParagraph:
+      'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
+    narrativeParagraphs: [
       "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
-    beyondCodingHeading: 'Beyond coding',
-    beyondCodingIntro: "Outside of work, you'll find me:",
-    beyondCodingItems: [
-      'Lifting in the gym — staying focused and energised.',
-      'Making music — always exploring new sounds.',
-      'Diving into games, design, and tech — driven by curiosity.',
-    ],
-    levellingUpHeading: 'Levelling up in life',
-    levellingUpText:
       'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
-    statCards: {
-      yearsExperienceLabel: 'Years Experience',
-      enterpriseClientsLabel: 'Enterprise Clients',
-      enterpriseClientsValue: '2+',
-      usersReachedLabel: 'Users Reached',
-      usersReachedValue: '500K+',
-      appsPublishedLabel: 'Apps Published',
-      appsPublishedValue: 'iOS & Android',
-      aiWorkflowsLabel: 'Workflows',
-      aiWorkflowsValue: 'AI-Enhanced',
-      degreeLabel: 'Degree',
-      degreeValue: '1st Class',
-    },
+    ],
+    closingNote:
+      'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
+    credentialsAriaLabel: 'At a glance',
   },
 
   skillsCollageSection: {
@@ -86,6 +70,7 @@ export const en = {
     // Styling & Design
     tailwind: 'Tailwind CSS',
     figma: 'Figma',
+    framer: 'Framer',
 
     // Database
     mySQL: 'MySQL',
@@ -99,6 +84,8 @@ export const en = {
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
+    nx: 'Nx',
+    storybook: 'Storybook',
 
     // Testing & Code Quality
     jest: 'Jest',
@@ -122,6 +109,8 @@ export const en = {
 
     // AI Tools
     gitHubCopilot: 'GH Copilot',
+    claude: 'Claude',
+    claudeCode: 'Claude Code',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
@@ -137,30 +126,15 @@ export const en = {
     agile: 'Agile Methodologies',
   },
 
-  projectsSection: {
-    backToProjectsLabel: 'Back to Projects',
-    designedToLabel: 'Designed to ',
-    summaryHeader: 'Summary',
-    technologiesHeader: 'Technologies',
-    coreDevelopmentSubheader: 'Core Development',
-    stylingSubheader: 'Styling & UI',
-    toolsSubheader: 'Tools & Workflow',
-    backendSubheader: 'Backend & APIs',
-    lessonsLearnedHeader: 'Lessons Learned',
-  },
-
   footerSection: {
     catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
     catchPhraseSubheader:
       'Blending design, development, and AI into cohesive systems.',
     catchPhraseSupportingTextPart1: 'Building something ambitious? ',
     catchPhraseSupportingTextPart2: "Let's build it properly.",
-    contactHeader: 'Talk',
-    talkButtonLabel: 'Talk',
-    meetButtonLabel: 'Meet',
-    connectHeader: 'Connect',
     copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
     privacyLinkLabel: 'Privacy',
+    email: 'zahed.heidari2@gmail.com',
     ariaDownloadCV: 'Download CV',
     ariaSendEmail: 'Send email to Zahed',
     ariaLinkedIn: 'LinkedIn profile',
@@ -188,12 +162,41 @@ export const en = {
     mobile: 'Mobile',
     web: 'Web',
     clearSkillFilter: 'All skills',
+    clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
   },
 
   projectCard: {
-    titleLinkAria: 'Opens in a new tab',
-    /** Shown while fonts/layout preflight runs (duplicate hidden layer) */
-    expandPreparing: 'Preparing…',
+    fullCaseStudy: 'Full Story',
+    viewProject: 'View project',
+    viewProjectArrow: '→',
+  },
+
+  projectDisplay: {
+    statusActive: 'Active',
+    statusCompleted: 'Completed',
+    platformWeb: 'Web',
+    platformMobile: 'Mobile',
+    timelineLabel: 'Timeline',
+    platformLabel: 'Platform',
+    contextLabel: 'Organisation',
+    personalTag: 'Personal',
+    statusLabel: 'Status',
+    sectionOverview: 'Overview',
+    sectionFeatures: 'Description',
+    sectionTechStack: 'Tech stack',
+    sectionLinks: 'Links',
+    sectionMetaItems: 'Project meta items',
+    visitLive: 'Visit site',
+    moreSkills: '+{{count}} more',
+  },
+
+  jobDisplay: {
+    statusCurrent: 'Current',
+    statusPast: 'Past',
+  },
+
+  projectDetailPanel: {
+    closeLabel: 'Close project details',
   },
 
   notFound: {

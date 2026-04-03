@@ -32,7 +32,6 @@ export async function fetchGitHubContributions(year?: number) {
     Authorization: `Bearer ${token}`,
   };
 
-  // Calculate date range for the year
   const fromDate = year
     ? `${year}-01-01T00:00:00Z`
     : `${new Date().getFullYear()}-01-01T00:00:00Z`;
@@ -70,7 +69,7 @@ export async function fetchGitHubContributions(year?: number) {
           to: toDate,
         },
       }),
-      next: { revalidate: 86400 }, // Cache for 24 hours
+      next: { revalidate: 86400 },
     });
 
     if (!response.ok) {
@@ -111,7 +110,6 @@ export function transformContributionsData(
 
   for (const week of calendar.weeks) {
     for (const day of week.contributionDays) {
-      // Calculate level (0-4) based on contribution count
       let level = 0;
       if (day.contributionCount > 0) level = 1;
       if (day.contributionCount >= 3) level = 2;

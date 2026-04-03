@@ -1,5 +1,5 @@
 'use client';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { IconType } from 'react-icons';
 import { createPortal } from 'react-dom';
 import { useDoubleActivation } from '@/hooks/useDoubleActivation';
@@ -13,9 +13,6 @@ type SkillTileProps = {
   compact?: boolean;
   onClick?: () => void;
 };
-
-const tooltipSurfaceClass =
-  'pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900';
 
 /** Circular icon tile representing a single skill with tooltip. */
 export function SkillTile({
@@ -43,8 +40,8 @@ export function SkillTile({
     createPortal(
       <div
         role="tooltip"
-        className={clsx(
-          tooltipSurfaceClass,
+        className={cn(
+          'skill-tile-tooltip',
           tooltipVisible ? 'opacity-100' : 'opacity-0'
         )}
         style={{
@@ -68,9 +65,12 @@ export function SkillTile({
         onClick={isClickable ? tryDoubleActivate : undefined}
         onKeyDown={
           isClickable
-            ? (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
+            ? (keyboardEvent: React.KeyboardEvent<HTMLDivElement>) => {
+                if (
+                  keyboardEvent.key === 'Enter' ||
+                  keyboardEvent.key === ' '
+                ) {
+                  keyboardEvent.preventDefault();
                   tryDoubleActivate();
                 }
               }
@@ -78,14 +78,15 @@ export function SkillTile({
         }
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
-        className={clsx(
+        className={cn(
           compact
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
             : 'relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',
           'rounded-full',
           'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
-          'hover:bg-brand-500 cursor-pointer',
+          'hover:bg-brand-500',
+          isClickable ? 'cursor-pointer' : 'cursor-default',
           className
         )}
       >

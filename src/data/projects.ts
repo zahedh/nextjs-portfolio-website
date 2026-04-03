@@ -1,12 +1,3 @@
-import type { ComponentType } from 'react';
-
-import { AvatarGraphic } from '@/components/media';
-
-export type ProjectImageComponentProps = {
-  alt?: string;
-  className?: string;
-};
-
 export interface Project {
   id: string;
   projectType: 'Mobile' | 'Web';
@@ -17,7 +8,7 @@ export interface Project {
   description: string[];
   skills: string[];
   image?: string;
-  imageComponent?: ComponentType<ProjectImageComponentProps>;
+  imageToken?: string;
   url?: string;
 }
 
@@ -27,8 +18,8 @@ export const projects: Project[] = [
     projectType: 'Web',
     title: 'Render Lab — Video FX Editor',
     company: 'Personal Project',
-    startDate: 'Mar 2025',
-    endDate: 'Present',
+    startDate: 'Mar 2026',
+    endDate: 'Mar 2026',
     description: [
       '✦ A browser-based video effects editor with a dark UI and real-time preview — switch between ASCII, pixel sort, and pixelate modes.',
       '✦ Fine-grained controls per effect: pixel size, palettes, dithering, saturation, contrast, brightness, and optional scanline-style treatments.',
@@ -64,7 +55,7 @@ export const projects: Project[] = [
     startDate: 'Jan 2025',
     endDate: 'Present',
     url: 'https://zahedheidari.co.uk',
-    imageComponent: AvatarGraphic,
+    imageToken: 'avatar',
     description: [
       '✦ Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
       '✦ A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
@@ -125,6 +116,8 @@ export const projects: Project[] = [
       'React Native',
       'typescript',
       'javascript',
+      'nx',
+      'storybook',
       'jest',
       'prettier',
       'firebase',
@@ -157,7 +150,6 @@ export const projects: Project[] = [
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
     url: 'https://www.curtainsmade.co.uk/',
-    image: '/images/curtainsmadeLogo.png',
     description: [
       '✦ E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
       "✦ Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",

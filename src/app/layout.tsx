@@ -3,7 +3,7 @@ import { Inter, IBM_Plex_Sans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { socialShareImageMeta } from '@/lib/social-metadata';
+import { socialShareImageMeta } from '@/lib/meta';
 import { GlobalStoreProvider } from '@/providers/global-store-provider';
 import '../styles/index.css';
 

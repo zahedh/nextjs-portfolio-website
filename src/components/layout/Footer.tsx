@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { en } from '@/language';
-import { BodyText, SubHeading } from '../text';
-import { PrimaryButton, TertiaryButton } from '../ui';
+import { BodyText, SubHeading } from '@/components/text';
+import { PrimaryButton, TertiaryButton } from '@/components/ui';
 import { SiGithub, SiLinkedin, SiSessionize } from 'react-icons/si';
 import { Mail, FileUser } from 'lucide-react';
-import { AvatarGraphic } from '../media';
+import { AvatarGraphic } from '@/components/media';
 
 /** Site footer with copyright and secondary navigation. */
 export default function Footer() {
@@ -43,7 +43,7 @@ export default function Footer() {
               <FileUser className="h-6 w-6" />
             </PrimaryButton>
             <PrimaryButton
-              hyperlink="mailto:zahed.heidari2@gmail.com"
+              hyperlink={`mailto:${en.footerSection.email}`}
               aria-label={en.footerSection.ariaSendEmail}
             >
               <Mail className="h-6 w-6" />

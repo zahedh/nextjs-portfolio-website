@@ -2,65 +2,101 @@
 
 import { Section } from '@/components';
 import { AboutGraphic } from '@/components/media';
-import { AboutMeCard, StatCard } from '@/components/ui/cards';
-import { aboutStatCards } from '@/data';
+import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
+import { useBreakpoint } from '@/hooks/utilityHooks';
 
-/** Section describing background and story. */
+const viewMotion = { once: true, margin: '-80px' as const };
+
+/** Editorial About: vertical stack (graphic above copy) below lg; text left + sticky graphic right from lg up. */
 export default function AboutSection() {
+  const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
+  const isDesktop = useBreakpoint('lg');
+  const prefersReducedMotion = useReducedMotion();
+  const graphicFloat =
+    !isDesktop && prefersReducedMotion !== true ? { y: [0, -6, 0] } : undefined;
+
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
-      <div className="section-content relative mx-auto flex flex-col items-center justify-center gap-12 lg:flex-row lg:items-center lg:gap-14">
-        {/* Floating stat cards - only visible on xl screens */}
-        {aboutStatCards.map((card, index) => (
+      <div className="section-content mx-auto w-3/4 min-w-0">
+        <div className="flex flex-col gap-10 sm:gap-12 lg:flex-row lg:items-start lg:gap-12">
+          <div className="order-2 flex min-w-0 flex-1 flex-col gap-10 sm:gap-12 lg:order-1 lg:gap-14">
+            <div className="flex flex-col gap-7 text-center sm:gap-8 lg:text-left">
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewMotion}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="font-heading text-brand-600 dark:text-brand-400 mx-auto max-w-3xl text-3xl font-bold italic sm:text-4xl md:text-4xl lg:mx-0 lg:max-w-none"
+              >
+                {en.aboutSection.tagline}
+              </motion.p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewMotion}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+              className="mx-auto max-w-3xl space-y-6 text-center text-xl leading-relaxed text-neutral-800 sm:text-2xl lg:mx-0 lg:max-w-none lg:text-left dark:text-neutral-300"
+            >
+              <p>{narrativeFirst}</p>
+              <p>{narrativeSecond}</p>
+            </motion.div>
+
+            <motion.aside
+              aria-label={en.aboutSection.credentialsAriaLabel}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewMotion}
+              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
+            >
+              <ul className="font-heading mx-auto flex w-full max-w-2xl flex-col items-center gap-y-4 text-base font-semibold tracking-tight sm:gap-y-4 sm:text-lg lg:mx-0 lg:items-start">
+                {aboutCredentialLines.map((line) => (
+                  <li
+                    key={line}
+                    className="flex w-full justify-center lg:justify-start"
+                  >
+                    <span className="text-brand-700 dark:text-brand-300 border-brand-500/25 inline-block border-l-[3px] pl-4 text-center lg:text-left">
+                      {line}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.aside>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewMotion}
+              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
+              className="text-brand-700 dark:text-brand-400 border-t border-neutral-300/70 pt-10 text-center text-lg leading-relaxed font-normal italic sm:text-xl lg:text-left dark:border-neutral-700"
+            >
+              {en.aboutSection.closingNote}
+            </motion.p>
+          </div>
+
           <motion.div
-            key={card.label}
-            className={`absolute hidden ${card.position} xl:block`}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-            whileHover={{
-              scale: 1.25,
-              transition: { duration: 0.3 },
-            }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={viewMotion}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+            className="order-1 mx-auto flex w-full max-w-[min(100%,360px)] shrink-0 justify-center sm:max-w-[400px] lg:sticky lg:top-24 lg:z-0 lg:order-2 lg:mx-0 lg:w-[460px] lg:max-w-[460px] lg:shrink-0 lg:justify-end lg:self-start"
           >
             <motion.div
-              animate={{
-                rotate: [0, -2, 2, -2, 0],
-              }}
+              className="flex w-full justify-center lg:max-w-[460px]"
+              animate={graphicFloat}
               transition={{
                 duration: 5,
-                repeat: Infinity,
+                repeat: graphicFloat ? Infinity : 0,
                 ease: 'easeInOut',
-                delay: index * 0.5,
               }}
             >
-              <StatCard value={card.value} label={card.label} />
+              <AboutGraphic className="mx-auto block h-auto max-w-full opacity-95" />
             </motion.div>
           </motion.div>
-        ))}
-
-        <motion.div
-          className="order-2 lg:order-1"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-        >
-          <AboutMeCard />
-        </motion.div>
-
-        <motion.div
-          className="order-1 flex w-full max-w-sm items-center justify-center lg:order-2 lg:max-w-md"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
-        >
-          <AboutGraphic className="h-auto w-full" />
-        </motion.div>
+        </div>
       </div>
     </Section>
   );

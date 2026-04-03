@@ -1,4 +1,4 @@
-import { Navbar } from '../ui';
+import { Navbar } from '@/components/ui';
 
 /** Site header containing the primary navigation bar. */
 export default function Header() {
