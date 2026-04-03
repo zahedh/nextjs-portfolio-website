@@ -18,11 +18,15 @@ export default function HeroSection() {
   );
 
   return (
-    <Section anchor="home" showDivider={false}>
-      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden sm:flex-row">
+    <Section
+      anchor="home"
+      showDivider={false}
+      className="justify-start sm:justify-center"
+    >
+      <div className="section-content relative flex w-full flex-col items-center justify-start gap-10 overflow-hidden sm:flex-row sm:justify-center">
         <HeroFloatingOrbs />
 
-        <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
+        <div className="relative z-10 flex w-full flex-col items-center justify-start gap-10 sm:flex-row sm:justify-center">
           <AvatarGraphic
             priority
             className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"

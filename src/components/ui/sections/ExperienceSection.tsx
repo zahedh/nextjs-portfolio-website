@@ -10,7 +10,7 @@ import { motion } from 'motion/react';
 export default function ExperienceSection() {
   return (
     <Section anchor="experience" title={en.sectionHeaders.experience}>
-      <div className="section-content relative mx-auto max-w-6xl xl:max-w-7xl">
+      <div className="section-content relative mx-auto w-full min-w-0 2xl:w-3/4">
         <div className="timeline-position" />
 
         <div className="relative space-y-16 py-44 lg:space-y-24 lg:py-64">

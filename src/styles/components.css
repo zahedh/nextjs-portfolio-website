@@ -56,7 +56,7 @@
      🃏 CARD UTILITIES
      ========================= */
   .surface-card {
-    @apply border-brand-500/95 dark:border-brand-400/75 rounded-2xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+    @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
   }
   .surface-card-interactive {
     @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;

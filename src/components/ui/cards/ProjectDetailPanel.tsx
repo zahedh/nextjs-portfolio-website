@@ -126,7 +126,7 @@ export default function ProjectDetailPanel({
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-2xl md:border-2 md:pt-0 dark:bg-neutral-900/95"
+              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-3xl md:border-2 md:pt-0 dark:bg-neutral-900/95"
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}

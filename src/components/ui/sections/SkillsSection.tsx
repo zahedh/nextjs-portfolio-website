@@ -25,7 +25,7 @@ export default function SkillsSection() {
 
   return (
     <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
-      <div className="section-content mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-6">
+      <div className="section-content mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6">
         {skillsData.map((skill, index) => {
           const row = Math.floor(index / 8);
           const direction = row % 2 === 0 ? 1 : -1;

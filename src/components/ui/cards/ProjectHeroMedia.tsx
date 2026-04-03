@@ -53,7 +53,7 @@ export function ProjectHeroMedia({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-2xl border border-neutral-200/90 bg-neutral-200/30 dark:border-neutral-700/80 dark:bg-neutral-800/50',
+        'relative overflow-hidden rounded-3xl border border-neutral-200/90 bg-neutral-200/30 dark:border-neutral-700/80 dark:bg-neutral-800/50',
         className
       )}
     >
