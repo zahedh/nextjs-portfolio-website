@@ -123,3 +123,12 @@ export function useBreakpoint(breakpoint: Breakpoint) {
 
   return matches;
 }
+
+/** True after mount — use for portals and other browser-only APIs that must not run during SSR. */
+export function useClientMounted(): boolean {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
+}

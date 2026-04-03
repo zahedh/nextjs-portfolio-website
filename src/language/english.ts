@@ -185,7 +185,7 @@ export const en = {
     sectionFeatures: 'Description',
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
-    sectionMetadata: 'Details',
+    sectionMetaItems: 'Project meta items',
     visitLive: 'Visit site',
     moreSkills: '+{{count}} more',
   },

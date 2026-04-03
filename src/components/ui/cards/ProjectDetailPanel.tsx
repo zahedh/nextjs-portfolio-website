@@ -7,26 +7,24 @@ import { ProjectMetaItems } from '@/components/ui/cards/ProjectMeta';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
-import { useBreakpoint } from '@/hooks/utilityHooks';
+import {
+  useBodyScrollLock,
+  useEscapeKeydown,
+  useFocusCloseButtonOnOpen,
+} from '@/hooks/overlayHooks';
+import { useBreakpoint, useClientMounted } from '@/hooks/utilityHooks';
 import {
   getProjectDetailFeatureLines,
   getProjectDetailDialogMotion,
   getProjectDetailOverlayTransition,
   getProjectExcerptLine,
 } from '@/lib/ui-logic';
-import { createEscapeHandler, getSkillsByIds } from '@/lib/utils';
+import { getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
-import {
-  type ReactNode,
-  type RefObject,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { type ReactNode, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 interface ProjectDetailPanelProps {
@@ -55,7 +53,7 @@ export default function ProjectDetailPanel({
 
   useBodyScrollLock(open);
   useEscapeKeydown(open, onClose);
-  useDialogFocusOnOpen({ open, project, closeRef });
+  useFocusCloseButtonOnOpen(open && !!project, closeRef, project);
 
   if (!mounted || !project) return null;
 
@@ -121,7 +119,7 @@ export default function ProjectDetailPanel({
                     <ProjectHeroMedia project={project} density="compact" />
                     <section>
                       <SectionLabel>
-                        {en.projectDisplay.sectionMetadata}
+                        {en.projectDisplay.sectionMetaItems}
                       </SectionLabel>
                       <ProjectMetaItems project={project} variant="ribbon" />
                     </section>
@@ -197,7 +195,7 @@ export default function ProjectDetailPanel({
                   <ProjectHeroMedia project={project} density="compact" />
                   <div>
                     <SectionLabel>
-                      {en.projectDisplay.sectionMetadata}
+                      {en.projectDisplay.sectionMetaItems}
                     </SectionLabel>
                     <ProjectMetaItems project={project} variant="panel" />
                   </div>
@@ -218,58 +216,4 @@ export default function ProjectDetailPanel({
     </AnimatePresence>,
     document.body
   );
-}
-
-/** True after mount so `createPortal` only runs in the browser. */
-function useClientMounted(): boolean {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return mounted;
-}
-
-/** Locks page scroll while the overlay is open; restores the previous body overflow on close. */
-function useBodyScrollLock(active: boolean) {
-  useEffect(() => {
-    if (!active) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [active]);
-}
-
-/** Escape closes the panel (same pattern as mobile nav). */
-function useEscapeKeydown(active: boolean, onClose: () => void) {
-  useEffect(() => {
-    if (!active) return;
-    const handleEscape = createEscapeHandler(onClose);
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [active, onClose]);
-}
-
-/** Moves focus to the close control when the dialog opens; restores focus to the trigger afterward. */
-function useDialogFocusOnOpen({
-  open,
-  project,
-  closeRef,
-}: {
-  open: boolean;
-  project: Project | null;
-  closeRef: RefObject<HTMLButtonElement | null>;
-}) {
-  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!open || !project) return;
-    previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
-    return () => {
-      cancelAnimationFrame(frameId);
-      previouslyFocusedRef.current?.focus?.();
-    };
-  }, [open, project, closeRef]);
 }

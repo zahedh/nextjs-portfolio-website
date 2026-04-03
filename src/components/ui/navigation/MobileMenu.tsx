@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  useState,
-  useEffect,
-  useId,
-  useRef,
-  useCallback,
-  type RefObject,
-} from 'react';
+import { useState, useId, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -23,10 +16,11 @@ import {
   DismissButton,
 } from '@/components/ui/buttons';
 import {
-  createEscapeHandler,
-  scrollToTop,
-  handleSmoothScroll,
-} from '@/lib/utils';
+  useBodyScrollLock,
+  useEscapeKeydown,
+  useFocusCloseButtonOnOpen,
+} from '@/hooks/overlayHooks';
+import { scrollToTop, handleSmoothScroll } from '@/lib/utils';
 import {
   MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX,
   MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX,
@@ -47,9 +41,9 @@ export default function MobileMenu() {
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  useMobileMenuBodyScrollLock(isOpen);
+  useBodyScrollLock(isOpen);
   useEscapeKeydown(isOpen, () => setIsOpen(false));
-  useFocusDismissOnOpen(isOpen, closeRef);
+  useFocusCloseButtonOnOpen(isOpen, closeRef);
 
   const overlayTransition = getMobileMenuOverlayTransition(noMotion);
   const panelTransition = getMobileMenuPanelTransition(noMotion);
@@ -210,54 +204,4 @@ export default function MobileMenu() {
       </AnimatePresence>
     </>
   );
-}
-
-function useMobileMenuBodyScrollLock(open: boolean) {
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-    };
-  }, [open]);
-}
-
-function useEscapeKeydown(open: boolean, onClose: () => void) {
-  useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = createEscapeHandler(onClose);
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [open, onClose]);
-}
-
-function useFocusDismissOnOpen(
-  open: boolean,
-  closeRef: RefObject<HTMLButtonElement | null>
-) {
-  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
-    return () => {
-      cancelAnimationFrame(frameId);
-      previouslyFocusedRef.current?.focus?.();
-    };
-  }, [open, closeRef]);
 }
