@@ -3,7 +3,7 @@ export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';
 export { ProjectLinks } from './ProjectLinks';
 export {
-  ProjectMeta,
+  ProjectMetaItems,
   ProjectPlatformTag,
   ProjectStatusBadge,
 } from './ProjectMeta';

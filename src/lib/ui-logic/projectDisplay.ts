@@ -21,3 +21,18 @@ export function getProjectExcerptLine(project: Project): string {
   if (!first) return '';
   return stripDescriptionLine(first);
 }
+
+/**
+ * Lines to show under “Features” in the detail panel: same as `description` but skips the first
+ * paragraph when it duplicates the overview (first line).
+ */
+export function getProjectDetailFeatureLines(project: Project): string[] {
+  const overview = getProjectExcerptLine(project);
+  if (overview && project.description.length > 1) {
+    return project.description.slice(1);
+  }
+  if (overview && project.description.length === 1) {
+    return [];
+  }
+  return project.description;
+}

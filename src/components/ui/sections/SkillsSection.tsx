@@ -9,8 +9,12 @@ import { skillsData } from '@/data';
 import { motion, useReducedMotion } from 'motion/react';
 import { MousePointerClick } from 'lucide-react';
 import { Heading } from '@/components/text';
-
-const hintViewport = { once: true, margin: '-60px 0px' as const };
+import {
+  getSkillsCollageContainerVariants,
+  getSkillsCollageGridViewport,
+  getSkillsCollageItemVariants,
+  skillsCollageHintViewport,
+} from '@/lib/ui-logic';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
@@ -27,31 +31,11 @@ export default function SkillsSection() {
     scrollToProjectsSection();
   };
 
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.03,
-        delayChildren: prefersReducedMotion ? 0 : 0.04,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: prefersReducedMotion
-      ? { opacity: 1, scale: 1, y: 0 }
-      : { opacity: 0, scale: 0.72, y: 6 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 520,
-        damping: 26,
-      },
-    },
-  };
+  const containerVariants = getSkillsCollageContainerVariants(
+    prefersReducedMotion
+  );
+  const itemVariants = getSkillsCollageItemVariants(prefersReducedMotion);
+  const gridViewport = getSkillsCollageGridViewport();
 
   return (
     <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
@@ -59,7 +43,7 @@ export default function SkillsSection() {
         className="mb-12 flex flex-col items-center justify-center gap-2 self-center"
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={hintViewport}
+        viewport={skillsCollageHintViewport}
         transition={{ duration: 0.45, ease: 'easeOut' }}
       >
         <motion.div
@@ -109,7 +93,7 @@ export default function SkillsSection() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-60px 0px', amount: 0.15 }}
+        viewport={gridViewport}
       >
         {skillsData.map((skill) => (
           <motion.div

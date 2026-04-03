@@ -3,6 +3,10 @@
 import Image from 'next/image';
 import type { Project } from '@/data/projects';
 import { AvatarGraphic } from '@/components/media';
+import {
+  getProjectHeroFrameClassNames,
+  getProjectHeroRasterSizes,
+} from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 import { Monitor, Smartphone } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -37,18 +41,8 @@ export function ProjectHeroMedia({
     setImageError(false);
   }, [project.id]);
 
-  const frame = cn(
-    'relative w-full overflow-hidden bg-neutral-100/85 dark:bg-neutral-800/55',
-    density === 'compact'
-      ? 'h-40 max-h-[min(200px,36vh)] sm:h-44'
-      : 'h-36 sm:h-40 md:h-44',
-    frameClassName
-  );
-
-  const rasterSizes =
-    density === 'compact'
-      ? '(max-width: 768px) 100vw, 320px'
-      : '(max-width: 768px) 100vw, 576px';
+  const frame = getProjectHeroFrameClassNames(density, frameClassName);
+  const rasterSizes = getProjectHeroRasterSizes(density);
 
   return (
     <div

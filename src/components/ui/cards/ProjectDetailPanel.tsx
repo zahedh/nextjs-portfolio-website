@@ -3,18 +3,30 @@
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
-import { ProjectMeta } from '@/components/ui/cards/ProjectMeta';
+import { ProjectMetaItems } from '@/components/ui/cards/ProjectMeta';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
 import { useBreakpoint } from '@/hooks/utilityHooks';
-import { getProjectExcerptLine } from '@/lib/ui-logic';
-import { getSkillsByIds } from '@/lib/utils';
+import {
+  getProjectDetailFeatureLines,
+  getProjectDetailDialogMotion,
+  getProjectDetailOverlayTransition,
+  getProjectExcerptLine,
+} from '@/lib/ui-logic';
+import { createEscapeHandler, getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ChevronDown } from 'lucide-react';
-import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
+import {
+  type ReactNode,
+  type RefObject,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 interface ProjectDetailPanelProps {
@@ -35,87 +47,27 @@ export default function ProjectDetailPanel({
   onClose,
   onExitComplete,
 }: ProjectDetailPanelProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useClientMounted();
   const prefersReducedMotion = useReducedMotion();
   const isDesktop = useBreakpoint('md');
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
-  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (keyboardEvent: KeyboardEvent) => {
-      if (keyboardEvent.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [open, onClose]);
-
-  useEffect(() => {
-    if (!open || !project) return;
-    previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
-    return () => {
-      cancelAnimationFrame(frameId);
-      previouslyFocusedRef.current?.focus?.();
-    };
-  }, [open, project]);
+  useBodyScrollLock(open);
+  useEscapeKeydown(open, onClose);
+  useDialogFocusOnOpen({ open, project, closeRef });
 
   if (!mounted || !project) return null;
 
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
   const overview = getProjectExcerptLine(project);
-
-  /** Avoid repeating the overview line in the full description when both are shown. */
-  const featureLinesForList =
-    overview && project.description.length > 1
-      ? project.description.slice(1)
-      : overview && project.description.length === 1
-        ? []
-        : project.description;
+  const featureLinesForList = getProjectDetailFeatureLines(project);
 
   const noMotion = Boolean(prefersReducedMotion);
-
-  const overlayTransition = noMotion
-    ? { duration: 0 }
-    : { duration: 0.24, ease: 'easeOut' as const };
-
-  const dialogInitial = noMotion
-    ? { opacity: 0 }
-    : isDesktop
-      ? { opacity: 0, y: 20, scale: 0.94 }
-      : { y: '100%', opacity: 1 };
-
-  const dialogAnimate = noMotion
-    ? { opacity: 1 }
-    : isDesktop
-      ? { opacity: 1, y: 0, scale: 1 }
-      : { y: 0, opacity: 1 };
-
-  const dialogTransition = noMotion
-    ? { duration: 0 }
-    : isDesktop
-      ? {
-          type: 'spring' as const,
-          damping: 30,
-          stiffness: 320,
-        }
-      : {
-          y: { type: 'spring' as const, damping: 34, stiffness: 380 },
-          opacity: { duration: 0.2 },
-        };
+  const overlayTransition = getProjectDetailOverlayTransition(noMotion);
+  const { initial: dialogInitial, animate: dialogAnimate, transition: dialogTransition } =
+    getProjectDetailDialogMotion(noMotion, isDesktop);
 
   return createPortal(
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -171,7 +123,7 @@ export default function ProjectDetailPanel({
                       <SectionLabel>
                         {en.projectDisplay.sectionMetadata}
                       </SectionLabel>
-                      <ProjectMeta project={project} variant="ribbon" />
+                      <ProjectMetaItems project={project} variant="ribbon" />
                     </section>
                     {projectUrl ? (
                       <section>
@@ -247,7 +199,7 @@ export default function ProjectDetailPanel({
                     <SectionLabel>
                       {en.projectDisplay.sectionMetadata}
                     </SectionLabel>
-                    <ProjectMeta project={project} variant="panel" />
+                    <ProjectMetaItems project={project} variant="panel" />
                   </div>
                   {projectUrl ? (
                     <section>
@@ -266,4 +218,58 @@ export default function ProjectDetailPanel({
     </AnimatePresence>,
     document.body
   );
+}
+
+/** True after mount so `createPortal` only runs in the browser. */
+function useClientMounted(): boolean {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
+}
+
+/** Locks page scroll while the overlay is open; restores the previous body overflow on close. */
+function useBodyScrollLock(active: boolean) {
+  useEffect(() => {
+    if (!active) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [active]);
+}
+
+/** Escape closes the panel (same pattern as mobile nav). */
+function useEscapeKeydown(active: boolean, onClose: () => void) {
+  useEffect(() => {
+    if (!active) return;
+    const handleEscape = createEscapeHandler(onClose);
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [active, onClose]);
+}
+
+/** Moves focus to the close control when the dialog opens; restores focus to the trigger afterward. */
+function useDialogFocusOnOpen({
+  open,
+  project,
+  closeRef,
+}: {
+  open: boolean;
+  project: Project | null;
+  closeRef: RefObject<HTMLButtonElement | null>;
+}) {
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!open || !project) return;
+    previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
+    return () => {
+      cancelAnimationFrame(frameId);
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [open, project, closeRef]);
 }

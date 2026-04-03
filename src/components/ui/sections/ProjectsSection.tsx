@@ -7,8 +7,7 @@ import {
   CalloutWrapper,
 } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { isProjectActive } from '@/lib/ui-logic';
-import { projectMatchesSkill } from '@/lib/project';
+import { getFilteredProjectsForSection } from '@/lib/project';
 import { skillsData } from '@/data';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
@@ -20,7 +19,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-cards';
 import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef, useEffect, type RefObject } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
@@ -39,35 +38,20 @@ export default function ProjectsSection() {
     (state) => state.setSelectedSkillId
   );
 
-  useEffect(() => {
-    if (isLargeScreen) return;
-    const swiper = swiperRef.current;
-    if (!swiper?.slides?.length) return;
-    const slide = swiper.slides[activeIndex];
-    if (!slide) return;
-    const ro = new ResizeObserver(() => {
-      swiper.update();
-    });
-    ro.observe(slide);
-    return () => ro.disconnect();
-  }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
+  useSwiperActiveSlideResize({
+    isLargeScreen,
+    swiperRef,
+    activeIndex,
+    selectedType,
+    selectedSkillId,
+    swiperReady,
+  });
 
-  const filteredProjects = useMemo(() => {
-    let list: Project[];
-    if (selectedSkillId) {
-      list = projects.filter((project) =>
-        projectMatchesSkill(project, selectedSkillId)
-      );
-    } else if (selectedType === 'All') {
-      list = [...projects];
-    } else {
-      list = projects.filter((project) => project.projectType === selectedType);
-    }
-    return [...list].sort(
-      (projectA, projectB) =>
-        Number(isProjectActive(projectB)) - Number(isProjectActive(projectA))
-    );
-  }, [selectedType, selectedSkillId]);
+  const filteredProjects = useMemo(
+    () =>
+      getFilteredProjectsForSection(projects, selectedType, selectedSkillId),
+    [selectedType, selectedSkillId]
+  );
 
   const selectedSkillLabel = selectedSkillId
     ? (skillsData.find((skill) => skill.id === selectedSkillId)?.label ??
@@ -210,4 +194,40 @@ export default function ProjectsSection() {
       </motion.div>
     </Section>
   );
+}
+
+function useSwiperActiveSlideResize({
+  isLargeScreen,
+  swiperRef,
+  activeIndex,
+  selectedType,
+  selectedSkillId,
+  swiperReady,
+}: {
+  isLargeScreen: boolean;
+  swiperRef: RefObject<SwiperType | null>;
+  activeIndex: number;
+  selectedType: 'All' | 'Web' | 'Mobile';
+  selectedSkillId: string | null;
+  swiperReady: number;
+}) {
+  useEffect(() => {
+    if (isLargeScreen) return;
+    const swiper = swiperRef.current;
+    if (!swiper?.slides?.length) return;
+    const slide = swiper.slides[activeIndex];
+    if (!slide) return;
+    const ro = new ResizeObserver(() => {
+      swiper.update();
+    });
+    ro.observe(slide);
+    return () => ro.disconnect();
+  }, [
+    isLargeScreen,
+    activeIndex,
+    selectedType,
+    selectedSkillId,
+    swiperReady,
+    swiperRef,
+  ]);
 }

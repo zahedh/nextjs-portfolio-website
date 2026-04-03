@@ -1,6 +1,13 @@
 'use client';
 
-import { useState, useEffect, useId, useRef, useCallback } from 'react';
+import {
+  useState,
+  useEffect,
+  useId,
+  useRef,
+  useCallback,
+  type RefObject,
+} from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -20,69 +27,32 @@ import {
   scrollToTop,
   handleSmoothScroll,
 } from '@/lib/utils';
+import {
+  MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX,
+  MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX,
+  getMobileMenuOverlayTransition,
+  getMobileMenuPanelTransition,
+} from '@/lib/ui-logic';
 
-/** Minimum horizontal drag (px) toward the screen edge to dismiss. */
-const SWIPE_DISMISS_OFFSET_PX = 56;
-/** Flick velocity (px/s) toward the edge that dismisses even with a short drag. */
-const SWIPE_DISMISS_VELOCITY_PX = 420;
-
-/** Slide-in mobile navigation drawer with backdrop and keyboard support. */
+/**
+ * Slide-in mobile navigation drawer with backdrop, swipe-to-dismiss, scroll lock,
+ * Escape to close, and focus management on the dismiss control while open.
+ */
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
-  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const noMotion = Boolean(prefersReducedMotion);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  const overlayTransition = noMotion
-    ? { duration: 0 }
-    : { duration: 0.2 };
+  useMobileMenuBodyScrollLock(isOpen);
+  useEscapeKeydown(isOpen, () => setIsOpen(false));
+  useFocusDismissOnOpen(isOpen, closeRef);
 
-  const panelTransition = noMotion
-    ? { duration: 0 }
-    : { type: 'spring' as const, damping: 30, stiffness: 300 };
-
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
-
-    return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleEscape = createEscapeHandler(() => setIsOpen(false));
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
-    return () => {
-      cancelAnimationFrame(frameId);
-      previouslyFocusedRef.current?.focus?.();
-    };
-  }, [isOpen]);
+  const overlayTransition = getMobileMenuOverlayTransition(noMotion);
+  const panelTransition = getMobileMenuPanelTransition(noMotion);
 
   const handleDragEnd = useCallback(
     (
@@ -91,8 +61,8 @@ export default function MobileMenu() {
     ) => {
       if (noMotion) return;
       if (
-        info.offset.x > SWIPE_DISMISS_OFFSET_PX ||
-        info.velocity.x > SWIPE_DISMISS_VELOCITY_PX
+        info.offset.x > MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX ||
+        info.velocity.x > MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX
       ) {
         setIsOpen(false);
       }
@@ -240,4 +210,54 @@ export default function MobileMenu() {
       </AnimatePresence>
     </>
   );
+}
+
+function useMobileMenuBodyScrollLock(open: boolean) {
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [open]);
+}
+
+function useEscapeKeydown(open: boolean, onClose: () => void) {
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = createEscapeHandler(onClose);
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [open, onClose]);
+}
+
+function useFocusDismissOnOpen(
+  open: boolean,
+  closeRef: RefObject<HTMLButtonElement | null>
+) {
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    previouslyFocusedRef.current = document.activeElement as HTMLElement;
+    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
+    return () => {
+      cancelAnimationFrame(frameId);
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [open, closeRef]);
 }
