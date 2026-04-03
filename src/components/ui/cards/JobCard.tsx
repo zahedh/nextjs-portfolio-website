@@ -15,11 +15,6 @@ import { useEffect, useState } from 'react';
 
 const JOB_SKILLS_PREVIEW = 5;
 
-const datePillInactive =
-  'border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100';
-const datePillActive =
-  'border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/60 dark:bg-brand-500/35 dark:text-neutral-50';
-
 interface JobCardProps {
   job: JobExperience;
 }
@@ -57,8 +52,8 @@ export default function JobCard({ job }: JobCardProps) {
         <div className="flex flex-wrap items-center gap-2 self-start">
           <p
             className={cn(
-              'inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold',
-              active ? datePillActive : datePillInactive
+              'job-date-pill',
+              active ? 'job-date-pill-active' : 'job-date-pill-inactive'
             )}
             aria-label={`${job.startDate} to ${job.endDate}`}
           >

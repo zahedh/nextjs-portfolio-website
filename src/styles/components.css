@@ -95,12 +95,26 @@
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
 
+  /** JobCard date range pill — base + active/current vs inactive/past */
+  .job-date-pill {
+    @apply inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold;
+  }
+  .job-date-pill-inactive {
+    @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
+  }
+  .job-date-pill-active {
+    @apply border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/60 dark:bg-brand-500/35 dark:text-neutral-50;
+  }
+
   /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
    * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
    * 2. Primary: PrimaryButton base without btn-toggle-idle; optional btn-primary-sm for compact actions
    * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
    * 4. Tertiary: TertiaryButton
    */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 font-heading text-base leading-normal font-bold tracking-tight bg-brand-500 text-neutral-900 dark:text-neutral-200 shadow-sm transition-colors duration-150 hover:bg-brand-600;
+  }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
   }

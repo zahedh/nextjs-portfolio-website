@@ -12,9 +12,6 @@ type PrimaryButtonProps = {
   'aria-label'?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const baseClass =
-  'inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 font-heading text-base leading-normal font-bold tracking-tight bg-brand-500 text-neutral-900 dark:text-neutral-200 shadow-sm transition-colors duration-150 hover:bg-brand-600';
-
 /** Rounded primary button used for main actions. */
 export function PrimaryButton({
   children,
@@ -31,7 +28,7 @@ export function PrimaryButton({
         href={hyperlink}
         target={target}
         rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-        className={cn(baseClass, className)}
+        className={cn('btn-primary', className)}
         aria-label={ariaLabel}
         onClick={onClick}
       >
@@ -43,7 +40,7 @@ export function PrimaryButton({
     <button
       onClick={onClick}
       type="button"
-      className={cn(baseClass, className)}
+      className={cn('btn-primary', className)}
       aria-label={ariaLabel}
       {...props}
     >
