@@ -5,9 +5,7 @@ import { type ReactNode } from 'react';
 
 type CalloutWrapperProps = {
   children: ReactNode;
-  /** When false, only the positioning wrapper is rendered (no ping). */
   showPing?: boolean;
-  /** Override wrapper layout (e.g. `block w-full` for full-width controls). */
   className?: string;
 };
 
