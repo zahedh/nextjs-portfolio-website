@@ -8,11 +8,11 @@ export type DismissButtonProps = {
   onClick: () => void;
   variant?: 'plain' | 'plainNav' | 'brand';
   'aria-label': string;
-
   'aria-controls'?: string;
   className?: string;
 };
 
+/** Icon-only control for closing dialogs, drawers, and overlays. */
 const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
   function DismissButton(
     {
