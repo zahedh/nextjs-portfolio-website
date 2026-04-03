@@ -8,6 +8,7 @@ export type BurgerMenuButtonProps = {
   'aria-controls': string;
 };
 
+/** Icon-only button that opens the mobile navigation drawer. */
 const BurgerMenuButton = forwardRef<HTMLButtonElement, BurgerMenuButtonProps>(
   function BurgerMenuButton(
     { onClick, 'aria-expanded': ariaExpanded, 'aria-controls': ariaControls },
