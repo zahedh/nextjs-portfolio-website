@@ -13,16 +13,12 @@ import { useEffect, useState } from 'react';
 
 const JOB_SKILLS_PREVIEW = 5;
 
-/** Inactive: neutral chrome. Active: brand-tinted surfaces; text stays neutral (esp. dark: neutral-200). */
 const datePillInactive =
   'border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-600/80 dark:bg-neutral-800/70 dark:text-neutral-200';
-
 const datePillActive =
   'border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/45 dark:bg-brand-500/20 dark:text-neutral-200';
-
 const iconFrameInactive =
   'border-neutral-300/85 bg-neutral-100/90 text-neutral-700 dark:border-neutral-600/80 dark:bg-neutral-800/70 dark:text-neutral-200';
-
 const iconFrameActive =
   'border-brand-500/60 bg-brand-300/35 text-neutral-800 dark:border-brand-400/50 dark:bg-brand-500/25 dark:text-neutral-200';
 
@@ -30,6 +26,7 @@ interface JobCardProps {
   job: JobExperience;
 }
 
+/** Expandable experience card with date pill, role details, and animated tech stack. */
 export default function JobCard({ job }: JobCardProps) {
   const prefersReducedMotion = useReducedMotion();
   const [skillsRevealed, setSkillsRevealed] = useState(false);
@@ -48,7 +45,6 @@ export default function JobCard({ job }: JobCardProps) {
   const jobSkills = getSkillsByIds(job.skills, skillsData);
   const active = isJobActive(job);
 
-  /** Long roles: expand with description. Short roles: expand via "+N more" only. */
   const showAllSkills =
     jobSkills.length <= JOB_SKILLS_PREVIEW ||
     (showExpandButton && isExpanded) ||
@@ -58,13 +54,7 @@ export default function JobCard({ job }: JobCardProps) {
     showAllSkills && jobSkills.length > JOB_SKILLS_PREVIEW;
 
   return (
-    <div
-      className={cn(
-        'surface-card surface-card-interactive group relative w-full overflow-hidden',
-        'shadow-none hover:-translate-y-px hover:shadow-sm dark:shadow-none dark:hover:shadow-neutral-950/15',
-        'md:hover:ring-brand-500/15 md:hover:ring-1'
-      )}
-    >
+    <div className="surface-card surface-card-interactive surface-card-flat group relative w-full overflow-hidden">
       <div className="space-y-5 p-6 sm:p-8">
         <p
           className={cn(
@@ -114,10 +104,7 @@ export default function JobCard({ job }: JobCardProps) {
           >
             <div ref={contentRef} className="space-y-4">
               {job.description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400"
-                >
+                <p key={index} className="body-text-muted">
                   {paragraph}
                 </p>
               ))}

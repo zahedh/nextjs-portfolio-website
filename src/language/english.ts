@@ -143,7 +143,6 @@ export const en = {
 
   projectsSection: {
     backToProjectsLabel: 'Back to Projects',
-    designedToLabel: 'Designed to ',
     summaryHeader: 'Summary',
     technologiesHeader: 'Technologies',
     coreDevelopmentSubheader: 'Core Development',
@@ -159,12 +158,9 @@ export const en = {
       'Blending design, development, and AI into cohesive systems.',
     catchPhraseSupportingTextPart1: 'Building something ambitious? ',
     catchPhraseSupportingTextPart2: "Let's build it properly.",
-    contactHeader: 'Talk',
-    talkButtonLabel: 'Talk',
-    meetButtonLabel: 'Meet',
-    connectHeader: 'Connect',
     copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
     privacyLinkLabel: 'Privacy',
+    email: 'zahed.heidari2@gmail.com',
     ariaDownloadCV: 'Download CV',
     ariaSendEmail: 'Send email to Zahed',
     ariaLinkedIn: 'LinkedIn profile',

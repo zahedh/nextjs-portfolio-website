@@ -5,7 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { en } from '@/language';
-import { ThemeToggleButton, BurgerMenuButton, CloseButton } from '../buttons';
+import {
+  ThemeToggleButton,
+  BurgerMenuButton,
+  CloseButton,
+} from '@/components/ui/buttons';
 import {
   createEscapeHandler,
   scrollToTop,
@@ -18,7 +22,6 @@ export default function MobileMenu() {
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.documentElement.style.overflow = 'hidden';
@@ -33,7 +36,6 @@ export default function MobileMenu() {
     };
   }, [isOpen]);
 
-  // Close menu on ESC key
   useEffect(() => {
     if (!isOpen) return;
 
@@ -46,11 +48,9 @@ export default function MobileMenu() {
     <>
       <BurgerMenuButton onClick={() => setIsOpen(!isOpen)} />
 
-      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -60,7 +60,6 @@ export default function MobileMenu() {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Menu Panel */}
             <motion.div
               role="dialog"
               aria-modal="true"

@@ -2,10 +2,19 @@
 
 import Image from 'next/image';
 import type { Project } from '@/data/projects';
+import { AvatarGraphic } from '@/components/media';
 import { cn } from '@/lib/utils';
 import { Monitor, Smartphone } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+const IMAGE_TOKEN_MAP: Record<
+  string,
+  React.ComponentType<{ alt?: string; className?: string }>
+> = {
+  avatar: AvatarGraphic,
+};
+
+/** Responsive hero media block for project cards — renders image, token component, or fallback icon. */
 export function ProjectHeroMedia({
   project,
   imagePriority = false,
@@ -15,20 +24,19 @@ export function ProjectHeroMedia({
 }: {
   project: Project;
   imagePriority?: boolean;
-  /** Default: carousel / listing — short fixed frame, contain (no crop/stretch). */
   density?: 'default' | 'compact';
   className?: string;
-  /** Classes for the inner media frame (image / icon box) */
   frameClassName?: string;
 }) {
   const [imageError, setImageError] = useState(false);
-  const ImageComponent = project.imageComponent;
+  const ImageComponent = project.imageToken
+    ? IMAGE_TOKEN_MAP[project.imageToken]
+    : undefined;
 
   useEffect(() => {
     setImageError(false);
   }, [project.id]);
 
-  /** Carousel: fixed height so every slide aligns; modal: smaller capped frame. */
   const frame = cn(
     'relative w-full overflow-hidden bg-neutral-100/85 dark:bg-neutral-800/55',
     density === 'compact'
@@ -51,12 +59,8 @@ export function ProjectHeroMedia({
     >
       {ImageComponent ? (
         <div
-          className={cn(
-            frame,
-            'flex items-center justify-center p-4 sm:p-5'
-          )}
+          className={cn(frame, 'flex items-center justify-center p-4 sm:p-5')}
         >
-          {/* Explicit box so components using next/image `fill` (e.g. AvatarGraphic) get a sized containing block */}
           <div className="relative mx-auto h-32 w-32 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-36 sm:w-36 md:h-40 md:w-40">
             <ImageComponent
               alt={`${project.title} preview`}
@@ -66,10 +70,7 @@ export function ProjectHeroMedia({
         </div>
       ) : project.image && !imageError ? (
         <div
-          className={cn(
-            frame,
-            'flex items-center justify-center p-4 sm:p-5'
-          )}
+          className={cn(frame, 'flex items-center justify-center p-4 sm:p-5')}
         >
           <Image
             src={project.image}
@@ -93,12 +94,12 @@ export function ProjectHeroMedia({
         >
           {project.projectType === 'Web' ? (
             <Monitor
-              className="h-16 w-16 text-neutral-400 dark:text-neutral-600 sm:h-20 sm:w-20"
+              className="h-16 w-16 text-neutral-400 sm:h-20 sm:w-20 dark:text-neutral-600"
               strokeWidth={1.5}
             />
           ) : (
             <Smartphone
-              className="h-16 w-16 text-neutral-400 dark:text-neutral-600 sm:h-20 sm:w-20"
+              className="h-16 w-16 text-neutral-400 sm:h-20 sm:w-20 dark:text-neutral-600"
               strokeWidth={1.5}
             />
           )}

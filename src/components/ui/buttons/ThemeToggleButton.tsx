@@ -11,7 +11,7 @@ export default function ThemeToggleButton() {
   return (
     <SecondaryButton
       onClick={toggleTheme}
-      className="aspect-square p-1.5"
+      className="aspect-square px-3 py-1.5"
       aria-label={en.themeToggle}
     >
       <ThemeToggleGraphic className="h-3.5 w-3.5" />

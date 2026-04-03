@@ -5,8 +5,8 @@ import { AvatarGraphic } from '@/components/media';
 import { HeroFloatingOrbs } from '@/components/ui/animations';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { en } from '@/language';
-import { WavingHand } from '../animations/WavingHand';
-import { AnimatedText } from '../animations/AnimatedText';
+import { WavingHand } from '@/components/ui/animations/WavingHand';
+import { AnimatedText } from '@/components/ui/animations/AnimatedText';
 
 /** Hero section introducing the portfolio and primary value proposition. */
 export default function HeroSection() {

@@ -24,7 +24,7 @@ export default function AboutHighlightsPanel({
             key={row.label}
             className="flex flex-col items-center gap-1.5 text-center sm:gap-2"
           >
-            <p className="font-heading text-2xl font-bold tabular-nums text-brand-600 sm:text-3xl dark:text-brand-400">
+            <p className="font-heading text-brand-600 dark:text-brand-400 text-2xl font-bold tabular-nums sm:text-3xl">
               {row.value}
             </p>
             <p className="text-xs leading-snug text-neutral-600 sm:text-sm dark:text-neutral-400">

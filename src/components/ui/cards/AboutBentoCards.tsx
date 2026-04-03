@@ -15,10 +15,7 @@ const aboutCardHeadingClass =
 export function AboutWhatDrivesCard({ className }: { className?: string }) {
   return (
     <article className={cn(rowCardBase, className)}>
-      <SubHeading
-        as="h3"
-        className={aboutCardHeadingClass}
-      >
+      <SubHeading as="h3" className={aboutCardHeadingClass}>
         {en.aboutSection.whatDrivesMeHeading}
       </SubHeading>
       <BodyText className="text-sm leading-relaxed">
@@ -31,10 +28,7 @@ export function AboutWhatDrivesCard({ className }: { className?: string }) {
 export function AboutBeyondCodingCard({ className }: { className?: string }) {
   return (
     <article className={cn(rowCardBase, className)}>
-      <SubHeading
-        as="h3"
-        className={aboutCardHeadingClass}
-      >
+      <SubHeading as="h3" className={aboutCardHeadingClass}>
         {en.aboutSection.beyondCodingHeading}
       </SubHeading>
       <div className="font-body text-sm leading-relaxed text-neutral-900 sm:text-base md:text-lg dark:text-neutral-200">
@@ -53,10 +47,7 @@ export function AboutBeyondCodingCard({ className }: { className?: string }) {
 export function AboutLevellingUpCard({ className }: { className?: string }) {
   return (
     <article className={cn(fullWidthCardBase, className)}>
-      <SubHeading
-        as="h3"
-        className={aboutCardHeadingClass}
-      >
+      <SubHeading as="h3" className={aboutCardHeadingClass}>
         {en.aboutSection.levellingUpHeading}
       </SubHeading>
       <BodyText className="text-sm leading-relaxed">

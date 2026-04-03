@@ -3,15 +3,11 @@ import type { Skill } from '@/data/skills';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 
-/**
- * Tech icons use the same SkillTile hover language as the Skills section
- * (scale + brand fill) — no secondary ring/hover system.
- */
+/** Tech icon grid with optional "+N more" overflow indicator. */
 export function TechStack({
   skills,
   maxIcons,
   className,
-  /** When set, "+N more" is a button (e.g. job cards without a description expand control). */
   onMoreClick,
 }: {
   skills: Skill[];
@@ -21,16 +17,15 @@ export function TechStack({
 }) {
   const capped = maxIcons != null ? skills.slice(0, maxIcons) : skills;
   const extra =
-    maxIcons != null && skills.length > maxIcons
-      ? skills.length - maxIcons
-      : 0;
+    maxIcons != null && skills.length > maxIcons ? skills.length - maxIcons : 0;
+  const moreLabel =
+    extra > 0
+      ? en.projectDisplay.moreSkills.replace('{{count}}', String(extra))
+      : '';
 
   return (
     <div
-      className={cn(
-        'flex flex-wrap justify-start gap-2 sm:gap-3',
-        className
-      )}
+      className={cn('flex flex-wrap justify-start gap-2 sm:gap-3', className)}
     >
       {capped.map((skill) => (
         <SkillTile
@@ -45,23 +40,14 @@ export function TechStack({
           <button
             type="button"
             onClick={onMoreClick}
-            className="inline-flex h-10 cursor-pointer items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold text-neutral-800 transition-colors hover:bg-brand-300/40 dark:bg-brand-800/30 dark:text-neutral-200 dark:hover:bg-brand-800/45"
-            aria-label={en.projectDisplay.moreSkills.replace(
-              '{{count}}',
-              String(extra)
-            )}
+            className="more-pill hover:bg-brand-300/40 dark:hover:bg-brand-800/45 cursor-pointer transition-colors"
+            aria-label={moreLabel}
           >
-            {en.projectDisplay.moreSkills.replace('{{count}}', String(extra))}
+            {moreLabel}
           </button>
         ) : (
-          <span
-            className="inline-flex h-10 items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold text-neutral-800 dark:bg-brand-800/30 dark:text-neutral-200"
-            aria-label={en.projectDisplay.moreSkills.replace(
-              '{{count}}',
-              String(extra)
-            )}
-          >
-            {en.projectDisplay.moreSkills.replace('{{count}}', String(extra))}
+          <span className="more-pill" aria-label={moreLabel}>
+            {moreLabel}
           </span>
         ))}
     </div>

@@ -1,11 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { Heading, SubHeading, BodyText } from '@/components/text';
 import SectionDivider from './SectionDivider';
 
 type SectionProps = {
   title?: string;
-  /** Use `h1` only when this section title is the main page heading (e.g. legal pages). */
   titleAs?: 'h1' | 'h2';
   subheading?: string;
   align?: 'left' | 'center' | 'right';
@@ -39,12 +38,12 @@ export default function Section({
   filterButtons,
 }: SectionProps) {
   return (
-    <div id={anchor} className={clsx('screen-section', className)}>
+    <div id={anchor} className={cn('screen-section', className)}>
       {title && (
         <div className="mb-2 flex w-full items-center justify-between gap-4">
           <Heading
             as={titleAs}
-            className={clsx(
+            className={cn(
               align === 'center' && 'text-center',
               align === 'right' && 'text-right',
               italicize && 'italic'
@@ -62,7 +61,7 @@ export default function Section({
 
       {subheading && (
         <SubHeading
-          className={clsx(
+          className={cn(
             align === 'center' && 'text-center',
             align === 'right' && 'text-right',
             italicize && 'italic'
@@ -74,7 +73,7 @@ export default function Section({
 
       {supportingText && (
         <BodyText
-          className={clsx(
+          className={cn(
             'my-6 italic sm:my-8 md:my-16 lg:my-24',
             align === 'center' && 'text-center',
             align === 'right' && 'text-right'

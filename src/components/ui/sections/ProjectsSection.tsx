@@ -62,14 +62,14 @@ export default function ProjectsSection() {
     } else {
       list = projects.filter((project) => project.projectType === selectedType);
     }
-    // Ongoing work first (end date "Present"), then preserve data order within each group.
     return [...list].sort(
-      (a, b) => Number(isProjectActive(b)) - Number(isProjectActive(a))
+      (projectA, projectB) =>
+        Number(isProjectActive(projectB)) - Number(isProjectActive(projectA))
     );
   }, [selectedType, selectedSkillId]);
 
   const selectedSkillLabel = selectedSkillId
-    ? (skillsData.find((s) => s.id === selectedSkillId)?.label ??
+    ? (skillsData.find((skill) => skill.id === selectedSkillId)?.label ??
       selectedSkillId)
     : null;
 
@@ -182,7 +182,7 @@ export default function ProjectsSection() {
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
                 setActiveIndex(swiper.activeIndex);
-                setSwiperReady((r) => r + 1);
+                setSwiperReady((count) => count + 1);
               }}
               onSlideChangeTransitionEnd={(swiper) => {
                 setActiveIndex(swiper.activeIndex);

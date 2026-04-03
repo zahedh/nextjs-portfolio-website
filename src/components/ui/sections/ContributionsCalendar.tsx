@@ -32,7 +32,7 @@ export default function ContributionsCalendar({
   return (
     <>
       <div
-        className="contributions-calendar card-surface p-8"
+        className="contributions-calendar surface-card p-8"
         onMouseLeave={handleMouseLeave}
       >
         <ActivityCalendar
@@ -82,7 +82,6 @@ export default function ContributionsCalendar({
         />
       </div>
 
-      {/* Custom Tooltip */}
       {tooltip &&
         typeof document !== 'undefined' &&
         createPortal(

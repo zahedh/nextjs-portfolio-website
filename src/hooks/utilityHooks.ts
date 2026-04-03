@@ -41,15 +41,10 @@ export function useTheme() {
     const prefersDark = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
-    const isDark =
+    const shouldBeDark =
       storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      store.setState({ isDark: true });
-    } else {
-      document.documentElement.classList.remove('dark');
-      store.setState({ isDark: false });
-    }
+    document.documentElement.classList.toggle('dark', shouldBeDark);
+    store.setState({ isDark: shouldBeDark });
   }, [store]);
 
   return { isDark, toggleTheme };
@@ -72,10 +67,8 @@ export function useExpandableContent(maxHeight: number = 300) {
       setShowExpandButton(fullHeight > maxHeight);
     };
 
-    // Initial check
     checkOverflow();
 
-    // Watch for size changes with ResizeObserver
     const resizeObserver = new ResizeObserver(() => {
       checkOverflow();
     });
@@ -87,19 +80,16 @@ export function useExpandableContent(maxHeight: number = 300) {
     };
   }, [maxHeight]);
 
-  /** Sync measured height, then toggle so collapse animates max-height instead of snapping. */
   const handleToggle = useCallback(() => {
-    const el = contentRef.current;
-    if (!el) {
-      setIsExpanded((v) => !v);
+    const content = contentRef.current;
+    if (!content) {
+      setIsExpanded((prev) => !prev);
       return;
     }
-    const full = el.scrollHeight;
+    flushSync(() => setContentHeight(content.scrollHeight));
     if (isExpanded) {
-      flushSync(() => setContentHeight(full));
       requestAnimationFrame(() => setIsExpanded(false));
     } else {
-      flushSync(() => setContentHeight(full));
       setIsExpanded(true);
     }
   }, [isExpanded]);

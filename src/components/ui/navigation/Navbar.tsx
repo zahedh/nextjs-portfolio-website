@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { en } from '@/language';
-import { ThemeToggleButton } from '../buttons';
+import { ThemeToggleButton } from '@/components/ui/buttons';
 import { InitialsGraphic } from '@/components/media';
 import MobileMenu from './MobileMenu';
 import { handleSmoothScroll, scrollToTop } from '@/lib/utils';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 type NavbarProps = {
   showInitials?: boolean;
@@ -28,7 +28,6 @@ export default function Navbar({
     if (isHome) {
       handleSmoothScroll(e);
     }
-    // If not on home, let the browser navigate to /#anchor
   };
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -36,11 +35,10 @@ export default function Navbar({
       e.preventDefault();
       scrollToTop(e);
     }
-    // If not on home, let the browser navigate to /
   };
 
   return (
-    <nav className={clsx('flex items-center justify-between', className)}>
+    <nav className={cn('flex items-center justify-between', className)}>
       {showInitials && (
         <Link
           href="/"
@@ -52,7 +50,6 @@ export default function Navbar({
         </Link>
       )}
 
-      {/* Desktop Navigation */}
       <ul className="hidden items-center gap-5 md:flex">
         <li>
           <Link href="/" className="nav-link" onClick={handleHomeClick}>
@@ -118,7 +115,6 @@ export default function Navbar({
         </li>
       </ul>
 
-      {/* Mobile Navigation */}
       {showMobileMenu && <MobileMenu />}
     </nav>
   );

@@ -1,5 +1,5 @@
 'use client';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { IconType } from 'react-icons';
 import { createPortal } from 'react-dom';
 import { useDoubleActivation } from '@/hooks/useDoubleActivation';
@@ -13,9 +13,6 @@ type SkillTileProps = {
   compact?: boolean;
   onClick?: () => void;
 };
-
-const tooltipSurfaceClass =
-  'pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900';
 
 /** Circular icon tile representing a single skill with tooltip. */
 export function SkillTile({
@@ -43,8 +40,8 @@ export function SkillTile({
     createPortal(
       <div
         role="tooltip"
-        className={clsx(
-          tooltipSurfaceClass,
+        className={cn(
+          'skill-tile-tooltip',
           tooltipVisible ? 'opacity-100' : 'opacity-0'
         )}
         style={{
@@ -78,7 +75,7 @@ export function SkillTile({
         }
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
-        className={clsx(
+        className={cn(
           compact
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
             : 'relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',

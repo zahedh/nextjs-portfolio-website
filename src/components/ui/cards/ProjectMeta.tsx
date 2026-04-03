@@ -1,9 +1,6 @@
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
-import {
-  formatProjectTimeline,
-  isProjectActive,
-} from '@/lib/projectDisplay';
+import { formatProjectTimeline, isProjectActive } from '@/lib/projectDisplay';
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
@@ -20,7 +17,7 @@ function MetaRow({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
-/** Web / Mobile — brand pill so the role reads clearly next to date + status. */
+/** Web / Mobile brand pill. */
 export function ProjectPlatformTag({
   project,
   className,
@@ -33,19 +30,13 @@ export function ProjectPlatformTag({
       ? en.projectDisplay.platformWeb
       : en.projectDisplay.platformMobile;
   return (
-    <span
-      className={cn(
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap shadow-sm sm:text-xs',
-        'border-brand-500/60 bg-brand-300/45 text-neutral-900 dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-neutral-200',
-        className
-      )}
-    >
+    <span className={cn('brand-pill brand-pill-active', className)}>
       {platform}
     </span>
   );
 }
 
-/** Prominent pill for Active vs Completed — used on cards and detail panel. */
+/** Active / Completed status pill. */
 export function ProjectStatusBadge({
   project,
   className,
@@ -60,10 +51,8 @@ export function ProjectStatusBadge({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs',
-        active
-          ? 'border-brand-500/60 bg-brand-300/45 text-neutral-900 shadow-sm dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-neutral-200'
-          : 'border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100',
+        'brand-pill',
+        active ? 'brand-pill-active' : 'brand-pill-inactive',
         className
       )}
     >
@@ -72,6 +61,7 @@ export function ProjectStatusBadge({
   );
 }
 
+/** Project metadata rendered as ribbon, compact line, or structured panel. */
 export function ProjectMeta({
   project,
   variant = 'compact',

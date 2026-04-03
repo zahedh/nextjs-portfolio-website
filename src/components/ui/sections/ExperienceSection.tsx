@@ -11,10 +11,8 @@ export default function ExperienceSection() {
   return (
     <Section anchor="experience" title={en.sectionHeaders.experience}>
       <div className="section-content relative mx-auto max-w-6xl xl:max-w-7xl">
-        {/* Timeline - Desktop: center, Mobile: left */}
         <div className="timeline-position" />
 
-        {/* Job cards */}
         <div className="relative space-y-16 py-32 lg:space-y-24 lg:py-48">
           {jobExperiences.map((job, index) => {
             const isLeft = index % 2 === 0;
@@ -22,7 +20,6 @@ export default function ExperienceSection() {
 
             return (
               <div key={job.id} className="relative">
-                {/* Desktop layout - alternating */}
                 <motion.div
                   className={`hidden lg:block lg:w-[calc(50%-2rem)] ${
                     isLeft ? 'lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:pl-8'
@@ -35,7 +32,6 @@ export default function ExperienceSection() {
                   <JobCard job={job} />
                 </motion.div>
 
-                {/* Year marker on opposite side - Desktop only */}
                 <motion.div
                   className={`hidden lg:absolute lg:top-1/2 lg:block lg:w-[calc(50%-2rem)] lg:-translate-y-1/2 ${
                     isLeft
@@ -56,7 +52,6 @@ export default function ExperienceSection() {
                   </div>
                 </motion.div>
 
-                {/* Timeline dot */}
                 <motion.div
                   className="timeline-dot-position"
                   initial={{ scale: 0 }}
@@ -65,7 +60,6 @@ export default function ExperienceSection() {
                   transition={{ duration: 0.4, delay: 0.2 }}
                 />
 
-                {/* Mobile layout */}
                 <motion.div
                   className="mr-4 ml-16 lg:hidden"
                   initial={{ opacity: 0, x: 30 }}

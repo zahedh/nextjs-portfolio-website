@@ -46,7 +46,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.45, ease: 'easeOut', delay: 0.06 }}
-            className="font-heading text-neutral-900 dark:text-neutral-100 mx-auto mt-8 max-w-3xl px-8 text-center text-lg font-semibold leading-snug sm:mt-10 sm:text-xl md:text-2xl"
+            className="font-heading mx-auto mt-8 max-w-3xl px-8 text-center text-lg leading-snug font-semibold text-neutral-900 sm:mt-10 sm:text-xl md:text-2xl dark:text-neutral-100"
           >
             {en.aboutSection.introParagraph}
           </motion.p>
@@ -60,7 +60,7 @@ export default function AboutSection() {
             className="mt-16 flex w-full flex-col gap-6 lg:mt-20 lg:gap-8"
           >
             <AboutHighlightsPanel className="w-full" />
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8 lg:items-stretch">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch lg:gap-8">
               <AboutWhatDrivesCard className="min-h-0 w-full" />
               <AboutBeyondCodingCard className="min-h-0 w-full" />
             </div>

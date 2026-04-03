@@ -74,9 +74,9 @@ export function scrollElementIntoViewAdaptive(el: Element): void {
 }
 
 function anchorSelectorFromHref(href: string): string | null {
-  const i = href.indexOf('#');
-  if (i === -1) return null;
-  const hash = href.slice(i);
+  const hashIndex = href.indexOf('#');
+  if (hashIndex === -1) return null;
+  const hash = href.slice(hashIndex);
   if (hash.length <= 1) return null;
   return hash;
 }
@@ -105,8 +105,8 @@ export function scrollToTop(e?: React.MouseEvent<HTMLAnchorElement>) {
   window.scrollTo({ top: 0, behavior: scrollToTopBehavior() });
 }
 
-function normalizeSkillId(s: string): string {
-  return s
+function normalizeSkillId(rawId: string): string {
+  return rawId
     .toLowerCase()
     .replace(/[.\s-]/g, '')
     .trim();
@@ -122,10 +122,12 @@ export function getSkillsByIds<T extends { id: string }>(
 ): T[] {
   return skillIds
     .map((skillId) => {
-      const exact = skillsData.find((s) => s.id === skillId);
+      const exact = skillsData.find((skill) => skill.id === skillId);
       if (exact) return exact;
-      const n = normalizeSkillId(skillId);
-      return skillsData.find((s) => normalizeSkillId(s.id) === n);
+      const normalized = normalizeSkillId(skillId);
+      return skillsData.find(
+        (skill) => normalizeSkillId(skill.id) === normalized
+      );
     })
     .filter((skill): skill is T => skill !== undefined);
 }

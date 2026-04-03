@@ -7,11 +7,11 @@ import { ProjectMeta } from '@/components/ui/cards/ProjectMeta';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
-import { BREAKPOINTS } from '@/hooks/utilityHooks';
-import { getProjectOverviewParagraph } from '@/lib/projectDisplay';
+import { useBreakpoint } from '@/hooks/utilityHooks';
+import { getProjectExcerptLine } from '@/lib/projectDisplay';
 import { getSkillsByIds } from '@/lib/utils';
 import { en } from '@/language';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ChevronDown, X } from 'lucide-react';
 import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -23,27 +23,11 @@ interface ProjectDetailPanelProps {
   onExitComplete?: () => void;
 }
 
-function useAnimationProfile(
-  open: boolean,
-  project: Project | null
-): 'desktop' | 'mobile' {
-  const ref = useRef<'desktop' | 'mobile'>('mobile');
-  if (open && project && typeof window !== 'undefined') {
-    ref.current = window.matchMedia(`(min-width: ${BREAKPOINTS.md}px)`).matches
-      ? 'desktop'
-      : 'mobile';
-  }
-  return ref.current;
-}
-
 function SectionLabel({ children }: { children: ReactNode }) {
-  return (
-    <p className="mb-3 text-xs font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400">
-      {children}
-    </p>
-  );
+  return <p className="section-label">{children}</p>;
 }
 
+/** Full-screen project detail modal with responsive mobile sheet / desktop dialog layout. */
 export default function ProjectDetailPanel({
   project,
   open,
@@ -51,22 +35,13 @@ export default function ProjectDetailPanel({
   onExitComplete,
 }: ProjectDetailPanelProps) {
   const [mounted, setMounted] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const isDesktop = useBreakpoint('md');
   const titleId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
-  const animationProfile = useAnimationProfile(open, project);
-
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setPrefersReducedMotion(mq.matches);
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -89,9 +64,9 @@ export default function ProjectDetailPanel({
   useEffect(() => {
     if (!open || !project) return;
     previouslyFocusedRef.current = document.activeElement as HTMLElement;
-    const id = requestAnimationFrame(() => closeRef.current?.focus());
+    const frameId = requestAnimationFrame(() => closeRef.current?.focus());
     return () => {
-      cancelAnimationFrame(id);
+      cancelAnimationFrame(frameId);
       previouslyFocusedRef.current?.focus?.();
     };
   }, [open, project]);
@@ -100,29 +75,29 @@ export default function ProjectDetailPanel({
 
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
-  const overview = getProjectOverviewParagraph(project);
+  const overview = getProjectExcerptLine(project);
 
-  const overlayTransition = prefersReducedMotion
+  const noMotion = Boolean(prefersReducedMotion);
+
+  const overlayTransition = noMotion
     ? { duration: 0 }
     : { duration: 0.24, ease: 'easeOut' as const };
 
-  const isDesktopAnim = animationProfile === 'desktop';
-
-  const dialogInitial = prefersReducedMotion
+  const dialogInitial = noMotion
     ? { opacity: 0 }
-    : isDesktopAnim
+    : isDesktop
       ? { opacity: 0, y: 20, scale: 0.94 }
       : { y: '100%', opacity: 1 };
 
-  const dialogAnimate = prefersReducedMotion
+  const dialogAnimate = noMotion
     ? { opacity: 1 }
-    : isDesktopAnim
+    : isDesktop
       ? { opacity: 1, y: 0, scale: 1 }
       : { y: 0, opacity: 1 };
 
-  const dialogTransition = prefersReducedMotion
+  const dialogTransition = noMotion
     ? { duration: 0 }
-    : isDesktopAnim
+    : isDesktop
       ? {
           type: 'spring' as const,
           damping: 30,
@@ -145,11 +120,7 @@ export default function ProjectDetailPanel({
           exit={{ opacity: 0 }}
           transition={overlayTransition}
         >
-          <div
-            className="absolute inset-0 bg-neutral-900/55 backdrop-blur-md dark:bg-black/65"
-            onClick={onClose}
-            aria-hidden
-          />
+          <div className="dialog-backdrop" onClick={onClose} aria-hidden />
           <div className="relative z-10 flex min-h-0 flex-1 flex-col px-0 pt-0 md:items-center md:justify-center md:px-8 md:py-10">
             <motion.div
               role="dialog"
@@ -168,7 +139,7 @@ export default function ProjectDetailPanel({
                 <div className="h-1 w-10 rounded-full bg-neutral-400/45 dark:bg-neutral-500/50" />
               </div>
 
-              <header className="border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5">
+              <header className="dialog-header">
                 <h2
                   id={titleId}
                   className="card-title min-w-0 flex-1 text-left text-xl leading-tight font-bold text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100"
@@ -179,7 +150,7 @@ export default function ProjectDetailPanel({
                   ref={closeRef}
                   type="button"
                   onClick={onClose}
-                  className="border-brand-500 bg-brand-300 hover:bg-brand-500 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 md:h-11 md:w-11 dark:text-neutral-200"
+                  className="brand-icon-btn h-12 w-12 md:h-11 md:w-11"
                   aria-label={en.projectDetailPanel.closeLabel}
                 >
                   <X className="h-6 w-6" aria-hidden />
@@ -187,34 +158,28 @@ export default function ProjectDetailPanel({
               </header>
 
               <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
-                {/* Mobile: single scroll; desktop: left column only scrolls */}
                 <div className="project-card-scroll min-h-0 flex-1 overflow-x-hidden overflow-y-auto md:hidden">
                   <div className="flex flex-col gap-8 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
                     <ProjectMeta project={project} variant="ribbon" />
                     <ProjectHeroMedia project={project} density="compact" />
                     {overview ? (
-                      <p className="text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
-                        {overview}
-                      </p>
+                      <p className="body-text-muted text-base">{overview}</p>
                     ) : null}
-                    <details className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100 [&::-webkit-details-marker]:hidden">
+                    <details className="detail-accordion group">
+                      <summary className="detail-accordion-trigger">
                         {en.projectDisplay.keyFeaturesSummary}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
-                      <div className="border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60">
+                      <div className="detail-accordion-body">
                         <FeatureList lines={project.description} />
                       </div>
                     </details>
-                    <details
-                      className="group rounded-xl border border-neutral-200/80 dark:border-neutral-700/60"
-                      open
-                    >
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-neutral-900 dark:text-neutral-100 [&::-webkit-details-marker]:hidden">
+                    <details className="detail-accordion group" open>
+                      <summary className="detail-accordion-trigger">
                         {en.projectDisplay.techStackSummary}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
-                      <div className="border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60">
+                      <div className="detail-accordion-body">
                         <TechStack skills={projectSkills} />
                       </div>
                     </details>
@@ -224,7 +189,6 @@ export default function ProjectDetailPanel({
                   </div>
                 </div>
 
-                {/* Desktop: left scrolls; image + details stay fixed (no shared scroll with sticky) */}
                 <div className="project-card-scroll hidden min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto md:flex">
                   <div className="flex min-w-0 flex-col gap-10 px-8 pt-6 pb-10">
                     <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
@@ -232,7 +196,7 @@ export default function ProjectDetailPanel({
                         {en.projectDisplay.sectionOverview}
                       </SectionLabel>
                       {overview ? (
-                        <p className="max-w-prose text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+                        <p className="body-text-muted max-w-prose text-base">
                           {overview}
                         </p>
                       ) : null}

@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 type SectionDividerProps = {
   width?: 'full' | 'half' | 'third';
@@ -19,17 +19,13 @@ export default function SectionDivider({
 }: SectionDividerProps) {
   return (
     <div
-      className={clsx(
-        // base style
+      className={cn(
         'h-[3px]',
-        // width handling
         width === 'half' && 'w-1/2',
         width === 'third' && 'w-1/3',
         width === 'full' && 'w-full',
-        // alignment
         align === 'center' && 'mx-auto',
         align === 'right' && 'ml-auto',
-        // color + opacity
         color,
         opacity,
         className

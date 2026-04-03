@@ -1,7 +1,7 @@
 'use client';
 
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 type SecondaryButtonProps = {
   children?: ReactNode;
@@ -28,7 +28,7 @@ export function SecondaryButton({
     <button
       onClick={onClick}
       type="button"
-      className={clsx(
+      className={cn(
         'inline-flex items-center justify-center gap-2',
         iconOnly ? 'p-2' : 'px-3 py-1.5',
         'rounded-full',

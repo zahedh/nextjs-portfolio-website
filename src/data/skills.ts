@@ -391,13 +391,3 @@ export const skillsData: Skill[] = [
     category: 'methodologies',
   },
 ];
-
-// Helper function to get skills by category
-export const getSkillsByCategory = (category: SkillCategory): Skill[] => {
-  return skillsData.filter((skill) => skill.category === category);
-};
-
-// Helper function to get all unique categories
-export const getSkillCategories = (): SkillCategory[] => {
-  return Array.from(new Set(skillsData.map((skill) => skill.category)));
-};

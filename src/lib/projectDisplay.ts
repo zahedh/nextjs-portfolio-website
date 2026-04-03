@@ -15,15 +15,8 @@ export function stripDescriptionLine(raw: string): string {
   return raw.replace(/^\s*[✦•\-*]\s*/, '').trim();
 }
 
-/** First paragraph as a one-line style excerpt (single line UI). */
+/** First description paragraph, stripped of bullet markers — used for card excerpts and overview blocks. */
 export function getProjectExcerptLine(project: Project): string {
-  const first = project.description[0];
-  if (!first) return '';
-  return stripDescriptionLine(first);
-}
-
-/** First paragraph for overview / summary blocks (can be longer). */
-export function getProjectOverviewParagraph(project: Project): string {
   const first = project.description[0];
   if (!first) return '';
   return stripDescriptionLine(first);
