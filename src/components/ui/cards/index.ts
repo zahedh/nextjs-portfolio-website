@@ -3,10 +3,10 @@ export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';
 export { ProjectLinks } from './ProjectLinks';
 export {
-  ProjectMetaItems,
+  ProjectMetaSummary,
   ProjectPlatformTag,
   ProjectStatusBadge,
-} from './ProjectMeta';
+} from './ProjectMetaItems';
 export { default as ProjectCard } from './ProjectCard';
 export { default as ProjectDetailPanel } from './ProjectDetailPanel';
 export { TechStack } from './TechStack';

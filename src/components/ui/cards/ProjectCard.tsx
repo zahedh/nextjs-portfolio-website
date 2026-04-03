@@ -1,7 +1,7 @@
 'use client';
 
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
-import { ProjectMetaItems } from '@/components/ui/cards/ProjectMeta';
+import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
@@ -55,7 +55,7 @@ export default function ProjectCard({
       </button>
 
       <div className="space-y-6 p-7 sm:p-9">
-        <ProjectMetaItems project={project} variant="ribbon" />
+        <ProjectMetaSummary project={project} variant="ribbon" />
 
         <h3 className="card-title line-clamp-2">{project.title}</h3>
 

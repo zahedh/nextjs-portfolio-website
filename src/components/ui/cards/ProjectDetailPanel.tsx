@@ -3,7 +3,7 @@
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
-import { ProjectMetaItems } from '@/components/ui/cards/ProjectMeta';
+import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
@@ -121,7 +121,7 @@ export default function ProjectDetailPanel({
                       <SectionLabel>
                         {en.projectDisplay.sectionMetaItems}
                       </SectionLabel>
-                      <ProjectMetaItems project={project} variant="ribbon" />
+                      <ProjectMetaSummary project={project} variant="ribbon" />
                     </section>
                     {projectUrl ? (
                       <section>
@@ -197,7 +197,7 @@ export default function ProjectDetailPanel({
                     <SectionLabel>
                       {en.projectDisplay.sectionMetaItems}
                     </SectionLabel>
-                    <ProjectMetaItems project={project} variant="panel" />
+                    <ProjectMetaSummary project={project} variant="panel" />
                   </div>
                   {projectUrl ? (
                     <section>

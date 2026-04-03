@@ -61,8 +61,8 @@ export function ProjectStatusBadge({
   );
 }
 
-/** Project metadata items: ribbon, compact line, or structured panel. */
-export function ProjectMetaItems({
+/** Ribbon, compact line, or structured panel of project meta (timeline, platform, status). */
+export function ProjectMetaSummary({
   project,
   variant = 'compact',
   className,
