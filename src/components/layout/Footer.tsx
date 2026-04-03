@@ -14,15 +14,6 @@ export default function Footer() {
       id="contact"
     >
       <div className="footer-container">
-        <div className="flex flex-col items-center gap-4 pb-8 lg:hidden">
-          <AvatarGraphic className="border-brand-300 h-26 w-26 flex-shrink-0 rounded-full border-2" />
-          <SubHeading className="text-brand-600 dark:text-brand-300 text-center font-bold">
-            {en.footerSection.catchPhraseHeader}
-          </SubHeading>
-          <BodyText className="max-w-md text-center">
-            {en.footerSection.catchPhraseSubheader}
-          </BodyText>
-        </div>
         <div className="flex flex-row">
           <div className="hidden flex-2 flex-col items-start justify-between gap-y-4 px-2 lg:flex">
             <div className="mb-3 flex flex-row items-center justify-center gap-x-3">

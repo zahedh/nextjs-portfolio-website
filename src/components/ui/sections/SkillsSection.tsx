@@ -23,58 +23,55 @@ export default function SkillsSection() {
     scrollToProjectsSection();
   };
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.03,
+        delayChildren: prefersReducedMotion ? 0 : 0.04,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: prefersReducedMotion
+      ? { opacity: 1, scale: 1, y: 0 }
+      : { opacity: 0, scale: 0.72, y: 6 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 520,
+        damping: 26,
+      },
+    },
+  };
+
   return (
     <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
-      <div className="section-content mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6">
-        {skillsData.map((skill, index) => {
-          const row = Math.floor(index / 8);
-          const direction = row % 2 === 0 ? 1 : -1;
-          const offset = (index % 8) * 0.5;
-          const stagger = Math.min(index * 0.02, 0.45);
-
-          return (
-            <motion.div
-              key={skill.id}
-              className="relative hover:z-[100]"
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: 18 }
-              }
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{
-                once: true,
-                margin: '25% 0px',
-                amount: 0.15,
-              }}
-              animate={
-                prefersReducedMotion ? undefined : { x: [0, direction * 5, 0] }
-              }
-              transition={{
-                opacity: { duration: 0.45, delay: stagger },
-                y: { duration: 0.45, delay: stagger },
-                ...(prefersReducedMotion
-                  ? {}
-                  : {
-                      x: {
-                        duration: 4 + offset,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                        delay: offset,
-                        repeatType: 'loop',
-                      },
-                    }),
-              }}
-            >
-              <SkillTile
-                icon={skill.icon}
-                label={skill.label}
-                onClick={() => handleSkillClick(skill.id)}
-              />
-            </motion.div>
-          );
-        })}
-      </div>
+      <motion.div
+        className="section-content mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px 0px', amount: 0.15 }}
+      >
+        {skillsData.map((skill) => (
+          <motion.div
+            key={skill.id}
+            className="relative hover:z-[100]"
+            variants={itemVariants}
+          >
+            <SkillTile
+              icon={skill.icon}
+              label={skill.label}
+              onClick={() => handleSkillClick(skill.id)}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
     </Section>
   );
 }
