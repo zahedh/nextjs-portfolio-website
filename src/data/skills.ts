@@ -31,6 +31,10 @@ import {
   SiFirebase,
   SiPhp,
   SiWordpress,
+  SiFramer,
+  SiClaude,
+  SiNx,
+  SiStorybook,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
@@ -42,6 +46,7 @@ import {
   MousePointer2,
   Network,
   Sparkles,
+  Terminal,
   WandSparkles,
 } from 'lucide-react';
 import { en } from '@/language';
@@ -186,6 +191,12 @@ export const skillsData: Skill[] = [
     icon: SiFigma,
     category: 'design',
   },
+  {
+    id: 'framer',
+    label: en.skillsCollageSection.framer,
+    icon: SiFramer,
+    category: 'design',
+  },
 
   // Database
   {
@@ -248,6 +259,18 @@ export const skillsData: Skill[] = [
     id: 'xcode',
     label: en.skillsCollageSection.xcode,
     icon: SiXcode,
+    category: 'dev-tools',
+  },
+  {
+    id: 'nx',
+    label: en.skillsCollageSection.nx,
+    icon: SiNx,
+    category: 'dev-tools',
+  },
+  {
+    id: 'storybook',
+    label: en.skillsCollageSection.storybook,
+    icon: SiStorybook,
     category: 'dev-tools',
   },
 
@@ -330,6 +353,18 @@ export const skillsData: Skill[] = [
     id: 'github-copilot',
     label: en.skillsCollageSection.gitHubCopilot,
     icon: SiGithub,
+    category: 'ai',
+  },
+  {
+    id: 'claude',
+    label: en.skillsCollageSection.claude,
+    icon: SiClaude,
+    category: 'ai',
+  },
+  {
+    id: 'claude-code',
+    label: en.skillsCollageSection.claudeCode,
+    icon: Terminal,
     category: 'ai',
   },
   {

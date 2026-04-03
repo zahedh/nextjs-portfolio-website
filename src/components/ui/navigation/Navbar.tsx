@@ -24,16 +24,16 @@ export default function Navbar({
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleNavClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>) => {
     if (isHome) {
-      handleSmoothScroll(e);
+      handleSmoothScroll(mouseEvent);
     }
   };
 
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleHomeClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>) => {
     if (isHome) {
-      e.preventDefault();
-      scrollToTop(e);
+      mouseEvent.preventDefault();
+      scrollToTop(mouseEvent);
     }
   };
 

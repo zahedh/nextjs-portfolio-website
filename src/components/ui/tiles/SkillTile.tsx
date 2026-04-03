@@ -65,9 +65,9 @@ export function SkillTile({
         onClick={isClickable ? tryDoubleActivate : undefined}
         onKeyDown={
           isClickable
-            ? (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
+            ? (keyboardEvent: React.KeyboardEvent<HTMLDivElement>) => {
+                if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
+                  keyboardEvent.preventDefault();
                   tryDoubleActivate();
                 }
               }

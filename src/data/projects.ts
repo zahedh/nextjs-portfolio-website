@@ -116,6 +116,7 @@ export const projects: Project[] = [
       'React Native',
       'typescript',
       'javascript',
+      'nx',
       'jest',
       'prettier',
       'firebase',

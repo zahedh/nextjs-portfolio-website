@@ -75,10 +75,10 @@ export default function MobileMenu() {
               <nav className="flex flex-col items-center gap-8 p-8 pt-16">
                 <Link
                   href="/"
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      e.preventDefault();
-                      scrollToTop(e);
+                      mouseEvent.preventDefault();
+                      scrollToTop(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -88,9 +88,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#skills' : '/#skills'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -100,9 +100,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#projects' : '/#projects'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -112,9 +112,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#about' : '/#about'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -124,9 +124,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#experience' : '/#experience'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -136,9 +136,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#contributions' : '/#contributions'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}
@@ -148,9 +148,9 @@ export default function MobileMenu() {
                 </Link>
                 <Link
                   href={isHome ? '#contact' : '/#contact'}
-                  onClick={(e) => {
+                  onClick={(mouseEvent) => {
                     if (isHome) {
-                      handleSmoothScroll(e);
+                      handleSmoothScroll(mouseEvent);
                     }
                     setIsOpen(false);
                   }}

@@ -54,8 +54,8 @@ export default function ProjectDetailPanel({
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+    const onKey = (keyboardEvent: KeyboardEvent) => {
+      if (keyboardEvent.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -130,7 +130,7 @@ export default function ProjectDetailPanel({
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(mouseEvent) => mouseEvent.stopPropagation()}
             >
               <div
                 className="flex shrink-0 justify-center pt-[max(0.35rem,env(safe-area-inset-top))] pb-1 md:hidden"

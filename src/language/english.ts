@@ -69,6 +69,7 @@ export const en = {
     // Styling & Design
     tailwind: 'Tailwind CSS',
     figma: 'Figma',
+    framer: 'Framer',
 
     // Database
     mySQL: 'MySQL',
@@ -82,6 +83,8 @@ export const en = {
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
+    nx: 'Nx',
+    storybook: 'Storybook',
 
     // Testing & Code Quality
     jest: 'Jest',
@@ -105,6 +108,8 @@ export const en = {
 
     // AI Tools
     gitHubCopilot: 'GH Copilot',
+    claude: 'Claude',
+    claudeCode: 'Claude Code',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
