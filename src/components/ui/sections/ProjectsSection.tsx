@@ -21,7 +21,7 @@ import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
 import { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useSwiperActiveSlideResize } from '@/hooks/projects';
+import { useSwiperActiveSlideResize } from '@/hooks/projectHooks';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
 export default function ProjectsSection() {
