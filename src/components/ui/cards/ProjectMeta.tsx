@@ -36,7 +36,7 @@ export function ProjectPlatformTag({
     <span
       className={cn(
         'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap shadow-sm sm:text-xs',
-        'border-brand-500/60 bg-brand-300/45 text-brand-900 dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-brand-50',
+        'border-brand-500/60 bg-brand-300/45 text-neutral-900 dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-neutral-200',
         className
       )}
     >
@@ -62,7 +62,7 @@ export function ProjectStatusBadge({
       className={cn(
         'inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs',
         active
-          ? 'border-brand-500/55 bg-brand-400/25 text-brand-950 shadow-sm dark:border-brand-400/45 dark:bg-brand-500/20 dark:text-brand-50'
+          ? 'border-brand-500/60 bg-brand-300/45 text-neutral-900 shadow-sm dark:border-brand-400/55 dark:bg-brand-500/25 dark:text-neutral-200'
           : 'border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100',
         className
       )}

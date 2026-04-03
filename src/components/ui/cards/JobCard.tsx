@@ -62,10 +62,10 @@ export default function JobCard({ job }: JobCardProps) {
       className={cn(
         'surface-card surface-card-interactive group relative w-full overflow-hidden',
         'shadow-none hover:-translate-y-px hover:shadow-sm dark:shadow-none dark:hover:shadow-neutral-950/15',
-        'md:hover:ring-1 md:hover:ring-brand-500/15'
+        'md:hover:ring-brand-500/15 md:hover:ring-1'
       )}
     >
-      <div className="space-y-4 p-6">
+      <div className="space-y-5 p-6 sm:p-8">
         <p
           className={cn(
             'inline-flex max-w-full rounded-full border px-4 py-1.5 text-xs font-semibold',
@@ -112,7 +112,7 @@ export default function JobCard({ job }: JobCardProps) {
             }}
             className="overflow-hidden"
           >
-            <div ref={contentRef} className="space-y-3">
+            <div ref={contentRef} className="space-y-4">
               {job.description.map((paragraph, index) => (
                 <p
                   key={index}
@@ -130,7 +130,11 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         {showExpandButton && (
-          <button type="button" onClick={handleToggle} className="card-expand-btn">
+          <button
+            type="button"
+            onClick={handleToggle}
+            className="card-expand-btn"
+          >
             {isExpanded ? 'Show less' : 'Show more'}
             <ChevronDown
               size={16}
@@ -143,7 +147,7 @@ export default function JobCard({ job }: JobCardProps) {
         )}
 
         {showExpandedSkills ? (
-          <div className="flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3">
+          <div className="flex flex-wrap justify-start gap-2 sm:gap-3">
             {jobSkills.slice(0, JOB_SKILLS_PREVIEW).map((skill) => (
               <SkillTile
                 key={skill.id}
@@ -168,11 +172,7 @@ export default function JobCard({ job }: JobCardProps) {
                   delay: prefersReducedMotion ? 0 : index * 0.038,
                 }}
               >
-                <SkillTile
-                  icon={skill.icon}
-                  label={skill.label}
-                  compact
-                />
+                <SkillTile icon={skill.icon} label={skill.label} compact />
               </motion.div>
             ))}
           </div>

@@ -216,7 +216,7 @@ export const en = {
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
     sectionMetadata: 'Details',
-    visitLive: 'Visit live site',
+    visitLive: 'Visit site',
     keyFeaturesSummary: 'Full description',
     techStackSummary: 'Technologies',
     moreSkills: '+{{count}} more',

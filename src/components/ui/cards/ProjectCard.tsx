@@ -63,10 +63,10 @@ export default function ProjectCard({
         )}
       </button>
 
-      <div className="space-y-4 p-6">
+      <div className="space-y-5 p-6 sm:p-8">
         <ProjectMeta project={project} variant="ribbon" />
 
-        <h3 className="card-title line-clamp-2 pt-1">
+        <h3 className="card-title line-clamp-2">
           {projectUrl ? (
             <a
               href={projectUrl}

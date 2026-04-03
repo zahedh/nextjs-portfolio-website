@@ -221,11 +221,6 @@ export default function ProjectDetailPanel({
                     {projectUrl ? (
                       <ProjectLinks url={projectUrl} fullWidth />
                     ) : null}
-                    <ProjectMeta
-                      project={project}
-                      variant="compact"
-                      className="text-center text-xs opacity-90"
-                    />
                   </div>
                 </div>
 
@@ -248,25 +243,20 @@ export default function ProjectDetailPanel({
                       </SectionLabel>
                       <FeatureList lines={project.description} />
                     </section>
-                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
+                    <section>
                       <SectionLabel>
                         {en.projectDisplay.sectionTechStack}
                       </SectionLabel>
                       <TechStack skills={projectSkills} />
                     </section>
-                    {projectUrl ? (
-                      <section>
-                        <SectionLabel>
-                          {en.projectDisplay.sectionLinks}
-                        </SectionLabel>
-                        <ProjectLinks url={projectUrl} />
-                      </section>
-                    ) : null}
                   </div>
                 </div>
 
                 <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l md:px-8 md:pt-6 md:pb-10 dark:border-neutral-700/50">
                   <ProjectHeroMedia project={project} density="compact" />
+                  {projectUrl ? (
+                    <ProjectLinks url={projectUrl} fullWidth />
+                  ) : null}
                   <div>
                     <SectionLabel>
                       {en.projectDisplay.sectionMetadata}

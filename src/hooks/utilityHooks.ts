@@ -5,7 +5,9 @@ import {
   useState,
   useRef,
   useLayoutEffect,
+  useCallback,
 } from 'react';
+import { flushSync } from 'react-dom';
 import { useShallow } from 'zustand/react/shallow';
 import {
   useGlobalStore,
@@ -85,9 +87,22 @@ export function useExpandableContent(maxHeight: number = 300) {
     };
   }, [maxHeight]);
 
-  const handleToggle = () => {
-    setIsExpanded(!isExpanded);
-  };
+  /** Sync measured height, then toggle so collapse animates max-height instead of snapping. */
+  const handleToggle = useCallback(() => {
+    const el = contentRef.current;
+    if (!el) {
+      setIsExpanded((v) => !v);
+      return;
+    }
+    const full = el.scrollHeight;
+    if (isExpanded) {
+      flushSync(() => setContentHeight(full));
+      requestAnimationFrame(() => setIsExpanded(false));
+    } else {
+      flushSync(() => setContentHeight(full));
+      setIsExpanded(true);
+    }
+  }, [isExpanded]);
 
   return {
     isExpanded,

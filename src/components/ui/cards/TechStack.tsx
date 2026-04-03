@@ -28,7 +28,7 @@ export function TechStack({
   return (
     <div
       className={cn(
-        'flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3',
+        'flex flex-wrap justify-start gap-2 sm:gap-3',
         className
       )}
     >
@@ -45,7 +45,7 @@ export function TechStack({
           <button
             type="button"
             onClick={onMoreClick}
-            className="text-brand-600 dark:text-brand-400 inline-flex h-10 cursor-pointer items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold transition-colors hover:bg-brand-300/40 dark:bg-brand-800/30 dark:hover:bg-brand-800/45"
+            className="inline-flex h-10 cursor-pointer items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold text-neutral-800 transition-colors hover:bg-brand-300/40 dark:bg-brand-800/30 dark:text-neutral-200 dark:hover:bg-brand-800/45"
             aria-label={en.projectDisplay.moreSkills.replace(
               '{{count}}',
               String(extra)
@@ -55,7 +55,7 @@ export function TechStack({
           </button>
         ) : (
           <span
-            className="text-brand-600 dark:text-brand-400 inline-flex h-10 items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold dark:bg-brand-800/30"
+            className="inline-flex h-10 items-center rounded-full border border-brand-500/40 bg-brand-300/25 px-3 text-xs font-semibold text-neutral-800 dark:bg-brand-800/30 dark:text-neutral-200"
             aria-label={en.projectDisplay.moreSkills.replace(
               '{{count}}',
               String(extra)
