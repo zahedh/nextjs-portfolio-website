@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { getSkillTileTooltipAnchor } from '@/lib/skillTileTooltip';
+import { getSkillTileTooltipAnchor } from '@/lib/ui-logic';
 
 export function useSkillTilePortalTooltip() {
   const [isHovering, setIsHovering] = useState(false);

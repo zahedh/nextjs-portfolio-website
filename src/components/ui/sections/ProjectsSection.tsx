@@ -6,8 +6,8 @@ import {
   PrimaryButton,
 } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { isProjectActive } from '@/lib/projectDisplay';
-import { projectMatchesSkill } from '@/lib/projectSkills';
+import { isProjectActive } from '@/lib/ui-logic';
+import { projectMatchesSkill } from '@/lib/project';
 import { skillsData } from '@/data';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';

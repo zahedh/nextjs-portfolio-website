@@ -1,6 +1,6 @@
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
-import { formatProjectTimeline, isProjectActive } from '@/lib/projectDisplay';
+import { formatProjectTimeline, isProjectActive } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 

@@ -8,7 +8,7 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
 import { useBreakpoint } from '@/hooks/utilityHooks';
-import { getProjectExcerptLine } from '@/lib/projectDisplay';
+import { getProjectExcerptLine } from '@/lib/ui-logic';
 import { getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';

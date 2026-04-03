@@ -1,4 +1,4 @@
-import { stripDescriptionLine } from '@/lib/projectDisplay';
+import { stripDescriptionLine } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 
 /** Bulleted list of project features / description lines. */

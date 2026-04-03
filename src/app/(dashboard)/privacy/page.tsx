@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Section } from '@/components';
 import { SubHeading, BodyText } from '@/components/text';
-import { socialShareImageMeta } from '@/lib/social-metadata';
+import { socialShareImageMeta } from '@/lib/meta';
 import { en } from '@/language';
 
 export const metadata: Metadata = {

@@ -6,7 +6,7 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import type { Project } from '@/data/projects';
 import { en } from '@/language';
-import { getProjectExcerptLine } from '@/lib/projectDisplay';
+import { getProjectExcerptLine } from '@/lib/ui-logic';
 import { cn, getSkillsByIds } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 

@@ -3,7 +3,7 @@
 import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
 import { useGlobalStore } from '@/providers/global-store-provider';
-import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/projectSkills';
+import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/project';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion, useReducedMotion } from 'motion/react';

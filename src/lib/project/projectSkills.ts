@@ -1,5 +1,5 @@
 import { projects } from '@/data/projects';
-import { normalizeSkillId, scrollElementIntoViewAdaptive } from '@/lib/util';
+import { normalizeSkillId, scrollElementIntoViewAdaptive } from '@/lib/utils';
 
 /** Whether a project lists the given skill ID (with {@link normalizeSkillId} matching). */
 export function projectMatchesSkill(
