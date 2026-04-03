@@ -6,6 +6,7 @@ import {
   PrimaryButton,
 } from '@/components';
 import { useGlobalStore } from '@/providers/global-store-provider';
+import { isProjectActive } from '@/lib/projectDisplay';
 import { projectMatchesSkill } from '@/lib/utils';
 import { skillsData } from '@/data';
 import type { Project } from '@/data/projects';
@@ -51,15 +52,20 @@ export default function ProjectsSection() {
   }, [isLargeScreen, activeIndex, selectedType, selectedSkillId, swiperReady]);
 
   const filteredProjects = useMemo(() => {
+    let list: Project[];
     if (selectedSkillId) {
-      return projects.filter((project) =>
+      list = projects.filter((project) =>
         projectMatchesSkill(project, selectedSkillId)
       );
+    } else if (selectedType === 'All') {
+      list = [...projects];
+    } else {
+      list = projects.filter((project) => project.projectType === selectedType);
     }
-    if (selectedType === 'All') {
-      return [...projects];
-    }
-    return projects.filter((project) => project.projectType === selectedType);
+    // Ongoing work first (end date "Present"), then preserve data order within each group.
+    return [...list].sort(
+      (a, b) => Number(isProjectActive(b)) - Number(isProjectActive(a))
+    );
   }, [selectedType, selectedSkillId]);
 
   const selectedSkillLabel = selectedSkillId
