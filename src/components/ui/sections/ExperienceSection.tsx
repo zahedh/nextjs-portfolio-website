@@ -13,7 +13,7 @@ export default function ExperienceSection() {
       <div className="section-content relative mx-auto max-w-6xl xl:max-w-7xl">
         <div className="timeline-position" />
 
-        <div className="relative space-y-16 py-32 lg:space-y-24 lg:py-48">
+        <div className="relative space-y-16 py-44 lg:space-y-24 lg:py-64">
           {jobExperiences.map((job, index) => {
             const isLeft = index % 2 === 0;
             const year = job.startDate.split(' ').pop();

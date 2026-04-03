@@ -1,9 +1,3 @@
-export {
-  AboutBeyondCodingCard,
-  AboutLevellingUpCard,
-  AboutWhatDrivesCard,
-} from './AboutBentoCards';
-export { default as AboutHighlightsPanel } from './AboutHighlightsPanel';
 export { FeatureList } from './FeatureList';
 export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';

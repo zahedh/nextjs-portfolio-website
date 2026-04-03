@@ -1,71 +1,108 @@
 'use client';
 
 import { Section } from '@/components';
-import AboutHighlightsPanel from '@/components/ui/cards/AboutHighlightsPanel';
-import {
-  AboutBeyondCodingCard,
-  AboutLevellingUpCard,
-  AboutWhatDrivesCard,
-} from '@/components/ui/cards/AboutBentoCards';
 import { AboutGraphic } from '@/components/media';
+import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
-/** Bento-style About: graphic, tagline, intro line, then flex rows (stats + 2 cols + full). */
+const viewMotion = { once: true, margin: '-80px' as const };
+
+/** Editorial About: section title, intro + graphic, narrative + credentials rail, closing note. */
 export default function AboutSection() {
+  const prefersReducedMotion = useReducedMotion();
+  const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
+
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
       <div className="section-content mx-auto max-w-6xl">
-        <div className="flex flex-col">
-          <div className="flex flex-col gap-2 sm:gap-3">
+        <div className="flex flex-col gap-14 sm:gap-16 lg:gap-20">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_minmax(300px,440px)] lg:gap-14 xl:gap-16">
+            <div className="flex flex-col gap-7 text-center sm:gap-8 lg:text-left">
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewMotion}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="font-heading text-brand-600 dark:text-brand-400 max-w-3xl text-3xl font-bold italic sm:text-4xl md:text-4xl lg:mx-0 lg:max-w-none"
+              >
+                {en.aboutSection.tagline}
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={viewMotion}
+                transition={{ duration: 0.45, ease: 'easeOut', delay: 0.04 }}
+                className="font-heading max-w-3xl text-xl leading-snug font-semibold text-neutral-900 sm:text-2xl md:text-3xl lg:mx-0 dark:text-neutral-100"
+              >
+                {en.aboutSection.introParagraph}
+              </motion.p>
+            </div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="flex w-full justify-center"
+              viewport={viewMotion}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+              className="flex w-full justify-center lg:justify-end"
             >
-              <div className="w-full max-w-[280px] opacity-95 sm:max-w-[320px] md:max-w-[380px]">
-                <AboutGraphic className="h-auto w-full" />
-              </div>
+              <motion.div
+                className="w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[400px]"
+                animate={
+                  prefersReducedMotion === true ? undefined : { y: [0, -6, 0] }
+                }
+                transition={{
+                  duration: 5,
+                  repeat: prefersReducedMotion === true ? 0 : Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                <AboutGraphic className="h-auto w-full opacity-95" />
+              </motion.div>
+            </motion.div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_minmax(260px,340px)] lg:items-center lg:gap-16 xl:gap-[4.75rem]">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewMotion}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+              className="space-y-6 text-xl leading-relaxed text-neutral-800 sm:text-2xl dark:text-neutral-300"
+            >
+              <p>{narrativeFirst}</p>
+              <p>{narrativeSecond}</p>
             </motion.div>
 
-            <motion.p
+            <motion.aside
+              aria-label={en.aboutSection.credentialsAriaLabel}
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.04 }}
-              className="font-heading text-brand-600 dark:text-brand-400 mx-auto max-w-2xl px-2 text-center text-xl font-bold italic sm:text-2xl md:text-3xl"
+              viewport={viewMotion}
+              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
             >
-              {en.aboutSection.tagline}
-            </motion.p>
+              <ul className="font-heading flex flex-col gap-y-4 text-left text-base font-semibold tracking-tight sm:gap-y-4 sm:text-lg">
+                {aboutCredentialLines.map((line) => (
+                  <li
+                    key={line}
+                    className="text-brand-700 dark:text-brand-300 border-brand-500/25 border-l-[3px] pl-4"
+                  >
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </motion.aside>
           </div>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.45, ease: 'easeOut', delay: 0.06 }}
-            className="font-heading mx-auto mt-8 max-w-3xl px-8 text-center text-lg leading-snug font-semibold text-neutral-900 sm:mt-10 sm:text-xl md:text-2xl dark:text-neutral-100"
+            viewport={viewMotion}
+            transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
+            className="text-brand-500 dark:text-brand-300 border-t border-neutral-300/70 pt-10 text-center text-lg leading-relaxed font-normal italic sm:text-xl dark:border-neutral-700"
           >
-            {en.aboutSection.introParagraph}
+            {en.aboutSection.closingNote}
           </motion.p>
-
-          <motion.section
-            aria-label={en.sectionHeaders.about}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.08 }}
-            className="mt-16 flex w-full flex-col gap-6 lg:mt-20 lg:gap-8"
-          >
-            <AboutHighlightsPanel className="w-full" />
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch lg:gap-8">
-              <AboutWhatDrivesCard className="min-h-0 w-full" />
-              <AboutBeyondCodingCard className="min-h-0 w-full" />
-            </div>
-            <AboutLevellingUpCard className="w-full" />
-          </motion.section>
         </div>
       </div>
     </Section>

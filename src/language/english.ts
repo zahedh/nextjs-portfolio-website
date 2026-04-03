@@ -14,7 +14,7 @@ export const en = {
   sectionHeaders: {
     skillsCollage: 'What I Work Best With',
     projects: "What I've Worked On",
-    about: 'A Bit About Me',
+    about: 'About',
     experience: "Where I've Worked",
     contributionsSection: 'My GitHub Activity',
   },
@@ -28,37 +28,16 @@ export const en = {
   },
 
   aboutSection: {
-    /** Used for `aria-label` on the stats panel (no visible heading). */
-    highlightsHeading: 'Quick snapshot',
     tagline: 'Tech loving, gym obsessed problem solver',
     introParagraph:
       'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
-    whatDrivesMeHeading: 'What drives me',
-    whatDrivesMeText:
+    narrativeParagraphs: [
       "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
-    beyondCodingHeading: 'Beyond coding',
-    beyondCodingIntro: "Outside of work, you'll find me:",
-    beyondCodingItems: [
-      'Lifting in the gym — staying focused and energised.',
-      'Making music — always exploring new sounds.',
-      'Diving into games, design, and tech — driven by curiosity.',
-    ],
-    levellingUpHeading: 'Levelling up in life',
-    levellingUpText:
       'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
-    statCards: {
-      yearsExperienceLabel: 'Years Experience',
-      enterpriseClientsLabel: 'Enterprise Clients',
-      enterpriseClientsValue: '2+',
-      usersReachedLabel: 'Users Reached',
-      usersReachedValue: '500K+',
-      appsPublishedLabel: 'Apps Published',
-      appsPublishedValue: 'iOS & Android',
-      aiWorkflowsLabel: 'Workflows',
-      aiWorkflowsValue: 'AI-Integrated',
-      degreeLabel: 'Degree',
-      degreeValue: '1st Class',
-    },
+    ],
+    closingNote:
+      'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
+    credentialsAriaLabel: 'At a glance',
   },
 
   skillsCollageSection: {

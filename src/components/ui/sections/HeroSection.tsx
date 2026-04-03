@@ -25,7 +25,7 @@ export default function HeroSection() {
         <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
           <AvatarGraphic
             priority
-            className="h-32 w-32 sm:h-40 sm:w-40 lg:h-48 lg:w-48"
+            className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"
           />
           <div className="flex flex-col text-center sm:text-left">
             <SubHeading as="h1">

@@ -1,6 +1,6 @@
 'use client';
 
-import { MapPin, Building2, Code2, ChevronDown } from 'lucide-react';
+import { MapPin, Building2, ChevronDown } from 'lucide-react';
 import { SkillTile } from '@/components/ui/tiles';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
@@ -14,13 +14,9 @@ import { useEffect, useState } from 'react';
 const JOB_SKILLS_PREVIEW = 5;
 
 const datePillInactive =
-  'border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-600/80 dark:bg-neutral-800/70 dark:text-neutral-200';
+  'border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100';
 const datePillActive =
-  'border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/45 dark:bg-brand-500/20 dark:text-neutral-200';
-const iconFrameInactive =
-  'border-neutral-300/85 bg-neutral-100/90 text-neutral-700 dark:border-neutral-600/80 dark:bg-neutral-800/70 dark:text-neutral-200';
-const iconFrameActive =
-  'border-brand-500/60 bg-brand-300/35 text-neutral-800 dark:border-brand-400/50 dark:bg-brand-500/25 dark:text-neutral-200';
+  'border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/60 dark:bg-brand-500/35 dark:text-neutral-50';
 
 interface JobCardProps {
   job: JobExperience;
@@ -40,7 +36,7 @@ export default function JobCard({ job }: JobCardProps) {
     contentHeight,
     contentRef,
     handleToggle,
-  } = useExpandableContent(300);
+  } = useExpandableContent(360);
 
   const jobSkills = getSkillsByIds(job.skills, skillsData);
   const active = isJobActive(job);
@@ -54,11 +50,11 @@ export default function JobCard({ job }: JobCardProps) {
     showAllSkills && jobSkills.length > JOB_SKILLS_PREVIEW;
 
   return (
-    <div className="surface-card surface-card-interactive surface-card-flat group relative w-full overflow-hidden">
-      <div className="space-y-5 p-6 sm:p-8">
+    <div className="surface-card surface-card-interactive surface-card-flat group relative flex min-h-[400px] w-full flex-col overflow-hidden sm:min-h-[440px]">
+      <div className="flex flex-1 flex-col space-y-6 p-7 sm:p-9">
         <p
           className={cn(
-            'inline-flex max-w-full rounded-full border px-4 py-1.5 text-xs font-semibold',
+            'inline-flex max-w-full shrink-0 items-center self-start rounded-full border px-4 py-1.5 text-sm font-semibold leading-snug',
             active ? datePillActive : datePillInactive
           )}
           aria-label={`${job.startDate} to ${job.endDate}`}
@@ -66,45 +62,38 @@ export default function JobCard({ job }: JobCardProps) {
           {job.startDate} – {job.endDate}
         </p>
 
-        <div className="flex items-start gap-4">
-          <div
-            className={cn(
-              'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border',
-              active ? iconFrameActive : iconFrameInactive
-            )}
-            aria-hidden
-          >
-            <Code2 size={22} strokeWidth={2} />
-          </div>
-
-          <div className="min-w-0 flex-1">
-            <h3 className="card-title mb-2">{job.title}</h3>
-            <div className="flex flex-col gap-1 text-sm text-neutral-600 dark:text-neutral-400">
-              <div className="flex items-center gap-2">
-                <Building2 size={16} className="shrink-0 opacity-80" />
-                <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                  {job.company}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin size={16} className="shrink-0 opacity-80" />
-                <span>{job.location}</span>
-              </div>
+        <div className="min-w-0">
+          <h3 className="mb-2 text-xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100">
+            {job.title}
+          </h3>
+          <div className="flex flex-col gap-1.5 text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+            <div className="flex items-center gap-2">
+              <Building2 size={18} className="shrink-0 opacity-80" />
+              <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                {job.company}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={18} className="shrink-0 opacity-80" />
+              <span>{job.location}</span>
             </div>
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative min-h-0 flex-1">
           <div
             style={{
-              maxHeight: isExpanded ? `${contentHeight}px` : '300px',
+              maxHeight: isExpanded ? `${contentHeight}px` : '360px',
               transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
             className="overflow-hidden"
           >
             <div ref={contentRef} className="space-y-4">
               {job.description.map((paragraph, index) => (
-                <p key={index} className="body-text-muted">
+                <p
+                  key={index}
+                  className="text-base leading-relaxed text-neutral-600 sm:text-lg dark:text-neutral-400"
+                >
                   {paragraph}
                 </p>
               ))}
@@ -120,11 +109,11 @@ export default function JobCard({ job }: JobCardProps) {
           <button
             type="button"
             onClick={handleToggle}
-            className="card-expand-btn"
+            className="card-expand-btn py-3 text-base"
           >
             {isExpanded ? 'Show less' : 'Show more'}
             <ChevronDown
-              size={16}
+              size={18}
               className={cn(
                 'transition-transform duration-300',
                 isExpanded && 'rotate-180'
