@@ -19,8 +19,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-cards';
 import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
-import { useState, useMemo, useRef, useEffect, type RefObject } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSwiperActiveSlideResize } from '@/hooks/projects';
 import { useBreakpoint } from '@/hooks/utilityHooks';
 
 export default function ProjectsSection() {
@@ -194,40 +195,4 @@ export default function ProjectsSection() {
       </motion.div>
     </Section>
   );
-}
-
-function useSwiperActiveSlideResize({
-  isLargeScreen,
-  swiperRef,
-  activeIndex,
-  selectedType,
-  selectedSkillId,
-  swiperReady,
-}: {
-  isLargeScreen: boolean;
-  swiperRef: RefObject<SwiperType | null>;
-  activeIndex: number;
-  selectedType: 'All' | 'Web' | 'Mobile';
-  selectedSkillId: string | null;
-  swiperReady: number;
-}) {
-  useEffect(() => {
-    if (isLargeScreen) return;
-    const swiper = swiperRef.current;
-    if (!swiper?.slides?.length) return;
-    const slide = swiper.slides[activeIndex];
-    if (!slide) return;
-    const ro = new ResizeObserver(() => {
-      swiper.update();
-    });
-    ro.observe(slide);
-    return () => ro.disconnect();
-  }, [
-    isLargeScreen,
-    activeIndex,
-    selectedType,
-    selectedSkillId,
-    swiperReady,
-    swiperRef,
-  ]);
 }
