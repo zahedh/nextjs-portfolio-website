@@ -14,7 +14,7 @@ export const en = {
   sectionHeaders: {
     skillsCollage: 'What I Work Best With',
     projects: "What I've Worked On",
-    about: 'About',
+    about: 'A Bit About Me',
     experience: "Where I've Worked",
     contributionsSection: 'My GitHub Activity',
   },
