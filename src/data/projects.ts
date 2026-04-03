@@ -117,6 +117,7 @@ export const projects: Project[] = [
       'typescript',
       'javascript',
       'nx',
+      'storybook',
       'jest',
       'prettier',
       'firebase',
