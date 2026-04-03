@@ -48,7 +48,7 @@ export function ProjectHeroMedia({
   const rasterSizes =
     density === 'compact'
       ? '(max-width: 768px) 100vw, 320px'
-      : '(max-width: 768px) 100vw, 672px';
+      : '(max-width: 768px) 100vw, 576px';
 
   return (
     <div

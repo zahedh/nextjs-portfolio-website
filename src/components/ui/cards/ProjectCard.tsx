@@ -31,7 +31,7 @@ export default function ProjectCard({
   return (
     <div
       className={cn(
-        'project-card surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-2xl overflow-hidden 2xl:max-w-xl'
+        'project-card surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-xl overflow-hidden'
       )}
     >
       <button
