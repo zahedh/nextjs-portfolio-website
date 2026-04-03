@@ -191,8 +191,7 @@ export const en = {
   },
 
   projectCard: {
-    titleLinkAria: 'Opens in a new tab',
-    fullCaseStudy: 'Full case study',
+    fullCaseStudy: 'Case Study',
     viewProject: 'View project',
     viewProjectArrow: '→',
   },
@@ -208,13 +207,11 @@ export const en = {
     personalTag: 'Personal',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
-    sectionFeatures: 'Full description',
+    sectionFeatures: 'Description',
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
     sectionMetadata: 'Details',
     visitLive: 'Visit site',
-    keyFeaturesSummary: 'Full description',
-    techStackSummary: 'Technologies',
     moreSkills: '+{{count}} more',
   },
 

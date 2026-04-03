@@ -160,14 +160,27 @@ export default function ProjectDetailPanel({
               <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
                 <div className="project-card-scroll min-h-0 flex-1 overflow-x-hidden overflow-y-auto md:hidden">
                   <div className="flex flex-col gap-8 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-                    <ProjectMeta project={project} variant="ribbon" />
                     <ProjectHeroMedia project={project} density="compact" />
-                    {overview ? (
-                      <p className="body-text-muted text-base">{overview}</p>
+                    <section>
+                      <SectionLabel>
+                        {en.projectDisplay.sectionMetadata}
+                      </SectionLabel>
+                      <ProjectMeta project={project} variant="ribbon" />
+                    </section>
+                    {projectUrl ? (
+                      <ProjectLinks url={projectUrl} fullWidth />
                     ) : null}
+                    <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
+                      <SectionLabel>
+                        {en.projectDisplay.sectionOverview}
+                      </SectionLabel>
+                      {overview ? (
+                        <p className="body-text-muted text-base">{overview}</p>
+                      ) : null}
+                    </section>
                     <details className="detail-accordion group">
                       <summary className="detail-accordion-trigger">
-                        {en.projectDisplay.keyFeaturesSummary}
+                        {en.projectDisplay.sectionFeatures}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
                       <div className="detail-accordion-body">
@@ -176,16 +189,13 @@ export default function ProjectDetailPanel({
                     </details>
                     <details className="detail-accordion group" open>
                       <summary className="detail-accordion-trigger">
-                        {en.projectDisplay.techStackSummary}
+                        {en.projectDisplay.sectionTechStack}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
                       </summary>
                       <div className="detail-accordion-body">
                         <TechStack skills={projectSkills} />
                       </div>
                     </details>
-                    {projectUrl ? (
-                      <ProjectLinks url={projectUrl} fullWidth />
-                    ) : null}
                   </div>
                 </div>
 
@@ -218,15 +228,15 @@ export default function ProjectDetailPanel({
 
                 <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l md:px-8 md:pt-6 md:pb-10 dark:border-neutral-700/50">
                   <ProjectHeroMedia project={project} density="compact" />
-                  {projectUrl ? (
-                    <ProjectLinks url={projectUrl} fullWidth />
-                  ) : null}
                   <div>
                     <SectionLabel>
                       {en.projectDisplay.sectionMetadata}
                     </SectionLabel>
                     <ProjectMeta project={project} variant="panel" />
                   </div>
+                  {projectUrl ? (
+                    <ProjectLinks url={projectUrl} fullWidth />
+                  ) : null}
                 </aside>
               </div>
             </motion.div>

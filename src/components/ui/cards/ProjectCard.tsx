@@ -8,7 +8,6 @@ import type { Project } from '@/data/projects';
 import { en } from '@/language';
 import { getProjectExcerptLine } from '@/lib/projectDisplay';
 import { cn, getSkillsByIds } from '@/lib/utils';
-import { ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 interface ProjectCardProps {
@@ -25,7 +24,6 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const [mounted, setMounted] = useState(false);
   const projectSkills = getSkillsByIds(project.skills, skillsData);
-  const projectUrl = project.url?.trim();
   const excerpt = getProjectExcerptLine(project);
 
   useEffect(() => setMounted(true), []);
@@ -33,7 +31,7 @@ export default function ProjectCard({
   return (
     <div
       className={cn(
-        'surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-2xl overflow-hidden 2xl:max-w-xl'
+        'project-card surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-2xl overflow-hidden 2xl:max-w-xl'
       )}
     >
       <button
@@ -58,25 +56,7 @@ export default function ProjectCard({
       <div className="space-y-5 p-6 sm:p-8">
         <ProjectMeta project={project} variant="ribbon" />
 
-        <h3 className="card-title line-clamp-2">
-          {projectUrl ? (
-            <a
-              href={projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-title-link"
-              aria-label={`${project.title} — ${en.projectCard.titleLinkAria}`}
-            >
-              <span>{project.title}</span>
-              <ExternalLink
-                className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5"
-                aria-hidden
-              />
-            </a>
-          ) : (
-            project.title
-          )}
-        </h3>
+        <h3 className="card-title line-clamp-2">{project.title}</h3>
 
         {excerpt ? (
           <p className="body-text-muted line-clamp-2">{excerpt}</p>
