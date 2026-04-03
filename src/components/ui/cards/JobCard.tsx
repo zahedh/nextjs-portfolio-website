@@ -6,7 +6,9 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
+import { SecondaryButton } from '@/components';
 import { cn } from '@/lib/utils';
+import { en } from '@/language';
 import { isJobActive, type JobExperience } from '@/data/experience';
 import { motion, useReducedMotion } from 'motion/react';
 import { useEffect, useState } from 'react';
@@ -52,15 +54,25 @@ export default function JobCard({ job }: JobCardProps) {
   return (
     <div className="surface-card surface-card-interactive surface-card-flat group relative flex min-h-[400px] w-full flex-col overflow-hidden sm:min-h-[440px]">
       <div className="flex flex-1 flex-col space-y-6 p-7 sm:p-9">
-        <p
-          className={cn(
-            'inline-flex max-w-full shrink-0 items-center self-start rounded-full border px-4 py-1.5 text-sm font-semibold leading-snug',
-            active ? datePillActive : datePillInactive
-          )}
-          aria-label={`${job.startDate} to ${job.endDate}`}
-        >
-          {job.startDate} – {job.endDate}
-        </p>
+        <div className="flex flex-wrap items-center gap-2 self-start">
+          <p
+            className={cn(
+              'inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm font-semibold leading-snug',
+              active ? datePillActive : datePillInactive
+            )}
+            aria-label={`${job.startDate} to ${job.endDate}`}
+          >
+            {`${job.startDate} \u2013 ${job.endDate}`}
+          </p>
+          <span
+            className={cn(
+              'brand-pill shrink-0',
+              active ? 'brand-pill-active' : 'brand-pill-inactive'
+            )}
+          >
+            {active ? en.jobDisplay.statusCurrent : en.jobDisplay.statusPast}
+          </span>
+        </div>
 
         <div className="min-w-0">
           <h3 className="mb-2 text-xl font-semibold leading-tight tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100">
@@ -106,20 +118,24 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         {showExpandButton && (
-          <button
+          <SecondaryButton
             type="button"
             onClick={handleToggle}
-            className="card-expand-btn py-3 text-base"
+            className={cn(
+              'btn-primary-sm',
+              'mt-3 w-full',
+              'hover:bg-brand-500'
+            )}
           >
             {isExpanded ? 'Show less' : 'Show more'}
             <ChevronDown
-              size={18}
+              size={16}
               className={cn(
                 'transition-transform duration-300',
                 isExpanded && 'rotate-180'
               )}
             />
-          </button>
+          </SecondaryButton>
         )}
 
         {showExpandedSkills ? (

@@ -40,7 +40,7 @@ export function TechStack({
           <button
             type="button"
             onClick={onMoreClick}
-            className="more-pill hover:bg-brand-300/40 dark:hover:bg-brand-800/45 cursor-pointer transition-colors"
+            className="more-pill cursor-pointer transition-colors hover:bg-brand-300/40 dark:hover:bg-brand-800/45"
             aria-label={moreLabel}
           >
             {moreLabel}

@@ -44,6 +44,7 @@ export default function ProjectCard({
           project={project}
           imagePriority={imagePriority}
           className="rounded-none border-0 shadow-none"
+          frameClassName="h-40 sm:h-44 md:h-48"
         />
         <div className="hero-fade-overlay" aria-hidden />
         {mounted && (
@@ -53,7 +54,7 @@ export default function ProjectCard({
         )}
       </button>
 
-      <div className="space-y-5 p-6 sm:p-8">
+      <div className="space-y-6 p-7 sm:p-9">
         <ProjectMeta project={project} variant="ribbon" />
 
         <h3 className="card-title line-clamp-2">{project.title}</h3>

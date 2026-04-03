@@ -13,7 +13,8 @@
 
   .screen-section {
     @apply flex w-full flex-col items-start justify-center gap-4;
-    scroll-margin-top: 4rem; /* Offset for sticky header */
+    /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
+    scroll-margin-top: 5rem;
   }
 
   .section-content {

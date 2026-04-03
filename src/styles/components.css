@@ -1,5 +1,5 @@
 /* =========================
-   📐 LAYOUT COMPONENTS (timeline, footer, contributions)
+   ðŸ“ LAYOUT COMPONENTS (timeline, footer, contributions)
    ========================= */
 @layer utilities {
   .timeline-position {
@@ -37,7 +37,7 @@
   }
 
   /* =========================
-     🔗 NAVIGATION
+     ðŸ”— NAVIGATION
      ========================= */
   .nav-link {
     @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-base leading-normal font-bold tracking-tight text-neutral-900 dark:text-neutral-200;
@@ -53,7 +53,7 @@
   }
 
   /* =========================
-     🃏 CARD UTILITIES
+     ðŸƒ CARD UTILITIES
      ========================= */
   .surface-card {
     @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
@@ -94,8 +94,36 @@
   .link-accent {
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
+
+  /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
+   * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
+   * 2. Primary: PrimaryButton base without btn-toggle-idle; optional btn-primary-sm for compact actions
+   * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
+   * 4. Tertiary: TertiaryButton
+   */
+  .btn-callout {
+    @apply shadow-md ring-2 ring-brand-400/80 ring-offset-2 ring-offset-neutral-50 dark:ring-brand-300/70 dark:ring-offset-neutral-950;
+  }
+  /** Compact primary - smaller type than default pills; roomier padding than initial sm token */
+  .btn-primary-sm {
+    @apply px-4 py-2.5 text-sm leading-snug font-bold;
+  }
+  .btn-callout-ping-anchor {
+    @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
+  }
+  .btn-callout-ping-ring {
+    @apply bg-brand-400 absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none dark:bg-brand-300;
+  }
+  .btn-callout-ping-core {
+    @apply relative inline-flex h-3 w-3 rounded-full bg-brand-500 ring-2 ring-white dark:ring-neutral-900;
+  }
+  .btn-brand-link,
+  .brand-link-btn {
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 inline-flex items-center justify-center gap-2 rounded-full border text-sm font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
+  }
+  .btn-card-expand,
   .card-expand-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-sm font-medium text-neutral-900 transition-colors dark:text-neutral-200;
+    @apply font-heading border-brand-500 bg-brand-300 hover:bg-brand-500 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-sm font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
   }
   .brand-pill {
     @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs;
@@ -109,9 +137,6 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
-  .brand-link-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 inline-flex items-center justify-center gap-2 rounded-full border text-sm font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
-  }
   .section-label {
     @apply font-heading mb-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
   }
@@ -119,7 +144,7 @@
     @apply pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
   }
   .more-pill {
-    @apply border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold text-neutral-800 dark:text-neutral-200;
+    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
   }
   .body-text-muted {
     @apply text-sm leading-relaxed text-neutral-600 dark:text-neutral-400;
@@ -154,7 +179,7 @@
   .feature-list-bullet {
     @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
   }
-  /* Scrollable project description preview — thin brand scrollbars (Firefox + WebKit) */
+  /* Scrollable project description preview - thin brand scrollbars (Firefox + WebKit) */
   .project-card-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(221 153 60 / 0.45) transparent;
@@ -193,7 +218,8 @@
     @apply text-xs font-semibold text-neutral-700 sm:text-xs md:text-xs lg:text-xs xl:text-[10px] 2xl:text-xs dark:text-neutral-300;
   }
 
-  /* Filter / toggle inactive state */
+  /* Legacy alias - prefer btn-toggle-idle in new markup */
+  .btn-toggle-idle,
   .filter-inactive {
     @apply opacity-50;
   }
@@ -208,7 +234,7 @@
 }
 
 /* =========================
-   🎨 SWIPER (project carousel)
+   ðŸŽ¨ SWIPER (project carousel)
    ========================= */
 
 .swiper-pagination-bullet {

@@ -1,3 +1,6 @@
+﻿'use client';
+
+import { CalloutWrapper } from '@/components';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 import { ExternalLink } from 'lucide-react';
@@ -16,18 +19,22 @@ export function ProjectLinks({
   if (!trimmed) return null;
 
   return (
-    <a
-      href={trimmed}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={cn(
-        'brand-link-btn min-h-12 px-5 py-3',
-        fullWidth && 'w-full',
-        className
-      )}
+    <CalloutWrapper
+      className={fullWidth ? 'block w-full' : undefined}
     >
-      <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
-      {en.projectDisplay.visitLive}
-    </a>
+      <a
+        href={trimmed}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+          'btn-brand-link btn-callout min-h-12 px-5 py-3',
+          fullWidth && 'w-full',
+          className
+        )}
+      >
+        <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+        {en.projectDisplay.visitLive}
+      </a>
+    </CalloutWrapper>
   );
 }

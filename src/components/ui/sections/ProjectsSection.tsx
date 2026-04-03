@@ -83,7 +83,7 @@ export default function ProjectsSection() {
       </span>
       <PrimaryButton
         onClick={() => setSelectedSkillId(null)}
-        className="filter-inactive"
+        aria-label={en.projectFilters.clearSkillFilterAriaLabel}
       >
         {en.projectFilters.clearSkillFilter}
       </PrimaryButton>
@@ -92,19 +92,19 @@ export default function ProjectsSection() {
     <>
       <PrimaryButton
         onClick={() => setSelectedType('All')}
-        className={selectedType !== 'All' ? 'filter-inactive' : ''}
+        className={selectedType !== 'All' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.all}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Web')}
-        className={selectedType !== 'Web' ? 'filter-inactive' : ''}
+        className={selectedType !== 'Web' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.web}
       </PrimaryButton>
       <PrimaryButton
         onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'filter-inactive' : ''}
+        className={selectedType !== 'Mobile' ? 'btn-toggle-idle' : ''}
       >
         {en.projectFilters.mobile}
       </PrimaryButton>

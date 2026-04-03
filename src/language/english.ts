@@ -172,10 +172,11 @@ export const en = {
     mobile: 'Mobile',
     web: 'Web',
     clearSkillFilter: 'All skills',
+    clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
   },
 
   projectCard: {
-    fullCaseStudy: 'Case Study',
+    fullCaseStudy: 'Full Story',
     viewProject: 'View project',
     viewProjectArrow: '→',
   },
@@ -197,6 +198,11 @@ export const en = {
     sectionMetadata: 'Details',
     visitLive: 'Visit site',
     moreSkills: '+{{count}} more',
+  },
+
+  jobDisplay: {
+    statusCurrent: 'Current',
+    statusPast: 'Past',
   },
 
   projectDetailPanel: {

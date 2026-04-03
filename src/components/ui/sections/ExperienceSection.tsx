@@ -46,7 +46,7 @@ export default function ExperienceSection() {
                   <div
                     className={`flex ${isLeft ? 'justify-start' : 'justify-end'}`}
                   >
-                    <span className="text-8xl font-bold text-neutral-400 dark:text-neutral-600">
+                    <span className="text-8xl font-bold text-brand-600/55 dark:text-brand-400/45">
                       {year}
                     </span>
                   </div>
