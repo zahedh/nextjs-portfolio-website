@@ -1,21 +1,26 @@
 /**
  * Link preview images for social apps.
  *
- * WhatsApp, Facebook, LinkedIn, Slack, etc. use **Open Graph** (`og:image`).
+ * WhatsApp, Facebook, LinkedIn, Slack, Discord, etc. read **Open Graph** (`og:image`).
  * X/Twitter use **Twitter Card** tags (`twitter:image`).
  *
- * Default asset is an optimized JPEG (see `scripts/generate-og-share.mjs`, source `twitter-card.png`).
+ * **Dimensions** must match `public/images/twitter-card.png` (IHDR). A mismatch between
+ * `og:image:width` / `og:image:height` and the real file can cause some crawlers (notably
+ * WhatsApp) to drop the preview while others (e.g. Discord) still show it.
+ *
+ * **File size:** very large PNGs can also hurt WhatsApp; if previews fail only there,
+ * consider a smaller export while keeping this path or bump `SOCIAL_SHARE_IMAGE_CACHE_BUST`.
  */
-export const SOCIAL_SHARE_IMAGE_PATH = '/images/twitter-card-og.jpg';
+export const SOCIAL_SHARE_IMAGE_PATH = '/images/twitter-card.png';
 
 /** Increment when replacing the share image file so `og:image` URLs change and caches refresh. */
-export const SOCIAL_SHARE_IMAGE_CACHE_BUST = '4';
+export const SOCIAL_SHARE_IMAGE_CACHE_BUST = '5';
 
 export const socialShareImageUrl = `${SOCIAL_SHARE_IMAGE_PATH}?v=${SOCIAL_SHARE_IMAGE_CACHE_BUST}`;
 
 export const socialShareImageMeta = {
   url: socialShareImageUrl,
-  width: 945,
-  height: 630,
+  width: 1536,
+  height: 1024,
   alt: 'Zahed Heidari - Web & Mobile Developer',
 } as const;
