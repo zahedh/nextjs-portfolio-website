@@ -125,18 +125,6 @@ export const skillsData: Skill[] = [
     icon: SiDotnet,
     category: 'microsoft',
   },
-  {
-    id: 'aspnet',
-    label: en.skillsCollageSection.aspNet,
-    icon: SiDotnet,
-    category: 'microsoft',
-  },
-  {
-    id: 'vb-net',
-    label: en.skillsCollageSection.visualBasicDotNet,
-    icon: SiDotnet,
-    category: 'microsoft',
-  },
 
   // Legacy/Additional Languages
   {

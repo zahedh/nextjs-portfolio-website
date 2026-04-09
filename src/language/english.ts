@@ -54,8 +54,6 @@ export const en = {
 
     // Microsoft Stack
     dotNet: '.NET',
-    aspNet: 'ASP.NET',
-    visualBasicDotNet: 'Visual Basic .NET',
 
     // Legacy/Additional Languages
     objectiveC: 'Objective-C',
@@ -187,6 +185,7 @@ export const en = {
     sectionLinks: 'Links',
     sectionMetaItems: 'Project meta items',
     visitLive: 'Visit site',
+    viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
   },
 

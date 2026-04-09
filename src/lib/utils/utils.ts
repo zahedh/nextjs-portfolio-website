@@ -105,7 +105,7 @@ export function scrollToTop(mouseEvent?: React.MouseEvent<HTMLAnchorElement>) {
   window.scrollTo({ top: 0, behavior: scrollToTopBehavior() });
 }
 
-/** Normalises skill IDs for loose matching (e.g. `vb.net` ↔ `vb-net`, `next.js` ↔ `nextjs`). */
+/** Normalises skill IDs for loose matching (e.g. `next.js` ↔ `nextjs`). */
 export function normalizeSkillId(rawId: string): string {
   return rawId
     .toLowerCase()
@@ -115,7 +115,7 @@ export function normalizeSkillId(rawId: string): string {
 
 /**
  * Maps skill IDs to their corresponding skill objects.
- * Uses the same normalisation as `projectMatchesSkill` in `@/lib/project` (e.g. `vb.net` ↔ `vb-net`).
+ * Uses the same normalisation as `projectMatchesSkill` in `@/lib/project`.
  */
 export function getSkillsByIds<T extends { id: string }>(
   skillIds: string[],

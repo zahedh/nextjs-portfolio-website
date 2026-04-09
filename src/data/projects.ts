@@ -10,6 +10,9 @@ export interface Project {
   image?: string;
   imageToken?: string;
   url?: string;
+  urlLabel?: string;
+  repoUrl?: string;
+  repoLabel?: string;
 }
 
 export const projects: Project[] = [
@@ -54,7 +57,7 @@ export const projects: Project[] = [
     company: 'Personal Project',
     startDate: 'Jan 2025',
     endDate: 'Present',
-    url: 'https://zahedheidari.co.uk',
+    repoUrl: 'https://github.com/zahedh/nextjs-portfolio-website',
     imageToken: 'avatar',
     description: [
       '✦ Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
@@ -158,9 +161,7 @@ export const projects: Project[] = [
       '✦ Delivered post-order email flows to customers and suppliers using XSLT-driven templates.',
     ],
     skills: [
-      'aspnet',
       'dotnet',
-      'vb-net',
       'jquery',
       'xml',
       'github',

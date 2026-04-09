@@ -19,6 +19,7 @@ import {
   getProjectDetailOverlayTransition,
   getProjectExcerptLine,
 } from '@/lib/ui-logic';
+import type { ProjectLinkItem } from '@/components/ui/cards/ProjectLinks';
 import { getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
@@ -59,6 +60,25 @@ export default function ProjectDetailPanel({
 
   const projectSkills = getSkillsByIds(project.skills, skillsData);
   const projectUrl = project.url?.trim();
+  const projectRepoUrl = project.repoUrl?.trim();
+  const projectLinks: ProjectLinkItem[] = [
+    ...(projectUrl
+      ? [
+          {
+            url: projectUrl,
+            label: project.urlLabel?.trim() || en.projectDisplay.visitLive,
+          },
+        ]
+      : []),
+    ...(projectRepoUrl
+      ? [
+          {
+            url: projectRepoUrl,
+            label: project.repoLabel?.trim() || en.projectDisplay.viewRepo,
+          },
+        ]
+      : []),
+  ];
   const overview = getProjectExcerptLine(project);
   const featureLinesForList = getProjectDetailFeatureLines(project);
 
@@ -123,12 +143,12 @@ export default function ProjectDetailPanel({
                       </SectionLabel>
                       <ProjectMetaSummary project={project} variant="ribbon" />
                     </section>
-                    {projectUrl ? (
+                    {projectLinks.length > 0 ? (
                       <section>
                         <SectionLabel>
                           {en.projectDisplay.sectionLinks}
                         </SectionLabel>
-                        <ProjectLinks url={projectUrl} fullWidth />
+                        <ProjectLinks links={projectLinks} fullWidth />
                       </section>
                     ) : null}
                     <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
@@ -199,12 +219,12 @@ export default function ProjectDetailPanel({
                     </SectionLabel>
                     <ProjectMetaSummary project={project} variant="panel" />
                   </div>
-                  {projectUrl ? (
+                  {projectLinks.length > 0 ? (
                     <section>
                       <SectionLabel>
                         {en.projectDisplay.sectionLinks}
                       </SectionLabel>
-                      <ProjectLinks url={projectUrl} fullWidth />
+                      <ProjectLinks links={projectLinks} fullWidth />
                     </section>
                   ) : null}
                 </aside>
