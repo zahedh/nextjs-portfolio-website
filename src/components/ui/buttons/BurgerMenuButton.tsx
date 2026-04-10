@@ -1,6 +1,7 @@
 'use client';
 
 import { forwardRef } from 'react';
+import { Menu } from 'lucide-react';
 
 export type BurgerMenuButtonProps = {
   onClick: () => void;
@@ -19,14 +20,12 @@ const BurgerMenuButton = forwardRef<HTMLButtonElement, BurgerMenuButtonProps>(
         ref={ref}
         type="button"
         onClick={onClick}
-        className="p-2 md:hidden"
+        className="text-brand-500 p-2 transition-opacity duration-100 active:opacity-70 md:hidden"
         aria-label="Toggle menu"
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
       >
-        <span className="burger-line block h-0.5 w-6" />
-        <span className="burger-line my-1.5 block h-0.5 w-6" />
-        <span className="burger-line block h-0.5 w-6" />
+        <Menu className="h-6 w-6" strokeWidth={2} aria-hidden />
       </button>
     );
   }

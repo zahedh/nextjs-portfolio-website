@@ -27,6 +27,11 @@
 # Local agent context (prompts, notes — not committed)
 /markdowns/
 
+# Claude Code (local development only)
+.claude/
+.claudeignore
+CLAUDE.md
+
 # IDE
 .vscode/
 .idea/
