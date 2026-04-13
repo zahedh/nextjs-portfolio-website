@@ -49,3 +49,10 @@ npm run validate      # Full check: type-check + lint + prettier + test
 **Analytics**: `@vercel/analytics` and `@vercel/speed-insights` are only injected when `VERCEL=1` is set (automatic on Vercel deployments).
 
 **Tests**: Colocated with source (`utils.test.ts`, `dateUtils.test.ts`). Jest with jsdom and React Testing Library.
+
+## Never Read
+
+- .env files
+- Any file containing "secret", "key", "token" in the name
+- /ios/Pods
+- /android/.gradle
