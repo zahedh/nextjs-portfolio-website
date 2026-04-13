@@ -29,6 +29,8 @@ npm run validate      # Full check: type-check + lint + prettier + test
 - `src/providers/` — Zustand + React context wrapper used in root layout
 - `src/styles/` — `theme.css` (CSS vars for colors), `utilities.css`, `components.css`, imported via `index.css`
 - `src/lib/utils/utils.ts` — `cn()` (clsx + tailwind-merge), scroll helpers, skill-project matching logic
+- `src/lib/ui-logic/` — Motion variants and viewport configs for animated sections (skills collage, project detail, mobile menu, hero)
+- `src/hooks/` — Custom hooks: `useDoubleActivation` (double-click/tap gate), `useScrolled`, `skillTilePortalTooltip`, `overlayHooks`, `projectHooks`, `contributionsCalendarHooks`
 
 ### Key Patterns
 
@@ -38,7 +40,9 @@ npm run validate      # Full check: type-check + lint + prettier + test
 
 **State**: The Zustand store in `src/stores/global-store.ts` is the single source of truth for theme, hero animation state, and the selected skill filter. The `selectedSkillId` drives the skill→project filtering — clicking a skill tile sets this, and the Projects section filters accordingly.
 
-**Client vs Server**: Most components are server components. `'use client'` is used sparingly for interactive elements (theme toggle, navigation menu, animated sections, Swiper carousel).
+**Client vs Server**: Most components are server components. `'use client'` is used sparingly for interactive elements (theme toggle, navigation menu, animated sections, Swiper carousel). For server-composed layouts needing client behavior (e.g. sticky header), use a thin client wrapper like `HeaderShell` that accepts `children` — this avoids turning the whole layout into a client component.
+
+**Double-activation pattern**: Skill tiles require a double-click (or double-tap on mobile) to trigger navigation. This is implemented via `useDoubleActivation` in `src/hooks/useDoubleActivation.ts`, which gates a callback behind two activations within a configurable time window (default 400 ms).
 
 **GitHub Contributions**: The calendar section fetches from `/api/contributions?year=YYYY`. The `GITHUB_TOKEN` env var is optional but prevents rate limiting.
 
