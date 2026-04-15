@@ -39,10 +39,6 @@
   /* =========================
      ðŸ”— NAVIGATION
      ========================= */
-  .header-divider {
-    @apply shadow-[0_1px_0_0_var(--color-neutral-200)] dark:shadow-[0_1px_0_0_var(--color-neutral-800)];
-  }
-
   .nav-link {
     @apply font-heading text-base leading-normal font-bold tracking-tight
            text-neutral-900 dark:text-neutral-200
@@ -170,6 +166,28 @@
   }
   .skill-tile-tooltip {
     @apply pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
+  }
+  .skill-tile-glow {
+    animation: skill-tile-glow-pulse 20s ease-in-out infinite;
+  }
+  @keyframes skill-tile-glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    25%       { box-shadow: 0 0 10px 2px rgb(228 175 103 / 0.22); }
+    60%       { box-shadow: 0 0 6px 1px rgb(228 175 103 / 0.12); }
+  }
+  .dark .skill-tile-glow {
+    animation: skill-tile-glow-pulse-dark 20s ease-in-out infinite;
+  }
+  @keyframes skill-tile-glow-pulse-dark {
+    0%, 100% { box-shadow: 0 0 0 0 transparent; }
+    25%       { box-shadow: 0 0 10px 2px rgb(152 99 27 / 0.30); }
+    60%       { box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skill-tile-glow,
+    .dark .skill-tile-glow {
+      animation: none;
+    }
   }
   .more-pill {
     @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
