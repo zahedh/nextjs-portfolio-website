@@ -19,7 +19,7 @@ export default function HeroSection() {
 
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden sm:flex-row">
+      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 py-6 sm:flex-row sm:py-10 lg:py-16">
         <HeroFloatingOrbs />
 
         <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">

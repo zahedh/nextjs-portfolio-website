@@ -64,7 +64,7 @@ export default function SkillsSection() {
           />
         </motion.span>
         <SubHeading
-          className="text-brand-600 dark:text-brand-400 italic"
+          className="text-brand-600 dark:text-brand-400 hidden italic sm:block"
           as="h2"
         >
           {en.skillsSection.doubleClickHint}

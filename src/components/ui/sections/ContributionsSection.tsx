@@ -55,7 +55,6 @@ export default function ContributionsSection() {
       anchor="contributions"
       title={en.sectionHeaders.contributionsSection}
       rightChildren={filterButtons}
-      showBottomDivider
     >
       <motion.div
         key={selectedYear}
