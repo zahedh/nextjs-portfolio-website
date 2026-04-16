@@ -174,7 +174,7 @@ export default function ProjectDetailPanel({
                         </div>
                       </details>
                     ) : null}
-                    <details className="detail-accordion group" open>
+                    <details className="detail-accordion group">
                       <summary className="detail-accordion-trigger">
                         {en.projectDisplay.sectionTechStack}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />

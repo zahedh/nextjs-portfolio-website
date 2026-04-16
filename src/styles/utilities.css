@@ -8,11 +8,11 @@
   }
 
   .screen-parent {
-    @apply flex w-full flex-col gap-48 pt-18;
+    @apply flex w-full flex-col pt-18;
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4;
+    @apply flex w-full flex-col items-start justify-center gap-4 pb-32;
     /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
     scroll-margin-top: 5rem;
   }

@@ -40,16 +40,11 @@
      ðŸ”— NAVIGATION
      ========================= */
   .nav-link {
-    @apply font-heading text-base leading-normal font-bold tracking-tight
-           text-neutral-900 dark:text-neutral-200
-           hover:text-brand-600 dark:hover:text-brand-600
-           relative inline-block transition-colors duration-150;
+    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 relative inline-block text-lg leading-normal font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
 
     &::after {
       content: '';
-      @apply absolute bottom-0 left-0 h-[2px] w-0 rounded-full
-             bg-brand-500 dark:bg-brand-400
-             transition-[width] duration-200 ease-out;
+      @apply bg-brand-500 dark:bg-brand-400 absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-[width] duration-200 ease-out;
     }
     &:hover::after,
     &:focus-visible::after {
@@ -113,7 +108,7 @@
     @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
   }
   .job-date-pill-active {
-    @apply border-brand-500/55 bg-brand-400/25 text-neutral-900 shadow-sm dark:border-brand-400/60 dark:bg-brand-500/35 dark:text-neutral-50;
+    @apply border-brand-500/55 bg-brand-400/25 dark:border-brand-400/60 dark:bg-brand-500/35 text-neutral-900 shadow-sm dark:text-neutral-50;
   }
 
   /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
@@ -123,7 +118,7 @@
    * 4. Tertiary: TertiaryButton
    */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 font-heading text-base leading-normal font-bold tracking-tight bg-brand-500 text-neutral-900 dark:text-neutral-200 shadow-sm transition-colors duration-150 hover:bg-brand-600;
+    @apply font-heading bg-brand-500 hover:bg-brand-600 inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 text-base leading-normal font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
   }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
@@ -171,17 +166,31 @@
     animation: skill-tile-glow-pulse 20s ease-in-out infinite;
   }
   @keyframes skill-tile-glow-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 transparent; }
-    25%       { box-shadow: 0 0 10px 2px rgb(228 175 103 / 0.22); }
-    60%       { box-shadow: 0 0 6px 1px rgb(228 175 103 / 0.12); }
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+    25% {
+      box-shadow: 0 0 10px 2px rgb(228 175 103 / 0.22);
+    }
+    60% {
+      box-shadow: 0 0 6px 1px rgb(228 175 103 / 0.12);
+    }
   }
   .dark .skill-tile-glow {
     animation: skill-tile-glow-pulse-dark 20s ease-in-out infinite;
   }
   @keyframes skill-tile-glow-pulse-dark {
-    0%, 100% { box-shadow: 0 0 0 0 transparent; }
-    25%       { box-shadow: 0 0 10px 2px rgb(152 99 27 / 0.30); }
-    60%       { box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15); }
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+    25% {
+      box-shadow: 0 0 10px 2px rgb(152 99 27 / 0.3);
+    }
+    60% {
+      box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15);
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .skill-tile-glow,
