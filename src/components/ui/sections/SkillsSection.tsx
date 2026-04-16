@@ -96,7 +96,7 @@ export default function SkillsSection() {
               icon={skill.icon}
               label={skill.label}
               onClick={() => handleSkillClick(skill.id)}
-              idleDelay={(i % 6) * 3.5}
+              idleDelay={(i % 6) * 3.5 + 0.5}
             />
           </motion.div>
         ))}

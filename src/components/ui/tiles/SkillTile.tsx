@@ -16,7 +16,7 @@ type SkillTileProps = {
   className?: string;
   compact?: boolean;
   onClick?: () => void;
-  /** Stagger delay (seconds) for idle glow animation, to offset tiles like floating orbs */
+  /** Stagger delay (seconds) for idle float animation. Omit to disable floating entirely. */
   idleDelay?: number;
 };
 
@@ -27,7 +27,7 @@ export function SkillTile({
   className,
   compact = false,
   onClick,
-  idleDelay = 0,
+  idleDelay,
 }: SkillTileProps) {
   const [isHovered, setIsHovered] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -43,10 +43,10 @@ export function SkillTile({
 
   const isClickable = Boolean(onClick);
   const tryDoubleActivate = useDoubleActivation(onClick, isClickable);
-  const idleAnimation = getSkillsIdleItemVariants(
-    prefersReducedMotion,
-    idleDelay
-  );
+  const idleAnimation =
+    idleDelay !== undefined
+      ? getSkillsIdleItemVariants(prefersReducedMotion, idleDelay)
+      : {};
 
   const tooltipNode =
     mounted &&
@@ -102,7 +102,11 @@ export function SkillTile({
             setIsHovered(false);
             onTileMouseLeave();
           }}
-          style={!isHovered ? { animationDelay: `${idleDelay}s` } : undefined}
+          style={
+            !isHovered && idleDelay !== undefined
+              ? { animationDelay: `${idleDelay}s` }
+              : undefined
+          }
           className={cn(
             compact
               ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
