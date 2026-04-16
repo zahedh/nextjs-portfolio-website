@@ -18,10 +18,12 @@ const tertiaryStyles = (className: string | undefined, iconOnly: boolean) =>
     'inline-flex items-center justify-center gap-2',
     iconOnly ? 'p-2' : 'px-3 py-1.5',
     'rounded-full',
-    'border-brand-500 border bg-neutral-100 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200',
+    'border border-brand-500',
+    'bg-brand-200 dark:bg-brand-400',
+    'text-neutral-900 dark:text-neutral-200',
     'font-heading text-base leading-normal font-bold tracking-tight',
-    'shadow-sm transition-colors duration-150',
-    'hover:bg-brand-600',
+    'transition-colors duration-150',
+    'hover:bg-brand-500 dark:hover:bg-brand-700',
     className
   );
 

@@ -42,7 +42,7 @@ export default function HeroSection() {
                 />
               </Heading>
             </div>
-            <BodyText className="mt-4 max-w-xs text-center text-base leading-normal font-semibold tracking-tight sm:max-w-lg sm:text-left sm:text-lg md:text-xl">
+            <BodyText className="mt-4 max-w-xs text-center text-base leading-normal font-medium tracking-tight sm:max-w-lg sm:text-left sm:text-lg md:text-xl">
               <AnimatedText
                 delay={2.4}
                 text={en.heroSection.supportingText}

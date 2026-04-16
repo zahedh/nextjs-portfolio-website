@@ -46,7 +46,12 @@ export function getProjectDetailDialogMotion(
           delay: DIALOG_DELAY,
         }
       : {
-          y: { type: 'spring' as const, damping: 34, stiffness: 380, delay: DIALOG_DELAY },
+          y: {
+            type: 'spring' as const,
+            damping: 34,
+            stiffness: 380,
+            delay: DIALOG_DELAY,
+          },
           opacity: { duration: 0.2, delay: DIALOG_DELAY },
         };
 

@@ -73,14 +73,14 @@ High-level overview of the main folders:
 
 **`src/lib` modules** (import from `@/lib/…` or the barrel [`src/lib/index.ts`](src/lib/index.ts) where re-exported):
 
-| File | Purpose |
-|------|--------|
-| [`utils.ts`](src/lib/utils.ts) | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
-| [`dateUtils.ts`](src/lib/dateUtils.ts) | Years-of-experience style date helpers |
-| [`env.ts`](src/lib/env.ts) | Typed access to env (e.g. `GITHUB_TOKEN`) |
-| [`social-metadata.ts`](src/lib/social-metadata.ts) | Open Graph / Twitter Card defaults for `layout` metadata |
-| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips |
-| [`api/githubApi.ts`](src/lib/api/githubApi.ts) | GitHub GraphQL client for the contributions API route |
+| File                                                 | Purpose                                                                                                                                                                                                                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`utils.ts`](src/lib/utils.ts)                       | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
+| [`dateUtils.ts`](src/lib/dateUtils.ts)               | Years-of-experience style date helpers                                                                                                                                                                                      |
+| [`env.ts`](src/lib/env.ts)                           | Typed access to env (e.g. `GITHUB_TOKEN`)                                                                                                                                                                                   |
+| [`social-metadata.ts`](src/lib/social-metadata.ts)   | Open Graph / Twitter Card defaults for `layout` metadata                                                                                                                                                                    |
+| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips                                                                                                                                                                                 |
+| [`api/githubApi.ts`](src/lib/api/githubApi.ts)       | GitHub GraphQL client for the contributions API route                                                                                                                                                                       |
 
 Tests colocated with logic: [`utils.test.ts`](src/lib/utils.test.ts), [`dateUtils.test.ts`](src/lib/dateUtils.test.ts).
 

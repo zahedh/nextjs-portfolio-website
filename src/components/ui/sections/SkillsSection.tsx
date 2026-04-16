@@ -8,7 +8,7 @@ import { en } from '@/language';
 import { skillsData } from '@/data';
 import { motion, useReducedMotion } from 'motion/react';
 import { MousePointerClick } from 'lucide-react';
-import { Heading, SubHeading } from '@/components/text';
+import { SubHeading } from '@/components/text';
 import {
   getSkillsCollageContainerVariants,
   getSkillsCollageGridViewport,

@@ -6,7 +6,7 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
-import { SecondaryButton } from '@/components';
+import { TertiaryButton } from '@/components';
 import { cn } from '@/lib/utils';
 import { en } from '@/language';
 import { isJobActive, type JobExperience } from '@/data/experience';
@@ -113,7 +113,7 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         {showExpandButton && (
-          <SecondaryButton
+          <TertiaryButton
             type="button"
             onClick={handleToggle}
             className={cn(
@@ -130,7 +130,7 @@ export default function JobCard({ job }: JobCardProps) {
                 isExpanded && 'rotate-180'
               )}
             />
-          </SecondaryButton>
+          </TertiaryButton>
         )}
 
         {showExpandedSkills ? (

@@ -9,6 +9,7 @@ import { en } from '@/language';
 import { getProjectExcerptLine } from '@/lib/ui-logic';
 import { cn, getSkillsByIds } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import { TertiaryButton } from '../buttons';
 
 interface ProjectCardProps {
   project: Project;
@@ -69,13 +70,13 @@ export default function ProjectCard({
           onMoreClick={() => onOpenFullDetails(project)}
         />
 
-        <button
+        <TertiaryButton
           type="button"
           onClick={() => onOpenFullDetails(project)}
           className="card-expand-btn"
         >
           {en.projectCard.fullCaseStudy}
-        </button>
+        </TertiaryButton>
       </div>
     </div>
   );

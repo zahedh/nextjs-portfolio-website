@@ -84,8 +84,11 @@ export default function ProjectDetailPanel({
 
   const noMotion = Boolean(prefersReducedMotion);
   const backdropMotion = getProjectDetailBackdropMotion(noMotion);
-  const { initial: dialogInitial, animate: dialogAnimate, transition: dialogTransition } =
-    getProjectDetailDialogMotion(noMotion, isDesktop);
+  const {
+    initial: dialogInitial,
+    animate: dialogAnimate,
+    transition: dialogTransition,
+  } = getProjectDetailDialogMotion(noMotion, isDesktop);
 
   return createPortal(
     <AnimatePresence onExitComplete={onExitComplete}>
