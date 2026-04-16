@@ -8,7 +8,7 @@
   }
 
   .screen-parent {
-    @apply flex w-full flex-col gap-32 pt-18;
+    @apply flex w-full flex-col gap-48 pt-18;
   }
 
   .screen-section {
