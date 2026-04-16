@@ -54,7 +54,7 @@ export default function ContributionsSection() {
     <Section
       anchor="contributions"
       title={en.sectionHeaders.contributionsSection}
-      filterButtons={filterButtons}
+      rightChildren={filterButtons}
       showBottomDivider
     >
       <motion.div

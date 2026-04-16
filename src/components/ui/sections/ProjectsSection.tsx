@@ -117,7 +117,7 @@ export default function ProjectsSection() {
     <Section
       anchor="projects"
       title={en.sectionHeaders.projects}
-      filterButtons={filterButtons}
+      rightChildren={filterButtons}
     >
       <ProjectDetailPanel
         project={panelProject}

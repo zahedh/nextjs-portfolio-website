@@ -41,6 +41,10 @@ export const en = {
     credentialsAriaLabel: 'At a glance',
   },
 
+  skillsSection: {
+    doubleClickHint: 'Double Click To View Projects!',
+  },
+
   skillsCollageSection: {
     // Modern Web & Mobile Frameworks
     react: 'React',
