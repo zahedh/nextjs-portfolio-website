@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 @.claude/rules/conventions.md
 @.claude/rules/testing-guide.md
 @.claude/docs/animation-patterns.md
+@.claude/docs/preferences.md
 
 ## Commands
 
@@ -26,6 +27,7 @@ npm run validate      # Full check: type-check + lint + prettier + test
 - Do not add features, refactors, or abstractions beyond what was asked.
 - Do not add comments that explain what the code does. See conventions for comment rules.
 - Do not make a component a client component unless it meets the criteria in conventions.
+- Do not run `git commit` unless explicitly asked. This applies to subagents too — never commit autonomously.
 
 ## Architecture
 

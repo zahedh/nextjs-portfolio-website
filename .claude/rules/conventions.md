@@ -31,10 +31,11 @@ Do not create a client wrapper just to avoid prop drilling — solve that with c
 
 ## Comments
 
-JSDoc prop descriptions on exported components only:
+JSDoc on exported components: one short description line, then `@param` entries for each prop:
 
 ```tsx
 /**
+ * Primary action button with optional loading state.
  * @param label - Button text
  * @param onClick - Click handler
  */
