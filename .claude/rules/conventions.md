@@ -15,6 +15,7 @@ Components should follow this internal order:
 3. Internal sub-components (if small and tightly coupled)
 
 Keep UI files thin. If a component contains logic beyond simple conditional rendering or a single derived value, extract it:
+
 - Data transforms and filtering → `src/lib/utils/`
 - Side effects and DOM interaction → `src/hooks/`
 - Motion configuration → `src/lib/ui-logic/`
@@ -22,6 +23,7 @@ Keep UI files thin. If a component contains logic beyond simple conditional rend
 ## Client Components
 
 Default to server components. Add `'use client'` only when the component directly uses:
+
 - Browser APIs (`window`, `document`, `localStorage`)
 - React hooks that require client context (`useState`, `useEffect`, `useRef`, etc.)
 - Event handlers that cannot be passed as props from a server parent
@@ -42,7 +44,7 @@ JSDoc on exported components: one short description line, then `@param` entries 
 export function Button({ label, onClick }: ButtonProps) {
 ```
 
-No inline comments explaining what the code does. If a non-obvious constraint or workaround exists, one short comment explaining *why* is acceptable. No multi-line comment blocks.
+No inline comments explaining what the code does. If a non-obvious constraint or workaround exists, one short comment explaining _why_ is acceptable. No multi-line comment blocks.
 
 ## Styling
 
@@ -61,6 +63,7 @@ Theme colors must come from CSS variables defined in `src/styles/theme.css`. Nev
 ## Readability & Organisation
 
 Readability is a first-class concern. Prefer:
+
 - Short, focused files over large catch-all files
 - Descriptive names that make intent obvious
 - Flat structure where possible — avoid deep nesting

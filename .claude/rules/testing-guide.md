@@ -7,6 +7,7 @@ Jest + React Testing Library, colocated with source files (`*.test.ts` / `*.test
 ## What to Test
 
 Test pure functions, hooks, and utility logic. Do not test:
+
 - Component rendering for its own sake (avoid snapshot tests)
 - Implementation details (internal state, private methods)
 - Third-party library behaviour

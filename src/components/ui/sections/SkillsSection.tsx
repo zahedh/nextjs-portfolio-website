@@ -86,7 +86,7 @@ export default function SkillsSection() {
         whileInView="visible"
         viewport={gridViewport}
       >
-        {skillsData.map((skill, i) => (
+        {skillsData.map((skill) => (
           <motion.div
             key={skill.id}
             className="relative hover:z-[100]"
@@ -96,7 +96,6 @@ export default function SkillsSection() {
               icon={skill.icon}
               label={skill.label}
               onClick={() => handleSkillClick(skill.id)}
-              idleDelay={(i % 6) * 3.5 + 0.5}
             />
           </motion.div>
         ))}

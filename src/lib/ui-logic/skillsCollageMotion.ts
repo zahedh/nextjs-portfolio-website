@@ -42,21 +42,3 @@ export function getSkillsCollageItemVariants(
     },
   };
 }
-
-export function getSkillsIdleItemVariants(
-  prefersReducedMotion: boolean | null,
-  delay = 0
-) {
-  const noMotion = Boolean(prefersReducedMotion);
-  return noMotion
-    ? {}
-    : {
-        animate: { x: [0, 3, -2, 0], y: [0, -5, 3, 0] },
-        transition: {
-          duration: 20,
-          repeat: Infinity,
-          ease: 'easeInOut' as const,
-          delay,
-        },
-      };
-}

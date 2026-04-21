@@ -12,25 +12,27 @@
 
 ## File Map
 
-| Action | Path | Purpose |
-|--------|------|---------|
-| Modify | `CLAUDE.md` | Add behaviour rules, comment rules, client component rules, import conventions, readability principle, `@` imports to sub-docs |
-| Delete | `AGENTS.md` | Fully covered by CLAUDE.md |
-| Create | `.claude/rules/conventions.md` | Code + styling conventions: imports, component structure, logic outsourcing, Tailwind lean classes |
-| Create | `.claude/rules/testing-guide.md` | GWT/AAA format, what to test, worked example, no `require()` |
-| Create | `.claude/docs/animation-patterns.md` | Motion variants, `ui-logic/` structure, how components consume variants |
-| Create | `.claude/skills/.gitkeep` | Scaffold the skills folder |
+| Action | Path                                 | Purpose                                                                                                                        |
+| ------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Modify | `CLAUDE.md`                          | Add behaviour rules, comment rules, client component rules, import conventions, readability principle, `@` imports to sub-docs |
+| Delete | `AGENTS.md`                          | Fully covered by CLAUDE.md                                                                                                     |
+| Create | `.claude/rules/conventions.md`       | Code + styling conventions: imports, component structure, logic outsourcing, Tailwind lean classes                             |
+| Create | `.claude/rules/testing-guide.md`     | GWT/AAA format, what to test, worked example, no `require()`                                                                   |
+| Create | `.claude/docs/animation-patterns.md` | Motion variants, `ui-logic/` structure, how components consume variants                                                        |
+| Create | `.claude/skills/.gitkeep`            | Scaffold the skills folder                                                                                                     |
 
 ---
 
 ## Task 1: Delete AGENTS.md
 
 **Files:**
+
 - Delete: `AGENTS.md`
 
 - [ ] **Step 1: Confirm AGENTS.md is fully covered**
 
 All rules in `AGENTS.md` exist in `CLAUDE.md`:
+
 - Commands ✓ (Commands section)
 - Stack ✓ (Architecture section)
 - Source of truth ✓ (Structure section)
@@ -54,11 +56,12 @@ git commit -m "chore: remove AGENTS.md (fully covered by CLAUDE.md)"
 ## Task 2: Create `.claude/rules/conventions.md`
 
 **Files:**
+
 - Create: `.claude/rules/conventions.md`
 
 - [ ] **Step 1: Create the file**
 
-```markdown
+````markdown
 # Coding & Styling Conventions
 
 ## Imports
@@ -76,6 +79,7 @@ Components should follow this internal order:
 3. Internal sub-components (if small and tightly coupled)
 
 Keep UI files thin. If a component contains logic beyond simple conditional rendering or a single derived value, extract it:
+
 - Data transforms and filtering → `src/lib/utils/`
 - Side effects and DOM interaction → `src/hooks/`
 - Motion configuration → `src/lib/ui-logic/`
@@ -83,6 +87,7 @@ Keep UI files thin. If a component contains logic beyond simple conditional rend
 ## Client Components
 
 Default to server components. Add `'use client'` only when the component directly uses:
+
 - Browser APIs (`window`, `document`, `localStorage`)
 - React hooks that require client context (`useState`, `useEffect`, `useRef`, etc.)
 - Event handlers that cannot be passed as props from a server parent
@@ -101,8 +106,9 @@ JSDoc prop descriptions on exported components only:
  */
 export function Button({ label, onClick }: ButtonProps) {
 ```
+````
 
-No inline comments explaining what the code does. If a non-obvious constraint or workaround exists, one short comment explaining *why* is acceptable. No multi-line comment blocks.
+No inline comments explaining what the code does. If a non-obvious constraint or workaround exists, one short comment explaining _why_ is acceptable. No multi-line comment blocks.
 
 ## Styling
 
@@ -121,24 +127,27 @@ Theme colors must come from CSS variables defined in `src/styles/theme.css`. Nev
 ## Readability & Organisation
 
 Readability is a first-class concern. Prefer:
+
 - Short, focused files over large catch-all files
 - Descriptive names that make intent obvious
 - Flat structure where possible — avoid deep nesting
 - Consistent patterns across similar files (if one section component has a certain shape, others should match)
-```
+
+````
 
 - [ ] **Step 2: Commit**
 
 ```bash
 git add .claude/rules/conventions.md
 git commit -m "docs: add coding and styling conventions"
-```
+````
 
 ---
 
 ## Task 3: Create `.claude/rules/testing-guide.md`
 
 **Files:**
+
 - Create: `.claude/rules/testing-guide.md`
 
 - [ ] **Step 1: Create the file**
@@ -153,6 +162,7 @@ Jest + React Testing Library, colocated with source files (`*.test.ts` / `*.test
 ## What to Test
 
 Test pure functions, hooks, and utility logic. Do not test:
+
 - Component rendering for its own sake (avoid snapshot tests)
 - Implementation details (internal state, private methods)
 - Third-party library behaviour
@@ -162,14 +172,15 @@ For components, test behaviour: what the user sees or what happens when they int
 ## Format: Given / When / Then
 
 Test names follow this pattern:
+```
 
-```
 GIVEN <initial state> WHEN <action> THEN <expected result>
-```
+
+````
 
 ```ts
 it('GIVEN an empty skills list WHEN filtering by id THEN returns empty array', () => {
-```
+````
 
 ## Structure: Arrange / Act / Assert
 
@@ -216,20 +227,22 @@ describe('getSkillsByIds', () => {
 - Use `jest.fn()` for callbacks, `jest.useFakeTimers()` for time-dependent logic
 - Mock only at system boundaries (external APIs, `Date`, `Math.random`) — do not mock your own module internals
 - Keep test data inline unless it's reused across 3+ tests, in which case extract to a `const` above the `describe` block
-```
+
+````
 
 - [ ] **Step 2: Commit**
 
 ```bash
 git add .claude/rules/testing-guide.md
 git commit -m "docs: add testing guide (GWT/AAA format)"
-```
+````
 
 ---
 
 ## Task 4: Create `.claude/docs/animation-patterns.md`
 
 **Files:**
+
 - Create: `.claude/docs/animation-patterns.md`
 
 - [ ] **Step 1: Create the file**
@@ -240,14 +253,15 @@ git commit -m "docs: add testing guide (GWT/AAA format)"
 ## Where Animation Config Lives
 
 All Motion variants and viewport configs live in `src/lib/ui-logic/`. Components import and consume them — they do not define animation logic inline.
+```
 
-```
 src/lib/ui-logic/
-  heroVariants.ts
-  skillsVariants.ts
-  projectDetailVariants.ts
-  mobileMenuVariants.ts
-```
+heroVariants.ts
+skillsVariants.ts
+projectDetailVariants.ts
+mobileMenuVariants.ts
+
+````
 
 ## Structure of a Variants File
 
@@ -260,7 +274,7 @@ export const fadeInUp: Variants = {
 };
 
 export const sectionViewport = { once: true, amount: 0.2 };
-```
+````
 
 ## How Components Consume Variants
 
@@ -288,20 +302,22 @@ No inline `animate`, `initial`, or `transition` objects in JSX unless the value 
 - Do not define `Variants` objects inside component files
 - Do not use `useAnimation()` when `whileInView` or `animate` with a state toggle suffices
 - Do not add `AnimatePresence` unless the element is conditionally mounted
-```
+
+````
 
 - [ ] **Step 2: Commit**
 
 ```bash
 git add .claude/docs/animation-patterns.md
 git commit -m "docs: add animation patterns reference"
-```
+````
 
 ---
 
 ## Task 5: Scaffold `.claude/skills/`
 
 **Files:**
+
 - Create: `.claude/skills/.gitkeep`
 
 - [ ] **Step 1: Create the folder**
@@ -322,6 +338,7 @@ git commit -m "chore: scaffold .claude/skills/ for project-level skills"
 ## Task 6: Update CLAUDE.md
 
 **Files:**
+
 - Modify: `CLAUDE.md`
 
 This is the most important task. CLAUDE.md gains: `@` imports to sub-docs, AI behaviour rules, the `@/*` import alias rule, and the readability principle. Existing content is kept — only additions are made.
@@ -340,13 +357,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 \`\`\`bash
-npm run dev           # Start development server
-npm run build         # Production build
-npm run type-check    # TypeScript validation
-npm run lint          # ESLint
-npm run prettier-format  # Format with Prettier
-npm run test          # Jest (run a single test file: npm test -- path/to/file.test.ts)
-npm run validate      # Full check: type-check + lint + prettier + test
+npm run dev # Start development server
+npm run build # Production build
+npm run type-check # TypeScript validation
+npm run lint # ESLint
+npm run prettier-format # Format with Prettier
+npm run test # Jest (run a single test file: npm test -- path/to/file.test.ts)
+npm run validate # Full check: type-check + lint + prettier + test
 \`\`\`
 
 ## AI Behaviour
