@@ -25,10 +25,9 @@
 .DS_Store
 *.pem
 
-# Claude Code (local development only)
-.claude/
+# Claude Code (local-only files)
+.claude/settings.local.json
 .claudeignore
-CLAUDE.md
 .superpowers/
 
 # IDE
