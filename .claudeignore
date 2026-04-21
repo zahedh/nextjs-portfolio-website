@@ -34,8 +34,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Repo-local agent notes/context
-markdowns/
-
 # Platform noise
 .DS_Store
+
+# Superpowers plugin scratch directories
+.superpowers/
