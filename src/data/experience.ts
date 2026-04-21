@@ -1,5 +1,4 @@
-export type { JobExperience } from '@/types/experience';
-import type { JobExperience } from '@/types/experience';
+import { JobExperience } from '@/types/experience';
 
 /** Current role — `endDate` is typically `"Present"`. */
 export function isJobActive(job: JobExperience): boolean {

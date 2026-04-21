@@ -5,6 +5,8 @@
 - Always use the `@/*` path alias for imports from `src/`. Never use relative paths that traverse more than one level.
 - Use ES module `import` syntax only. Never use `require()`.
 - Order: external packages → internal `@/*` imports → relative imports → type imports.
+- Never use `import type` — import types the same way as values: `import { MyType } from '...'`.
+- Types live in `src/types/`. Import them directly from there, not re-exported through data files.
 
 ## Component Structure
 

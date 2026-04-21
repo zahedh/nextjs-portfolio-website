@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { AvatarGraphic } from '@/components/media';
 import {
   getProjectHeroFrameClassNames,

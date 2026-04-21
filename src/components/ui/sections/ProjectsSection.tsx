@@ -9,7 +9,7 @@ import {
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { skillsData } from '@/data';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { en } from '@/language';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';

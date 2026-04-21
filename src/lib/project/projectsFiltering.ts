@@ -1,4 +1,4 @@
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { isProjectActive } from '@/lib/ui-logic';
 import { projectMatchesSkill } from '@/lib/project/projectSkills';
 

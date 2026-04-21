@@ -6,7 +6,7 @@ import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
 import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import {
   useBodyScrollLock,
   useEscapeKeydown,

@@ -1,4 +1,4 @@
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 
 /** Human-readable timeline from project dates. */
 export function formatProjectTimeline(project: Project): string {

@@ -4,7 +4,7 @@ import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { en } from '@/language';
 import { getProjectExcerptLine } from '@/lib/ui-logic';
 import { cn, getSkillsByIds } from '@/lib/utils';
