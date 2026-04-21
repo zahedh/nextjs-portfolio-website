@@ -4,11 +4,12 @@ import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { en } from '@/language';
 import { getProjectExcerptLine } from '@/lib/ui-logic';
 import { cn, getSkillsByIds } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import { SecondaryButton } from '../buttons';
 
 interface ProjectCardProps {
   project: Project;
@@ -69,13 +70,13 @@ export default function ProjectCard({
           onMoreClick={() => onOpenFullDetails(project)}
         />
 
-        <button
+        <SecondaryButton
           type="button"
           onClick={() => onOpenFullDetails(project)}
           className="card-expand-btn"
         >
           {en.projectCard.fullCaseStudy}
-        </button>
+        </SecondaryButton>
       </div>
     </div>
   );

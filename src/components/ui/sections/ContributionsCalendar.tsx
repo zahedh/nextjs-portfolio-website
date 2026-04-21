@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ActivityCalendar } from 'react-activity-calendar';
-import type { ActivityCalendarData } from '@/types/github';
+import { ActivityCalendarData } from '@/types/github';
 import { useTheme } from '@/hooks/utilityHooks';
 import { en } from '@/language';
 import {

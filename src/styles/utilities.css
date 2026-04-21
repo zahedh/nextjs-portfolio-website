@@ -4,15 +4,15 @@
 @layer utilities {
   /* max-width + horizontally centered in the viewport (mx-auto), gutters via padding */
   .prime-parent {
-    @apply mx-auto w-full max-w-[115rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-10 2xl:px-15;
+    @apply mx-auto w-full max-w-[110rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-10 2xl:px-15;
   }
 
   .screen-parent {
-    @apply flex w-full flex-col gap-32 pt-18;
+    @apply flex w-full flex-col pt-18;
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4;
+    @apply flex w-full flex-col items-start justify-center gap-4 pb-32;
     /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
     scroll-margin-top: 5rem;
   }

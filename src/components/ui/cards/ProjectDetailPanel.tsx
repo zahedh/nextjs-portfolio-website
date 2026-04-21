@@ -6,7 +6,7 @@ import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
 import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import {
   useBodyScrollLock,
   useEscapeKeydown,
@@ -15,11 +15,11 @@ import {
 import { useBreakpoint, useClientMounted } from '@/hooks/utilityHooks';
 import {
   getProjectDetailFeatureLines,
+  getProjectDetailBackdropMotion,
   getProjectDetailDialogMotion,
-  getProjectDetailOverlayTransition,
   getProjectExcerptLine,
 } from '@/lib/ui-logic';
-import type { ProjectLinkItem } from '@/components/ui/cards/ProjectLinks';
+import { ProjectLinkItem } from '@/types/project';
 import { getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
@@ -83,23 +83,30 @@ export default function ProjectDetailPanel({
   const featureLinesForList = getProjectDetailFeatureLines(project);
 
   const noMotion = Boolean(prefersReducedMotion);
-  const overlayTransition = getProjectDetailOverlayTransition(noMotion);
-  const { initial: dialogInitial, animate: dialogAnimate, transition: dialogTransition } =
-    getProjectDetailDialogMotion(noMotion, isDesktop);
+  const backdropMotion = getProjectDetailBackdropMotion(noMotion);
+  const {
+    initial: dialogInitial,
+    animate: dialogAnimate,
+    transition: dialogTransition,
+  } = getProjectDetailDialogMotion(noMotion, isDesktop);
 
   return createPortal(
     <AnimatePresence onExitComplete={onExitComplete}>
       {open && project && (
-        <motion.div
+        <div
           key={project.id}
           className="fixed inset-0 z-[100] flex min-h-0 flex-col"
           role="presentation"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={overlayTransition}
         >
-          <div className="dialog-backdrop" onClick={onClose} aria-hidden />
+          <motion.div
+            className="dialog-backdrop"
+            onClick={onClose}
+            aria-hidden
+            initial={backdropMotion.initial}
+            animate={backdropMotion.animate}
+            exit={backdropMotion.exit}
+            transition={backdropMotion.transition}
+          />
           <div className="relative z-10 flex min-h-0 flex-1 flex-col px-0 pt-0 md:items-center md:justify-center md:px-8 md:py-10">
             <motion.div
               role="dialog"
@@ -170,7 +177,7 @@ export default function ProjectDetailPanel({
                         </div>
                       </details>
                     ) : null}
-                    <details className="detail-accordion group" open>
+                    <details className="detail-accordion group">
                       <summary className="detail-accordion-trigger">
                         {en.projectDisplay.sectionTechStack}
                         <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
@@ -231,7 +238,7 @@ export default function ProjectDetailPanel({
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       )}
     </AnimatePresence>,
     document.body

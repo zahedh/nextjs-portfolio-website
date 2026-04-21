@@ -26,7 +26,7 @@ const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
 export const metadata: Metadata = {
   title: 'Zahed Heidari',
   description:
-    "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+    'Web and mobile developer specialising in Next.js, React Native, and TypeScript. Exploring how AI tools are reshaping how developers build and ship.',
   authors: [{ name: 'Zahed Heidari' }],
   keywords: [
     'Zahed Heidari',

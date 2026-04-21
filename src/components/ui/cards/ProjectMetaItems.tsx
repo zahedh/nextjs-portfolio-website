@@ -1,4 +1,4 @@
-import type { Project } from '@/data/projects';
+import { Project } from '@/types/project';
 import { en } from '@/language';
 import { formatProjectTimeline, isProjectActive } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';

@@ -10,19 +10,12 @@ export function useBodyScrollLock(active: boolean) {
       return;
     }
 
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth;
-
     document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    }
+    document.documentElement.style.scrollbarGutter = 'stable';
 
     return () => {
       document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
+      document.documentElement.style.scrollbarGutter = '';
     };
   }, [active]);
 }

@@ -17,7 +17,7 @@ type SectionProps = {
   supportingText?: string;
   children?: React.ReactNode;
   anchor?: string;
-  filterButtons?: React.ReactNode;
+  rightChildren?: React.ReactNode;
 };
 
 /** Generic layout section used to structure page content. */
@@ -26,7 +26,7 @@ export default function Section({
   titleAs = 'h2',
   subheading,
   align = 'left',
-  italicize = true,
+  italicize = false,
   showDivider = true,
   showBottomDivider = false,
   dividerWidth = 'full',
@@ -35,7 +35,7 @@ export default function Section({
   supportingText,
   children,
   anchor,
-  filterButtons,
+  rightChildren,
 }: SectionProps) {
   return (
     <div id={anchor} className={cn('screen-section', className)}>
@@ -51,9 +51,9 @@ export default function Section({
           >
             {title}
           </Heading>
-          {filterButtons && (
+          {rightChildren && (
             <div className="ml-auto flex flex-shrink-0 gap-2">
-              {filterButtons}
+              {rightChildren}
             </div>
           )}
         </div>

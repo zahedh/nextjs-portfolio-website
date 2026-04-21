@@ -9,7 +9,8 @@ import { useExpandableContent } from '@/hooks/utilityHooks';
 import { SecondaryButton } from '@/components';
 import { cn } from '@/lib/utils';
 import { en } from '@/language';
-import { isJobActive, type JobExperience } from '@/data/experience';
+import { JobExperience } from '@/types/experience';
+import { isJobActive } from '@/data/experience';
 import { motion, useReducedMotion } from 'motion/react';
 import { useEffect, useState } from 'react';
 

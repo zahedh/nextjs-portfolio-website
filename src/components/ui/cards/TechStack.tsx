@@ -1,5 +1,5 @@
 import { SkillTile } from '@/components/ui/tiles';
-import type { Skill } from '@/data/skills';
+import { Skill } from '@/types/skill';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 
@@ -40,7 +40,7 @@ export function TechStack({
           <button
             type="button"
             onClick={onMoreClick}
-            className="more-pill hover:bg-brand-300/40 dark:hover:bg-brand-800/45 cursor-pointer transition-colors"
+            className="more-pill hover:bg-brand-500/50 dark:hover:bg-brand-600/30 cursor-pointer transition-colors"
             aria-label={moreLabel}
           >
             {moreLabel}

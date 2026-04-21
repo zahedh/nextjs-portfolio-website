@@ -41,6 +41,10 @@ export const en = {
     credentialsAriaLabel: 'At a glance',
   },
 
+  skillsSection: {
+    doubleClickHint: 'Double Click To View Projects!',
+  },
+
   skillsCollageSection: {
     // Modern Web & Mobile Frameworks
     react: 'React',
@@ -183,7 +187,7 @@ export const en = {
     sectionFeatures: 'Description',
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
-    sectionMetaItems: 'Project meta items',
+    sectionMetaItems: 'Project meta',
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',

@@ -2,7 +2,9 @@
 
 **v1.1.0**
 
-A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase projects, experience, and skills with a strong focus on responsive design, accessibility, and maintainable architecture.
+A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase
+projects, experience, and skills with a strong focus on responsive design, accessibility, and
+maintainable architecture.
 
 ## 📚 Contents
 
@@ -41,7 +43,10 @@ A modern, minimal, and performant portfolio built with Next.js and TypeScript, d
 - ⚡ Static & server rendering for SEO and performance
 - 🎨 Fully responsive design (mobile, tablet, desktop)
 - 🌗 Light / dark mode theme toggle
-- 💼 **Projects:** Swiper carousel (card-style slides on large viewports), **All / Web / Mobile** filters, and **expandable in-card details** (full write-up and tech stack). Skills used on at least one project can be clicked in the skills section to **scroll to projects and filter** the carousel (global state)
+- 💼 **Projects:** Swiper carousel (card-style slides on large viewports), **All / Web / Mobile**
+  filters, and **expandable in-card details** (full write-up and tech stack). Skills used on at
+  least one project can be clicked in the skills section to **scroll to projects and filter** the
+  carousel (global state)
 - 📊 GitHub contributions calendar with year filtering
 - 📅 Timeline-based experience section
 - 🎭 Smooth animations and transitions
@@ -73,14 +78,14 @@ High-level overview of the main folders:
 
 **`src/lib` modules** (import from `@/lib/…` or the barrel [`src/lib/index.ts`](src/lib/index.ts) where re-exported):
 
-| File | Purpose |
-|------|--------|
-| [`utils.ts`](src/lib/utils.ts) | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
-| [`dateUtils.ts`](src/lib/dateUtils.ts) | Years-of-experience style date helpers |
-| [`env.ts`](src/lib/env.ts) | Typed access to env (e.g. `GITHUB_TOKEN`) |
-| [`social-metadata.ts`](src/lib/social-metadata.ts) | Open Graph / Twitter Card defaults for `layout` metadata |
-| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips |
-| [`api/githubApi.ts`](src/lib/api/githubApi.ts) | GitHub GraphQL client for the contributions API route |
+| File                                                 | Purpose                                                                                                                                                                                                                     |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`utils.ts`](src/lib/utils.ts)                       | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
+| [`dateUtils.ts`](src/lib/dateUtils.ts)               | Years-of-experience style date helpers                                                                                                                                                                                      |
+| [`env.ts`](src/lib/env.ts)                           | Typed access to env (e.g. `GITHUB_TOKEN`)                                                                                                                                                                                   |
+| [`social-metadata.ts`](src/lib/social-metadata.ts)   | Open Graph / Twitter Card defaults for `layout` metadata                                                                                                                                                                    |
+| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips                                                                                                                                                                                 |
+| [`api/githubApi.ts`](src/lib/api/githubApi.ts)       | GitHub GraphQL client for the contributions API route                                                                                                                                                                       |
 
 Tests colocated with logic: [`utils.test.ts`](src/lib/utils.test.ts), [`dateUtils.test.ts`](src/lib/dateUtils.test.ts).
 
@@ -163,7 +168,10 @@ This project is hosted on **Vercel** and is optimised for similar platforms (e.g
 
 ### Vercel Analytics & Speed Insights
 
-The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the [root layout](src/app/layout.tsx). They render only when **`VERCEL=1`** (production deployments on Vercel), so **local `npm run dev`** does not request `/_vercel/...` scripts that would 404 on localhost. No extra env vars are required for the defaults.
+The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the
+[root layout](src/app/layout.tsx). They render only when **`VERCEL=1`** (production deployments
+on Vercel), so **local `npm run dev`** does not request `/_vercel/...` scripts that would 404 on
+localhost. No extra env vars are required for the defaults.
 
 After deployment, open your project in the [Vercel dashboard](https://vercel.com/dashboard) and enable **Analytics** and **Speed Insights** for the project so data is collected and shown in Vercel.
 

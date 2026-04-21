@@ -26,6 +26,8 @@ import {
   MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX,
   getMobileMenuOverlayTransition,
   getMobileMenuPanelTransition,
+  getMobileMenuNavContainerVariants,
+  getMobileMenuNavItemVariants,
 } from '@/lib/ui-logic';
 
 /**
@@ -47,12 +49,11 @@ export default function MobileMenu() {
 
   const overlayTransition = getMobileMenuOverlayTransition(noMotion);
   const panelTransition = getMobileMenuPanelTransition(noMotion);
+  const navContainerVariants = getMobileMenuNavContainerVariants(noMotion);
+  const navItemVariants = getMobileMenuNavItemVariants(noMotion);
 
   const handleDragEnd = useCallback(
-    (
-      _event: MouseEvent | TouchEvent | PointerEvent,
-      info: PanInfo
-    ) => {
+    (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
       if (noMotion) return;
       if (
         info.offset.x > MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX ||
@@ -110,94 +111,124 @@ export default function MobileMenu() {
               onDragEnd={handleDragEnd}
               className="mobile-menu-panel"
             >
-              <nav className="flex flex-col items-center gap-8 p-8 pt-8">
-                <Link
-                  href="/"
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      mouseEvent.preventDefault();
-                      scrollToTop(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+              <motion.nav
+                className="flex flex-col items-center gap-6 p-8 pt-8"
+                variants={navContainerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.home}
-                </Link>
-                <Link
-                  href={isHome ? '#skills' : '/#skills'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href="/"
+                    onClick={(mouseEvent) => {
+                      if (isHome) {
+                        mouseEvent.preventDefault();
+                        scrollToTop(mouseEvent);
+                      }
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.home}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.skills}
-                </Link>
-                <Link
-                  href={isHome ? '#projects' : '/#projects'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href={isHome ? '#skills' : '/#skills'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.skills}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.projects}
-                </Link>
-                <Link
-                  href={isHome ? '#about' : '/#about'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href={isHome ? '#projects' : '/#projects'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.projects}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.about}
-                </Link>
-                <Link
-                  href={isHome ? '#experience' : '/#experience'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href={isHome ? '#about' : '/#about'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.about}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.experience}
-                </Link>
-                <Link
-                  href={isHome ? '#contributions' : '/#contributions'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href={isHome ? '#experience' : '/#experience'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.experience}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.activity}
-                </Link>
-                <Link
-                  href={isHome ? '#contact' : '/#contact'}
-                  onClick={(mouseEvent) => {
-                    if (isHome) {
-                      handleSmoothScroll(mouseEvent);
-                    }
-                    setIsOpen(false);
-                  }}
-                  className="nav-link"
+                  <Link
+                    href={isHome ? '#contributions' : '/#contributions'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.activity}
+                  </Link>
+                </motion.div>
+                <motion.div
+                  variants={navItemVariants}
+                  className="w-full text-center"
                 >
-                  {en.contact}
-                </Link>
-                <ThemeToggleButton />
-              </nav>
+                  <Link
+                    href={isHome ? '#contact' : '/#contact'}
+                    onClick={(mouseEvent) => {
+                      if (isHome) handleSmoothScroll(mouseEvent);
+                      setIsOpen(false);
+                    }}
+                    className="nav-link"
+                  >
+                    {en.contact}
+                  </Link>
+                </motion.div>
+                <motion.div variants={navItemVariants}>
+                  <ThemeToggleButton />
+                </motion.div>
+              </motion.nav>
             </motion.div>
           </>
         )}

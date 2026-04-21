@@ -5,7 +5,7 @@ export const aboutCredentialLines = [
   `${getYearsOfExperience()}+ years experience`,
   '500K+ users reached',
   '2+ enterprise clients',
-  'iOS & Android shipped',
+  'Apps shipped on iOS & Android',
   'AI-integrated workflows',
   '1st Class degree',
 ];

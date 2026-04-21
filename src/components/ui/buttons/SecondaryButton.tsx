@@ -32,10 +32,12 @@ export function SecondaryButton({
         'inline-flex items-center justify-center gap-2',
         iconOnly ? 'p-2' : 'px-3 py-1.5',
         'rounded-full',
-        'border-brand-500 bg-brand-300 border text-neutral-900 dark:text-neutral-200',
+        'border-brand-500 border',
+        'bg-brand-300 dark:bg-brand-500',
+        'text-neutral-900 dark:text-neutral-200',
         'font-heading text-base leading-normal font-bold tracking-tight',
         'shadow-sm transition-colors duration-150',
-        'hover:bg-brand-600',
+        'hover:bg-brand-500 dark:hover:bg-brand-700',
         className
       )}
       {...props}

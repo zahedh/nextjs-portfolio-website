@@ -1,6 +1,6 @@
 'use client';
 
-import { BodyText, Section, SubHeading } from '@/components';
+import { BodyText, Heading, Section, SubHeading } from '@/components';
 import { AvatarGraphic } from '@/components/media';
 import { HeroFloatingOrbs } from '@/components/ui/animations';
 import { useGlobalStore } from '@/providers/global-store-provider';
@@ -19,7 +19,7 @@ export default function HeroSection() {
 
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 overflow-hidden sm:flex-row">
+      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 py-6 sm:flex-row sm:py-10 lg:py-16">
         <HeroFloatingOrbs />
 
         <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
@@ -28,21 +28,21 @@ export default function HeroSection() {
             className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"
           />
           <div className="flex flex-col text-center sm:text-left">
-            <SubHeading as="h1">
+            <Heading>
               {en.heroSection.header}
               <WavingHand />
-            </SubHeading>
-            <h2 className="font-heading mt-6 flex flex-col items-center gap-2 text-center text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left sm:text-xl md:text-2xl dark:text-neutral-200">
-              <span>{en.heroSection.subHeaderPartOne}</span>
-              <span className="text-brand-600 dark:text-brand-300">
+            </Heading>
+            <div className="font-heading mt-6 flex flex-col items-center gap-2 text-center text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left sm:text-xl md:text-2xl dark:text-neutral-200">
+              <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
+              <Heading className="text-brand-600 dark:text-brand-300">
                 <AnimatedText
                   delay={1.4}
                   text={en.heroSection.subHeaderPartTwo}
                   skipAnimation={heroAnimationComplete}
                 />
-              </span>
-            </h2>
-            <BodyText className="mt-4 max-w-2xl text-center text-base leading-normal tracking-tight sm:text-left sm:text-lg md:text-xl">
+              </Heading>
+            </div>
+            <BodyText className="mt-4 max-w-xs text-center text-base leading-normal font-medium tracking-tight sm:max-w-lg sm:text-left sm:text-lg md:text-xl">
               <AnimatedText
                 delay={2.4}
                 text={en.heroSection.supportingText}
