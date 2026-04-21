@@ -15,8 +15,8 @@ export function getSkillsCollageContainerVariants(
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: noMotion ? 0 : 0.03,
-        delayChildren: noMotion ? 0 : 0.04,
+        staggerChildren: noMotion ? 0 : 0.04,
+        delayChildren: noMotion ? 0 : 0.02,
       },
     },
   };
@@ -27,17 +27,14 @@ export function getSkillsCollageItemVariants(
 ) {
   const noMotion = Boolean(prefersReducedMotion);
   return {
-    hidden: noMotion
-      ? { opacity: 1, scale: 1, y: 0 }
-      : { opacity: 0, scale: 0.72, y: 6 },
+    hidden: noMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
       transition: {
-        type: 'spring' as const,
-        stiffness: 520,
-        damping: 26,
+        type: 'tween' as const,
+        duration: 0.3,
+        ease: 'easeOut',
       },
     },
   };

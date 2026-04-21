@@ -192,7 +192,7 @@
       box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15);
     }
   }
-  @media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce), (max-width: 767px) {
     .skill-tile-glow,
     .dark .skill-tile-glow {
       animation: none;
