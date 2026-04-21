@@ -4,11 +4,9 @@ import { CalloutWrapper } from '@/components';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 import { ExternalLink } from 'lucide-react';
+import type { ProjectLinkItem } from '@/types/project';
 
-export interface ProjectLinkItem {
-  url: string;
-  label?: string;
-}
+export type { ProjectLinkItem } from '@/types/project';
 
 /** External link buttons for a project's live site/repo. */
 export function ProjectLinks({

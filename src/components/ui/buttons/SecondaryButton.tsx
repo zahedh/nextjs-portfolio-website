@@ -37,7 +37,7 @@ export function SecondaryButton({
         'text-neutral-900 dark:text-neutral-200',
         'font-heading text-base leading-normal font-bold tracking-tight',
         'shadow-sm transition-colors duration-150',
-        'hover:bg-brand-600 dark:hover:bg-brand-700',
+        'hover:bg-brand-500 dark:hover:bg-brand-700',
         className
       )}
       {...props}

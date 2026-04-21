@@ -23,7 +23,7 @@ const tertiaryStyles = (className: string | undefined, iconOnly: boolean) =>
     'text-neutral-900 dark:text-neutral-200',
     'font-heading text-base leading-normal font-bold tracking-tight',
     'transition-colors duration-150',
-    'hover:bg-brand-500 dark:hover:bg-brand-700',
+    'hover:bg-brand-400 dark:hover:bg-brand-600',
     className
   );
 

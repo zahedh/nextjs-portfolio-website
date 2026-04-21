@@ -1,13 +1,5 @@
-export interface JobExperience {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  startDate: string;
-  endDate: string;
-  description: string[];
-  skills: string[];
-}
+export type { JobExperience } from '@/types/experience';
+import type { JobExperience } from '@/types/experience';
 
 /** Current role — `endDate` is typically `"Present"`. */
 export function isJobActive(job: JobExperience): boolean {

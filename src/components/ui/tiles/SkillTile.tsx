@@ -73,7 +73,7 @@ export function SkillTile({
     <>
       <motion.div
         {...idleAnimation}
-        animate={isHovered ? {} : idleAnimation.animate}
+        animate={isHovered ? undefined : idleAnimation.animate}
       >
         <div
           ref={tileRef}
@@ -115,7 +115,7 @@ export function SkillTile({
             'border-brand-500 border',
             'bg-brand-200 dark:bg-brand-400',
             'text-neutral-900 dark:text-neutral-200',
-            'hover:bg-brand-400 dark:hover:bg-brand-700',
+            'hover:bg-brand-400 dark:hover:bg-brand-600',
             'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
             !isHovered && 'skill-tile-glow',
             isClickable ? 'cursor-pointer' : 'cursor-default',

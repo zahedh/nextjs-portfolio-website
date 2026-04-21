@@ -1,19 +1,5 @@
-export interface Project {
-  id: string;
-  projectType: 'Mobile' | 'Web';
-  title: string;
-  company: string;
-  startDate: string;
-  endDate: string;
-  description: string[];
-  skills: string[];
-  image?: string;
-  imageToken?: string;
-  url?: string;
-  urlLabel?: string;
-  repoUrl?: string;
-  repoLabel?: string;
-}
+export type { Project } from '@/types/project';
+import type { Project } from '@/types/project';
 
 export const projects: Project[] = [
   {
@@ -125,6 +111,7 @@ export const projects: Project[] = [
       'prettier',
       'firebase',
       'tailwind',
+      'github',
       'github-copilot',
       'figma',
       'macos',
@@ -192,6 +179,7 @@ export const projects: Project[] = [
       '✦ Provides detailed information for all police forces in England.',
     ],
     skills: [
+      'react',
       'React Native',
       'node.js',
       'javascript',
@@ -222,6 +210,7 @@ export const projects: Project[] = [
       '✦ Delivered a robust and user-friendly solution for internal business processes.',
     ],
     skills: [
+      'react',
       'React Native',
       'node.js',
       'javascript',
@@ -252,6 +241,7 @@ export const projects: Project[] = [
       '✦ Delivered a reliable and efficient tool for internal operational audits.',
     ],
     skills: [
+      'react',
       'React Native',
       'node.js',
       'javascript',

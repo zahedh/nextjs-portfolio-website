@@ -1,8 +1,16 @@
-## 📝 Key Notes
+## Summary
 
-## ✅ Checklist
+<!-- One or two sentences on what changed and why. -->
 
-- [ ] Code compiles and runs without errors
-- [ ] Validation scripts pass
+## Type
+
+- [ ] Feature
+- [ ] Fix
+- [ ] Refactor
+- [ ] Chore / config
+
+## Checklist
+
+- [ ] `npm run validate` passes
 - [ ] No `console.log` or dead code
-- [ ] Unit tests added
+- [ ] Tests added / updated where relevant
