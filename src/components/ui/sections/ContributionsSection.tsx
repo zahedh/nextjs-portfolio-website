@@ -4,7 +4,7 @@ import { Section, PrimaryButton, SubHeading } from '@/components';
 import { en } from '@/language';
 import ContributionsCalendar from './ContributionsCalendar';
 import { useState, useEffect } from 'react';
-import type { ActivityCalendarData } from '@/types/github';
+import { ActivityCalendarData } from '@/types/github';
 import { motion } from 'motion/react';
 
 /** Section for open-source and community contributions. */

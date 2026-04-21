@@ -2,7 +2,7 @@
  * GitHub API utilities for fetching contribution data.
  */
 
-import type {
+import {
   GitHubContributionCalendar,
   ActivityCalendarData,
 } from '@/types/github';

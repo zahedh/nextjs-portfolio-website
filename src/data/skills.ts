@@ -50,8 +50,7 @@ import {
   WandSparkles,
 } from 'lucide-react';
 import { en } from '@/language';
-export type { Skill, SkillCategory } from '@/types/skill';
-import type { Skill } from '@/types/skill';
+import { Skill } from '@/types/skill';
 
 export const skillsData: Skill[] = [
   // Modern Web & Mobile Frameworks

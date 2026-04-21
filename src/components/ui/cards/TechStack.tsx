@@ -1,5 +1,5 @@
 import { SkillTile } from '@/components/ui/tiles';
-import type { Skill } from '@/data/skills';
+import { Skill } from '@/types/skill';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 

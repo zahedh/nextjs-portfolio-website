@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { en } from '@/language';
-import type { ActivityCalendarData } from '@/types/github';
+import { ActivityCalendarData } from '@/types/github';
 
 export type CalendarSize = {
   blockSize: number;

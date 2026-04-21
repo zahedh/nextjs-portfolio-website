@@ -19,7 +19,7 @@ import {
   getProjectDetailDialogMotion,
   getProjectExcerptLine,
 } from '@/lib/ui-logic';
-import type { ProjectLinkItem } from '@/components/ui/cards/ProjectLinks';
+import { ProjectLinkItem } from '@/types/project';
 import { getSkillsByIds } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
