@@ -129,7 +129,7 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
+    catchPhraseHeader: 'Zahed Heidari - Senior Software Engineer',
     catchPhraseSubheader:
       'Blending design, development, and AI into cohesive systems.',
     catchPhraseSupportingTextPart1: 'Building something ambitious? ',
