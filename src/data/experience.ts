@@ -15,7 +15,7 @@ export const jobExperiences: JobExperience[] = [
     endDate: 'Present',
     description: [
       "✦ One of three core code maintainers across SMARTY's React Native mobile app and Next.js web platforms, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
-      '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow, and authoring internal dev documentation adopted team-wide.',
+      '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow.',
       '✦ Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
       '✦ Guide developers on AI-assisted development practices, raising delivery velocity and code quality across the team.',
       '✦ Drive removal of legacy code and modernisation of development standards to improve long-term scalability and maintainability.',
