@@ -2,6 +2,11 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+## Personal context
+
+The user's private context hub is mounted at `.context/` (gitignored).
+Read `.context/AGENTS.md` first on every task; it routes to the rest.
+
 @.Codex/rules/conventions.md
 @.Codex/rules/testing-guide.md
 @.Codex/docs/animation-patterns.md

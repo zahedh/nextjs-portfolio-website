@@ -23,7 +23,7 @@ export const en = {
   heroSection: {
     header: "Hi, I'm Zahed!",
     subHeaderPartOne: "I'm a...",
-    subHeaderPartTwo: 'Web & Mobile Developer',
+    subHeaderPartTwo: 'Senior Software Engineer',
     supportingText:
       'I design and build digital products across web and mobile, using robust engineering, thoughtful design, and modern AI integrations.',
   },

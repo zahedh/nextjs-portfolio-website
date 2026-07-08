@@ -2,6 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Personal context
+
+The user's private context hub is mounted at `.context/` (gitignored).
+Read these first on every task:
+
+@.context/CLAUDE.md
+
 @.claude/rules/conventions.md
 @.claude/rules/testing-guide.md
 @.claude/docs/animation-patterns.md
