@@ -23,7 +23,7 @@ export const en = {
   heroSection: {
     header: "Hi, I'm Zahed!",
     subHeaderPartOne: "I'm a...",
-    subHeaderPartTwo: 'Web & Mobile Developer',
+    subHeaderPartTwo: 'Senior Software Engineer',
     supportingText:
       'I design and build digital products across web and mobile, using robust engineering, thoughtful design, and modern AI integrations.',
   },
@@ -129,7 +129,7 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: 'Zahed Heidari - Web & Mobile Developer',
+    catchPhraseHeader: 'Zahed Heidari - Senior Software Engineer',
     catchPhraseSubheader:
       'Blending design, development, and AI into cohesive systems.',
     catchPhraseSupportingTextPart1: 'Building something ambitious? ',
