@@ -14,7 +14,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2026',
     endDate: 'Present',
     description: [
-      "✦ One of three core code maintainers across SMARTY's React Native mobile app and Next.js web platforms, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
+      "✦ One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
       '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow.',
       '✦ Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
       '✦ Guide developers on AI-assisted development practices, raising delivery velocity and code quality across the team.',
@@ -51,12 +51,13 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Mar 2023',
     endDate: 'Jul 2026',
     description: [
-      '✦ Development and maintenance of the React Native SMARTY mobile application, ensuring high performance and stability across iOS and Android platforms.',
+      "✦ Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 500k+ user ecosystem.",
       '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
       '✦ Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
-      "✦ Collaborate within SMARTY's multi-company tech stack and liaise directly with clients to ensure seamless integration, technical alignment, and that implementation meets business needs.",
+      "✦ Collaborate within SMARTY's multi-company tech stack to ensure seamless integration, alignment, and efficient cross-team development.",
       '✦ Regularly present technical updates and progress in large client meetings, supporting transparency and collaboration.',
       "✦ Research, learn, and integrate emerging technologies into the app's development workflow to drive innovation.",
+      '✦ Liaise directly with clients to clarify requirements, ensuring alignment between technical implementation and business needs.',
       '✦ Work within Agile methodologies, collaborating closely with developers, QA, and PMs to deliver continuous improvements.',
     ],
     skills: [
