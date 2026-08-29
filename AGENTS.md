@@ -1,79 +1,79 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Codex and other agents when working with code in this repository.
+
+## Project Overview
+
+**portfolio-site** — personal portfolio site (Next.js 15 App Router, React 19, TypeScript 5, Tailwind CSS v4), designed in Figma and implemented with Claude Code. Full brief, stack, engineering standard, and project-specific rules live in `.context/projects/portfolio-site.md` — read that before working in this repo.
+
+Engineering standard: Next.js / React, **Showcase** tier. `.context/engineering/tiers.md` owns what that obliges; `.context/engineering/nextjs-react.md` owns how it is evidenced in this stack.
+
+## Running locally
+
+```bash
+npm run dev           # Development server
+npm run build         # Production build
+npm run validate      # Full checkpoint: type-check + lint + prettier-check + test
+```
+
+`npm run validate` is the per-task checkpoint, not `git diff --check`. `GITHUB_TOKEN` is optional; without it the contributions API is rate-limited.
+
+## Role division
+
+Full rule and rationale live in `.context/tool-guidance/agent-roles.md` — read that file; this section is only the repo-local mechanics.
+
+- Claude Code plans, researches, and reviews. Codex executes numbered tasks.
+- Execution tasks are briefed under `docs/briefs/`; each brief names its source task, files, constraints, and verification commands. The brief and ledger shapes, and the handoff procedure, come from the `claude-codex-handoff` skill.
+- `docs/README.md` is the documentation standard pointer — read it before creating any document under `docs/`. `docs/` is gitignored at this tier, so archive rather than delete and date brief filenames.
+- After each dispatch, append to `docs/progress.md`: status, files changed, and the validation result.
+- British English throughout. Never stage, commit, push, or run destructive git commands.
+
+## Small fixes
+
+The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fixes and review follow-ups. Here that means: inspect and establish the root cause → propose the fix once → patch → run focused checks → run `npm run validate` once. Do not create a brief, design specification, implementation plan, worktree, or branch for these fixes.
+
+## Architecture
+
+### Structure
+
+- `src/app/(dashboard)/` — Route group containing the home page (`/`) and `/privacy`
+- `src/app/api/contributions/` — Route handler for the GitHub contributions calendar
+- `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
+- `src/data/` — Site content as typed TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
+- `src/language/english.ts` — All user-facing copy (translation-ready)
+- `src/stores/global-store.ts` — Zustand store: `isDark`, `heroAnimationComplete`, `selectedSkillId`
+- `src/providers/` — Zustand + React context wrapper used in the root layout
+- `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
+- `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
+- `src/lib/ui-logic/` — Motion variants and viewport configs
+- `src/hooks/` — `useDoubleActivation`, `useScrolled`, `skillTilePortalTooltip`, `overlayHooks`, `projectHooks`, `contributionsCalendarHooks`
+- `.claude/rules/project-conventions.md` — repo-local conventions the hub does not cover
+- `.claude/skills/` — project-level skills bespoke to this repo
+
+This layout predates `.context/engineering/nextjs-react.md` and diverges from it (top-level `hooks/`, `stores/`, `providers/`, `data/`, and `src/language/` rather than `src/lib/language/`). The divergence is a declared exception in `.context/projects/portfolio-site.md`, not licence to add more top-level folders. Do not migrate it as a drive-by; that is its own dispatch.
+
+### Key patterns
+
+**Content updates** — edit `src/data/` for projects, skills, and experience; `src/language/english.ts` for UI text.
+
+**State** — the Zustand store is the single source of truth for theme, hero animation state, and the selected skill filter. `selectedSkillId` drives skill → project filtering: a skill tile sets it, the Projects section filters on it.
+
+**Client vs server** — most components are server components. `'use client'` goes at the smallest interactive leaf, and only for the reasons listed in `.claude/rules/project-conventions.md`.
+
+**Double activation** — skill tiles need a double-click or double-tap to navigate, gated by `useDoubleActivation` (default 400 ms window).
+
+**Contributions** — the calendar fetches `/api/contributions?year=YYYY`.
+
+**Analytics** — `@vercel/analytics` and `@vercel/speed-insights` are injected only when `VERCEL=1`.
+
+## Never read
+
+- `.env` files
+- Any file with "secret", "key", or "token" in the name
+
+---
 
 ## Personal context
 
 The user's private context hub is mounted at `.context/` (gitignored).
 Read `.context/AGENTS.md` first on every task; it routes to the rest.
-
-@.Codex/rules/conventions.md
-@.Codex/rules/testing-guide.md
-@.Codex/docs/animation-patterns.md
-@.Codex/docs/preferences.md
-
-## Commands
-
-```bash
-npm run dev           # Start development server
-npm run build         # Production build
-npm run type-check    # TypeScript validation
-npm run lint          # ESLint
-npm run prettier-format  # Format with Prettier
-npm run test          # Jest (run a single test file: npm test -- path/to/file.test.ts)
-npm run validate      # Full check: type-check + lint + prettier + test
-```
-
-## AI Behaviour
-
-- Ask clarifying questions when requirements are ambiguous — do not guess and proceed.
-- Push back when a proposed approach has a better alternative. Explain why clearly.
-- Gather enough context to act confidently before starting. One focused question beats five speculative ones.
-- Do not add features, refactors, or abstractions beyond what was asked.
-- Do not add comments that explain what the code does. See conventions for comment rules.
-- Do not make a component a client component unless it meets the criteria in conventions.
-- Do not run `git commit` unless explicitly asked. This applies to subagents too — never commit autonomously.
-
-## Architecture
-
-**Next.js 15 App Router** portfolio site using React 19, TypeScript 5, and Tailwind CSS v4.
-
-### Structure
-
-- `src/app/(dashboard)/` — Route group containing the home page (`/`) and `/privacy`
-- `src/app/api/contributions/` — API route handler for GitHub contributions calendar (requires `GITHUB_TOKEN` env var)
-- `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
-- `src/data/` — All site content as hardcoded TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
-- `src/language/english.ts` — Centralized UI copy (translation-ready; all user-facing strings live here)
-- `src/stores/global-store.ts` — Zustand store: `isDark` (theme), `heroAnimationComplete`, `selectedSkillId`
-- `src/providers/` — Zustand + React context wrapper used in root layout
-- `src/styles/` — `theme.css` (CSS vars for colors), `utilities.css`, `components.css`, imported via `index.css`
-- `src/lib/utils/utils.ts` — `cn()` (clsx + tailwind-merge), scroll helpers, skill-project matching logic
-- `src/lib/ui-logic/` — Motion variants and viewport configs for animated sections
-- `src/hooks/` — Custom hooks: `useDoubleActivation`, `useScrolled`, `skillTilePortalTooltip`, `overlayHooks`, `projectHooks`, `contributionsCalendarHooks`
-- `.Codex/skills/` — Project-level Codex skills bespoke to this repo
-
-### Key Patterns
-
-**Content updates**: Edit files in `src/data/` for projects/skills/experience, or `src/language/english.ts` for UI text.
-
-**Styling**: Use `cn()` from `@/lib/utils` for conditional Tailwind classes. Theme colors are CSS variables defined in `theme.css`. Extract repeated or complex class combinations to `src/styles/components.css`.
-
-**State**: The Zustand store in `src/stores/global-store.ts` is the single source of truth for theme, hero animation state, and the selected skill filter. The `selectedSkillId` drives the skill→project filtering — clicking a skill tile sets this, and the Projects section filters accordingly.
-
-**Client vs Server**: Most components are server components. `'use client'` is used sparingly — see AI Behaviour and conventions for the rules.
-
-**Double-activation pattern**: Skill tiles require a double-click (or double-tap on mobile) to trigger navigation. Implemented via `useDoubleActivation` in `src/hooks/useDoubleActivation.ts`, which gates a callback behind two activations within a configurable time window (default 400 ms).
-
-**GitHub Contributions**: The calendar section fetches from `/api/contributions?year=YYYY`. The `GITHUB_TOKEN` env var is optional but prevents rate limiting.
-
-**Analytics**: `@vercel/analytics` and `@vercel/speed-insights` are only injected when `VERCEL=1` is set (automatic on Vercel deployments).
-
-**Tests**: Colocated with source (`utils.test.ts`, `dateUtils.test.ts`). Jest with jsdom and React Testing Library. Follow the testing guide above.
-
-## Never Read
-
-- .env files
-- Any file containing "secret", "key", "token" in the name
-- /ios/Pods
-- /android/.gradle
