@@ -1,183 +1,89 @@
 'use client';
 
-import { MapPin, Building2, ChevronDown } from 'lucide-react';
-import { SkillTile } from '@/components/ui/tiles';
+import { useId } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { useExpandableContent } from '@/hooks/utilityHooks';
-import { SecondaryButton } from '@/components';
 import { cn } from '@/lib/utils';
 import { en } from '@/language';
 import { JobExperience } from '@/types/experience';
 import { isJobActive } from '@/data/experience';
-import { motion, useReducedMotion } from 'motion/react';
-import { useEffect, useState } from 'react';
-
-const JOB_SKILLS_PREVIEW = 5;
 
 interface JobCardProps {
   job: JobExperience;
 }
 
-/** Expandable experience card with date pill, role details, and animated tech stack. */
+/** Compact experience row with expandable role details. */
 export default function JobCard({ job }: JobCardProps) {
-  const prefersReducedMotion = useReducedMotion();
-  const [skillsRevealed, setSkillsRevealed] = useState(false);
-  useEffect(() => {
-    setSkillsRevealed(false);
-  }, [job.id]);
-
-  const {
-    isExpanded,
-    showExpandButton,
-    contentHeight,
-    contentRef,
-    handleToggle,
-  } = useExpandableContent(360);
+  const { isExpanded, contentHeight, contentRef, handleToggle } =
+    useExpandableContent(0);
 
   const jobSkills = getSkillsByIds(job.skills, skillsData);
   const active = isJobActive(job);
-
-  const showAllSkills =
-    jobSkills.length <= JOB_SKILLS_PREVIEW ||
-    (showExpandButton && isExpanded) ||
-    (!showExpandButton && skillsRevealed);
-
-  const showExpandedSkills =
-    showAllSkills && jobSkills.length > JOB_SKILLS_PREVIEW;
+  const detailsId = useId();
 
   return (
-    <div className="surface-card surface-card-interactive surface-card-flat group relative flex min-h-[400px] w-full flex-col overflow-hidden sm:min-h-[440px]">
-      <div className="p-surface flex flex-1 flex-col space-y-6">
-        <div className="flex flex-wrap items-center gap-2 self-start">
-          <p
-            className={cn(
-              'job-date-pill',
-              active ? 'job-date-pill-active' : 'job-date-pill-inactive'
-            )}
-            aria-label={`${job.startDate} to ${job.endDate}`}
-          >
-            {`${job.startDate} \u2013 ${job.endDate}`}
-          </p>
-          <span
-            className={cn(
-              'brand-pill shrink-0',
-              active ? 'brand-pill-active' : 'brand-pill-inactive'
-            )}
-          >
-            {active ? en.jobDisplay.statusCurrent : en.jobDisplay.statusPast}
+    <article
+      className={cn(
+        'experience-card',
+        active ? 'experience-card-active' : 'experience-card-past'
+      )}
+    >
+      <div className="experience-card-heading">
+        <h3 className="experience-card-title">{job.title}</h3>
+        {active && (
+          <span className="experience-current">
+            {en.jobDisplay.statusCurrent}
           </span>
-        </div>
-
-        <div className="min-w-0">
-          <h3 className="text-title mb-2 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
-            {job.title}
-          </h3>
-          <div className="text-body-sm flex flex-col gap-1.5 text-neutral-600 dark:text-neutral-400">
-            <div className="flex items-center gap-2">
-              <Building2 size={18} className="shrink-0 opacity-80" />
-              <span className="font-medium text-neutral-800 dark:text-neutral-200">
-                {job.company}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <MapPin size={18} className="shrink-0 opacity-80" />
-              <span>{job.location}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative min-h-0 flex-1">
-          <div
-            style={{
-              maxHeight: isExpanded ? `${contentHeight}px` : '360px',
-              transition: 'max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-            className="overflow-hidden"
-          >
-            <div ref={contentRef} className="space-y-4">
-              {job.description.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-body leading-relaxed text-neutral-600 dark:text-neutral-400"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          {!isExpanded && showExpandButton && (
-            <div className="card-fade-gradient" />
-          )}
-        </div>
-
-        {showExpandButton && (
-          <SecondaryButton
-            type="button"
-            onClick={handleToggle}
-            className={cn(
-              'btn-primary-sm',
-              'mt-3 w-full',
-              'hover:bg-brand-500'
-            )}
-          >
-            {isExpanded ? 'Show less' : 'Show more'}
-            <ChevronDown
-              size={16}
-              className={cn(
-                'transition-transform duration-300',
-                isExpanded && 'rotate-180'
-              )}
-            />
-          </SecondaryButton>
-        )}
-
-        {showExpandedSkills ? (
-          <div className="flex flex-wrap justify-start gap-2">
-            {jobSkills.slice(0, JOB_SKILLS_PREVIEW).map((skill) => (
-              <SkillTile
-                key={skill.id}
-                icon={skill.icon}
-                label={skill.label}
-                compact
-              />
-            ))}
-            {jobSkills.slice(JOB_SKILLS_PREVIEW).map((skill, index) => (
-              <motion.div
-                key={`${skill.id}-extra-${index}`}
-                initial={
-                  prefersReducedMotion
-                    ? false
-                    : { opacity: 0, scale: 0.72, y: 6 }
-                }
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 520,
-                  damping: 26,
-                  delay: prefersReducedMotion ? 0 : index * 0.038,
-                }}
-              >
-                <SkillTile icon={skill.icon} label={skill.label} compact />
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <TechStack
-            skills={jobSkills}
-            maxIcons={showAllSkills ? undefined : JOB_SKILLS_PREVIEW}
-            onMoreClick={
-              !showExpandButton &&
-              jobSkills.length > JOB_SKILLS_PREVIEW &&
-              !skillsRevealed
-                ? () => setSkillsRevealed(true)
-                : undefined
-            }
-          />
         )}
       </div>
-    </div>
+
+      <p className="experience-meta">
+        {job.company} <span aria-hidden="true">·</span> {job.location}
+      </p>
+      <p className="experience-summary">{job.summary}</p>
+
+      <button
+        type="button"
+        className="experience-expand-button"
+        onClick={handleToggle}
+        aria-expanded={isExpanded}
+        aria-controls={detailsId}
+      >
+        {isExpanded ? en.jobDisplay.hideDetails : en.jobDisplay.showDetails}
+        <ChevronDown
+          size={15}
+          aria-hidden="true"
+          className={cn(
+            'transition-transform duration-300 motion-reduce:transition-none',
+            isExpanded && 'rotate-180'
+          )}
+        />
+      </button>
+
+      <div
+        id={detailsId}
+        style={{ maxHeight: isExpanded ? `${contentHeight}px` : '0px' }}
+        className="experience-details"
+        aria-hidden={!isExpanded}
+        inert={!isExpanded}
+      >
+        <div ref={contentRef} className="experience-details-content">
+          <div className="space-y-3">
+            {job.description.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-body leading-relaxed text-neutral-600 dark:text-neutral-400"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+          <TechStack skills={jobSkills} />
+        </div>
+      </div>
+    </article>
   );
 }

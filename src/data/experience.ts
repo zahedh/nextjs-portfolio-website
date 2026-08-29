@@ -13,6 +13,8 @@ export const jobExperiences: JobExperience[] = [
     location: 'Macclesfield, UK',
     startDate: 'Jul 2026',
     endDate: 'Present',
+    summary:
+      "One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
     description: [
       "✦ One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
       '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow.',
@@ -50,6 +52,8 @@ export const jobExperiences: JobExperience[] = [
     location: 'Macclesfield, UK',
     startDate: 'Mar 2023',
     endDate: 'Jul 2026',
+    summary:
+      "Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 500k+ user ecosystem.",
     description: [
       "✦ Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 500k+ user ecosystem.",
       '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
@@ -87,6 +91,8 @@ export const jobExperiences: JobExperience[] = [
     location: 'Stoke-on-Trent, UK',
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
+    summary:
+      'Led the development of an internal React Native mobile application for Michelin.',
     description: [
       '✦ Led the development of an internal React Native mobile application for Michelin.',
       '✦ Converted legacy Alloy applications to a modern React Native framework.',
@@ -124,6 +130,8 @@ export const jobExperiences: JobExperience[] = [
     location: 'Stoke-on-Trent, UK',
     startDate: 'May 2020',
     endDate: 'Jul 2022',
+    summary:
+      'Contributed to both React Native and WordPress client projects, delivering features, fixes, and production-ready updates across mobile and web.',
     description: [
       '✦ Contributed to both React Native and WordPress client projects, delivering features, fixes, and production-ready updates across mobile and web.',
       '✦ Gained early experience delivering production-ready features across mobile and web projects in a client-focused environment.',

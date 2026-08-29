@@ -1,13 +1,51 @@
 /* =========================
-   ðŸ“ LAYOUT COMPONENTS (timeline, footer, contributions)
+   ðŸ“ LAYOUT COMPONENTS (experience, footer, contributions)
    ========================= */
 @layer utilities {
-  .timeline-position {
-    @apply bg-brand-400 absolute top-0 left-8 h-full w-0.5 lg:left-1/2 lg:-translate-x-1/2;
+  .experience-rail {
+    @apply flex max-w-[900px] flex-col gap-[14px];
   }
-
-  .timeline-dot-position {
-    @apply bg-brand-400 absolute top-1/2 left-[15px] z-10 h-5 w-5 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 sm:left-[11px] md:left-[7px] lg:left-1/2 lg:-translate-x-1/2 dark:border-neutral-900;
+  .experience-rail-row {
+    @apply grid grid-cols-[66px_minmax(0,1fr)] items-stretch;
+  }
+  .experience-year {
+    @apply text-caption pt-5 font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
+  }
+  .experience-year-active {
+    @apply text-brand-600 dark:text-brand-400;
+  }
+  .experience-card {
+    @apply p-surface flex min-w-0 flex-col gap-[7px] border-l-2 bg-neutral-50 dark:bg-neutral-800;
+  }
+  .experience-card-active {
+    @apply border-brand-500 dark:border-brand-400;
+  }
+  .experience-card-past {
+    @apply border-neutral-300 dark:border-neutral-700;
+  }
+  .experience-card-heading {
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
+  }
+  .experience-card-title {
+    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+  }
+  .experience-current {
+    @apply text-brand-600 dark:text-brand-400 text-meta font-mono;
+  }
+  .experience-meta {
+    @apply text-caption truncate font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .experience-summary {
+    @apply text-body max-w-[62ch] text-neutral-700 dark:text-neutral-300;
+  }
+  .experience-expand-button {
+    @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
+  }
+  .experience-details {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+  }
+  .experience-details-content {
+    @apply space-y-5 pt-3;
   }
 
   .contributions-calendar {
