@@ -52,9 +52,7 @@ export function ProjectHeroMedia({
       )}
     >
       {ImageComponent ? (
-        <div
-          className={cn(frame, 'flex items-center justify-center p-4 sm:p-5')}
-        >
+        <div className={cn(frame, 'flex items-center justify-center p-4')}>
           <div className="relative mx-auto h-32 w-32 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-36 sm:w-36 md:h-40 md:w-40">
             <ImageComponent
               alt={`${project.title} preview`}
@@ -63,9 +61,7 @@ export function ProjectHeroMedia({
           </div>
         </div>
       ) : project.image && !imageError ? (
-        <div
-          className={cn(frame, 'flex items-center justify-center p-4 sm:p-5')}
-        >
+        <div className={cn(frame, 'flex items-center justify-center p-4')}>
           <Image
             src={project.image}
             alt={`${project.title} preview`}

@@ -43,7 +43,7 @@ export default function PrivacyPage() {
         showDivider={true}
         showBottomDivider={true}
       >
-        <div className="surface-card mx-auto max-w-3xl p-6 md:p-8">
+        <div className="surface-card p-surface mx-auto max-w-3xl">
           <BodyText className="card-meta mb-6">
             {en.privacyPage.lastUpdatedLabel} {lastUpdatedDate}
           </BodyText>

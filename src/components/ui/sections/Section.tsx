@@ -74,7 +74,7 @@ export default function Section({
       {supportingText && (
         <BodyText
           className={cn(
-            'my-6 italic sm:my-8 md:my-16 lg:my-24',
+            'my-block lg:my-block-lg italic',
             align === 'center' && 'text-center',
             align === 'right' && 'text-right'
           )}
@@ -88,7 +88,7 @@ export default function Section({
           width={dividerWidth}
           align={align}
           color={dividerColor}
-          className="mb-5 sm:mb-8 md:mb-11 lg:mb-13 2xl:mb-16"
+          className="mb-rhythm"
         />
       )}
 
@@ -99,7 +99,7 @@ export default function Section({
           width={dividerWidth}
           align={align}
           color={dividerColor}
-          className="mt-5 sm:mt-8 md:mt-11 lg:mt-13 2xl:mt-16"
+          className="mt-rhythm"
         />
       )}
     </div>

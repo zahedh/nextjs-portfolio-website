@@ -10,10 +10,12 @@ import { motion } from 'motion/react';
 export default function ExperienceSection() {
   return (
     <Section anchor="experience" title={en.sectionHeaders.experience}>
-      <div className="section-content relative mx-auto w-full min-w-0 2xl:w-3/4">
+      <div className="relative mx-auto w-full min-w-0 2xl:w-3/4">
         <div className="timeline-position" />
 
-        <div className="relative space-y-16 py-44 lg:space-y-24 lg:py-64">
+        {/* The padding is what the timeline line overshoots by, since the line
+            is h-full of the parent and the cards sit inside this padding. */}
+        <div className="relative space-y-16 py-16 lg:space-y-24 lg:py-24">
           {jobExperiences.map((job, index) => {
             const isLeft = index % 2 === 0;
             const year = job.startDate.split(' ').pop();

@@ -56,6 +56,29 @@ describe('utils', () => {
       // Then
       expect(result).toBe('text-xl'); // Later class wins
     });
+
+    it('GIVEN a type scale token and a text colour WHEN merging THEN keeps both', () => {
+      // Given - tailwind-merge reads an unregistered text-* token as a colour,
+      // which silently drops the size when a colour follows it
+      const classes = ['text-heading', 'text-neutral-900'];
+
+      // When
+      const result = cn(...classes);
+
+      // Then
+      expect(result).toBe('text-heading text-neutral-900');
+    });
+
+    it('GIVEN two type scale tokens WHEN merging THEN keeps last value', () => {
+      // Given - they must still conflict with each other as font sizes do
+      const classes = ['text-body', 'text-lead'];
+
+      // When
+      const result = cn(...classes);
+
+      // Then
+      expect(result).toBe('text-lead');
+    });
   });
 
   describe('createEscapeHandler', () => {

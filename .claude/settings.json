@@ -1,10 +1,4 @@
 {
-  "allowedMcpServers": [],
-  "permissions": {
-    "deny": [
-      "Bash(git commit *)",
-      "Bash(git push *)",
-      "Bash(git reset --hard *)"
-    ]
-  }
+  "permissions": {},
+  "enabledPlugins": {}
 }

@@ -19,7 +19,7 @@ export default function HeroSection() {
 
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 py-6 sm:flex-row sm:py-10 lg:py-16">
+      <div className="py-block lg:py-block-lg relative flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
         <HeroFloatingOrbs />
 
         <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
@@ -28,11 +28,14 @@ export default function HeroSection() {
             className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"
           />
           <div className="flex flex-col text-center sm:text-left">
+            {/* Display sizes are drawn for the refreshed hero headline, which
+                wraps to three lines. The current one-line greeting sits on the
+                heading rung until that copy lands. */}
             <Heading>
               {en.heroSection.header}
               <WavingHand />
             </Heading>
-            <div className="font-heading mt-6 flex flex-col items-center gap-2 text-center text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left sm:text-xl md:text-2xl dark:text-neutral-200">
+            <div className="font-heading mt-6 flex flex-col items-center gap-2 text-center font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left dark:text-neutral-200">
               <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
               <Heading className="text-brand-600 dark:text-brand-300">
                 <AnimatedText
@@ -42,7 +45,7 @@ export default function HeroSection() {
                 />
               </Heading>
             </div>
-            <BodyText className="mt-4 max-w-xs text-center text-base leading-normal font-medium tracking-tight sm:max-w-lg sm:text-left sm:text-lg md:text-xl">
+            <BodyText className="text-lead mt-4 max-w-xs text-center font-medium tracking-tight sm:max-w-lg sm:text-left">
               <AnimatedText
                 delay={2.4}
                 text={en.heroSection.supportingText}

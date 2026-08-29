@@ -62,7 +62,7 @@ export default function ProjectsSection() {
   const filterButtons = selectedSkillId ? (
     <div className="flex flex-wrap items-center justify-end gap-3">
       <span
-        className="text-brand-600 dark:text-brand-300 font-heading text-sm font-semibold tracking-tight sm:text-base"
+        className="text-brand-600 dark:text-brand-300 font-heading text-meta font-semibold tracking-tight"
         aria-live="polite"
       >
         {selectedSkillLabel}

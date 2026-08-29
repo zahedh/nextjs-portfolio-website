@@ -49,7 +49,7 @@ export default function JobCard({ job }: JobCardProps) {
 
   return (
     <div className="surface-card surface-card-interactive surface-card-flat group relative flex min-h-[400px] w-full flex-col overflow-hidden sm:min-h-[440px]">
-      <div className="flex flex-1 flex-col space-y-6 p-7 sm:p-9">
+      <div className="p-surface flex flex-1 flex-col space-y-6">
         <div className="flex flex-wrap items-center gap-2 self-start">
           <p
             className={cn(
@@ -71,10 +71,10 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
 
         <div className="min-w-0">
-          <h3 className="mb-2 text-xl leading-tight font-semibold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100">
+          <h3 className="text-title mb-2 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
             {job.title}
           </h3>
-          <div className="flex flex-col gap-1.5 text-base text-neutral-600 sm:text-lg dark:text-neutral-400">
+          <div className="text-body-sm flex flex-col gap-1.5 text-neutral-600 dark:text-neutral-400">
             <div className="flex items-center gap-2">
               <Building2 size={18} className="shrink-0 opacity-80" />
               <span className="font-medium text-neutral-800 dark:text-neutral-200">
@@ -100,7 +100,7 @@ export default function JobCard({ job }: JobCardProps) {
               {job.description.map((paragraph, index) => (
                 <p
                   key={index}
-                  className="text-base leading-relaxed text-neutral-600 sm:text-lg dark:text-neutral-400"
+                  className="text-body leading-relaxed text-neutral-600 dark:text-neutral-400"
                 >
                   {paragraph}
                 </p>
@@ -135,7 +135,7 @@ export default function JobCard({ job }: JobCardProps) {
         )}
 
         {showExpandedSkills ? (
-          <div className="flex flex-wrap justify-start gap-2 sm:gap-3">
+          <div className="flex flex-wrap justify-start gap-2">
             {jobSkills.slice(0, JOB_SKILLS_PREVIEW).map((skill) => (
               <SkillTile
                 key={skill.id}

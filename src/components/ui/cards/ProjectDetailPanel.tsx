@@ -112,7 +112,7 @@ export default function ProjectDetailPanel({
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-3xl md:border-2 md:pt-0 dark:bg-neutral-900/95"
+              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-3xl md:border-2 dark:bg-neutral-900/95"
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}
@@ -128,7 +128,7 @@ export default function ProjectDetailPanel({
               <header className="dialog-header">
                 <h2
                   id={titleId}
-                  className="card-title min-w-0 flex-1 text-left text-xl leading-tight font-bold text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-100"
+                  className="card-title text-heading md:text-heading-lg min-w-0 flex-1 text-left font-bold text-neutral-900 dark:text-neutral-100"
                 >
                   <span className="line-clamp-3">{project.title}</span>
                 </h2>
@@ -163,7 +163,7 @@ export default function ProjectDetailPanel({
                         {en.projectDisplay.sectionOverview}
                       </SectionLabel>
                       {overview ? (
-                        <p className="body-text-muted text-base">{overview}</p>
+                        <p className="body-text-muted text-body">{overview}</p>
                       ) : null}
                     </section>
                     {featureLinesForList.length > 0 ? (
@@ -196,7 +196,7 @@ export default function ProjectDetailPanel({
                         {en.projectDisplay.sectionOverview}
                       </SectionLabel>
                       {overview ? (
-                        <p className="body-text-muted max-w-prose text-base">
+                        <p className="body-text-muted text-body max-w-prose">
                           {overview}
                         </p>
                       ) : null}
@@ -218,7 +218,7 @@ export default function ProjectDetailPanel({
                   </div>
                 </div>
 
-                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l md:px-8 md:pt-6 md:pb-10 dark:border-neutral-700/50">
+                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 px-8 pt-6 pb-10 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l dark:border-neutral-700/50">
                   <ProjectHeroMedia project={project} density="compact" />
                   <div>
                     <SectionLabel>

@@ -55,7 +55,7 @@ export default function ProjectCard({
         )}
       </button>
 
-      <div className="space-y-6 p-7 sm:p-9">
+      <div className="p-surface space-y-6">
         <ProjectMetaSummary project={project} variant="ribbon" />
 
         <h3 className="card-title line-clamp-2">{project.title}</h3>

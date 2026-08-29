@@ -7,10 +7,10 @@ import type { ReactNode } from 'react';
 function MetaRow({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-      <span className="text-[10px] font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
+      <span className="text-micro font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
         {label}
       </span>
-      <div className="text-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200">
+      <div className="text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200">
         {value}
       </div>
     </div>
@@ -101,7 +101,7 @@ export function ProjectMetaSummary({
     return (
       <p
         className={cn(
-          'flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-neutral-500 dark:text-neutral-400',
+          'text-caption flex flex-wrap items-center gap-x-2 gap-y-1.5 text-neutral-500 dark:text-neutral-400',
           className
         )}
       >
