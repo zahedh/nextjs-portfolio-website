@@ -19,16 +19,16 @@ export default function AboutSection() {
 
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
-      <div className="section-content mx-auto w-3/4 min-w-0">
-        <div className="flex flex-col gap-10 sm:gap-12 lg:flex-row lg:items-start lg:gap-12">
-          <div className="order-2 flex min-w-0 flex-1 flex-col gap-10 sm:gap-12 lg:order-1 lg:gap-14">
-            <div className="flex flex-col gap-7 text-center sm:gap-8 lg:text-left">
+      <div className="mx-auto w-3/4 min-w-0">
+        <div className="gap-stack flex flex-col lg:flex-row lg:items-start lg:gap-11">
+          <div className="gap-stack order-2 flex min-w-0 flex-1 flex-col lg:order-1">
+            <div className="gap-stack flex flex-col text-center lg:text-left">
               <motion.p
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewMotion}
                 transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="font-heading text-brand-600 dark:text-brand-400 mx-auto max-w-3xl text-3xl font-bold italic sm:text-4xl md:text-4xl lg:mx-0 lg:max-w-none"
+                className="font-heading text-brand-600 dark:text-brand-400 text-heading md:text-heading-lg mx-auto max-w-3xl font-bold italic lg:mx-0 lg:max-w-none"
               >
                 {en.aboutSection.tagline}
               </motion.p>
@@ -39,7 +39,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewMotion}
               transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-              className="mx-auto max-w-3xl space-y-6 text-center text-xl leading-relaxed text-neutral-800 sm:text-2xl lg:mx-0 lg:max-w-none lg:text-left dark:text-neutral-300"
+              className="text-lead mx-auto max-w-3xl space-y-6 text-center text-neutral-800 lg:mx-0 lg:max-w-none lg:text-left dark:text-neutral-300"
             >
               <p>{narrativeFirst}</p>
               <p>{narrativeSecond}</p>
@@ -52,7 +52,7 @@ export default function AboutSection() {
               viewport={viewMotion}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
             >
-              <ul className="font-heading mx-auto flex w-full max-w-2xl flex-col items-center gap-y-4 text-base font-semibold tracking-tight sm:gap-y-4 sm:text-lg lg:mx-0 lg:items-start">
+              <ul className="font-heading text-body mx-auto flex w-full max-w-2xl flex-col items-center gap-y-4 font-semibold tracking-tight lg:mx-0 lg:items-start">
                 {aboutCredentialLines.map((line) => (
                   <li
                     key={line}
@@ -71,7 +71,7 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={viewMotion}
               transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
-              className="text-brand-700 dark:text-brand-400 border-t border-neutral-300/70 pt-10 text-center text-lg leading-relaxed font-normal italic sm:text-xl lg:text-left dark:border-neutral-700"
+              className="text-brand-700 dark:text-brand-400 text-body border-t border-neutral-300/70 pt-10 text-center font-normal italic lg:text-left dark:border-neutral-700"
             >
               {en.aboutSection.closingNote}
             </motion.p>

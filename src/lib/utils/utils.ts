@@ -1,5 +1,35 @@
 import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
+
+/**
+ * The type scale in `theme.css` adds font sizes tailwind-merge cannot infer.
+ * Left unregistered it reads `text-heading` as a colour, so a colour later in
+ * the same string silently drops the size. Every scale token is listed here.
+ */
+const TYPE_SCALE = [
+  'micro',
+  'meta',
+  'caption',
+  'body-sm',
+  'body',
+  'lead',
+  'title-sm',
+  'title',
+  'heading',
+  'heading-lg',
+  'display',
+  'display-lg',
+  'numeral',
+  'numeral-lg',
+];
+
+const twMerge = extendTailwindMerge({
+  extend: {
+    classGroups: {
+      'font-size': [{ text: TYPE_SCALE }],
+    },
+  },
+});
 
 /** Combines and intelligently merges Tailwind class names. */
 export function cn(...inputs: ClassValue[]) {

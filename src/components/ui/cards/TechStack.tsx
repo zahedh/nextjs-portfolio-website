@@ -24,9 +24,7 @@ export function TechStack({
       : '';
 
   return (
-    <div
-      className={cn('flex flex-wrap justify-start gap-2 sm:gap-3', className)}
-    >
+    <div className={cn('flex flex-wrap justify-start gap-2', className)}>
       {capped.map((skill) => (
         <SkillTile
           key={skill.id}

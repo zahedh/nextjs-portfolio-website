@@ -24,12 +24,12 @@
       @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
     }
     & text {
-      @apply fill-neutral-900 dark:fill-neutral-200;
+      @apply text-micro fill-neutral-900 dark:fill-neutral-200;
     }
   }
 
   .footer-container {
-    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 dark:hover:bg-brand-600/20 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
+    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 dark:hover:bg-brand-600/20 p-surface flex w-full flex-col gap-8 overflow-hidden border-x-2 shadow-sm transition-colors duration-150;
   }
 
   .footer-column {
@@ -40,7 +40,7 @@
      ðŸ”— NAVIGATION
      ========================= */
   .nav-link {
-    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 relative inline-block text-base leading-normal font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
+    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-caption relative inline-block font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
 
     &::after {
       content: '';
@@ -70,10 +70,10 @@
     @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
   }
   .meta-row-subtle {
-    @apply text-[11px] leading-relaxed tracking-wide text-neutral-500 sm:text-xs dark:text-neutral-400;
+    @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
   }
   .card-title {
-    @apply mb-2 text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-100;
+    @apply text-title mb-2 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .card-title-link {
     @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
@@ -91,10 +91,10 @@
     @apply text-neutral-600 dark:text-neutral-400;
   }
   .card-footer-note {
-    @apply mt-10 border-t border-neutral-300 pt-6 text-sm text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
+    @apply text-body-sm mt-10 border-t border-neutral-300 pt-6 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
   }
   .card-list {
-    @apply font-body mb-6 list-disc pl-6 text-sm leading-relaxed text-neutral-700 sm:text-base md:text-lg dark:text-neutral-300;
+    @apply font-body text-body mb-6 list-disc pl-6 text-neutral-700 dark:text-neutral-300;
   }
   .link-accent {
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
@@ -102,7 +102,7 @@
 
   /** JobCard date range pill — base + active/current vs inactive/past */
   .job-date-pill {
-    @apply inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold;
+    @apply text-body-sm inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 font-semibold;
   }
   .job-date-pill-inactive {
     @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
@@ -118,14 +118,14 @@
    * 4. Tertiary: TertiaryButton
    */
   .btn-primary {
-    @apply font-heading bg-brand-500 hover:bg-brand-700 inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 text-base leading-normal font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
+    @apply font-heading bg-brand-500 hover:bg-brand-700 text-body inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
   }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
   }
   /** Compact primary - smaller type than default pills; roomier padding than initial sm token */
   .btn-primary-sm {
-    @apply px-4 py-2.5 text-sm leading-snug font-bold;
+    @apply text-body-sm px-4 py-2.5 font-bold;
   }
   .btn-callout-ping-anchor {
     @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
@@ -138,14 +138,14 @@
   }
   .btn-brand-link,
   .brand-link-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 inline-flex items-center justify-center gap-2 rounded-full border text-sm font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
+    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 text-body-sm inline-flex items-center justify-center gap-2 rounded-full border font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
   .btn-card-expand,
   .card-expand-btn {
-    @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-base font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
+    @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 text-body mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
   }
   .brand-pill {
-    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs;
+    @apply text-meta inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold tracking-wide whitespace-nowrap;
   }
   .brand-pill-active {
     @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-neutral-900 shadow-sm dark:text-neutral-200;
@@ -157,10 +157,10 @@
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
   .section-label {
-    @apply font-heading mb-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
+    @apply font-heading text-meta mb-3 font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
   }
   .skill-tile-tooltip {
-    @apply pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
+    @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
   }
   .skill-tile-glow {
     animation: skill-tile-glow-pulse 20s ease-in-out infinite;
@@ -199,16 +199,16 @@
     }
   }
   .more-pill {
-    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
   }
   .body-text-muted {
-    @apply text-sm leading-relaxed text-neutral-600 dark:text-neutral-400;
+    @apply text-body-sm text-neutral-600 dark:text-neutral-400;
   }
   .detail-accordion {
     @apply rounded-xl border border-neutral-200/80 dark:border-neutral-700/60;
   }
   .detail-accordion-trigger {
-    @apply font-heading flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400 [&::-webkit-details-marker]:hidden;
+    @apply font-heading text-body-sm flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400 [&::-webkit-details-marker]:hidden;
   }
   .detail-accordion-body {
     @apply border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60;
@@ -217,7 +217,7 @@
     @apply absolute inset-0 bg-neutral-900/55 backdrop-blur-md dark:bg-black/65;
   }
   .dialog-header {
-    @apply border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5;
+    @apply border-brand-300/55 p-surface flex shrink-0 items-start justify-between gap-4 border-b;
   }
   .hero-btn-area {
     @apply focus-visible:ring-brand-500 relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
@@ -226,10 +226,10 @@
     @apply pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-900/25 to-transparent sm:h-20 dark:from-black/35;
   }
   .hero-hover-label {
-    @apply pointer-events-none absolute right-3 bottom-3 text-sm font-semibold text-white opacity-100 drop-shadow-sm sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4;
+    @apply text-body-sm pointer-events-none absolute right-3 bottom-3 font-semibold text-white opacity-100 drop-shadow-sm sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4;
   }
   .feature-list-item {
-    @apply flex gap-3 text-sm leading-relaxed text-neutral-600 md:text-base dark:text-neutral-400;
+    @apply text-body-sm flex gap-3 text-neutral-600 dark:text-neutral-400;
   }
   .feature-list-bullet {
     @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
@@ -264,13 +264,13 @@
 
   /* Stat card (metric tiles) */
   .stat-card {
-    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 px-5 py-3 shadow-lg backdrop-blur-sm xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-4 dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
+    @apply border-brand-300 p-surface relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
   }
   .stat-card-value {
-    @apply font-heading text-brand-500 dark:text-brand-400 text-3xl font-bold sm:text-3xl md:text-3xl lg:text-3xl xl:text-2xl 2xl:text-3xl;
+    @apply font-heading text-brand-500 dark:text-brand-400 text-numeral lg:text-numeral-lg font-bold;
   }
   .stat-card-label {
-    @apply text-xs font-semibold text-neutral-700 sm:text-xs md:text-xs lg:text-xs xl:text-[10px] 2xl:text-xs dark:text-neutral-300;
+    @apply text-meta font-semibold text-neutral-700 dark:text-neutral-300;
   }
 
   /* Legacy alias - prefer btn-toggle-idle in new markup */

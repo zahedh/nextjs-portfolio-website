@@ -94,10 +94,10 @@ export default function ContributionsCalendar({
             }}
           >
             <div className="contributions-tooltip-box">
-              <div className="text-sm font-semibold whitespace-nowrap">
+              <div className="text-body-sm font-semibold whitespace-nowrap">
                 {getContributionText(tooltip.count)}
               </div>
-              <div className="text-xs whitespace-nowrap opacity-75">
+              <div className="text-caption whitespace-nowrap opacity-75">
                 {formatTooltipDate(tooltip.date)}
               </div>
             </div>

@@ -80,7 +80,7 @@ export default function SkillsSection() {
       rightChildren={doubleClickHint()}
     >
       <motion.div
-        className="section-content mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6"
+        className="mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
