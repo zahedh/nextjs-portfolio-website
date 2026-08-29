@@ -196,6 +196,8 @@ export const en = {
   jobDisplay: {
     statusCurrent: 'Current',
     statusPast: 'Past',
+    showDetails: 'Show details',
+    hideDetails: 'Hide details',
   },
 
   projectDetailPanel: {
