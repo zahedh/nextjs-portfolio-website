@@ -1,52 +1,120 @@
 'use client';
+
 import {
+  CalloutWrapper,
+  PrimaryButton,
   ProjectCard,
   ProjectDetailPanel,
   Section,
-  PrimaryButton,
-  CalloutWrapper,
 } from '@/components';
-import { useGlobalStore } from '@/providers/global-store-provider';
-import { getFilteredProjectsForSection } from '@/lib/project';
-import { skillsData } from '@/data';
-import { Project } from '@/types/project';
-import { en } from '@/language';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-cards';
-import { Pagination, Navigation, EffectCards } from 'swiper/modules';
 import { projects } from '@/data/projects';
-import { useState, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useSwiperActiveSlideResize } from '@/hooks/projectHooks';
-import { useBreakpoint } from '@/hooks/utilityHooks';
+import { skillsData } from '@/data';
+import { en } from '@/language';
+import { getFilteredProjectsForSection } from '@/lib/project';
+import { cn } from '@/lib/utils';
+import { useGlobalStore } from '@/providers/global-store-provider';
+import { Project, ProjectFilter } from '@/types/project';
+import { useMemo, useState } from 'react';
 
-export default function ProjectsSection() {
-  const isLargeScreen = useBreakpoint('lg');
-  const swiperRef = useRef<SwiperType | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [swiperReady, setSwiperReady] = useState(0);
-  const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
-    'All'
+/** Cards drawn before the overflow control, and the larger count the 2xl grid fits. */
+const INITIAL_PROJECT_COUNT = 4;
+const WIDE_PROJECT_COUNT = 7;
+
+interface ProjectGridProps {
+  projects: Project[];
+  onOpenFullDetails: (project: Project) => void;
+}
+
+/** Presents the filtered projects as one feature card followed by compact cards. */
+function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
+  const [showAll, setShowAll] = useState(false);
+  const [featureProject, ...compactProjects] = projects.slice(
+    0,
+    WIDE_PROJECT_COUNT
   );
+  const overflowProjects = showAll ? projects.slice(WIDE_PROJECT_COUNT) : [];
+  const hasOverflow = projects.length > INITIAL_PROJECT_COUNT;
+
+  if (!featureProject) {
+    return (
+      <p className="projects-empty">{en.projectCard.noProjectsInCategory}</p>
+    );
+  }
+
+  return (
+    <>
+      <div
+        className={cn(
+          'projects-grid',
+          compactProjects.length === 0 && 'projects-grid-single'
+        )}
+      >
+        <ProjectCard
+          project={featureProject}
+          variant="feature"
+          onOpenFullDetails={onOpenFullDetails}
+        />
+        {compactProjects.length > 0 ? (
+          <div className="projects-compact-list">
+            {compactProjects.map((project, index) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                variant="compact"
+                onOpenFullDetails={onOpenFullDetails}
+                className={cn(
+                  !showAll &&
+                    index >= INITIAL_PROJECT_COUNT - 1 &&
+                    'project-card-compact-wide-only'
+                )}
+              />
+            ))}
+          </div>
+        ) : null}
+      </div>
+      {overflowProjects.length > 0 ? (
+        <div className="projects-overflow-grid">
+          {overflowProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              variant="compact"
+              onOpenFullDetails={onOpenFullDetails}
+            />
+          ))}
+        </div>
+      ) : null}
+      {hasOverflow ? (
+        <button
+          type="button"
+          className={cn(
+            'projects-see-all',
+            projects.length <= WIDE_PROJECT_COUNT && !showAll && '2xl:hidden'
+          )}
+          aria-expanded={showAll}
+          onClick={() => setShowAll((expanded) => !expanded)}
+        >
+          {showAll
+            ? en.projectCard.showFewerProjects
+            : en.projectCard.seeAllProjects.replace(
+                '{{count}}',
+                String(projects.length)
+              )}
+        </button>
+      ) : null}
+    </>
+  );
+}
+
+/** Filterable projects section with an in-place detail panel. */
+export default function ProjectsSection() {
+  const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [panelProject, setPanelProject] = useState<Project | null>(null);
   const [panelOpen, setPanelOpen] = useState(false);
   const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
   const setSelectedSkillId = useGlobalStore(
     (state) => state.setSelectedSkillId
   );
-
-  useSwiperActiveSlideResize({
-    isLargeScreen,
-    swiperRef,
-    activeIndex,
-    selectedType,
-    selectedSkillId,
-    swiperReady,
-  });
 
   const filteredProjects = useMemo(
     () =>
@@ -97,20 +165,18 @@ export default function ProjectsSection() {
       >
         {en.projectFilters.mobile}
       </PrimaryButton>
+      <PrimaryButton
+        onClick={() => setSelectedType('AI')}
+        className={selectedType !== 'AI' ? 'btn-toggle-idle' : ''}
+      >
+        {en.projectFilters.ai}
+      </PrimaryButton>
     </>
   );
 
   const handleOpenFullDetails = (project: Project) => {
     setPanelProject(project);
     setPanelOpen(true);
-  };
-
-  const handleClosePanel = () => {
-    setPanelOpen(false);
-  };
-
-  const handlePanelExitComplete = () => {
-    setPanelProject(null);
   };
 
   return (
@@ -122,77 +188,14 @@ export default function ProjectsSection() {
       <ProjectDetailPanel
         project={panelProject}
         open={panelOpen}
-        onClose={handleClosePanel}
-        onExitComplete={handlePanelExitComplete}
+        onClose={() => setPanelOpen(false)}
+        onExitComplete={() => setPanelProject(null)}
       />
-      <motion.div
-        className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${selectedType}-${selectedSkillId ?? 'all'}`}
-            initial={{ opacity: 0, scale: 0.98, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -8 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="w-full"
-          >
-            <Swiper
-              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}-${selectedSkillId ?? 'all'}`}
-              className="projects-section-swiper w-full"
-              spaceBetween={50}
-              pagination={{
-                type: 'bullets',
-                clickable: true,
-                dynamicBullets: true,
-              }}
-              modules={
-                isLargeScreen
-                  ? [Pagination, Navigation, EffectCards]
-                  : [Pagination, Navigation]
-              }
-              effect={isLargeScreen ? 'cards' : 'slide'}
-              cardsEffect={
-                isLargeScreen
-                  ? {
-                      slideShadows: false,
-                      perSlideOffset: 8,
-                      perSlideRotate: 2,
-                    }
-                  : undefined
-              }
-              navigation={true}
-              slidesPerView={1}
-              autoHeight={!isLargeScreen}
-              onSwiper={(swiper) => {
-                swiperRef.current = swiper;
-                setActiveIndex(swiper.activeIndex);
-                setSwiperReady((count) => count + 1);
-              }}
-              onSlideChangeTransitionEnd={(swiper) => {
-                setActiveIndex(swiper.activeIndex);
-              }}
-            >
-              {filteredProjects.map((project, index) => (
-                <SwiperSlide
-                  key={project.id}
-                  className="mb-16 flex items-center justify-center"
-                >
-                  <ProjectCard
-                    project={project}
-                    imagePriority={index === activeIndex}
-                    onOpenFullDetails={handleOpenFullDetails}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+      <ProjectGrid
+        key={`${selectedType}-${selectedSkillId ?? 'all'}`}
+        projects={filteredProjects}
+        onOpenFullDetails={handleOpenFullDetails}
+      />
     </Section>
   );
 }

@@ -163,6 +163,7 @@ export const en = {
     all: 'All',
     mobile: 'Mobile',
     web: 'Web',
+    ai: 'AI',
     clearSkillFilter: 'All skills',
     clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
   },
@@ -171,6 +172,9 @@ export const en = {
     fullCaseStudy: 'Full Story',
     viewProject: 'View project',
     viewProjectArrow: '→',
+    seeAllProjects: 'See all {{count}} projects',
+    showFewerProjects: 'Show fewer',
+    noProjectsInCategory: 'Nothing to show here yet.',
   },
 
   projectDisplay: {

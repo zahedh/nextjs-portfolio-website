@@ -1,83 +1,87 @@
 'use client';
 
-import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
-import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
-import { TechStack } from '@/components/ui/cards/TechStack';
-import { skillsData } from '@/data/skills';
-import { Project } from '@/types/project';
 import { en } from '@/language';
-import { getProjectExcerptLine } from '@/lib/ui-logic';
-import { cn, getSkillsByIds } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import { SecondaryButton } from '../buttons';
+import { getProjectExcerptLine, isProjectActive } from '@/lib/ui-logic';
+import { cn } from '@/lib/utils';
+import { Project } from '@/types/project';
+
+const PROJECT_COVER_CLASSES = [
+  'project-cover-amber',
+  'project-cover-violet',
+  'project-cover-blue',
+  'project-cover-brown',
+];
 
 interface ProjectCardProps {
   project: Project;
-  imagePriority?: boolean;
+  variant: 'feature' | 'compact';
   onOpenFullDetails: (project: Project) => void;
+  className?: string;
 }
 
-/** Carousel card summarising a single project. */
+/** Opens a project detail panel from either a feature or compact card. */
 export default function ProjectCard({
   project,
-  imagePriority = false,
+  variant,
   onOpenFullDetails,
+  className,
 }: ProjectCardProps) {
-  const [mounted, setMounted] = useState(false);
-  const projectSkills = getSkillsByIds(project.skills, skillsData);
   const excerpt = getProjectExcerptLine(project);
 
-  useEffect(() => setMounted(true), []);
-
-  return (
-    <div
-      className={cn(
-        'project-card surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-xl overflow-hidden'
-      )}
-    >
+  if (variant === 'compact') {
+    return (
       <button
         type="button"
+        className={cn('project-card-compact', className)}
         onClick={() => onOpenFullDetails(project)}
-        className="hero-btn-area group/hero"
         aria-label={`${en.projectCard.viewProject}: ${project.title}`}
       >
-        <ProjectHeroMedia
-          project={project}
-          imagePriority={imagePriority}
-          className="rounded-none border-0 shadow-none"
-          frameClassName="h-40 sm:h-44 md:h-48"
-        />
-        <div className="hero-fade-overlay" aria-hidden />
-        {mounted && (
-          <span className="hero-hover-label">
-            {en.projectCard.viewProject} {en.projectCard.viewProjectArrow}
-          </span>
-        )}
-      </button>
-
-      <div className="p-surface space-y-6">
-        <ProjectMetaSummary project={project} variant="ribbon" />
-
-        <h3 className="card-title line-clamp-2">{project.title}</h3>
-
-        {excerpt ? (
-          <p className="body-text-muted line-clamp-2">{excerpt}</p>
-        ) : null}
-
-        <TechStack
-          skills={projectSkills}
-          maxIcons={5}
-          onMoreClick={() => onOpenFullDetails(project)}
-        />
-
-        <SecondaryButton
-          type="button"
-          onClick={() => onOpenFullDetails(project)}
-          className="card-expand-btn"
+        <span
+          className="project-card-compact-title"
+          role="heading"
+          aria-level={3}
         >
-          {en.projectCard.fullCaseStudy}
-        </SecondaryButton>
-      </div>
-    </div>
+          {project.title}
+        </span>
+        {excerpt ? (
+          <p className="project-card-compact-excerpt">{excerpt}</p>
+        ) : null}
+      </button>
+    );
+  }
+
+  const coverClassName =
+    PROJECT_COVER_CLASSES[
+      project.id.charCodeAt(project.id.length - 1) %
+        PROJECT_COVER_CLASSES.length
+    ];
+  const status = isProjectActive(project)
+    ? en.projectDisplay.statusActive
+    : en.projectDisplay.statusCompleted;
+
+  return (
+    <button
+      type="button"
+      className="project-card-feature"
+      onClick={() => onOpenFullDetails(project)}
+      aria-label={`${en.projectCard.viewProject}: ${project.title}`}
+    >
+      <span className={cn('project-card-cover', coverClassName)} aria-hidden />
+      <span className="project-card-feature-body">
+        <span className="project-card-feature-meta">
+          {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}
+        </span>
+        <span
+          className="project-card-feature-title"
+          role="heading"
+          aria-level={3}
+        >
+          {project.title}
+        </span>
+        {excerpt ? (
+          <span className="project-card-feature-excerpt">{excerpt}</span>
+        ) : null}
+      </span>
+    </button>
   );
 }

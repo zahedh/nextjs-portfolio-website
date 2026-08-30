@@ -68,6 +68,56 @@
   --spacing-block-lg: 2.5rem;
   --spacing-stack: 1.5rem;
   --spacing-page-end: 1.5rem;
+
+  /* Project covers */
+  --project-cover-amber:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      152deg,
+      #d2912f 0%,
+      #f0d0a2 62%,
+      var(--color-neutral-50) 100%
+    );
+  --project-cover-violet:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      145deg,
+      #8e70aa 0%,
+      #ddd0ea 62%,
+      var(--color-neutral-50) 100%
+    );
+  --project-cover-blue:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      145deg,
+      #5b90ac 0%,
+      #cee2ec 62%,
+      var(--color-neutral-50) 100%
+    );
+  --project-cover-brown:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.45) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      145deg,
+      #9a7a54 0%,
+      #e2d3bf 62%,
+      var(--color-neutral-50) 100%
+    );
 }
 
 /* =========================
@@ -84,6 +134,54 @@
   --color-brand-700: #6d4713;
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
+  --project-cover-amber:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      152deg,
+      #7a4c18 0%,
+      #3a2a1a 62%,
+      var(--color-neutral-800) 100%
+    );
+  --project-cover-violet:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      140deg,
+      #4d3960 0%,
+      #2c2533 62%,
+      var(--color-neutral-800) 100%
+    );
+  --project-cover-blue:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      140deg,
+      #255064 0%,
+      #1f2c33 62%,
+      var(--color-neutral-800) 100%
+    );
+  --project-cover-brown:
+    radial-gradient(
+      88% 120% at 16% 8%,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0) 58%
+    ),
+    linear-gradient(
+      140deg,
+      #5d4a2e 0%,
+      #2d251d 62%,
+      var(--color-neutral-800) 100%
+    );
 }
 
 /* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */
