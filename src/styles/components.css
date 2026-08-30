@@ -261,6 +261,21 @@
   .skill-tile-tooltip {
     @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
   }
+  .skills-groups {
+    @apply flex w-full max-w-[900px] flex-col;
+  }
+  .skills-group {
+    @apply grid grid-cols-1 gap-3 border-t border-neutral-300 py-4 md:grid-cols-[150px_minmax(0,1fr)] md:items-center md:gap-6 dark:border-neutral-700;
+  }
+  .skills-group:last-child {
+    @apply border-b;
+  }
+  .skills-group-label {
+    @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .skills-group-tiles {
+    @apply flex min-w-0 flex-wrap gap-3;
+  }
   .skill-tile-glow {
     animation: skill-tile-glow-pulse 20s ease-in-out infinite;
   }

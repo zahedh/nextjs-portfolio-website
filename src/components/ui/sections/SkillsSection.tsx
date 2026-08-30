@@ -13,6 +13,8 @@ import {
   getSkillsCollageContainerVariants,
   getSkillsCollageGridViewport,
   getSkillsCollageItemVariants,
+  groupSkills,
+  skillGroupOrder,
 } from '@/lib/ui-logic';
 
 /** Animated collage of skills and tools. */
@@ -34,6 +36,7 @@ export default function SkillsSection() {
     getSkillsCollageContainerVariants(prefersReducedMotion);
   const itemVariants = getSkillsCollageItemVariants(prefersReducedMotion);
   const gridViewport = getSkillsCollageGridViewport();
+  const skillGroups = groupSkills(skillsData);
 
   const doubleClickHint = () => {
     return (
@@ -79,27 +82,36 @@ export default function SkillsSection() {
       title={en.sectionHeaders.skillsCollage}
       rightChildren={doubleClickHint()}
     >
-      <motion.div
-        className="mx-auto flex w-3/4 min-w-0 flex-wrap items-center justify-center gap-6"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={gridViewport}
-      >
-        {skillsData.map((skill) => (
-          <motion.div
-            key={skill.id}
-            className="relative hover:z-[100]"
-            variants={itemVariants}
-          >
-            <SkillTile
-              icon={skill.icon}
-              label={skill.label}
-              onClick={() => handleSkillClick(skill.id)}
-            />
-          </motion.div>
+      <div className="skills-groups">
+        {skillGroupOrder.map((group) => (
+          <div className="skills-group" key={group}>
+            <h3 className="skills-group-label">
+              {en.skillsSection.groups[group]}
+            </h3>
+            <motion.div
+              className="skills-group-tiles"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={gridViewport}
+            >
+              {skillGroups[group].map((skill) => (
+                <motion.div
+                  key={skill.id}
+                  className="relative hover:z-[100]"
+                  variants={itemVariants}
+                >
+                  <SkillTile
+                    icon={skill.icon}
+                    label={skill.label}
+                    onClick={() => handleSkillClick(skill.id)}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
     </Section>
   );
 }
