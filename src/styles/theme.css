@@ -3,15 +3,17 @@
    ========================= */
 @theme {
   /* Neutral scale */
-  --color-neutral-100: #f2f2f2;
-  --color-neutral-200: #d9d9d9;
-  --color-neutral-300: #bfbfbf;
-  --color-neutral-400: #a6a6a6;
-  --color-neutral-500: #8c8c8c;
-  --color-neutral-600: #737373;
-  --color-neutral-700: #595959;
-  --color-neutral-800: #404040;
-  --color-neutral-900: #262626;
+  --color-neutral-50: #f7f6f3;
+  --color-neutral-100: #efece6;
+  --color-neutral-200: #e5e1d9;
+  --color-neutral-300: #c7c4bc;
+  --color-neutral-400: #aaa69f;
+  --color-neutral-500: #8c8982;
+  --color-neutral-600: #6e6b65;
+  --color-neutral-700: #52504d;
+  --color-neutral-800: #353635;
+  --color-neutral-900: #191b1d;
+  --color-neutral-950: #101214;
 
   /* Brand scale (Light Mode) */
   --color-brand-100: #fbf4e9;
@@ -70,54 +72,15 @@
   --spacing-page-end: 1.5rem;
 
   /* Project covers */
-  --project-cover-amber:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      152deg,
-      #d2912f 0%,
-      #f0d0a2 62%,
-      var(--color-neutral-50) 100%
-    );
-  --project-cover-violet:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      145deg,
-      #8e70aa 0%,
-      #ddd0ea 62%,
-      var(--color-neutral-50) 100%
-    );
-  --project-cover-blue:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      145deg,
-      #5b90ac 0%,
-      #cee2ec 62%,
-      var(--color-neutral-50) 100%
-    );
-  --project-cover-brown:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      145deg,
-      #9a7a54 0%,
-      #e2d3bf 62%,
-      var(--color-neutral-50) 100%
-    );
+  --project-cover-amber: linear-gradient(
+    152deg,
+    #e7c893 0%,
+    #efe0cb 58%,
+    #f4efe6 100%
+  );
+  --project-cover-violet: linear-gradient(140deg, #f0eaf0 0%, #f7f6f3 70%);
+  --project-cover-blue: linear-gradient(140deg, #e8f0f2 0%, #f7f6f3 70%);
+  --project-cover-brown: linear-gradient(140deg, #f4ebe2 0%, #f7f6f3 70%);
 }
 
 /* =========================
@@ -125,6 +88,18 @@
    ========================= */
 @custom-variant dark (&:where(.dark, .dark *));
 .dark {
+  --color-neutral-50: #f8f8f7;
+  --color-neutral-100: #f0f0ef;
+  --color-neutral-200: #d3d4d4;
+  --color-neutral-300: #b7b9ba;
+  --color-neutral-400: #9a9d9f;
+  --color-neutral-500: #787b7e;
+  --color-neutral-600: #565a5e;
+  --color-neutral-700: #34383d;
+  --color-neutral-800: #24272b;
+  --color-neutral-900: #16181b;
+  --color-neutral-950: #0d0f11;
+
   --color-brand-100: #d98d26;
   --color-brand-200: #cc8524;
   --color-brand-300: #bb7a21;
@@ -134,54 +109,15 @@
   --color-brand-700: #6d4713;
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
-  --project-cover-amber:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      152deg,
-      #7a4c18 0%,
-      #3a2a1a 62%,
-      var(--color-neutral-800) 100%
-    );
-  --project-cover-violet:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      140deg,
-      #4d3960 0%,
-      #2c2533 62%,
-      var(--color-neutral-800) 100%
-    );
-  --project-cover-blue:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      140deg,
-      #255064 0%,
-      #1f2c33 62%,
-      var(--color-neutral-800) 100%
-    );
-  --project-cover-brown:
-    radial-gradient(
-      88% 120% at 16% 8%,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0) 58%
-    ),
-    linear-gradient(
-      140deg,
-      #5d4a2e 0%,
-      #2d251d 62%,
-      var(--color-neutral-800) 100%
-    );
+  --project-cover-amber: linear-gradient(
+    152deg,
+    #4a3117 0%,
+    #241d1a 58%,
+    #1f2226 100%
+  );
+  --project-cover-violet: linear-gradient(140deg, #262129 0%, #1f2226 70%);
+  --project-cover-blue: linear-gradient(140deg, #1e2529 0%, #1f2226 70%);
+  --project-cover-brown: linear-gradient(140deg, #29231c 0%, #1f2226 70%);
 }
 
 /* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */
