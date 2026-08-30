@@ -108,13 +108,13 @@
     @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
   }
   .projects-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_300px] 2xl:max-w-[1220px] 2xl:grid-cols-[minmax(0,1fr)_620px];
+    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_300px] xl:max-w-[1220px] xl:grid-cols-[minmax(0,1fr)_620px];
   }
   .projects-grid-single {
     @apply lg:grid-cols-1;
   }
   .projects-compact-list {
-    @apply flex min-w-0 flex-col gap-2.5 2xl:grid 2xl:grid-cols-2 2xl:content-start;
+    @apply flex min-w-0 flex-col gap-2.5 xl:grid xl:grid-cols-2 xl:content-start;
   }
   .project-card-feature {
     @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
@@ -154,13 +154,13 @@
   }
   /* Declared after .project-card-compact so its display wins on source order. */
   .project-card-compact-wide-only {
-    @apply hidden 2xl:flex;
+    @apply hidden xl:flex;
   }
   .project-card-compact-excerpt {
     @apply text-body-sm truncate text-neutral-600 dark:text-neutral-300;
   }
   .projects-overflow-grid {
-    @apply mt-2.5 grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 2xl:max-w-[1220px] 2xl:grid-cols-4;
+    @apply mt-2.5 grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-[1220px] xl:grid-cols-4;
   }
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;

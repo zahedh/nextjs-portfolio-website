@@ -89,7 +89,7 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
           type="button"
           className={cn(
             'projects-see-all',
-            projects.length <= WIDE_PROJECT_COUNT && !showAll && '2xl:hidden'
+            projects.length <= WIDE_PROJECT_COUNT && !showAll && 'xl:hidden'
           )}
           aria-expanded={showAll}
           onClick={() => setShowAll((expanded) => !expanded)}
