@@ -136,19 +136,18 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: 'Zahed Heidari - Senior Software Engineer',
-    catchPhraseSubheader:
-      'Blending design, development, and AI into cohesive systems.',
-    catchPhraseSupportingTextPart1: 'Building something ambitious? ',
-    catchPhraseSupportingTextPart2: "Let's build it properly.",
-    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
+    heading: 'Building something ambitious?',
+    supportingText:
+      "I blend design, development and AI into systems that hold together. If that's the kind of problem you have, I'd like to hear about it.",
+    emailLabel: 'Email me',
+    downloadCVLabel: 'Download CV',
+    socialLinksAriaLabel: 'Social profiles',
+    linkedInLabel: 'LinkedIn',
+    gitHubLabel: 'GitHub',
+    sessionizeLabel: 'Sessionize',
+    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari`,
     privacyLinkLabel: 'Privacy',
     email: 'zahed.heidari2@gmail.com',
-    ariaDownloadCV: 'Download CV',
-    ariaSendEmail: 'Send email to Zahed',
-    ariaLinkedIn: 'LinkedIn profile',
-    ariaGitHub: 'GitHub profile',
-    ariaSessionize: 'Sessionize profile',
   },
 
   themeToggle: 'Toggle light or dark mode',
