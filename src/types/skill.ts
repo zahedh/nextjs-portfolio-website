@@ -24,3 +24,10 @@ export type SkillCategory =
   | 'ai'
   | 'os'
   | 'methodologies';
+
+export type SkillGroup =
+  | 'languages'
+  | 'frameworks'
+  | 'design'
+  | 'aiTooling'
+  | 'toolingAndPractice';

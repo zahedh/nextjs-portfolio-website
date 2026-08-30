@@ -43,6 +43,13 @@ export const en = {
 
   skillsSection: {
     doubleClickHint: 'Double Click To View Projects!',
+    groups: {
+      languages: 'Languages',
+      frameworks: 'Frameworks',
+      design: 'Design',
+      aiTooling: 'AI tooling',
+      toolingAndPractice: 'Tooling and practice',
+    },
   },
 
   skillsCollageSection: {
