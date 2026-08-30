@@ -1,6 +1,10 @@
+export type ProjectFilter = 'All' | 'Web' | 'Mobile' | 'AI';
+
 export interface Project {
   id: string;
   projectType: 'Mobile' | 'Web';
+  /** Marks work whose substance is AI, whatever platform it ships on. */
+  isAiProject?: boolean;
   title: string;
   company: string;
   startDate: string;

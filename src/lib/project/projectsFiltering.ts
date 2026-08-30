@@ -1,13 +1,13 @@
-import { Project } from '@/types/project';
+import { Project, ProjectFilter } from '@/types/project';
 import { isProjectActive } from '@/lib/ui-logic';
 import { projectMatchesSkill } from '@/lib/project/projectSkills';
 
 /**
- * Projects for the carousel: optional skill filter, type filter, then active-first sort.
+ * Projects for the section: optional skill filter, type filter, then active-first sort.
  */
 export function getFilteredProjectsForSection(
   allProjects: Project[],
-  selectedType: 'All' | 'Web' | 'Mobile',
+  selectedType: ProjectFilter,
   selectedSkillId: string | null
 ): Project[] {
   let list: Project[];
@@ -17,6 +17,8 @@ export function getFilteredProjectsForSection(
     );
   } else if (selectedType === 'All') {
     list = [...allProjects];
+  } else if (selectedType === 'AI') {
+    list = allProjects.filter((project) => project.isAiProject);
   } else {
     list = allProjects.filter(
       (project) => project.projectType === selectedType
