@@ -295,6 +295,10 @@
     @apply text-body-sm px-4 py-2.5 font-bold;
   }
   /* The closing band sits one step off the page ground, as the artboards draw it. */
+  /* Alternating ground: a band is one step deeper than the page behind it. */
+  .section-band {
+    @apply pt-section-end bg-neutral-200 dark:bg-neutral-950;
+  }
   .footer {
     @apply mt-rhythm w-full bg-neutral-200 py-10 dark:bg-neutral-950;
   }

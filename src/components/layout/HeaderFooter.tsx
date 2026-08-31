@@ -10,7 +10,7 @@ export default function HeaderFooter({
   return (
     <div className="pb-page-end flex min-h-screen flex-col">
       <Header />
-      <main className="prime-parent flex-grow">{children}</main>
+      <main className="w-full flex-grow">{children}</main>
       <Footer />
     </div>
   );

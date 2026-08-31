@@ -150,6 +150,7 @@ export default function ProjectsSection() {
   return (
     <Section
       anchor="projects"
+      banded
       title={en.sectionHeaders.projects}
       rightChildren={filterButtons}
     >

@@ -53,6 +53,7 @@ export default function ContributionsSection() {
   return (
     <Section
       anchor="contributions"
+      banded
       title={en.sectionHeaders.contributionsSection}
       rightChildren={filterButtons}
     >

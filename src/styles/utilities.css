@@ -12,8 +12,14 @@
   }
 
   .screen-section {
-    @apply pb-section-end flex w-full flex-col items-start justify-center gap-4;
+    @apply pb-section-end w-full;
     /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
     scroll-margin-top: 5rem;
+  }
+  /* Carries the page measure now that the section itself spans the viewport.
+     Repeats .prime-parent's utilities rather than applying it: a class declared
+     in @layer utilities is plain CSS and Tailwind cannot @apply it. */
+  .section-inner {
+    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col items-start justify-center gap-4;
   }
 }
