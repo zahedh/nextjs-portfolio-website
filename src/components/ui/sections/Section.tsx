@@ -40,7 +40,7 @@ export default function Section({
   return (
     <div id={anchor} className={cn('screen-section', className)}>
       {title && (
-        <div className="mb-2 flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="mb-heading-gap flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <Heading
             as={titleAs}
             className={cn(

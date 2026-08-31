@@ -77,7 +77,7 @@ export default function ContributionsSection() {
           </motion.div>
         ) : activities.length > 0 ? (
           <motion.div
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0 flex items-start justify-center"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.1 }}
