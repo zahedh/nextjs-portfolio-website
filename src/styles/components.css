@@ -6,10 +6,10 @@
     @apply flex w-full max-w-[900px] flex-col gap-[14px] xl:max-w-none;
   }
   .experience-rail-row {
-    @apply grid grid-cols-[66px_minmax(0,1fr)] items-stretch xl:grid-cols-[66px_minmax(0,900px)_minmax(0,1fr)] xl:items-start xl:gap-x-6;
+    @apply grid grid-cols-[66px_minmax(0,1fr)] items-stretch xl:grid-cols-[66px_minmax(0,6fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
   }
   .experience-stack {
-    @apply hidden xl:flex xl:max-w-[260px] xl:flex-col xl:pt-5;
+    @apply hidden xl:flex xl:flex-col xl:pt-5;
   }
   .experience-stack-label {
     @apply text-caption mb-2.5 font-mono text-neutral-500 dark:text-neutral-400;

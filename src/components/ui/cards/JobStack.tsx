@@ -14,7 +14,7 @@ export function JobStack({ skillIds }: { skillIds: string[] }) {
   return (
     <div className="experience-stack">
       <span className="experience-stack-label">{en.jobDisplay.stackLabel}</span>
-      <TechStack skills={getSkillsByIds(skillIds, skillsData)} maxIcons={8} />
+      <TechStack skills={getSkillsByIds(skillIds, skillsData)} maxIcons={12} />
     </div>
   );
 }
