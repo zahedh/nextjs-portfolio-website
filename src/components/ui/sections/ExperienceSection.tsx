@@ -1,5 +1,5 @@
 import { Section } from '@/components';
-import { JobCard } from '@/components/ui/cards';
+import { JobCard, JobStack } from '@/components/ui/cards';
 import { isJobActive, jobExperiences } from '@/data';
 import { en } from '@/language';
 
@@ -20,6 +20,7 @@ export default function ExperienceSection() {
               {job.startDate.split(' ').pop()}
             </div>
             <JobCard job={job} />
+            <JobStack skillIds={job.skills} />
           </div>
         ))}
       </div>

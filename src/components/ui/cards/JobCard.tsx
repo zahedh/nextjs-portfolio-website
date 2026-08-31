@@ -81,7 +81,7 @@ export default function JobCard({ job }: JobCardProps) {
               </p>
             ))}
           </div>
-          <TechStack skills={jobSkills} />
+          <TechStack skills={jobSkills} className="xl:hidden" />
         </div>
       </div>
     </article>
