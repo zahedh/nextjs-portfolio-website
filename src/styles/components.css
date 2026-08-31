@@ -6,24 +6,24 @@
     @apply flex w-full max-w-[900px] flex-col gap-9 xl:max-w-none;
   }
   .experience-group {
-    @apply flex flex-col gap-3;
+    @apply relative flex flex-col gap-2.5;
   }
   .experience-group-header {
     @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] xl:pl-[128px];
   }
   .experience-group-company {
-    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-group-meta {
     @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
   }
   /* The spine: one line down the year column, broken by a dot per role. */
   .experience-group-roles {
-    @apply relative flex flex-col gap-[14px];
+    @apply flex flex-col gap-5;
   }
-  .experience-group-roles::before {
+  .experience-group::before {
     content: '';
-    @apply absolute top-3 bottom-3 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
+    @apply absolute top-2 bottom-3 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
     @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
