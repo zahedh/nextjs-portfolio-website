@@ -12,7 +12,7 @@
   }
 
   .screen-section {
-    @apply pb-block lg:pb-block-lg flex w-full flex-col items-start justify-center gap-4;
+    @apply pb-section-end flex w-full flex-col items-start justify-center gap-4;
     /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
     scroll-margin-top: 5rem;
   }
