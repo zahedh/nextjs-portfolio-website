@@ -9,7 +9,7 @@
     @apply flex flex-col gap-3;
   }
   .experience-group-header {
-    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[84px] xl:pl-[116px];
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] xl:pl-[128px];
   }
   .experience-group-company {
     @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
@@ -23,32 +23,72 @@
   }
   .experience-group-roles::before {
     content: '';
-    @apply absolute top-3 bottom-3 left-[5px] w-px bg-neutral-300 dark:bg-neutral-700;
+    @apply absolute top-3 bottom-3 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
-    @apply grid grid-cols-[84px_minmax(0,1fr)] items-stretch xl:grid-cols-[84px_minmax(0,6fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
+    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
   }
   .experience-stack {
     @apply hidden xl:flex xl:flex-col xl:pt-5;
+  }
+  /* Matches .experience-details so the stack and the card open at one pace. */
+  .experience-stack-reveal {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+  }
+  /*
+   * Tiles past the tenth mount when a role opens, so they arrive on their own
+   * rather than being uncovered by the height change alone. Banded delays give
+   * the run a direction without a rule per tile.
+   */
+  .experience-stack-tiles > *:nth-child(n + 11) {
+    animation: stack-tile-in 260ms ease-out both;
+  }
+  .experience-stack-tiles > *:nth-child(n + 15) {
+    animation-delay: 60ms;
+  }
+  .experience-stack-tiles > *:nth-child(n + 19) {
+    animation-delay: 120ms;
+  }
+  .experience-stack-tiles > *:nth-child(n + 23) {
+    animation-delay: 180ms;
+  }
+  @keyframes stack-tile-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .experience-stack-tiles > *:nth-child(n + 11) {
+      animation: none;
+    }
   }
   .experience-stack-label {
     @apply text-caption mb-2.5 font-mono text-neutral-500 dark:text-neutral-400;
   }
   .experience-year {
-    @apply text-caption relative pt-5 pl-[22px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
+    @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
   }
   .experience-year-active {
-    @apply text-brand-600 dark:text-brand-400;
+    @apply text-brand-600 text-title-sm dark:text-brand-400 font-medium;
   }
   .experience-duration {
     @apply text-micro mt-0.5 block font-mono text-neutral-400 dark:text-neutral-500;
   }
+  /* Declared after .experience-duration so the current role's size wins on source order. */
+  .experience-duration-active {
+    @apply text-caption mt-1;
+  }
   .experience-dot {
-    @apply absolute top-[22px] left-0 size-[11px] rounded-full border-2 border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900;
+    @apply absolute top-[25px] left-[2px] size-[11px] rounded-full border-2 border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900;
   }
   /* Declared after .experience-dot so the current role's colours win on source order. */
   .experience-dot-active {
-    @apply border-brand-500 bg-brand-500 dark:border-brand-400 dark:bg-brand-400;
+    @apply border-brand-500 bg-brand-500 ring-brand-500/25 dark:border-brand-400 dark:bg-brand-400 dark:ring-brand-400/25 top-[23px] left-0 size-[15px] ring-4;
   }
   .experience-card {
     @apply p-surface flex min-w-0 flex-col gap-[7px] border-l-2 bg-neutral-50 dark:bg-neutral-800;

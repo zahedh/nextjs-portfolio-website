@@ -26,7 +26,12 @@ export default function ExperienceRow({ job }: { job: JobExperience }) {
           className={cn('experience-dot', active && 'experience-dot-active')}
         />
         {startYear(job.startDate)}
-        <span className="experience-duration">
+        <span
+          className={cn(
+            'experience-duration',
+            active && 'experience-duration-active'
+          )}
+        >
           {formatRoleDuration(job.startDate, job.endDate)}
         </span>
       </div>

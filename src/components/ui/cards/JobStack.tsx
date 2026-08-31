@@ -1,5 +1,6 @@
 'use client';
 
+import { useLayoutEffect, useRef, useState } from 'react';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
@@ -17,13 +18,38 @@ export function JobStack({
   skillIds: string[];
   expanded?: boolean;
 }) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number>();
+
+  // Measured after each change so the reveal animates to a real height rather
+  // than a guessed one, which is what lets the tiles keep their own wrapping.
+  useLayoutEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const measure = () => setContentHeight(content.scrollHeight);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, [expanded, skillIds]);
+
   return (
     <div className="experience-stack">
       <span className="experience-stack-label">{en.jobDisplay.stackLabel}</span>
-      <TechStack
-        skills={getSkillsByIds(skillIds, skillsData)}
-        maxIcons={expanded ? undefined : 12}
-      />
+      <div
+        className="experience-stack-reveal"
+        style={{ maxHeight: contentHeight ? `${contentHeight}px` : undefined }}
+      >
+        <div ref={contentRef}>
+          <TechStack
+            className="experience-stack-tiles"
+            skills={getSkillsByIds(skillIds, skillsData)}
+            maxIcons={expanded ? undefined : 10}
+          />
+        </div>
+      </div>
     </div>
   );
 }
