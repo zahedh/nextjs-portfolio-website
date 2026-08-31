@@ -1,18 +1,15 @@
 'use client';
 
 import {
-  CalloutWrapper,
   PrimaryButton,
   ProjectCard,
   ProjectDetailPanel,
   Section,
 } from '@/components';
 import { projects } from '@/data/projects';
-import { skillsData } from '@/data';
 import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global-store-provider';
 import { Project, ProjectFilter } from '@/types/project';
 import { useMemo, useState } from 'react';
 
@@ -111,41 +108,12 @@ export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [panelProject, setPanelProject] = useState<Project | null>(null);
   const [panelOpen, setPanelOpen] = useState(false);
-  const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
-  const setSelectedSkillId = useGlobalStore(
-    (state) => state.setSelectedSkillId
-  );
-
   const filteredProjects = useMemo(
-    () =>
-      getFilteredProjectsForSection(projects, selectedType, selectedSkillId),
-    [selectedType, selectedSkillId]
+    () => getFilteredProjectsForSection(projects, selectedType),
+    [selectedType]
   );
 
-  const selectedSkillLabel = selectedSkillId
-    ? (skillsData.find((skill) => skill.id === selectedSkillId)?.label ??
-      selectedSkillId)
-    : null;
-
-  const filterButtons = selectedSkillId ? (
-    <div className="flex flex-wrap items-center justify-end gap-3">
-      <span
-        className="text-brand-600 dark:text-brand-300 font-heading text-meta font-semibold tracking-tight"
-        aria-live="polite"
-      >
-        {selectedSkillLabel}
-      </span>
-      <CalloutWrapper>
-        <PrimaryButton
-          onClick={() => setSelectedSkillId(null)}
-          aria-label={en.projectFilters.clearSkillFilterAriaLabel}
-          className="btn-callout"
-        >
-          {en.projectFilters.clearSkillFilter}
-        </PrimaryButton>
-      </CalloutWrapper>
-    </div>
-  ) : (
+  const filterButtons = (
     <>
       <PrimaryButton
         onClick={() => setSelectedType('All')}
@@ -192,7 +160,7 @@ export default function ProjectsSection() {
         onExitComplete={() => setPanelProject(null)}
       />
       <ProjectGrid
-        key={`${selectedType}-${selectedSkillId ?? 'all'}`}
+        key={selectedType}
         projects={filteredProjects}
         onOpenFullDetails={handleOpenFullDetails}
       />

@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils';
 import { IconType } from 'react-icons';
 import { createPortal } from 'react-dom';
-import { useDoubleActivation } from '@/hooks/useDoubleActivation';
 import { useSkillTilePortalTooltip } from '@/hooks/skillTilePortalTooltip';
 import { getSkillTileTooltipTransform } from '@/lib';
 
@@ -11,7 +10,6 @@ type SkillTileProps = {
   label: string;
   className?: string;
   compact?: boolean;
-  onClick?: () => void;
 };
 
 /** Circular icon tile representing a single skill with tooltip. */
@@ -20,7 +18,6 @@ export function SkillTile({
   label,
   className,
   compact = false,
-  onClick,
 }: SkillTileProps) {
   const {
     tileRef,
@@ -30,9 +27,6 @@ export function SkillTile({
     onTileMouseEnter,
     onTileMouseLeave,
   } = useSkillTilePortalTooltip();
-
-  const isClickable = Boolean(onClick);
-  const tryDoubleActivate = useDoubleActivation(onClick, isClickable);
 
   const tooltipNode =
     mounted &&
@@ -59,23 +53,8 @@ export function SkillTile({
     <>
       <div
         ref={tileRef}
-        role={isClickable ? 'button' : 'img'}
-        tabIndex={isClickable ? 0 : undefined}
+        role="img"
         aria-label={label}
-        onClick={isClickable ? tryDoubleActivate : undefined}
-        onKeyDown={
-          isClickable
-            ? (keyboardEvent: React.KeyboardEvent<HTMLDivElement>) => {
-                if (
-                  keyboardEvent.key === 'Enter' ||
-                  keyboardEvent.key === ' '
-                ) {
-                  keyboardEvent.preventDefault();
-                  tryDoubleActivate();
-                }
-              }
-            : undefined
-        }
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
         className={cn(
@@ -88,7 +67,7 @@ export function SkillTile({
           'text-neutral-900 dark:text-neutral-200',
           'hover:bg-brand-400 dark:hover:bg-brand-600',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
-          isClickable ? 'cursor-pointer' : 'cursor-default',
+          'cursor-default',
           className
         )}
       >

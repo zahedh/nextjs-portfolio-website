@@ -2,8 +2,6 @@
 
 import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
-import { useGlobalStore } from '@/providers/global-store-provider';
-import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/project';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { cn } from '@/lib/utils';
@@ -19,18 +17,6 @@ import {
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
   const prefersReducedMotion = useReducedMotion();
-  const setSelectedSkillId = useGlobalStore(
-    (state) => state.setSelectedSkillId
-  );
-
-  const handleSkillClick = (skillId: string) => {
-    if (!hasAnyProjectForSkill(skillId)) {
-      return;
-    }
-    setSelectedSkillId(skillId);
-    scrollToProjectsSection();
-  };
-
   const containerVariants =
     getSkillsCollageContainerVariants(prefersReducedMotion);
   const itemVariants = getSkillsCollageItemVariants(prefersReducedMotion);
@@ -63,11 +49,7 @@ export default function SkillsSection() {
                   className="relative hover:z-[100]"
                   variants={itemVariants}
                 >
-                  <SkillTile
-                    icon={skill.icon}
-                    label={skill.label}
-                    onClick={() => handleSkillClick(skill.id)}
-                  />
+                  <SkillTile icon={skill.icon} label={skill.label} />
                 </motion.div>
               ))}
             </motion.div>

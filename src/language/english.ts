@@ -161,8 +161,6 @@ export const en = {
     mobile: 'Mobile',
     web: 'Web',
     ai: 'AI',
-    clearSkillFilter: 'All skills',
-    clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
   },
 
   projectCard: {
