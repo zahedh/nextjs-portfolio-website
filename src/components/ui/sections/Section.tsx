@@ -9,7 +9,7 @@ type SectionProps = {
   subheading?: string;
   align?: 'left' | 'center' | 'right';
   italicize?: boolean;
-  /** Sets the section on a band one step deeper than the page ground. */
+  /** Marks a section as one that earns a band, a step deeper than the ground. */
   banded?: boolean;
   showDivider?: boolean;
   showBottomDivider?: boolean;

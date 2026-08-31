@@ -12,7 +12,7 @@
   }
 
   .screen-section {
-    @apply pb-section-end w-full;
+    @apply py-section-end w-full;
     /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
     scroll-margin-top: 5rem;
   }
