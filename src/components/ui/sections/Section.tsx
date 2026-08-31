@@ -27,7 +27,7 @@ export default function Section({
   subheading,
   align = 'left',
   italicize = false,
-  showDivider = true,
+  showDivider = false,
   showBottomDivider = false,
   dividerWidth = 'full',
   dividerColor,
