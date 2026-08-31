@@ -1,9 +1,7 @@
 import { Section } from '@/components';
-import { JobCard, JobStack } from '@/components/ui/cards';
-import { isJobActive, jobExperiences } from '@/data';
-import { formatRoleDuration, startYear } from '@/lib/date';
+import { ExperienceRow } from '@/components/ui/cards';
+import { jobExperiences } from '@/data';
 import { groupJobsByCompany } from '@/lib/ui-logic';
-import { cn } from '@/lib/utils';
 import { en } from '@/language';
 
 /** Professional experience as a timeline, grouped by employer. */
@@ -23,33 +21,9 @@ export default function ExperienceSection() {
             </header>
 
             <div className="experience-group-roles">
-              {group.jobs.map((job) => {
-                const active = isJobActive(job);
-                return (
-                  <div key={job.id} className="experience-rail-row">
-                    <div
-                      className={cn(
-                        'experience-year',
-                        active && 'experience-year-active'
-                      )}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          'experience-dot',
-                          active && 'experience-dot-active'
-                        )}
-                      />
-                      {startYear(job.startDate)}
-                      <span className="experience-duration">
-                        {formatRoleDuration(job.startDate, job.endDate)}
-                      </span>
-                    </div>
-                    <JobCard job={job} />
-                    <JobStack skillIds={job.skills} />
-                  </div>
-                );
-              })}
+              {group.jobs.map((job) => (
+                <ExperienceRow key={job.id} job={job} />
+              ))}
             </div>
           </section>
         ))}

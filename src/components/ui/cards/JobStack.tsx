@@ -10,11 +10,20 @@ import { en } from '@/language';
  * Resolves the icons itself: they are component functions, so they cannot be
  * passed across the boundary from a server-rendered section.
  */
-export function JobStack({ skillIds }: { skillIds: string[] }) {
+export function JobStack({
+  skillIds,
+  expanded = false,
+}: {
+  skillIds: string[];
+  expanded?: boolean;
+}) {
   return (
     <div className="experience-stack">
       <span className="experience-stack-label">{en.jobDisplay.stackLabel}</span>
-      <TechStack skills={getSkillsByIds(skillIds, skillsData)} maxIcons={12} />
+      <TechStack
+        skills={getSkillsByIds(skillIds, skillsData)}
+        maxIcons={expanded ? undefined : 12}
+      />
     </div>
   );
 }
