@@ -58,6 +58,15 @@ export default function Navbar({
         </li>
         <li>
           <Link
+            href={isHome ? '#contributions' : '/#contributions'}
+            className="nav-link"
+            onClick={handleNavClick}
+          >
+            {en.activity}
+          </Link>
+        </li>
+        <li>
+          <Link
             href={isHome ? '#skills' : '/#skills'}
             className="nav-link"
             onClick={handleNavClick}
@@ -76,15 +85,6 @@ export default function Navbar({
         </li>
         <li>
           <Link
-            href={isHome ? '#about' : '/#about'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.about}
-          </Link>
-        </li>
-        <li>
-          <Link
             href={isHome ? '#experience' : '/#experience'}
             className="nav-link"
             onClick={handleNavClick}
@@ -94,11 +94,11 @@ export default function Navbar({
         </li>
         <li>
           <Link
-            href={isHome ? '#contributions' : '/#contributions'}
+            href={isHome ? '#about' : '/#about'}
             className="nav-link"
             onClick={handleNavClick}
           >
-            {en.activity}
+            {en.about}
           </Link>
         </li>
         <li>
