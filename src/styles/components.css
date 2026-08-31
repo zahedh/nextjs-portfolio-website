@@ -218,32 +218,44 @@
   .btn-primary-sm {
     @apply text-body-sm px-4 py-2.5 font-bold;
   }
+  /* The closing band sits one step off the page ground, as the artboards draw it. */
+  .footer {
+    @apply mt-rhythm bg-neutral-200 py-10 dark:bg-neutral-950;
+    /* Escapes .prime-parent's max width and gutters so the band reaches both edges. */
+    margin-inline: calc(50% - 50vw);
+  }
   .footer-container {
-    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col items-center;
+    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col gap-[30px];
+  }
+  .footer-primary {
+    @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
+  }
+  .footer-pitch {
+    @apply flex flex-col items-start;
   }
   .footer-heading {
     @apply text-heading md:text-heading-lg font-bold text-balance;
   }
   .footer-copy {
-    @apply text-lead mt-3.5 max-w-[44ch] text-balance text-neutral-700 dark:text-neutral-300;
+    @apply text-lead mt-3.5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
     @apply mt-5 flex w-full max-w-md flex-col gap-2.5 sm:w-auto sm:max-w-none sm:flex-row;
   }
   .footer-action {
-    @apply min-h-12 w-full px-5 py-3 font-mono text-[0.84375rem] leading-normal font-medium sm:w-auto;
+    @apply min-h-12 w-full justify-center px-5 py-3 font-mono text-[0.84375rem] leading-normal font-medium sm:w-auto;
   }
   .footer-action-secondary {
     @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-200 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800;
   }
   .footer-social-links {
-    @apply mt-5 flex flex-wrap items-center justify-center gap-x-[18px];
+    @apply flex flex-wrap items-center gap-x-[18px];
   }
   .footer-social-link {
     @apply text-caption py-2.5 font-mono text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100;
   }
   .footer-meta {
-    @apply text-meta mt-7 flex w-full items-center justify-between border-t border-neutral-200 pt-[18px] font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
+    @apply text-meta flex w-full items-center justify-between border-t border-neutral-200 pt-[18px] font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
   }
   .btn-callout-ping-anchor {
     @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
