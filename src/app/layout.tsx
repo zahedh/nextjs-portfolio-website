@@ -109,7 +109,7 @@ export default function RootLayout({
           />
         </head>
         <body
-          className="prime-parent overflow-x-clip bg-neutral-100 antialiased dark:bg-neutral-900"
+          className="overflow-x-clip bg-neutral-100 antialiased dark:bg-neutral-900"
           suppressHydrationWarning
         >
           {children}

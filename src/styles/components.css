@@ -220,9 +220,7 @@
   }
   /* The closing band sits one step off the page ground, as the artboards draw it. */
   .footer {
-    @apply mt-rhythm bg-neutral-200 py-10 dark:bg-neutral-950;
-    /* Escapes .prime-parent's max width and gutters so the band reaches both edges. */
-    margin-inline: calc(50% - 50vw);
+    @apply mt-rhythm w-full bg-neutral-200 py-10 dark:bg-neutral-950;
   }
   .footer-container {
     @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col gap-[30px];
