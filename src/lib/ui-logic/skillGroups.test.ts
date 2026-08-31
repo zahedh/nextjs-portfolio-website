@@ -1,20 +1,22 @@
 import { skillsData } from '@/data';
-import { groupSkills } from './skillGroups';
+import { groupSkills, skillGroupOrder } from './skillGroups';
 
 describe('groupSkills', () => {
-  it('GIVEN all portfolio skills WHEN grouping THEN accounts for all 51 skills in the five agreed groups', () => {
+  it('GIVEN all portfolio skills WHEN grouping THEN every skill lands in exactly one group', () => {
+    const groups = groupSkills(skillsData);
+    const grouped = skillGroupOrder.flatMap((group) => groups[group]);
+
+    expect(grouped).toHaveLength(skillsData.length);
+    expect(new Set(grouped.map((skill) => skill.id)).size).toBe(
+      skillsData.length
+    );
+  });
+
+  it('GIVEN the rendered order WHEN grouping THEN no group is empty', () => {
     const groups = groupSkills(skillsData);
 
-    expect(
-      Object.fromEntries(
-        Object.entries(groups).map(([group, skills]) => [group, skills.length])
-      )
-    ).toEqual({
-      languages: 10,
-      frameworks: 9,
-      design: 3,
-      aiTooling: 9,
-      toolingAndPractice: 20,
+    skillGroupOrder.forEach((group) => {
+      expect(groups[group].length).toBeGreaterThan(0);
     });
   });
 });

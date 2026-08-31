@@ -6,9 +6,8 @@ import { useGlobalStore } from '@/providers/global-store-provider';
 import { hasAnyProjectForSkill, scrollToProjectsSection } from '@/lib/project';
 import { en } from '@/language';
 import { skillsData } from '@/data';
+import { cn } from '@/lib/utils';
 import { motion, useReducedMotion } from 'motion/react';
-import { MousePointerClick } from 'lucide-react';
-import { SubHeading } from '@/components/text';
 import {
   getSkillsCollageContainerVariants,
   getSkillsCollageGridViewport,
@@ -38,54 +37,17 @@ export default function SkillsSection() {
   const gridViewport = getSkillsCollageGridViewport();
   const skillGroups = groupSkills(skillsData);
 
-  const doubleClickHint = () => {
-    return (
-      <motion.div
-        className="flex items-center gap-2"
-        animate={
-          prefersReducedMotion ? undefined : { opacity: [0.88, 1, 0.88] }
-        }
-        transition={
-          prefersReducedMotion
-            ? undefined
-            : { repeat: Infinity, duration: 3.2, ease: 'easeInOut' }
-        }
-      >
-        <motion.span
-          aria-hidden
-          className="text-brand-600 dark:text-brand-400 inline-flex shrink-0"
-          animate={prefersReducedMotion ? undefined : { scale: [1, 1.08, 1] }}
-          transition={
-            prefersReducedMotion
-              ? undefined
-              : { repeat: Infinity, duration: 2.6, ease: 'easeInOut' }
-          }
-        >
-          <MousePointerClick
-            className="size-7 sm:size-8 md:size-9"
-            strokeWidth={2.25}
-          />
-        </motion.span>
-        <SubHeading
-          className="text-brand-600 dark:text-brand-400 hidden italic lg:block"
-          as="h2"
-        >
-          {en.skillsSection.doubleClickHint}
-        </SubHeading>
-      </motion.div>
-    );
-  };
-
   return (
-    <Section
-      anchor="skills"
-      title={en.sectionHeaders.skillsCollage}
-      rightChildren={doubleClickHint()}
-    >
+    <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
       <div className="skills-groups">
         {skillGroupOrder.map((group) => (
           <div className="skills-group" key={group}>
-            <h3 className="skills-group-label">
+            <h3
+              className={cn(
+                'skills-group-label',
+                group === 'aiTooling' && 'skills-group-label--accent'
+              )}
+            >
               {en.skillsSection.groups[group]}
             </h3>
             <motion.div

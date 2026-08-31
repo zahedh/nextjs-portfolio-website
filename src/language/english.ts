@@ -42,7 +42,6 @@ export const en = {
   },
 
   skillsSection: {
-    doubleClickHint: 'Double Click To View Projects!',
     groups: {
       languages: 'Languages',
       frameworks: 'Frameworks',
@@ -61,20 +60,16 @@ export const en = {
     // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
-    php: 'PHP',
 
     // Microsoft Stack
     dotNet: '.NET',
 
     // Legacy/Additional Languages
     objectiveC: 'Objective-C',
-    jquery: 'jQuery',
-    wordpress: 'WordPress',
 
     // Web Fundamentals
     html: 'HTML5',
     css: 'CSS3',
-    amp: 'AMP',
 
     // Styling & Design
     tailwind: 'Tailwind CSS',
@@ -88,8 +83,6 @@ export const en = {
     github: 'GitHub',
     cursor: 'Cursor',
     vercel: 'Vercel',
-    vercelAnalytics: 'Vercel Analytics',
-    speedInsights: 'Speed Insights',
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
@@ -113,8 +106,6 @@ export const en = {
     notion: 'Notion',
 
     // Productivity Tools
-    microsoftOffice: 'Microsoft Office',
-    googleDocs: 'Google Docs',
 
     // AI Tools
     gitHubCopilot: 'GH Copilot',

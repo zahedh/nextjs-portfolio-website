@@ -81,23 +81,18 @@ export function SkillTile({
         className={cn(
           compact
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
-            : 'relative inline-flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16',
+            : 'relative inline-flex h-11 w-11 items-center justify-center',
           'rounded-full',
           'border-brand-500 border',
           'bg-brand-200 dark:bg-brand-400',
           'text-neutral-900 dark:text-neutral-200',
           'hover:bg-brand-400 dark:hover:bg-brand-600',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
-          'skill-tile-glow',
           isClickable ? 'cursor-pointer' : 'cursor-default',
           className
         )}
       >
-        <Icon
-          className={
-            compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-7 w-7 sm:h-8 sm:w-8'
-          }
-        />
+        <Icon className={compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-5 w-5'} />
       </div>
       {tooltipNode}
     </>

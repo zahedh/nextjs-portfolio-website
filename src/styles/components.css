@@ -281,55 +281,23 @@
     @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
   }
   .skills-groups {
-    @apply flex w-full max-w-[900px] flex-col;
+    @apply flex w-full flex-col;
   }
   .skills-group {
-    @apply grid grid-cols-1 gap-3 border-t border-neutral-300 py-4 md:grid-cols-[150px_minmax(0,1fr)] md:items-center md:gap-6 dark:border-neutral-700;
+    @apply grid grid-cols-1 gap-3 border-t border-neutral-300 py-4 md:grid-cols-[150px_minmax(0,1fr)] md:items-start md:gap-6 dark:border-neutral-700;
   }
   .skills-group:last-child {
     @apply border-b;
   }
   .skills-group-label {
-    @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-caption font-mono text-neutral-500 md:mt-3.5 dark:text-neutral-400;
+  }
+  /* Declared after .skills-group-label so its colour wins on source order. */
+  .skills-group-label--accent {
+    @apply text-brand-600 dark:text-brand-400;
   }
   .skills-group-tiles {
     @apply flex min-w-0 flex-wrap gap-3;
-  }
-  .skill-tile-glow {
-    animation: skill-tile-glow-pulse 20s ease-in-out infinite;
-  }
-  @keyframes skill-tile-glow-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 transparent;
-    }
-    25% {
-      box-shadow: 0 0 10px 2px rgb(228 175 103 / 0.22);
-    }
-    60% {
-      box-shadow: 0 0 6px 1px rgb(228 175 103 / 0.12);
-    }
-  }
-  .dark .skill-tile-glow {
-    animation: skill-tile-glow-pulse-dark 20s ease-in-out infinite;
-  }
-  @keyframes skill-tile-glow-pulse-dark {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 transparent;
-    }
-    25% {
-      box-shadow: 0 0 10px 2px rgb(152 99 27 / 0.3);
-    }
-    60% {
-      box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15);
-    }
-  }
-  @media (prefers-reduced-motion: reduce), (max-width: 767px) {
-    .skill-tile-glow,
-    .dark .skill-tile-glow {
-      animation: none;
-    }
   }
   .more-pill {
     @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
