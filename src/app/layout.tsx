@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, IBM_Plex_Sans } from 'next/font/google';
+import {
+  Bricolage_Grotesque,
+  IBM_Plex_Mono,
+  IBM_Plex_Sans,
+  Inter,
+} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -20,7 +25,23 @@ const ibmPlexSans = IBM_Plex_Sans({
   display: 'swap',
 });
 
-const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+});
+
+// Display face for the few places the artboards draw one: the hero headline and
+// standalone figures. Section headings stay on the heading face.
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  variable: '--font-bricolage-grotesque',
+  display: 'swap',
+});
+
+const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${bricolageGrotesque.variable}`;
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {

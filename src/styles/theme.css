@@ -29,6 +29,10 @@
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
+  --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
+  /* Reserved for the hero headline and standalone figures, as the artboards
+     draw them. Section headings stay on the heading face. */
+  --font-display: var(--font-bricolage-grotesque, sans-serif);
 
   /* Type scale */
   --text-micro: 0.625rem;
@@ -55,6 +59,9 @@
   --text-display--line-height: 1;
   --text-display-lg: 3.625rem;
   --text-display-lg--line-height: 0.98;
+  /* One step above the drawn scale, for the hero on very wide viewports only. */
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 0.95;
   --text-numeral: 1.75rem;
   --text-numeral--line-height: 1;
   --text-numeral-lg: 2.875rem;
