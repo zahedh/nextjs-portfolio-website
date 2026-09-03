@@ -30,17 +30,26 @@ import {
   SiClaude,
   SiNx,
   SiStorybook,
+  SiNodedotjs,
+  SiZod,
+  SiShadcnui,
+  SiReactquery,
+  SiReacttable,
+  SiReacthookform,
+  SiTestinglibrary,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
-  Bot,
+  Braces,
   Code2,
-  Lightbulb,
+  Drama,
+  Film,
+  Layers,
   MousePointer2,
   Network,
+  NotebookPen,
   Sparkles,
   Terminal,
-  WandSparkles,
 } from 'lucide-react';
 import { en } from '@/language';
 import { Skill } from '@/types/skill';
@@ -60,9 +69,63 @@ export const skillsData: Skill[] = [
     category: 'frameworks',
   },
   {
-    id: 'React Native',
+    id: 'react-native',
     label: en.skillsCollageSection.reactNative,
     icon: SiReact,
+    category: 'frameworks',
+  },
+  {
+    id: 'nativewind',
+    label: en.skillsCollageSection.nativeWind,
+    icon: SiTailwindcss,
+    category: 'frameworks',
+  },
+  {
+    id: 'shadcn-ui',
+    label: en.skillsCollageSection.shadcnUI,
+    icon: SiShadcnui,
+    category: 'frameworks',
+  },
+  {
+    id: 'zustand',
+    label: en.skillsCollageSection.zustand,
+    icon: Layers,
+    category: 'frameworks',
+  },
+  {
+    id: 'tanstack-query',
+    label: en.skillsCollageSection.tanStackQuery,
+    icon: SiReactquery,
+    category: 'frameworks',
+  },
+  {
+    id: 'tanstack-table',
+    label: en.skillsCollageSection.tanStackTable,
+    icon: SiReacttable,
+    category: 'frameworks',
+  },
+  {
+    id: 'react-hook-form',
+    label: en.skillsCollageSection.reactHookForm,
+    icon: SiReacthookform,
+    category: 'frameworks',
+  },
+  {
+    id: 'lottie',
+    label: en.skillsCollageSection.lottie,
+    icon: Film,
+    category: 'frameworks',
+  },
+  {
+    id: 'nodejs',
+    label: en.skillsCollageSection.nodeJS,
+    icon: SiNodedotjs,
+    category: 'frameworks',
+  },
+  {
+    id: 'zod',
+    label: en.skillsCollageSection.zod,
+    icon: SiZod,
     category: 'frameworks',
   },
 
@@ -202,6 +265,18 @@ export const skillsData: Skill[] = [
     category: 'testing',
   },
   {
+    id: 'testing-library',
+    label: en.skillsCollageSection.testingLibrary,
+    icon: SiTestinglibrary,
+    category: 'testing',
+  },
+  {
+    id: 'playwright',
+    label: en.skillsCollageSection.playwright,
+    icon: Drama,
+    category: 'testing',
+  },
+  {
     id: 'eslint',
     label: en.skillsCollageSection.eSLint,
     icon: SiEslint,
@@ -276,6 +351,12 @@ export const skillsData: Skill[] = [
     category: 'ai',
   },
   {
+    id: 'codex',
+    label: en.skillsCollageSection.codex,
+    icon: Braces,
+    category: 'ai',
+  },
+  {
     id: 'chatgpt',
     label: en.skillsCollageSection.chatGPT,
     icon: SiOpenai,
@@ -290,25 +371,7 @@ export const skillsData: Skill[] = [
   {
     id: 'notebooklm',
     label: en.skillsCollageSection.noteBookLM,
-    icon: SiGooglegemini,
-    category: 'ai',
-  },
-  {
-    id: 'prompt-engineering',
-    label: en.skillsCollageSection.promptEngineering,
-    icon: Lightbulb,
-    category: 'ai',
-  },
-  {
-    id: 'generative-ai',
-    label: en.skillsCollageSection.generativeAI,
-    icon: WandSparkles,
-    category: 'ai',
-  },
-  {
-    id: 'agentic-ai',
-    label: en.skillsCollageSection.agenticAI,
-    icon: Bot,
+    icon: NotebookPen,
     category: 'ai',
   },
 

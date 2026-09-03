@@ -36,6 +36,9 @@ export default function SkillsSection() {
             >
               {en.skillsSection.groups[group]}
             </h3>
+            <span className="skills-group-count">
+              {String(skillGroups[group].length).padStart(2, '0')}
+            </span>
             <motion.div
               className="skills-group-tiles"
               variants={containerVariants}
