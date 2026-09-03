@@ -1,58 +1,67 @@
 'use client';
 
-import { BodyText, Heading, Section, SubHeading } from '@/components';
+import {
+  BodyText,
+  Heading,
+  PrimaryButton,
+  Section,
+  TertiaryButton,
+} from '@/components';
 import { AvatarGraphic } from '@/components/media';
 import { HeroFloatingOrbs } from '@/components/ui/animations';
-import { useGlobalStore } from '@/providers/global-store-provider';
 import { en } from '@/language';
-import { WavingHand } from '@/components/ui/animations/WavingHand';
-import { AnimatedText } from '@/components/ui/animations/AnimatedText';
+import { handleSmoothScroll } from '@/lib/utils';
+
+function isAnchorMouseEvent(
+  mouseEvent: React.MouseEvent<HTMLElement>
+): mouseEvent is React.MouseEvent<HTMLAnchorElement> {
+  return mouseEvent.currentTarget instanceof HTMLAnchorElement;
+}
+
+function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
+  if (mouseEvent && isAnchorMouseEvent(mouseEvent)) {
+    handleSmoothScroll(mouseEvent);
+  }
+}
 
 /** Hero section introducing the portfolio and primary value proposition. */
 export default function HeroSection() {
-  const heroAnimationComplete = useGlobalStore(
-    (state) => state.heroAnimationComplete
-  );
-  const setHeroAnimationComplete = useGlobalStore(
-    (state) => state.setHeroAnimationComplete
-  );
-
   return (
     <Section anchor="home" showDivider={false}>
-      <div className="py-block lg:py-block-lg relative flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
+      <div className="hero-composition">
         <HeroFloatingOrbs />
 
-        <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
-          <AvatarGraphic
-            priority
-            className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"
-          />
-          <div className="flex flex-col text-center sm:text-left">
-            {/* Display sizes are drawn for the refreshed hero headline, which
-                wraps to three lines. The current one-line greeting sits on the
-                heading rung until that copy lands. */}
-            <Heading>
-              {en.heroSection.header}
-              <WavingHand />
-            </Heading>
-            <div className="font-heading mt-6 flex flex-col items-center gap-2 text-center font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left dark:text-neutral-200">
-              <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
-              <Heading className="text-brand-600 dark:text-brand-300">
-                <AnimatedText
-                  delay={1.4}
-                  text={en.heroSection.subHeaderPartTwo}
-                  skipAnimation={heroAnimationComplete}
-                />
-              </Heading>
-            </div>
-            <BodyText className="text-lead mt-4 max-w-xs text-center font-medium tracking-tight sm:max-w-lg sm:text-left">
-              <AnimatedText
-                delay={2.4}
-                text={en.heroSection.supportingText}
-                skipAnimation={heroAnimationComplete}
-                onAnimationComplete={setHeroAnimationComplete}
-              />
-            </BodyText>
+        {/* Avatar placeholder; the finished hero visual replaces this in the same slot. */}
+        <AvatarGraphic
+          priority
+          sizes="(max-width: 1023px) 214px, (max-width: 1279px) 268px, (max-width: 1535px) 340px, 420px"
+          className="hero-visual"
+        />
+
+        <div className="hero-copy">
+          <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>
+          <Heading as="h1" className="hero-headline">
+            {en.heroSection.headline}
+          </Heading>
+          <BodyText className="hero-supporting-text">
+            {en.heroSection.supportingText}
+          </BodyText>
+          <div className="hero-actions">
+            <PrimaryButton
+              hyperlink="#projects"
+              onClick={handleProjectsClick}
+              className="hero-action"
+            >
+              {en.heroSection.primaryButton}
+            </PrimaryButton>
+            <TertiaryButton
+              hyperlink="/documents/CV.pdf"
+              aria-label={en.heroSection.downloadCvAriaLabel}
+              className="hero-action"
+              {...{ download: true }}
+            >
+              {en.heroSection.secondaryButton}
+            </TertiaryButton>
           </div>
         </div>
       </div>

@@ -3,13 +3,11 @@ import { createStore } from 'zustand/vanilla';
 /** Shape of the global UI state shared across the app. */
 export type GlobalState = {
   isDark: boolean;
-  heroAnimationComplete: boolean;
 };
 
 /** Actions for mutating the global UI state. */
 export type GlobalActions = {
   toggleTheme: () => void;
-  setHeroAnimationComplete: () => void;
 };
 
 /** Combined type for the global store (state + actions). */
@@ -19,14 +17,12 @@ export type GlobalStore = GlobalState & GlobalActions;
 export const initGlobalStore = (): GlobalState => {
   return {
     isDark: false,
-    heroAnimationComplete: false,
   };
 };
 
 /** Default initial state used when no override is provided. */
 export const defaultInitState: GlobalState = {
   isDark: false,
-  heroAnimationComplete: false,
 };
 
 /**
@@ -47,6 +43,5 @@ export const createGlobalStore = (
       localStorage.setItem('theme', nextTheme);
       set({ isDark: !currentIsDark });
     },
-    setHeroAnimationComplete: () => set({ heroAnimationComplete: true }),
   }));
 };
