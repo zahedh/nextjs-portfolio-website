@@ -175,6 +175,11 @@
   .surface-card-flat {
     @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
   }
+  /* Holds the grid, the overflow grid and the control on one rhythm, so the
+     cards revealed by "See all" do not inherit the wider .section-inner gap. */
+  .projects-stack {
+    @apply flex w-full flex-col gap-2.5;
+  }
   .projects-grid {
     @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_300px] xl:max-w-none xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
   }
@@ -228,7 +233,7 @@
     @apply text-body-sm truncate text-neutral-600 xl:line-clamp-2 xl:overflow-hidden xl:whitespace-normal dark:text-neutral-300;
   }
   .projects-overflow-grid {
-    @apply mt-2.5 grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-none xl:grid-cols-4;
+    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-none xl:grid-cols-4;
   }
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
@@ -375,20 +380,24 @@
     @apply flex w-full flex-col;
   }
   .skills-group {
-    @apply grid grid-cols-1 gap-3 border-t border-neutral-300 py-4 md:grid-cols-[150px_minmax(0,1fr)] md:items-start md:gap-6 dark:border-neutral-700;
+    @apply grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3 py-4 md:grid-cols-[150px_minmax(0,1fr)_auto] md:gap-x-6;
   }
-  .skills-group:last-child {
-    @apply border-b;
+  /* Separators only between groups: no rule under the heading, none after the last. */
+  .skills-group + .skills-group {
+    @apply border-t border-neutral-300 dark:border-neutral-700;
   }
   .skills-group-label {
-    @apply text-caption font-mono text-neutral-500 md:mt-3.5 dark:text-neutral-400;
+    @apply text-body-sm col-start-1 row-start-1 font-mono text-neutral-500 dark:text-neutral-400;
   }
   /* Declared after .skills-group-label so its colour wins on source order. */
   .skills-group-label--accent {
     @apply text-brand-600 dark:text-brand-400;
   }
+  .skills-group-count {
+    @apply text-caption col-start-2 row-start-1 text-right font-mono text-neutral-500 tabular-nums md:col-start-3 dark:text-neutral-400;
+  }
   .skills-group-tiles {
-    @apply flex min-w-0 flex-wrap gap-3;
+    @apply col-span-2 row-start-2 flex min-w-0 flex-wrap gap-2 sm:gap-3 md:col-span-1 md:col-start-2 md:row-start-1;
   }
   .more-pill {
     @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
@@ -411,14 +420,35 @@
   .dialog-header {
     @apply border-brand-300/55 p-surface flex shrink-0 items-start justify-between gap-4 border-b;
   }
-  .hero-btn-area {
-    @apply focus-visible:ring-brand-500 relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
+  .hero-composition {
+    @apply py-block lg:py-block-lg relative grid w-full grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_268px] lg:items-center lg:gap-11 xl:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_420px];
   }
-  .hero-fade-overlay {
-    @apply pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-900/25 to-transparent sm:h-20 dark:from-black/35;
+  .hero-copy {
+    @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1;
   }
-  .hero-hover-label {
-    @apply text-body-sm pointer-events-none absolute right-3 bottom-3 font-semibold text-white opacity-100 drop-shadow-sm sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4;
+  .hero-eyebrow {
+    @apply text-brand-600 dark:text-brand-300 text-caption font-mono;
+  }
+  .hero-headline {
+    @apply text-display md:text-display lg:text-display-lg max-w-[13ch] text-balance;
+  }
+  .hero-supporting-text {
+    @apply max-w-[46ch];
+  }
+  .hero-actions {
+    @apply mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
+  }
+  /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
+     pill. Scoped here so PrimaryButton stays compact everywhere else. */
+  .hero-action {
+    @apply text-body focus-visible:ring-brand-500 w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+  }
+  .hero-visual {
+    @apply relative z-10 col-start-1 row-start-1 h-[214px] w-[214px] justify-self-start overflow-hidden rounded-lg lg:col-start-2 lg:h-[268px] lg:w-full xl:h-[340px] 2xl:h-[420px];
+
+    & img {
+      object-position: center 20%;
+    }
   }
   .feature-list-item {
     @apply text-body-sm flex gap-3 text-neutral-600 dark:text-neutral-400;

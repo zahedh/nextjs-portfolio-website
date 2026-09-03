@@ -39,7 +39,7 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
   }
 
   return (
-    <>
+    <div className="projects-stack">
       <div
         className={cn(
           'projects-grid',
@@ -99,7 +99,7 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
               )}
         </button>
       ) : null}
-    </>
+    </div>
   );
 }
 

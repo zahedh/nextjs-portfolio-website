@@ -59,7 +59,7 @@ export default function Section({
               {title}
             </Heading>
             {rightChildren && (
-              <div className="ml-auto flex flex-shrink-0 flex-wrap gap-2">
+              <div className="flex flex-shrink-0 flex-wrap gap-2">
                 {rightChildren}
               </div>
             )}
