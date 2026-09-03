@@ -7,10 +7,10 @@ import {
   Section,
   TertiaryButton,
 } from '@/components';
-import { AvatarGraphic } from '@/components/media';
 import { HeroFloatingOrbs } from '@/components/ui/animations';
 import { en } from '@/language';
 import { handleSmoothScroll } from '@/lib/utils';
+import { Download } from 'lucide-react';
 
 function isAnchorMouseEvent(
   mouseEvent: React.MouseEvent<HTMLElement>
@@ -24,19 +24,20 @@ function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
   }
 }
 
-/** Hero section introducing the portfolio and primary value proposition. */
+/**
+ * Hero section introducing the portfolio and primary value proposition.
+ *
+ * The page wrapper already pads past the fixed header. The hero cancels that
+ * clearance so it is not carried on top of the section's own padding, which
+ * would leave the composition sitting low in its band.
+ */
 export default function HeroSection() {
   return (
-    <Section anchor="home" showDivider={false}>
+    <Section anchor="home" showDivider={false} className="-mt-18">
       <div className="hero-composition">
         <HeroFloatingOrbs />
 
-        {/* Avatar placeholder; the finished hero visual replaces this in the same slot. */}
-        <AvatarGraphic
-          priority
-          sizes="(max-width: 1023px) 214px, (max-width: 1279px) 268px, (max-width: 1535px) 340px, 420px"
-          className="hero-visual"
-        />
+        <div className="hero-visual visual-placeholder" aria-hidden />
 
         <div className="hero-copy">
           <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>
@@ -57,6 +58,7 @@ export default function HeroSection() {
             <TertiaryButton
               hyperlink="/documents/CV.pdf"
               aria-label={en.heroSection.downloadCvAriaLabel}
+              icon={<Download aria-hidden className="size-4" />}
               className="hero-action"
               {...{ download: true }}
             >

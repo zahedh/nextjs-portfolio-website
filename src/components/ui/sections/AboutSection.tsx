@@ -1,7 +1,6 @@
 'use client';
 
 import { Section } from '@/components';
-import { AboutGraphic } from '@/components/media';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
 import { motion, useReducedMotion } from 'motion/react';
@@ -28,7 +27,7 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={viewMotion}
                 transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="font-heading text-brand-600 dark:text-brand-400 text-heading md:text-heading-lg mx-auto max-w-3xl font-bold italic lg:mx-0 lg:max-w-none"
+                className="font-heading text-brand-600 dark:text-brand-400 text-heading lg:text-heading-lg mx-auto max-w-3xl font-bold italic lg:mx-0 lg:max-w-none"
               >
                 {en.aboutSection.tagline}
               </motion.p>
@@ -93,7 +92,7 @@ export default function AboutSection() {
                 ease: 'easeInOut',
               }}
             >
-              <AboutGraphic className="mx-auto block h-auto max-w-full opacity-95" />
+              <div className="about-visual visual-placeholder" aria-hidden />
             </motion.div>
           </motion.div>
         </div>

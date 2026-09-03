@@ -146,7 +146,7 @@
      ðŸ”— NAVIGATION
      ========================= */
   .nav-link {
-    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-caption relative inline-block font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
+    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-body-sm relative inline-block font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
 
     &::after {
       content: '';
@@ -239,7 +239,7 @@
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-500 text-body-sm mt-3.5 min-h-11 w-full cursor-pointer rounded-full border border-neutral-300 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-600 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 text-body-sm mt-3.5 min-h-11 w-full cursor-pointer rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 sm:self-center dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
@@ -306,10 +306,10 @@
     @apply bg-neutral-200 dark:bg-neutral-950;
   }
   .footer {
-    @apply mt-rhythm w-full bg-neutral-200 py-10 dark:bg-neutral-950;
+    @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
   }
   .footer-container {
-    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col gap-[30px];
+    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col gap-9;
   }
   .footer-primary {
     @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
@@ -318,16 +318,18 @@
     @apply flex flex-col items-start;
   }
   .footer-heading {
-    @apply text-heading md:text-heading-lg font-bold text-balance;
+    @apply font-display text-heading lg:text-heading-lg font-bold text-balance;
   }
   .footer-copy {
-    @apply text-lead mt-3.5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
-    @apply mt-5 flex w-full max-w-md flex-col gap-2.5 sm:w-auto sm:max-w-none sm:flex-row;
+    @apply mt-7 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row;
   }
   .footer-action {
-    @apply min-h-12 w-full justify-center px-5 py-3 font-mono text-[0.84375rem] leading-normal font-medium sm:w-auto;
+    /* Same type as the hero's actions: mono is reserved for the weakest
+       affordances (see-all, card expanders), not for real buttons. */
+    @apply text-body min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold sm:w-auto;
   }
   .footer-action-secondary {
     @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-200 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800;
@@ -336,10 +338,10 @@
     @apply flex flex-wrap items-center gap-x-[18px];
   }
   .footer-social-link {
-    @apply text-caption py-2.5 font-mono text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100;
+    @apply text-body-sm py-2.5 font-mono text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100;
   }
   .footer-meta {
-    @apply text-meta flex w-full items-center justify-between border-t border-neutral-200 pt-[18px] font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
+    @apply text-meta flex w-full items-center justify-between border-t border-neutral-300 pt-6 font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
   }
   .btn-callout-ping-anchor {
     @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
@@ -420,35 +422,56 @@
   .dialog-header {
     @apply border-brand-300/55 p-surface flex shrink-0 items-start justify-between gap-4 border-b;
   }
+  /* Placeholder surface for the visuals that are not built yet. Shared by the
+     hero and about slots so both retire in the same change. */
+  .visual-placeholder {
+    @apply overflow-hidden rounded-lg;
+
+    background: linear-gradient(
+      168deg,
+      var(--color-brand-400),
+      var(--color-brand-600)
+    );
+  }
+  .about-visual {
+    @apply aspect-[4/5] w-full;
+  }
   .hero-composition {
-    @apply py-block lg:py-block-lg relative grid w-full grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_268px] lg:items-center lg:gap-11 xl:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_420px];
+    /* The whole composition steps up by about a quarter at 2xl: the 1440 measure
+       reads small on a very wide viewport, so type, actions and visual all scale
+       together rather than the block simply sitting further apart. */
+    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_340px] lg:items-center lg:gap-11 2xl:max-w-[100rem] 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:gap-14;
   }
   .hero-copy {
-    @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1;
+    /* The artboard's 20px rhythm at the drawn scale; it steps with the type at
+       2xl so the block does not tighten as the headline grows. */
+    @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1 2xl:gap-7;
   }
   .hero-eyebrow {
-    @apply text-brand-600 dark:text-brand-300 text-caption font-mono;
+    @apply text-brand-700 dark:text-brand-300 text-body-sm 2xl:text-lead font-mono tracking-wide;
   }
   .hero-headline {
-    @apply text-display md:text-display lg:text-display-lg max-w-[13ch] text-balance;
+    /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
+       stops at 700, so this sets its own. The 13ch measure applies only once the
+       hero is two columns; stacked, the headline runs the full width. */
+    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl font-extrabold tracking-[-0.035em] text-balance lg:max-w-[13ch];
   }
   .hero-supporting-text {
-    @apply max-w-[46ch];
+    @apply text-lead 2xl:text-title-sm max-w-[46ch] 2xl:max-w-[52ch];
   }
   .hero-actions {
-    @apply mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
+    @apply mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row 2xl:mt-4 2xl:gap-4;
   }
   /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
      pill. Scoped here so PrimaryButton stays compact everywhere else. */
   .hero-action {
-    @apply text-body focus-visible:ring-brand-500 w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-500 2xl:text-lead w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
-    @apply relative z-10 col-start-1 row-start-1 h-[214px] w-[214px] justify-self-start overflow-hidden rounded-lg lg:col-start-2 lg:h-[268px] lg:w-full xl:h-[340px] 2xl:h-[420px];
-
-    & img {
-      object-position: center 20%;
-    }
+    /* Stacked: a full-width band at the aspect the artboard draws it (390x214),
+       capped so it cannot dominate at tablet widths. Two-column from lg, where
+       the column sets the width and the height is fixed per step. */
+    @apply relative z-10 col-start-1 row-start-1 aspect-[390/214] max-h-[360px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:aspect-auto lg:h-[340px] lg:max-h-none 2xl:h-[520px];
   }
   .feature-list-item {
     @apply text-body-sm flex gap-3 text-neutral-600 dark:text-neutral-400;
