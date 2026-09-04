@@ -1,85 +1,87 @@
 'use client';
 
-import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ActivityCalendar } from 'react-activity-calendar';
+import { cn } from '@/lib/utils';
+import { buildContributionGrid } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
-import { useTheme } from '@/hooks/utilityHooks';
 import { en } from '@/language';
 import {
-  getInitialSize,
-  useResponsiveCalendarSize,
-  useContributionTooltip,
   formatTooltipDate,
   getContributionText,
+  useContributionTooltip,
+  useScrollEdges,
 } from '@/hooks/contributionsCalendarHooks';
+
+/** GitHub grades a day 0–4; each step has its own cell colour, per theme. */
+const LEVELS = [0, 1, 2, 3, 4];
 
 type ContributionsCalendarProps = {
   activities: ActivityCalendarData[];
-  year?: number;
+  /** The sentence the figure and its label already say, for assistive tech. */
+  summary: string;
 };
 
 export default function ContributionsCalendar({
   activities,
-  year,
+  summary,
 }: ContributionsCalendarProps) {
-  const { isDark } = useTheme();
-  const [size, setSize] = useState(getInitialSize);
-  const { tooltip, handleMouseEnter, handleMouseLeave } =
-    useContributionTooltip(activities);
-  useResponsiveCalendarSize(setSize);
+  const { weeks, months } = buildContributionGrid(activities);
+  const { tooltip, handleMouseOver, handleMouseLeave } =
+    useContributionTooltip();
+  const { ref: scrollRef, edges } = useScrollEdges<HTMLDivElement>();
 
   return (
-    <>
+    <div className="contrib-chart">
+      {/* Both rows sit on identical fixed tracks, so a month label cannot drift
+          from the weeks beneath it, and both scroll together as one. */}
       <div
-        className="contributions-calendar surface-card p-8"
+        ref={scrollRef}
+        data-edges={edges}
+        className="contrib-scroll"
+        role="img"
+        aria-label={summary}
+        tabIndex={0}
+        onMouseOver={handleMouseOver}
         onMouseLeave={handleMouseLeave}
       >
-        <ActivityCalendar
-          data={activities}
-          theme={{
-            light: [
-              'var(--color-neutral-100)',
-              'var(--color-brand-300)',
-              'var(--color-brand-400)',
-              'var(--color-brand-500)',
-              'var(--color-brand-600)',
-            ],
-            dark: [
-              'var(--color-neutral-900)',
-              'var(--color-brand-300)',
-              'var(--color-brand-400)',
-              'var(--color-brand-500)',
-              'var(--color-brand-600)',
-            ],
-          }}
-          colorScheme={isDark ? 'dark' : 'light'}
-          blockSize={size.blockSize}
-          blockMargin={size.blockMargin}
-          blockRadius={size.blockRadius}
-          style={{
-            padding: 0,
-            border: 'none',
-            background: 'transparent',
-          }}
-          fontSize={size.fontSize}
-          labels={{
-            totalCount: year
-              ? en.contributionsCalendar.totalCountYear
-                  .replace('{{count}}', '{{count}}')
-                  .replace('{{year}}', String(year))
-              : en.contributionsCalendar.totalCount,
-          }}
-          renderBlock={(block, _activity) =>
-            React.cloneElement(block, {
-              onMouseEnter: handleMouseEnter,
-              style: {
-                ...block.props.style,
-                cursor: 'pointer',
-              },
-            })
-          }
-        />
+        <div className="contrib-months">
+          {months.map((month) => (
+            <div key={month.key} style={{ gridColumn: `span ${month.span}` }}>
+              {month.label}
+            </div>
+          ))}
+        </div>
+
+        <div className="contrib-grid">
+          {weeks.map((week, weekIndex) =>
+            week.map((day, weekday) =>
+              day ? (
+                <i
+                  key={day.date}
+                  className={cn('contrib-cell', `contrib-cell-${day.level}`)}
+                  data-date={day.date}
+                  data-count={day.count}
+                />
+              ) : (
+                <i
+                  key={`pad-${weekIndex}-${weekday}`}
+                  className="contrib-cell invisible"
+                />
+              )
+            )
+          )}
+        </div>
+      </div>
+
+      <div className="contrib-legend" aria-hidden="true">
+        <span>{en.contributionsCalendar.less}</span>
+        {LEVELS.map((level) => (
+          <i
+            key={level}
+            className={cn('contrib-legend-dot', `contrib-cell-${level}`)}
+          />
+        ))}
+        <span>{en.contributionsCalendar.more}</span>
       </div>
 
       {tooltip &&
@@ -105,6 +107,6 @@ export default function ContributionsCalendar({
           </div>,
           document.body
         )}
-    </>
+    </div>
   );
 }

@@ -1,13 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { en } from '@/language';
-import { ActivityCalendarData } from '@/types/github';
-
-export type CalendarSize = {
-  blockSize: number;
-  blockMargin: number;
-  blockRadius: number;
-  fontSize: number;
-};
 
 export type TooltipData = {
   count: number;
@@ -16,41 +8,10 @@ export type TooltipData = {
   y: number;
 };
 
-/** Single source of truth for breakpoint-to-size mapping. */
-function calendarSizeForWidth(width: number): CalendarSize {
-  if (width < 640)
-    return { blockSize: 14, blockMargin: 4, blockRadius: 2, fontSize: 13 };
-  if (width < 768)
-    return { blockSize: 15, blockMargin: 4, blockRadius: 3, fontSize: 14 };
-  if (width < 1024)
-    return { blockSize: 16, blockMargin: 5, blockRadius: 3, fontSize: 15 };
-  if (width < 1280)
-    return { blockSize: 18, blockMargin: 5, blockRadius: 3, fontSize: 16 };
-  return { blockSize: 20, blockMargin: 6, blockRadius: 4, fontSize: 16 };
-}
-
-export function getInitialSize(): CalendarSize {
-  if (typeof window === 'undefined') {
-    return calendarSizeForWidth(1280);
-  }
-  return calendarSizeForWidth(window.innerWidth);
-}
-
-export function useResponsiveCalendarSize(
-  setSize: (size: CalendarSize) => void
-) {
-  useEffect(() => {
-    const updateSize = () => setSize(calendarSizeForWidth(window.innerWidth));
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, [setSize]);
-}
-
 /** Format date for tooltip display */
 export function formatTooltipDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('en-GB', {
     weekday: 'short',
     year: 'numeric',
     month: 'short',
@@ -65,8 +26,11 @@ export function getContributionText(count: number): string {
   return `${count} ${en.contributionsCalendar.contributions}`;
 }
 
-/** Custom hook to manage contribution tooltip state and handlers */
-export function useContributionTooltip(activities: ActivityCalendarData[]) {
+/**
+ * Manages the contribution tooltip. One delegated handler on the grid rather
+ * than a listener per cell — the day is read off the cell's own dataset.
+ */
+export function useContributionTooltip() {
   const [tooltip, setTooltip] = useState<TooltipData | null>(null);
 
   useEffect(() => {
@@ -75,19 +39,16 @@ export function useContributionTooltip(activities: ActivityCalendarData[]) {
     return () => document.removeEventListener('touchstart', dismiss);
   }, []);
 
-  const handleMouseEnter = (event: React.MouseEvent<SVGRectElement>) => {
-    const target = event.currentTarget;
-    const date = target.getAttribute('data-date');
+  const handleMouseOver = (event: React.MouseEvent<HTMLElement>) => {
+    const cell = (event.target as HTMLElement).closest<HTMLElement>(
+      '[data-date]'
+    );
+    if (!cell) return;
 
-    if (!date) return;
-
-    const activity = activities.find((entry) => entry.date === date);
-    if (!activity) return;
-
-    const rect = target.getBoundingClientRect();
+    const rect = cell.getBoundingClientRect();
     setTooltip({
-      count: activity.count,
-      date: activity.date,
+      count: Number(cell.dataset.count),
+      date: cell.dataset.date as string,
       x: rect.left + rect.width / 2,
       y: rect.top - 10,
     });
@@ -99,7 +60,48 @@ export function useContributionTooltip(activities: ActivityCalendarData[]) {
 
   return {
     tooltip,
-    handleMouseEnter,
+    handleMouseOver,
     handleMouseLeave,
   };
+}
+
+/** Which edges of a horizontal scroller still have content beyond them. */
+export type ScrollEdges = 'none' | 'start' | 'middle' | 'end';
+
+/**
+ * Reports scroll position as an edge state so CSS can fade the side that has
+ * more behind it. This replaces the native scrollbar as the affordance: the
+ * browser flashes an overlay scrollbar on load and fades it on interaction,
+ * which is unstyleable and differs per platform.
+ */
+export function useScrollEdges<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [edges, setEdges] = useState<ScrollEdges>('none');
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const update = () => {
+      const overflow = element.scrollWidth - element.clientWidth;
+      // A sub-pixel container width leaves a fractional overflow that is not
+      // really scrollable, so tolerate a pixel at each end.
+      if (overflow <= 1) return setEdges('none');
+      if (element.scrollLeft <= 1) return setEdges('start');
+      if (element.scrollLeft >= overflow - 1) return setEdges('end');
+      setEdges('middle');
+    };
+
+    update();
+    element.addEventListener('scroll', update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+
+    return () => {
+      element.removeEventListener('scroll', update);
+      observer.disconnect();
+    };
+  }, []);
+
+  return { ref, edges };
 }
