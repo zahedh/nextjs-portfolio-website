@@ -73,9 +73,11 @@
   --spacing-gutter-lg: 3.25rem;
   --spacing-surface: 1.125rem;
   --spacing-rhythm: 1.375rem;
-  --spacing-heading-gap: 2.5rem;
-  /* Closes a section by the same measure that opens it: heading-gap plus the
-     1rem row gap between a section's children. Keep the two in step. */
+  /* The whole measured distance between a heading and its content. The
+     declaration in .section-heading-row subtracts .section-inner's row gap so
+     the rendered gap equals this value rather than exceeding it. */
+  --spacing-heading-gap: 3.5rem;
+  /* Closes a section by the same measure that opens it. Keep the two in step. */
   --spacing-section-end: 3.5rem;
   --spacing-block: 2rem;
   --spacing-block-lg: 2.5rem;
