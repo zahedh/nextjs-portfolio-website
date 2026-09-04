@@ -1,18 +1,18 @@
 import { Project } from '@/types/project';
 import { en } from '@/language';
-import { formatProjectTimeline, isProjectActive } from '@/lib/ui-logic';
+import {
+  formatProjectTimeline,
+  getProjectPlatform,
+  isProjectActive,
+} from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
 function MetaRow({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-      <span className="text-micro font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400">
-        {label}
-      </span>
-      <div className="text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200">
-        {value}
-      </div>
+    <div className="meta-list-row">
+      <span className="meta-list-label">{label}</span>
+      <div className="meta-list-value">{value}</div>
     </div>
   );
 }
@@ -26,7 +26,7 @@ export function ProjectPlatformTag({
   className?: string;
 }) {
   const platform =
-    project.projectType === 'Web'
+    getProjectPlatform(project) === 'Web'
       ? en.projectDisplay.platformWeb
       : en.projectDisplay.platformMobile;
   return (

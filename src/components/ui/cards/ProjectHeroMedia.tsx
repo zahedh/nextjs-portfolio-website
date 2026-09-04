@@ -6,6 +6,7 @@ import { AvatarGraphic } from '@/components/media';
 import {
   getProjectHeroFrameClassNames,
   getProjectHeroRasterSizes,
+  getProjectPlatform,
 } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 import { Monitor, Smartphone } from 'lucide-react';
@@ -82,7 +83,7 @@ export function ProjectHeroMedia({
             density === 'compact' ? 'min-h-[120px]' : ''
           )}
         >
-          {project.projectType === 'Web' ? (
+          {getProjectPlatform(project) === 'Web' ? (
             <Monitor
               className="h-16 w-16 text-neutral-400 sm:h-20 sm:w-20 dark:text-neutral-600"
               strokeWidth={1.5}

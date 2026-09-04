@@ -3,8 +3,10 @@ import { Project } from '@/types/project';
 export const projects: Project[] = [
   {
     id: 'project-8',
-    projectType: 'Web',
+    categories: ['Web'],
     title: 'Render Lab — Video FX Editor',
+    summary:
+      'A browser video FX editor doing frame-accurate compositing with no server round trip.',
     company: 'Personal Project',
     startDate: 'Mar 2026',
     endDate: 'Mar 2026',
@@ -37,11 +39,13 @@ export const projects: Project[] = [
   },
   {
     id: 'project-0',
-    projectType: 'Web',
+    categories: ['Web'],
     title: 'Portfolio Website',
+    summary:
+      'This site. Designed in Figma from scratch, built on Next.js 15 and TypeScript.',
     company: 'Personal Project',
     startDate: 'Jan 2025',
-    endDate: 'Present',
+    endDate: 'Mar 2026',
     repoUrl: 'https://github.com/zahedh/nextjs-portfolio-website',
     imageToken: 'avatar',
     description: [
@@ -83,8 +87,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-1',
-    projectType: 'Mobile',
+    categories: ['Mobile'],
     title: 'Smarty Mobile App',
+    summary:
+      'React Native app for managing SMARTY mobile accounts and plans, on iOS and Android.',
     company: 'Blue Beck Ltd',
     startDate: 'Mar 2023',
     endDate: 'Present',
@@ -133,8 +139,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-2',
-    projectType: 'Web',
+    categories: ['Web'],
     title: 'Curtains Made — E-Commerce & Stock Management',
+    summary:
+      'Made-to-measure e-commerce plus the stock tooling and scheduler behind it.',
     company: 'Interlockdigital',
     startDate: 'Jun 2022',
     endDate: 'Mar 2023',
@@ -164,8 +172,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-3',
-    projectType: 'Mobile',
+    categories: ['Mobile'],
     title: 'BeAware Mobile App',
+    summary:
+      'Crime and policing data from the UK Police API, mapped across England.',
     company: 'Staffordshire University',
     startDate: 'Dec 2021',
     endDate: 'May 2022',
@@ -196,8 +206,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-4',
-    projectType: 'Mobile',
+    categories: ['Mobile'],
     title: 'Michelin Costings Mobile App',
+    summary:
+      'Internal Michelin tyre costing app, led off the legacy Alloy framework onto React Native.',
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
@@ -227,8 +239,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-5',
-    projectType: 'Mobile',
+    categories: ['Mobile'],
     title: 'Michelin Truck Audit Mobile App',
+    summary:
+      'Digitised Michelin truck audits, migrated from Alloy to React Native.',
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
@@ -258,8 +272,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-6',
-    projectType: 'Web',
+    categories: ['Web'],
     title: 'RedFred PDF Generator WordPress Plugin',
+    summary:
+      'WordPress plugin turning uploaded data into 100 bespoke PDFs in under an hour.',
     company: 'Interlockdigital',
     startDate: 'Jun 2021',
     endDate: 'Jul 2021',
@@ -283,8 +299,10 @@ export const projects: Project[] = [
   },
   {
     id: 'project-7',
-    projectType: 'Mobile',
+    categories: ['Mobile'],
     title: 'Warmshowers — Mobile App',
+    summary:
+      'Hospitality network app connecting touring cyclists with 150,000+ hosts worldwide.',
     company: 'Interlockdigital',
     startDate: 'May 2020',
     endDate: 'Sep 2020',
@@ -307,6 +325,32 @@ export const projects: Project[] = [
       'xcode',
       'xml',
       'objective-c',
+    ],
+  },
+  // PLACEHOLDER — stands in for the real AI projects (Markscheme, Cortex) so the
+  // AI cover ramp and the "AI" filter have something to render. Remove when those
+  // land; this must not reach main.
+  {
+    id: 'project-ai-placeholder',
+    categories: ['AI', 'Web'],
+    title: 'Markscheme — Eval Harness',
+    summary:
+      'Eval harness scoring LLM spec extraction against a rubric, not an exact string.',
+    company: 'Personal Project',
+    startDate: 'Sep 2026',
+    endDate: 'Present',
+    description: [
+      '✦ An evaluation harness for language-model spec extraction, scoring model output against a written rubric rather than an exact string.',
+      '✦ Runs a suite of graded cases per model and reports per-criterion pass rates, so a prompt change can be measured instead of eyeballed.',
+      '✦ Built with TypeScript, with results written to a flat store that keeps a full history of every run.',
+    ],
+    skills: [
+      'typescript',
+      'nodejs',
+      'claude',
+      'claude-code',
+      'github',
+      'vercel',
     ],
   },
 ];

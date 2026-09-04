@@ -1,16 +1,13 @@
 'use client';
 
 import { en } from '@/language';
-import { getProjectExcerptLine, isProjectActive } from '@/lib/ui-logic';
+import {
+  getProjectCardSummary,
+  getProjectCoverClasses,
+  isProjectActive,
+} from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 import { Project } from '@/types/project';
-
-const PROJECT_COVER_CLASSES = [
-  'project-cover-amber',
-  'project-cover-violet',
-  'project-cover-blue',
-  'project-cover-brown',
-];
 
 interface ProjectCardProps {
   project: Project;
@@ -26,7 +23,7 @@ export default function ProjectCard({
   onOpenFullDetails,
   className,
 }: ProjectCardProps) {
-  const excerpt = getProjectExcerptLine(project);
+  const excerpt = getProjectCardSummary(project);
 
   if (variant === 'compact') {
     return (
@@ -50,11 +47,7 @@ export default function ProjectCard({
     );
   }
 
-  const coverClassName =
-    PROJECT_COVER_CLASSES[
-      project.id.charCodeAt(project.id.length - 1) %
-        PROJECT_COVER_CLASSES.length
-    ];
+  const coverClassNames = getProjectCoverClasses(project);
   const status = isProjectActive(project)
     ? en.projectDisplay.statusActive
     : en.projectDisplay.statusCompleted;
@@ -66,7 +59,7 @@ export default function ProjectCard({
       onClick={() => onOpenFullDetails(project)}
       aria-label={`${en.projectCard.viewProject}: ${project.title}`}
     >
-      <span className={cn('project-card-cover', coverClassName)} aria-hidden />
+      <span className={cn('project-card-cover', coverClassNames)} aria-hidden />
       <span className="project-card-feature-body">
         <span className="project-card-feature-meta">
           {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}

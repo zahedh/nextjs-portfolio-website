@@ -288,20 +288,42 @@
   .project-card-feature {
     @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
+  /* --cover-a is the primary category's colour, --cover-b the one it blends into.
+     A single-category project has no --cover-b, so it falls back to a tint of its
+     own colour and reads as the plain ramp it was drawn as. */
+  /* Fixed below lg; from lg the card is stretched to the compact column's height,
+     so the cover takes the slack rather than leaving it blank under the excerpt. */
   .project-card-cover {
-    @apply block h-[154px] shrink-0 lg:h-[182px];
+    @apply block h-[154px] shrink-0 lg:h-auto lg:min-h-[182px] lg:flex-1 lg:shrink;
+
+    --cover-a: var(--cover-web);
+    --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
+
+    background-image: linear-gradient(
+      152deg,
+      var(--cover-a) 0%,
+      var(--cover-b) 52%,
+      var(--cover-end) 100%
+    );
   }
-  .project-cover-amber {
-    background: var(--project-cover-amber);
+  /* Declared after .project-card-cover so both custom properties win on source order. */
+  .cover-a-web {
+    --cover-a: var(--cover-web);
   }
-  .project-cover-violet {
-    background: var(--project-cover-violet);
+  .cover-a-mobile {
+    --cover-a: var(--cover-mobile);
   }
-  .project-cover-blue {
-    background: var(--project-cover-blue);
+  .cover-a-ai {
+    --cover-a: var(--cover-ai);
   }
-  .project-cover-brown {
-    background: var(--project-cover-brown);
+  .cover-b-web {
+    --cover-b: var(--cover-web);
+  }
+  .cover-b-mobile {
+    --cover-b: var(--cover-mobile);
+  }
+  .cover-b-ai {
+    --cover-b: var(--cover-ai);
   }
   .project-card-feature-body {
     @apply flex flex-col gap-2 p-5;
