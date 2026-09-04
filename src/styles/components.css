@@ -414,7 +414,7 @@
     @apply flex flex-col items-start;
   }
   .footer-heading {
-    @apply font-display text-heading lg:text-heading-lg font-bold text-balance;
+    @apply font-display text-heading lg:text-heading-lg 2xl:text-display font-bold text-balance;
   }
   .footer-copy {
     @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;

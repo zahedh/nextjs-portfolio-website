@@ -17,7 +17,7 @@ export default function Heading({
   return (
     <Comp
       className={cn(
-        'font-display text-heading lg:text-heading-lg font-bold tracking-tight text-neutral-900 dark:text-neutral-200',
+        'font-display text-heading lg:text-heading-lg 2xl:text-display font-bold tracking-tight text-neutral-900 dark:text-neutral-200',
         className
       )}
     >
