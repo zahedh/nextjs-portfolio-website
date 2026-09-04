@@ -88,7 +88,7 @@ export const projects: Project[] = [
   {
     id: 'project-1',
     categories: ['Mobile'],
-    title: 'Smarty Mobile App',
+    title: 'Smarty',
     summary:
       'React Native app for managing SMARTY mobile accounts and plans, on iOS and Android.',
     company: 'Blue Beck Ltd',
@@ -140,7 +140,7 @@ export const projects: Project[] = [
   {
     id: 'project-2',
     categories: ['Web'],
-    title: 'Curtains Made — E-Commerce & Stock Management',
+    title: 'Curtains Made',
     summary:
       'Made-to-measure e-commerce plus the stock tooling and scheduler behind it.',
     company: 'Interlockdigital',
@@ -173,7 +173,7 @@ export const projects: Project[] = [
   {
     id: 'project-3',
     categories: ['Mobile'],
-    title: 'BeAware Mobile App',
+    title: 'BeAware',
     summary:
       'Crime and policing data from the UK Police API, mapped across England.',
     company: 'Staffordshire University',
@@ -207,7 +207,7 @@ export const projects: Project[] = [
   {
     id: 'project-4',
     categories: ['Mobile'],
-    title: 'Michelin Costings Mobile App',
+    title: 'Michelin Costings',
     summary:
       'Internal Michelin tyre costing app, led off the legacy Alloy framework onto React Native.',
     company: 'Interlockdigital',
@@ -240,7 +240,7 @@ export const projects: Project[] = [
   {
     id: 'project-5',
     categories: ['Mobile'],
-    title: 'Michelin Truck Audit Mobile App',
+    title: 'Michelin Truck Audit',
     summary:
       'Digitised Michelin truck audits, migrated from Alloy to React Native.',
     company: 'Interlockdigital',
@@ -273,7 +273,7 @@ export const projects: Project[] = [
   {
     id: 'project-6',
     categories: ['Web'],
-    title: 'RedFred PDF Generator WordPress Plugin',
+    title: 'RedFred PDF Generator',
     summary:
       'WordPress plugin turning uploaded data into 100 bespoke PDFs in under an hour.',
     company: 'Interlockdigital',
@@ -300,7 +300,7 @@ export const projects: Project[] = [
   {
     id: 'project-7',
     categories: ['Mobile'],
-    title: 'Warmshowers — Mobile App',
+    title: 'Warmshowers',
     summary:
       'Hospitality network app connecting touring cyclists with 150,000+ hosts worldwide.',
     company: 'Interlockdigital',
