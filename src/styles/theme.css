@@ -91,6 +91,14 @@
   --cover-ai: #c6b4cd;
   /* Short of the card ground (#f7f6f3) so the plate stays a plate. */
   --cover-end: #f2eee7;
+
+  /* The same three categories at control weight. A cover tint is a plate and is
+     far too pale to carry an active control, so each category has an ink as well. */
+  --cat-ink-web: #dd993c;
+  --cat-ink-mobile: #5b93a5;
+  --cat-ink-ai: #8b6ea8;
+  /* The control that filters nothing takes no category's colour. */
+  --cat-ink-all: #c7c4bc;
 }
 
 /* =========================
@@ -123,6 +131,10 @@
   --cover-mobile: #1b3a45;
   --cover-ai: #342550;
   --cover-end: #1f2226;
+  --cat-ink-web: #98631b;
+  --cat-ink-mobile: #2f5f6e;
+  --cat-ink-ai: #55407a;
+  --cat-ink-all: #34383d;
 }
 
 /* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */

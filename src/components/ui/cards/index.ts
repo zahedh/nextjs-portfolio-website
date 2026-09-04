@@ -1,6 +1,7 @@
 export { FeatureList } from './FeatureList';
 export { default as JobCard } from './JobCard';
 export { ProjectHeroMedia } from './ProjectHeroMedia';
+export { ProjectCategoryMarks } from './ProjectCategoryMarks';
 export { ProjectLinks } from './ProjectLinks';
 export {
   ProjectMetaSummary,

@@ -6,6 +6,7 @@ import {
   getProjectCoverClasses,
   isProjectActive,
 } from '@/lib/ui-logic';
+import { ProjectCategoryMarks } from '@/components/ui/cards/ProjectCategoryMarks';
 import { cn } from '@/lib/utils';
 import { Project } from '@/types/project';
 
@@ -24,15 +25,23 @@ export default function ProjectCard({
   className,
 }: ProjectCardProps) {
   const excerpt = getProjectCardSummary(project);
+  const coverClassNames = getProjectCoverClasses(project);
+  const label = [`${en.projectCard.viewProject}: ${project.title}`]
+    .concat(project.categories.length ? project.categories.join(', ') : [])
+    .join('. ');
 
   if (variant === 'compact') {
     return (
       <button
         type="button"
-        className={cn('project-card-compact', className)}
+        className={cn('project-card-compact', coverClassNames, className)}
         onClick={() => onOpenFullDetails(project)}
-        aria-label={`${en.projectCard.viewProject}: ${project.title}`}
+        aria-label={label}
       >
+        <ProjectCategoryMarks
+          project={project}
+          className="project-card-compact-marks"
+        />
         <span
           className="project-card-compact-title"
           role="heading"
@@ -47,7 +56,6 @@ export default function ProjectCard({
     );
   }
 
-  const coverClassNames = getProjectCoverClasses(project);
   const status = isProjectActive(project)
     ? en.projectDisplay.statusActive
     : en.projectDisplay.statusCompleted;
@@ -57,9 +65,15 @@ export default function ProjectCard({
       type="button"
       className="project-card-feature"
       onClick={() => onOpenFullDetails(project)}
-      aria-label={`${en.projectCard.viewProject}: ${project.title}`}
+      aria-label={label}
     >
-      <span className={cn('project-card-cover', coverClassNames)} aria-hidden />
+      <span className={cn('project-card-cover', coverClassNames)} aria-hidden>
+        <ProjectCategoryMarks
+          project={project}
+          className="category-marks-on-cover"
+          markClassName="category-mark-on-cover"
+        />
+      </span>
       <span className="project-card-feature-body">
         <span className="project-card-feature-meta">
           {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}

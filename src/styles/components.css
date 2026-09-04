@@ -297,7 +297,7 @@
   /* Fixed below lg; from lg the card is stretched to the compact column's height,
      so the cover takes the slack rather than leaving it blank under the excerpt. */
   .project-card-cover {
-    @apply block h-[154px] shrink-0 lg:h-auto lg:min-h-[182px] lg:flex-1 lg:shrink;
+    @apply relative block h-[154px] shrink-0 lg:h-auto lg:min-h-[182px] lg:flex-1 lg:shrink;
 
     --cover-a: var(--cover-web);
     --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
@@ -341,7 +341,14 @@
     @apply text-body-sm leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-500 flex min-h-20 flex-1 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 relative flex min-h-20 flex-1 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+
+    /* Reads the same --cover-a the covers use, so a card and its cover cannot
+       disagree. No default: a project with no category simply has no edge. */
+    border-left: 3px solid var(--cover-a, transparent);
+  }
+  .project-card-compact-marks {
+    @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
   }
   .project-card-compact-title {
     @apply font-heading text-title-sm truncate font-bold text-neutral-900 dark:text-neutral-100;
@@ -689,6 +696,41 @@
   .btn-toggle-idle,
   .filter-inactive {
     @apply opacity-50;
+  }
+  /* Each filter takes its own category's colour, so the colour a cover spends
+     has somewhere to be learned. Declared after .btn-primary so both the resting
+     and the hover background win on source order rather than specificity. */
+  .filter-pill {
+    background-color: var(--filter-ink);
+  }
+  .filter-pill:hover {
+    background-color: color-mix(in oklab, var(--filter-ink) 86%, black);
+  }
+  .filter-pill-all {
+    --filter-ink: var(--cat-ink-all);
+  }
+  .filter-pill-web {
+    --filter-ink: var(--cat-ink-web);
+  }
+  .filter-pill-mobile {
+    --filter-ink: var(--cat-ink-mobile);
+  }
+  .filter-pill-ai {
+    --filter-ink: var(--cat-ink-ai);
+  }
+  /* Category glyphs. The card's own label carries the categories for a reader
+     who cannot see them, so the marks themselves are hidden from the tree. */
+  .category-marks {
+    @apply pointer-events-none inline-flex items-center gap-1.5;
+  }
+  .category-mark {
+    @apply h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400;
+  }
+  .category-marks-on-cover {
+    @apply absolute top-3 right-3;
+  }
+  .category-mark-on-cover {
+    @apply h-4 w-4 text-neutral-700/70 dark:text-neutral-300/70;
   }
 
   /* Contributions calendar tooltip */

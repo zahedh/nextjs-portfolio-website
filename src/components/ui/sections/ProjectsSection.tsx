@@ -13,6 +13,22 @@ import { cn } from '@/lib/utils';
 import { Project, ProjectFilter } from '@/types/project';
 import { useMemo, useState } from 'react';
 
+/** The filter controls, each carrying its own category's colour. */
+const PROJECT_FILTERS: {
+  value: ProjectFilter;
+  label: string;
+  pill: string;
+}[] = [
+  { value: 'All', label: en.projectFilters.all, pill: 'filter-pill-all' },
+  { value: 'Web', label: en.projectFilters.web, pill: 'filter-pill-web' },
+  {
+    value: 'Mobile',
+    label: en.projectFilters.mobile,
+    pill: 'filter-pill-mobile',
+  },
+  { value: 'AI', label: en.projectFilters.ai, pill: 'filter-pill-ai' },
+];
+
 /** Cards drawn before the overflow control, and the larger count the 2xl grid fits. */
 const INITIAL_PROJECT_COUNT = 4;
 const WIDE_PROJECT_COUNT = 7;
@@ -115,30 +131,19 @@ export default function ProjectsSection() {
 
   const filterButtons = (
     <>
-      <PrimaryButton
-        onClick={() => setSelectedType('All')}
-        className={selectedType !== 'All' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.all}
-      </PrimaryButton>
-      <PrimaryButton
-        onClick={() => setSelectedType('Web')}
-        className={selectedType !== 'Web' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.web}
-      </PrimaryButton>
-      <PrimaryButton
-        onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.mobile}
-      </PrimaryButton>
-      <PrimaryButton
-        onClick={() => setSelectedType('AI')}
-        className={selectedType !== 'AI' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.ai}
-      </PrimaryButton>
+      {PROJECT_FILTERS.map(({ value, label, pill }) => (
+        <PrimaryButton
+          key={value}
+          onClick={() => setSelectedType(value)}
+          className={cn(
+            'filter-pill',
+            pill,
+            selectedType !== value && 'btn-toggle-idle'
+          )}
+        >
+          {label}
+        </PrimaryButton>
+      ))}
     </>
   );
 
