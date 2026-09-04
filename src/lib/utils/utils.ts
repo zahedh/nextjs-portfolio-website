@@ -145,7 +145,7 @@ export function normalizeSkillId(rawId: string): string {
 
 /**
  * Maps skill IDs to their corresponding skill objects.
- * Uses the same normalisation as `projectMatchesSkill` in `@/lib/project`.
+ * Normalises both sides so `React Native` and `react-native` match.
  */
 export function getSkillsByIds<T extends { id: string }>(
   skillIds: string[],

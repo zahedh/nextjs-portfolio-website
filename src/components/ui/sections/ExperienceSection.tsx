@@ -1,26 +1,31 @@
 import { Section } from '@/components';
-import { JobCard } from '@/components/ui/cards';
-import { isJobActive, jobExperiences } from '@/data';
+import { ExperienceRow } from '@/components/ui/cards';
+import { jobExperiences } from '@/data';
+import { groupJobsByCompany } from '@/lib/ui-logic';
 import { en } from '@/language';
 
-/** Section summarising professional work experience. */
+/** Professional experience as a timeline, grouped by employer. */
 export default function ExperienceSection() {
+  const groups = groupJobsByCompany(jobExperiences);
+
   return (
     <Section anchor="experience" title={en.sectionHeaders.experience}>
       <div className="experience-rail">
-        {jobExperiences.map((job) => (
-          <div key={job.id} className="experience-rail-row">
-            <div
-              className={
-                isJobActive(job)
-                  ? 'experience-year experience-year-active'
-                  : 'experience-year'
-              }
-            >
-              {job.startDate.split(' ').pop()}
+        {groups.map((group) => (
+          <section className="experience-group" key={group.company}>
+            <header className="experience-group-header">
+              <h3 className="experience-group-company">{group.company}</h3>
+              <p className="experience-group-meta">
+                {group.location} <span aria-hidden="true">·</span> {group.span}
+              </p>
+            </header>
+
+            <div className="experience-group-roles">
+              {group.jobs.map((job) => (
+                <ExperienceRow key={job.id} job={job} />
+              ))}
             </div>
-            <JobCard job={job} />
-          </div>
+          </section>
         ))}
       </div>
     </Section>

@@ -41,12 +41,12 @@ The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fi
 - `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
 - `src/data/` — Site content as typed TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
 - `src/language/english.ts` — All user-facing copy (translation-ready)
-- `src/stores/global-store.ts` — Zustand store: `isDark`, `heroAnimationComplete`, `selectedSkillId`
+- `src/stores/global-store.ts` — Zustand store: `isDark`
 - `src/providers/` — Zustand + React context wrapper used in the root layout
 - `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
 - `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
 - `src/lib/ui-logic/` — Motion variants and viewport configs
-- `src/hooks/` — `useDoubleActivation`, `useScrolled`, `skillTilePortalTooltip`, `overlayHooks`, `projectHooks`, `contributionsCalendarHooks`
+- `src/hooks/` — `useScrolled`, `utilityHooks`, `skillTilePortalTooltip`, `overlayHooks`, `contributionsCalendarHooks`
 - `.claude/rules/project-conventions.md` — repo-local conventions the hub does not cover
 - `.claude/skills/` — project-level skills bespoke to this repo
 
@@ -56,11 +56,11 @@ This layout predates `.context/engineering/nextjs-react.md` and diverges from it
 
 **Content updates** — edit `src/data/` for projects, skills, and experience; `src/language/english.ts` for UI text.
 
-**State** — the Zustand store is the single source of truth for theme, hero animation state, and the selected skill filter. `selectedSkillId` drives skill → project filtering: a skill tile sets it, the Projects section filters on it.
+**State** — the Zustand store is the single source of truth for theme state. It holds nothing else; a section that needs local state keeps it local.
 
 **Client vs server** — most components are server components. `'use client'` goes at the smallest interactive leaf, and only for the reasons listed in `.claude/rules/project-conventions.md`.
 
-**Double activation** — skill tiles need a double-click or double-tap to navigate, gated by `useDoubleActivation` (default 400 ms window).
+**Skill tiles are not interactive.** They render `role="img"` and carry no route into the projects section. That path was removed deliberately — the projects section already filters itself by type, and the tile route needed a double activation with no affordance. Do not reintroduce it.
 
 **Contributions** — the calendar fetches `/api/contributions?year=YYYY`.
 

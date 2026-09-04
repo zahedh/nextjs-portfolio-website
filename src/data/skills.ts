@@ -3,7 +3,6 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiJavascript,
-  SiJquery,
   SiDotnet,
   SiHtml5,
   SiCss3,
@@ -15,7 +14,6 @@ import {
   SiSlack,
   SiDiscord,
   SiNotion,
-  SiGoogledocs,
   SiOpenai,
   SiGooglegemini,
   SiMysql,
@@ -26,28 +24,32 @@ import {
   SiVite,
   SiEslint,
   SiPrettier,
-  SiLibreofficewriter,
   SiVercel,
   SiFirebase,
-  SiPhp,
-  SiWordpress,
   SiFramer,
   SiClaude,
   SiNx,
   SiStorybook,
+  SiNodedotjs,
+  SiZod,
+  SiShadcnui,
+  SiReactquery,
+  SiReacttable,
+  SiReacthookform,
+  SiTestinglibrary,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
-  Activity,
-  BarChart2,
-  Bot,
+  Braces,
   Code2,
-  Lightbulb,
+  Drama,
+  Film,
+  Layers,
   MousePointer2,
   Network,
+  NotebookPen,
   Sparkles,
   Terminal,
-  WandSparkles,
 } from 'lucide-react';
 import { en } from '@/language';
 import { Skill } from '@/types/skill';
@@ -67,9 +69,63 @@ export const skillsData: Skill[] = [
     category: 'frameworks',
   },
   {
-    id: 'React Native',
+    id: 'react-native',
     label: en.skillsCollageSection.reactNative,
     icon: SiReact,
+    category: 'frameworks',
+  },
+  {
+    id: 'nativewind',
+    label: en.skillsCollageSection.nativeWind,
+    icon: SiTailwindcss,
+    category: 'frameworks',
+  },
+  {
+    id: 'shadcn-ui',
+    label: en.skillsCollageSection.shadcnUI,
+    icon: SiShadcnui,
+    category: 'frameworks',
+  },
+  {
+    id: 'zustand',
+    label: en.skillsCollageSection.zustand,
+    icon: Layers,
+    category: 'frameworks',
+  },
+  {
+    id: 'tanstack-query',
+    label: en.skillsCollageSection.tanStackQuery,
+    icon: SiReactquery,
+    category: 'frameworks',
+  },
+  {
+    id: 'tanstack-table',
+    label: en.skillsCollageSection.tanStackTable,
+    icon: SiReacttable,
+    category: 'frameworks',
+  },
+  {
+    id: 'react-hook-form',
+    label: en.skillsCollageSection.reactHookForm,
+    icon: SiReacthookform,
+    category: 'frameworks',
+  },
+  {
+    id: 'lottie',
+    label: en.skillsCollageSection.lottie,
+    icon: Film,
+    category: 'frameworks',
+  },
+  {
+    id: 'nodejs',
+    label: en.skillsCollageSection.nodeJS,
+    icon: SiNodedotjs,
+    category: 'frameworks',
+  },
+  {
+    id: 'zod',
+    label: en.skillsCollageSection.zod,
+    icon: SiZod,
     category: 'frameworks',
   },
 
@@ -84,12 +140,6 @@ export const skillsData: Skill[] = [
     id: 'javascript',
     label: en.skillsCollageSection.javaScript,
     icon: SiJavascript,
-    category: 'languages',
-  },
-  {
-    id: 'php',
-    label: en.skillsCollageSection.php,
-    icon: SiPhp,
     category: 'languages',
   },
 
@@ -108,18 +158,6 @@ export const skillsData: Skill[] = [
     icon: Code2,
     category: 'legacy',
   },
-  {
-    id: 'jquery',
-    label: en.skillsCollageSection.jquery,
-    icon: SiJquery,
-    category: 'legacy',
-  },
-  {
-    id: 'wordpress',
-    label: en.skillsCollageSection.wordpress,
-    icon: SiWordpress,
-    category: 'legacy',
-  },
 
   // Web Fundamentals
   {
@@ -132,12 +170,6 @@ export const skillsData: Skill[] = [
     id: 'css',
     label: en.skillsCollageSection.css,
     icon: SiCss3,
-    category: 'web-fundamentals',
-  },
-  {
-    id: 'amp',
-    label: en.skillsCollageSection.amp,
-    icon: Code2,
     category: 'web-fundamentals',
   },
 
@@ -180,7 +212,7 @@ export const skillsData: Skill[] = [
     id: 'cursor',
     label: en.skillsCollageSection.cursor,
     icon: MousePointer2,
-    category: 'dev-tools',
+    category: 'ai',
   },
   {
     id: 'vite',
@@ -192,18 +224,6 @@ export const skillsData: Skill[] = [
     id: 'vercel',
     label: en.skillsCollageSection.vercel,
     icon: SiVercel,
-    category: 'dev-tools',
-  },
-  {
-    id: 'vercel-analytics',
-    label: en.skillsCollageSection.vercelAnalytics,
-    icon: BarChart2,
-    category: 'dev-tools',
-  },
-  {
-    id: 'speed-insights',
-    label: en.skillsCollageSection.speedInsights,
-    icon: Activity,
     category: 'dev-tools',
   },
   {
@@ -242,6 +262,18 @@ export const skillsData: Skill[] = [
     id: 'jest',
     label: en.skillsCollageSection.jest,
     icon: SiJest,
+    category: 'testing',
+  },
+  {
+    id: 'testing-library',
+    label: en.skillsCollageSection.testingLibrary,
+    icon: SiTestinglibrary,
+    category: 'testing',
+  },
+  {
+    id: 'playwright',
+    label: en.skillsCollageSection.playwright,
+    icon: Drama,
     category: 'testing',
   },
   {
@@ -298,18 +330,6 @@ export const skillsData: Skill[] = [
   },
 
   // Productivity Tools
-  {
-    id: 'microsoft-office',
-    label: en.skillsCollageSection.microsoftOffice,
-    icon: SiLibreofficewriter,
-    category: 'productivity',
-  },
-  {
-    id: 'google-docs',
-    label: en.skillsCollageSection.googleDocs,
-    icon: SiGoogledocs,
-    category: 'productivity',
-  },
 
   // AI Tools
   {
@@ -331,6 +351,12 @@ export const skillsData: Skill[] = [
     category: 'ai',
   },
   {
+    id: 'codex',
+    label: en.skillsCollageSection.codex,
+    icon: Braces,
+    category: 'ai',
+  },
+  {
     id: 'chatgpt',
     label: en.skillsCollageSection.chatGPT,
     icon: SiOpenai,
@@ -345,25 +371,7 @@ export const skillsData: Skill[] = [
   {
     id: 'notebooklm',
     label: en.skillsCollageSection.noteBookLM,
-    icon: SiGooglegemini,
-    category: 'ai',
-  },
-  {
-    id: 'prompt-engineering',
-    label: en.skillsCollageSection.promptEngineering,
-    icon: Lightbulb,
-    category: 'ai',
-  },
-  {
-    id: 'generative-ai',
-    label: en.skillsCollageSection.generativeAI,
-    icon: WandSparkles,
-    category: 'ai',
-  },
-  {
-    id: 'agentic-ai',
-    label: en.skillsCollageSection.agenticAI,
-    icon: Bot,
+    icon: NotebookPen,
     category: 'ai',
   },
 

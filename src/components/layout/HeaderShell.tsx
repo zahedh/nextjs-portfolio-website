@@ -15,7 +15,7 @@ export default function HeaderShell({
         'shadow-none'
       )}
     >
-      {children}
+      <div className="prime-parent">{children}</div>
     </header>
   );
 }

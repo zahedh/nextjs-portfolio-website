@@ -1,10 +1,11 @@
 import { Skill, SkillCategory, SkillGroup } from '@/types/skill';
 
+// AI tooling leads: it is the section's one accent and the specialism the page argues for.
 export const skillGroupOrder: SkillGroup[] = [
+  'aiTooling',
   'languages',
   'frameworks',
   'design',
-  'aiTooling',
   'toolingAndPractice',
 ];
 
@@ -16,7 +17,7 @@ const skillGroupByCategory: Record<SkillCategory, SkillGroup> = {
   frameworks: 'frameworks',
   microsoft: 'frameworks',
   testing: 'frameworks',
-  api: 'frameworks',
+  api: 'toolingAndPractice',
   design: 'design',
   ai: 'aiTooling',
   'dev-tools': 'toolingAndPractice',

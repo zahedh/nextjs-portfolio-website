@@ -12,8 +12,16 @@
   }
 
   .screen-section {
-    @apply pb-block lg:pb-block-lg flex w-full flex-col items-start justify-center gap-4;
-    /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
-    scroll-margin-top: 5rem;
+    @apply py-section-end w-full;
+    /* The 64px sticky header, less the section's own top padding, which lands
+       after the scroll margin. Leaves the heading ~24px clear of the header,
+       with room for the focus rings on the filter controls. */
+    scroll-margin-top: 2rem;
+  }
+  /* Carries the page measure now that the section itself spans the viewport.
+     Repeats .prime-parent's utilities rather than applying it: a class declared
+     in @layer utilities is plain CSS and Tailwind cannot @apply it. */
+  .section-inner {
+    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col items-start justify-center gap-4;
   }
 }

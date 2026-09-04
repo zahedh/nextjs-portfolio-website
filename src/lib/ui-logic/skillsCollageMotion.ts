@@ -1,8 +1,3 @@
-export const skillsCollageHintViewport = {
-  once: true,
-  margin: '-60px 0px' as const,
-};
-
 export function getSkillsCollageGridViewport() {
   return { once: true, margin: '-60px 0px' as const, amount: 0.15 as const };
 }

@@ -3,7 +3,7 @@ import { useTheme } from '@/hooks/utilityHooks';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
 import { CalloutWrapper } from './CalloutWrapper';
-import SecondaryButton from './SecondaryButton';
+import PrimaryButton from './PrimaryButton';
 import { ThemeToggleGraphic } from '@/components/media';
 
 /** Button that toggles between light and dark themes. */
@@ -12,13 +12,15 @@ export default function ThemeToggleButton() {
 
   return (
     <CalloutWrapper showPing={false}>
-      <SecondaryButton
+      {/* Rests on the primary fill, matching the selected contribution-year
+          control; the circular icon-button form is kept. */}
+      <PrimaryButton
         onClick={toggleTheme}
         className={cn('aspect-square px-3 py-1.5', 'btn-callout')}
         aria-label={en.themeToggle}
       >
         <ThemeToggleGraphic className="h-3.5 w-3.5" />
-      </SecondaryButton>
+      </PrimaryButton>
     </CalloutWrapper>
   );
 }

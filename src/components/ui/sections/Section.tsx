@@ -9,6 +9,8 @@ type SectionProps = {
   subheading?: string;
   align?: 'left' | 'center' | 'right';
   italicize?: boolean;
+  /** Marks a section as one that earns a band, a step deeper than the ground. */
+  banded?: boolean;
   showDivider?: boolean;
   showBottomDivider?: boolean;
   dividerWidth?: 'full' | 'half' | 'third';
@@ -27,7 +29,8 @@ export default function Section({
   subheading,
   align = 'left',
   italicize = false,
-  showDivider = true,
+  banded = false,
+  showDivider = false,
   showBottomDivider = false,
   dividerWidth = 'full',
   dividerColor,
@@ -38,70 +41,75 @@ export default function Section({
   rightChildren,
 }: SectionProps) {
   return (
-    <div id={anchor} className={cn('screen-section', className)}>
-      {title && (
-        <div className="mb-2 flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
-          <Heading
-            as={titleAs}
+    <div
+      id={anchor}
+      className={cn('screen-section', banded && 'section-band', className)}
+    >
+      <div className="section-inner">
+        {title && (
+          <div className="mb-heading-gap flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <Heading
+              as={titleAs}
+              className={cn(
+                align === 'center' && 'text-center',
+                align === 'right' && 'text-right',
+                italicize && 'italic'
+              )}
+            >
+              {title}
+            </Heading>
+            {rightChildren && (
+              <div className="flex flex-shrink-0 flex-wrap gap-2">
+                {rightChildren}
+              </div>
+            )}
+          </div>
+        )}
+
+        {subheading && (
+          <SubHeading
             className={cn(
               align === 'center' && 'text-center',
               align === 'right' && 'text-right',
               italicize && 'italic'
             )}
           >
-            {title}
-          </Heading>
-          {rightChildren && (
-            <div className="ml-auto flex flex-shrink-0 flex-wrap gap-2">
-              {rightChildren}
-            </div>
-          )}
-        </div>
-      )}
+            {subheading}
+          </SubHeading>
+        )}
 
-      {subheading && (
-        <SubHeading
-          className={cn(
-            align === 'center' && 'text-center',
-            align === 'right' && 'text-right',
-            italicize && 'italic'
-          )}
-        >
-          {subheading}
-        </SubHeading>
-      )}
+        {supportingText && (
+          <BodyText
+            className={cn(
+              'my-block lg:my-block-lg italic',
+              align === 'center' && 'text-center',
+              align === 'right' && 'text-right'
+            )}
+          >
+            {supportingText}
+          </BodyText>
+        )}
 
-      {supportingText && (
-        <BodyText
-          className={cn(
-            'my-block lg:my-block-lg italic',
-            align === 'center' && 'text-center',
-            align === 'right' && 'text-right'
-          )}
-        >
-          {supportingText}
-        </BodyText>
-      )}
+        {showDivider && (
+          <SectionDivider
+            width={dividerWidth}
+            align={align}
+            color={dividerColor}
+            className="mb-rhythm"
+          />
+        )}
 
-      {showDivider && (
-        <SectionDivider
-          width={dividerWidth}
-          align={align}
-          color={dividerColor}
-          className="mb-rhythm"
-        />
-      )}
+        {children}
 
-      {children}
-
-      {showBottomDivider && (
-        <SectionDivider
-          width={dividerWidth}
-          align={align}
-          color={dividerColor}
-          className="mt-rhythm"
-        />
-      )}
+        {showBottomDivider && (
+          <SectionDivider
+            width={dividerWidth}
+            align={align}
+            color={dividerColor}
+            className="mt-rhythm"
+          />
+        )}
+      </div>
     </div>
   );
 }

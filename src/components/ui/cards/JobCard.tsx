@@ -13,10 +13,12 @@ import { isJobActive } from '@/data/experience';
 
 interface JobCardProps {
   job: JobExperience;
+  /** Fired alongside the card's own toggle, for anything revealing with it. */
+  onToggle?: () => void;
 }
 
 /** Compact experience row with expandable role details. */
-export default function JobCard({ job }: JobCardProps) {
+export default function JobCard({ job, onToggle }: JobCardProps) {
   const { isExpanded, contentHeight, contentRef, handleToggle } =
     useExpandableContent(0);
 
@@ -48,7 +50,10 @@ export default function JobCard({ job }: JobCardProps) {
       <button
         type="button"
         className="experience-expand-button"
-        onClick={handleToggle}
+        onClick={() => {
+          handleToggle();
+          onToggle?.();
+        }}
         aria-expanded={isExpanded}
         aria-controls={detailsId}
       >
@@ -81,7 +86,7 @@ export default function JobCard({ job }: JobCardProps) {
               </p>
             ))}
           </div>
-          <TechStack skills={jobSkills} />
+          <TechStack skills={jobSkills} className="xl:hidden" />
         </div>
       </div>
     </article>

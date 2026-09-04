@@ -29,6 +29,10 @@
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
+  --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
+  /* Reserved for the hero headline and standalone figures, as the artboards
+     draw them. Section headings stay on the heading face. */
+  --font-display: var(--font-bricolage-grotesque, sans-serif);
 
   /* Type scale */
   --text-micro: 0.625rem;
@@ -49,12 +53,15 @@
   --text-title--line-height: 1.25;
   --text-heading: 1.5rem;
   --text-heading--line-height: 1.25;
-  --text-heading-lg: 1.6875rem;
+  --text-heading-lg: 1.875rem;
   --text-heading-lg--line-height: 1.25;
   --text-display: 2.375rem;
   --text-display--line-height: 1;
   --text-display-lg: 3.625rem;
   --text-display-lg--line-height: 0.98;
+  /* One step above the drawn scale, for the hero on very wide viewports only. */
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 0.95;
   --text-numeral: 1.75rem;
   --text-numeral--line-height: 1;
   --text-numeral-lg: 2.875rem;
@@ -66,10 +73,13 @@
   --spacing-gutter-lg: 3.25rem;
   --spacing-surface: 1.125rem;
   --spacing-rhythm: 1.375rem;
+  --spacing-heading-gap: 2.5rem;
+  /* Closes a section by the same measure that opens it: heading-gap plus the
+     1rem row gap between a section's children. Keep the two in step. */
+  --spacing-section-end: 3.5rem;
   --spacing-block: 2rem;
   --spacing-block-lg: 2.5rem;
   --spacing-stack: 1.5rem;
-  --spacing-page-end: 1.5rem;
 
   /* Project covers */
   --project-cover-amber: linear-gradient(

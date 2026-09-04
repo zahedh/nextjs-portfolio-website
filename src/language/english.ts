@@ -21,11 +21,13 @@ export const en = {
   },
 
   heroSection: {
-    header: "Hi, I'm Zahed!",
-    subHeaderPartOne: "I'm a...",
-    subHeaderPartTwo: 'Senior Software Engineer',
+    eyebrow: 'Senior Software Engineer · Blue Beck',
+    headline: 'Half a million users. Six years shipping.',
     supportingText:
-      'I design and build digital products across web and mobile, using robust engineering, thoughtful design, and modern AI integrations.',
+      'Full stack web and mobile, built to still work next year — and the AI tooling my team now works through every day.',
+    primaryButton: 'See the work',
+    secondaryButton: 'Download CV',
+    downloadCvAriaLabel: 'Download CV (PDF)',
   },
 
   aboutSection: {
@@ -42,12 +44,11 @@ export const en = {
   },
 
   skillsSection: {
-    doubleClickHint: 'Double Click To View Projects!',
     groups: {
       languages: 'Languages',
-      frameworks: 'Frameworks',
+      frameworks: 'Frameworks and libraries',
       design: 'Design',
-      aiTooling: 'AI tooling',
+      aiTooling: 'AI',
       toolingAndPractice: 'Tooling and practice',
     },
   },
@@ -57,24 +58,29 @@ export const en = {
     react: 'React',
     nextJS: 'Next.js',
     reactNative: 'React Native',
+    nativeWind: 'NativeWind',
+    shadcnUI: 'shadcn/ui',
+    zustand: 'Zustand',
+    tanStackQuery: 'TanStack Query',
+    tanStackTable: 'TanStack Table',
+    reactHookForm: 'React Hook Form',
+    lottie: 'Lottie',
+    nodeJS: 'Node.js',
+    zod: 'Zod',
 
     // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
-    php: 'PHP',
 
     // Microsoft Stack
     dotNet: '.NET',
 
     // Legacy/Additional Languages
     objectiveC: 'Objective-C',
-    jquery: 'jQuery',
-    wordpress: 'WordPress',
 
     // Web Fundamentals
     html: 'HTML5',
     css: 'CSS3',
-    amp: 'AMP',
 
     // Styling & Design
     tailwind: 'Tailwind CSS',
@@ -88,8 +94,6 @@ export const en = {
     github: 'GitHub',
     cursor: 'Cursor',
     vercel: 'Vercel',
-    vercelAnalytics: 'Vercel Analytics',
-    speedInsights: 'Speed Insights',
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
@@ -98,6 +102,8 @@ export const en = {
 
     // Testing & Code Quality
     jest: 'Jest',
+    testingLibrary: 'React Testing Library',
+    playwright: 'Playwright',
     vite: 'Vite',
     eSLint: 'ESLint',
     prettier: 'Prettier',
@@ -113,19 +119,15 @@ export const en = {
     notion: 'Notion',
 
     // Productivity Tools
-    microsoftOffice: 'Microsoft Office',
-    googleDocs: 'Google Docs',
 
     // AI Tools
     gitHubCopilot: 'GH Copilot',
     claude: 'Claude',
     claudeCode: 'Claude Code',
+    codex: 'Codex',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
-    promptEngineering: 'Prompt Engineering',
-    generativeAI: 'Generative AI',
-    agenticAI: 'Agentic AI',
 
     // Operating Systems
     macOS: 'macOS',
@@ -170,8 +172,6 @@ export const en = {
     mobile: 'Mobile',
     web: 'Web',
     ai: 'AI',
-    clearSkillFilter: 'All skills',
-    clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
   },
 
   projectCard: {
@@ -206,6 +206,7 @@ export const en = {
   jobDisplay: {
     statusCurrent: 'Current',
     statusPast: 'Past',
+    stackLabel: 'Stack',
     showDetails: 'Show details',
     hideDetails: 'Hide details',
   },

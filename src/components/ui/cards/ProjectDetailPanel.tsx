@@ -128,7 +128,7 @@ export default function ProjectDetailPanel({
               <header className="dialog-header">
                 <h2
                   id={titleId}
-                  className="card-title text-heading md:text-heading-lg min-w-0 flex-1 text-left font-bold text-neutral-900 dark:text-neutral-100"
+                  className="card-title text-heading lg:text-heading-lg min-w-0 flex-1 text-left font-bold text-neutral-900 dark:text-neutral-100"
                 >
                   <span className="line-clamp-3">{project.title}</span>
                 </h2>
