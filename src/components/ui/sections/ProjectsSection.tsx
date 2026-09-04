@@ -56,12 +56,9 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
 
   return (
     <div className="projects-stack">
-      <div
-        className={cn(
-          'projects-grid',
-          compactProjects.length === 0 && 'projects-grid-single'
-        )}
-      >
+      {/* A lone card keeps the feature column rather than taking the row, so its
+          width matches a feature card that has compact cards beside it. */}
+      <div className="projects-grid">
         <ProjectCard
           project={featureProject}
           variant="feature"

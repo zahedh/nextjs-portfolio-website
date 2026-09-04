@@ -279,12 +279,6 @@
   .projects-grid {
     @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:max-w-none lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
   }
-  /* A lone card has no compact column to sit beside, so it keeps a card's width
-     rather than stretching the cover into a letterbox band across the section.
-     Declared after .projects-grid so both the columns and the cap win. */
-  .projects-grid-single {
-    @apply max-w-[740px] lg:grid-cols-1 xl:max-w-[740px];
-  }
   .projects-compact-list {
     @apply flex min-w-0 flex-col gap-2.5 xl:grid xl:grid-cols-2 xl:content-start;
   }
