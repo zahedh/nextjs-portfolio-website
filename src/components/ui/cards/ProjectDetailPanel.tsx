@@ -18,9 +18,10 @@ import {
   getProjectDetailBackdropMotion,
   getProjectDetailDialogMotion,
   getProjectExcerptLine,
+  getProjectLinkItems,
 } from '@/lib/ui-logic';
-import { ProjectLinkItem } from '@/types/project';
 import { getSkillsByIds } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { DismissButton } from '@/components/ui/buttons';
 import { en } from '@/language';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
@@ -35,8 +36,45 @@ interface ProjectDetailPanelProps {
   onExitComplete?: () => void;
 }
 
-function SectionLabel({ children }: { children: ReactNode }) {
-  return <p className="section-label">{children}</p>;
+function Section({
+  label,
+  divided,
+  className,
+  children,
+}: {
+  label: string;
+  divided?: boolean;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className={cn(divided && 'dialog-section-divider', className)}>
+      <p className="section-label">{label}</p>
+      {children}
+    </section>
+  );
+}
+
+/** Collapsed section, used on the mobile sheet where the desktop panel shows the body outright. */
+function Accordion({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <details className="detail-accordion group">
+      <summary className="detail-accordion-trigger">
+        {label}
+        <ChevronDown
+          className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+          aria-hidden
+        />
+      </summary>
+      <div className="detail-accordion-body">{children}</div>
+    </details>
+  );
 }
 
 /** Full-screen project detail modal with responsive mobile sheet / desktop dialog layout. */
@@ -59,28 +97,9 @@ export default function ProjectDetailPanel({
   if (!mounted || !project) return null;
 
   const projectSkills = getSkillsByIds(project.skills, skillsData);
-  const projectUrl = project.url?.trim();
-  const projectRepoUrl = project.repoUrl?.trim();
-  const projectLinks: ProjectLinkItem[] = [
-    ...(projectUrl
-      ? [
-          {
-            url: projectUrl,
-            label: project.urlLabel?.trim() || en.projectDisplay.visitLive,
-          },
-        ]
-      : []),
-    ...(projectRepoUrl
-      ? [
-          {
-            url: projectRepoUrl,
-            label: project.repoLabel?.trim() || en.projectDisplay.viewRepo,
-          },
-        ]
-      : []),
-  ];
+  const projectLinks = getProjectLinkItems(project);
   const overview = getProjectExcerptLine(project);
-  const featureLinesForList = getProjectDetailFeatureLines(project);
+  const featureLines = getProjectDetailFeatureLines(project);
 
   const noMotion = Boolean(prefersReducedMotion);
   const backdropMotion = getProjectDetailBackdropMotion(noMotion);
@@ -89,6 +108,21 @@ export default function ProjectDetailPanel({
     animate: dialogAnimate,
     transition: dialogTransition,
   } = getProjectDetailDialogMotion(noMotion, isDesktop);
+
+  // Written once, placed in both the mobile sheet and the desktop panel.
+  const overviewBody = overview ? (
+    <p className="body-text-muted text-body max-w-prose">{overview}</p>
+  ) : null;
+  const featuresBody =
+    featureLines.length > 0 ? <FeatureList lines={featureLines} /> : null;
+  const techBody = <TechStack skills={projectSkills} />;
+  const metaBody = (variant: 'ribbon' | 'panel') => (
+    <ProjectMetaSummary project={project} variant={variant} />
+  );
+  const linksBody =
+    projectLinks.length > 0 ? (
+      <ProjectLinks links={projectLinks} fullWidth />
+    ) : null;
 
   return createPortal(
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -107,29 +141,23 @@ export default function ProjectDetailPanel({
             exit={backdropMotion.exit}
             transition={backdropMotion.transition}
           />
-          <div className="relative z-10 flex min-h-0 flex-1 flex-col px-0 pt-0 md:items-center md:justify-center md:px-8 md:py-10">
+          <div className="relative z-10 flex min-h-0 flex-1 flex-col md:items-center md:justify-center md:px-8 md:py-10">
             <motion.div
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="surface-card flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-t-3xl border-0 shadow-lg md:h-auto md:max-h-[min(92dvh,900px)] md:max-w-5xl md:flex-none md:rounded-3xl md:border-2 dark:bg-neutral-900/95"
+              className="dialog-surface"
               initial={dialogInitial}
               animate={dialogAnimate}
               transition={dialogTransition}
               onClick={(mouseEvent) => mouseEvent.stopPropagation()}
             >
-              <div
-                className="flex shrink-0 justify-center pt-[max(0.35rem,env(safe-area-inset-top))] pb-1 md:hidden"
-                aria-hidden
-              >
+              <div className="dialog-grab-handle" aria-hidden>
                 <div className="h-1 w-10 rounded-full bg-neutral-400/45 dark:bg-neutral-500/50" />
               </div>
 
               <header className="dialog-header">
-                <h2
-                  id={titleId}
-                  className="card-title text-heading lg:text-heading-lg min-w-0 flex-1 text-left font-bold text-neutral-900 dark:text-neutral-100"
-                >
+                <h2 id={titleId} className="dialog-title">
                   <span className="line-clamp-3">{project.title}</span>
                 </h2>
                 <DismissButton
@@ -141,98 +169,68 @@ export default function ProjectDetailPanel({
               </header>
 
               <div className="flex min-h-0 flex-1 flex-col md:flex-row md:overflow-hidden">
-                <div className="project-card-scroll min-h-0 flex-1 overflow-x-hidden overflow-y-auto md:hidden">
-                  <div className="flex flex-col gap-8 px-4 pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+                <div className="project-card-scroll dialog-pane md:hidden">
+                  <div className="dialog-pane-mobile-body">
                     <ProjectHeroMedia project={project} density="compact" />
-                    <section>
-                      <SectionLabel>
-                        {en.projectDisplay.sectionMetaItems}
-                      </SectionLabel>
-                      <ProjectMetaSummary project={project} variant="ribbon" />
-                    </section>
-                    {projectLinks.length > 0 ? (
-                      <section>
-                        <SectionLabel>
-                          {en.projectDisplay.sectionLinks}
-                        </SectionLabel>
-                        <ProjectLinks links={projectLinks} fullWidth />
-                      </section>
+                    <Section label={en.projectDisplay.sectionMetaItems}>
+                      {metaBody('ribbon')}
+                    </Section>
+                    {linksBody ? (
+                      <Section label={en.projectDisplay.sectionLinks}>
+                        {linksBody}
+                      </Section>
                     ) : null}
-                    <section className="border-b border-neutral-200/60 pb-8 dark:border-neutral-700/50">
-                      <SectionLabel>
-                        {en.projectDisplay.sectionOverview}
-                      </SectionLabel>
-                      {overview ? (
-                        <p className="body-text-muted text-body">{overview}</p>
-                      ) : null}
-                    </section>
-                    {featureLinesForList.length > 0 ? (
-                      <details className="detail-accordion group">
-                        <summary className="detail-accordion-trigger">
-                          {en.projectDisplay.sectionFeatures}
-                          <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
-                        </summary>
-                        <div className="detail-accordion-body">
-                          <FeatureList lines={featureLinesForList} />
-                        </div>
-                      </details>
+                    <Section
+                      label={en.projectDisplay.sectionOverview}
+                      divided
+                      className="pb-8"
+                    >
+                      {overviewBody}
+                    </Section>
+                    {featuresBody ? (
+                      <Accordion label={en.projectDisplay.sectionFeatures}>
+                        {featuresBody}
+                      </Accordion>
                     ) : null}
-                    <details className="detail-accordion group">
-                      <summary className="detail-accordion-trigger">
-                        {en.projectDisplay.sectionTechStack}
-                        <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180" />
-                      </summary>
-                      <div className="detail-accordion-body">
-                        <TechStack skills={projectSkills} />
-                      </div>
-                    </details>
+                    <Accordion label={en.projectDisplay.sectionTechStack}>
+                      {techBody}
+                    </Accordion>
                   </div>
                 </div>
 
-                <div className="project-card-scroll hidden min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto md:flex">
-                  <div className="flex min-w-0 flex-col gap-10 px-8 pt-6 pb-10">
-                    <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
-                      <SectionLabel>
-                        {en.projectDisplay.sectionOverview}
-                      </SectionLabel>
-                      {overview ? (
-                        <p className="body-text-muted text-body max-w-prose">
-                          {overview}
-                        </p>
-                      ) : null}
-                    </section>
-                    {featureLinesForList.length > 0 ? (
-                      <section className="border-b border-neutral-200/60 pb-10 dark:border-neutral-700/50">
-                        <SectionLabel>
-                          {en.projectDisplay.sectionFeatures}
-                        </SectionLabel>
-                        <FeatureList lines={featureLinesForList} />
-                      </section>
+                <div className="project-card-scroll dialog-pane hidden flex-col md:flex">
+                  <div className="dialog-pane-desktop-body">
+                    <Section
+                      label={en.projectDisplay.sectionOverview}
+                      divided
+                      className="pb-10"
+                    >
+                      {overviewBody}
+                    </Section>
+                    {featuresBody ? (
+                      <Section
+                        label={en.projectDisplay.sectionFeatures}
+                        divided
+                        className="pb-10"
+                      >
+                        {featuresBody}
+                      </Section>
                     ) : null}
-                    <section>
-                      <SectionLabel>
-                        {en.projectDisplay.sectionTechStack}
-                      </SectionLabel>
-                      <TechStack skills={projectSkills} />
-                    </section>
+                    <Section label={en.projectDisplay.sectionTechStack}>
+                      {techBody}
+                    </Section>
                   </div>
                 </div>
 
-                <aside className="project-card-scroll hidden min-h-0 w-full flex-col gap-8 overflow-y-auto border-neutral-200/60 px-8 pt-6 pb-10 md:flex md:w-[34%] md:max-w-sm md:min-w-[260px] md:flex-shrink-0 md:border-t-0 md:border-l dark:border-neutral-700/50">
+                <aside className="project-card-scroll dialog-aside">
                   <ProjectHeroMedia project={project} density="compact" />
-                  <div>
-                    <SectionLabel>
-                      {en.projectDisplay.sectionMetaItems}
-                    </SectionLabel>
-                    <ProjectMetaSummary project={project} variant="panel" />
-                  </div>
-                  {projectLinks.length > 0 ? (
-                    <section>
-                      <SectionLabel>
-                        {en.projectDisplay.sectionLinks}
-                      </SectionLabel>
-                      <ProjectLinks links={projectLinks} fullWidth />
-                    </section>
+                  <Section label={en.projectDisplay.sectionMetaItems}>
+                    {metaBody('panel')}
+                  </Section>
+                  {linksBody ? (
+                    <Section label={en.projectDisplay.sectionLinks}>
+                      {linksBody}
+                    </Section>
                   ) : null}
                 </aside>
               </div>

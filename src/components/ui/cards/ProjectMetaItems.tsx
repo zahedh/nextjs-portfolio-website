@@ -119,12 +119,7 @@ export function ProjectMetaSummary({
   }
 
   return (
-    <div
-      className={cn(
-        'surface-card divide-y divide-neutral-200/70 overflow-hidden rounded-3xl border p-0 dark:divide-neutral-700/70 dark:bg-neutral-900/80',
-        className
-      )}
-    >
+    <div className={cn('meta-list', className)}>
       <MetaRow label={en.projectDisplay.timelineLabel} value={timeline} />
       <MetaRow
         label={en.projectDisplay.platformLabel}

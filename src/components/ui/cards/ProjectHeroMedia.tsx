@@ -48,16 +48,16 @@ export function ProjectHeroMedia({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-3xl border border-neutral-200/90 bg-neutral-200/30 dark:border-neutral-700/80 dark:bg-neutral-800/50',
+        'relative overflow-hidden rounded-lg border border-neutral-200/90 bg-neutral-200/30 dark:border-neutral-700/80 dark:bg-neutral-800/50',
         className
       )}
     >
       {ImageComponent ? (
         <div className={cn(frame, 'flex items-center justify-center p-4')}>
-          <div className="relative mx-auto h-32 w-32 shrink-0 overflow-hidden rounded-xl shadow-sm sm:h-36 sm:w-36 md:h-40 md:w-40">
+          <div className="relative mx-auto h-32 w-32 shrink-0 overflow-hidden rounded-lg shadow-sm sm:h-36 sm:w-36 md:h-40 md:w-40">
             <ImageComponent
               alt={`${project.title} preview`}
-              className="h-full w-full rounded-xl"
+              className="h-full w-full rounded-lg"
             />
           </div>
         </div>
