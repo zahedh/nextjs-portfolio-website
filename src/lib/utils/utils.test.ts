@@ -1,4 +1,9 @@
-import { cn, createEscapeHandler, getSkillsByIds } from './utils';
+import {
+  cn,
+  createEscapeHandler,
+  getSkillsByIds,
+  sumContributions,
+} from './utils';
 
 describe('utils', () => {
   describe('cn (className merger)', () => {
@@ -221,6 +226,23 @@ describe('utils', () => {
       expect(result[1].id).toBe('nextjs');
       expect(result[2].id).toBe('typescript');
       expect(result[3].id).toBe('react');
+    });
+  });
+
+  describe('sumContributions', () => {
+    it('GIVEN a calendar WHEN totalling THEN sums every day', () => {
+      // Given
+      const activities = [{ count: 3 }, { count: 0 }, { count: 12 }];
+
+      // When
+      const result = sumContributions(activities);
+
+      // Then
+      expect(result).toBe(15);
+    });
+
+    it('GIVEN an empty calendar WHEN totalling THEN returns zero', () => {
+      expect(sumContributions([])).toBe(0);
     });
   });
 });

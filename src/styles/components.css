@@ -124,22 +124,118 @@
     @apply space-y-5 pt-3;
   }
 
-  .contributions-calendar {
-    @apply flex justify-center overflow-hidden pb-12;
+  /* The activity band: figure and pills on the left, the year on the right.
+     Both grids share one column template so a month label sits over its weeks. */
+  /* The activity band: figure and pills on the left, the year on the right.
+     Cell size is a fixed step per breakpoint, not a fraction of the viewport —
+     the year is allowed to overflow and scroll rather than shrink to fit. */
+  .contrib-band {
+    @apply flex w-full max-w-[90rem] flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-12 2xl:max-w-[100rem];
+  }
+  /* A year already fetched swaps instantly; only a genuine wait dims, and it
+     dims the data rather than replacing it, so the band keeps its height and
+     the pills stay at full strength under the pointer. Declared after
+     .contrib-band so it wins on source order within the same layer. */
+  .contrib-band--updating .contrib-figure-row,
+  .contrib-band--updating .contrib-chart {
+    @apply opacity-60;
+  }
+  .contrib-figure-row,
+  .contrib-chart {
+    @apply transition-opacity duration-200;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contrib-figure-row,
+    .contrib-chart {
+      @apply transition-none;
+    }
+  }
+  .contrib-figure-group {
+    @apply flex flex-shrink-0 flex-col items-start gap-3 lg:gap-2;
+  }
+  .contrib-figure-row {
+    @apply flex flex-wrap items-baseline gap-x-2.5 gap-y-1 lg:flex-col lg:items-start lg:gap-1;
+  }
+  .contrib-figure {
+    @apply font-display text-numeral lg:text-numeral-lg font-extrabold tracking-tight text-neutral-900 tabular-nums dark:text-neutral-100;
+  }
+  .contrib-label {
+    @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .contrib-years {
+    @apply flex gap-2;
+  }
+  .contrib-chart {
+    @apply flex w-full min-w-0 flex-col gap-2 lg:w-auto lg:gap-2.5;
+  }
+  /* The one place the page is allowed to scroll sideways. Focusable so the
+     overflow is reachable by keyboard, and the scrollbar is left visible —
+     hiding it is what made the old calendar's missing months unreachable. */
+  .contrib-scroll {
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:10px] [--contrib-gap:2px] sm:[--contrib-cell:11px] sm:[--contrib-gap:3px] lg:[--contrib-cell:11px] lg:[--contrib-gap:2px] xl:[--contrib-cell:14px] xl:[--contrib-gap:4px] 2xl:[--contrib-cell:17px];
+    /* The native bar is replaced, not merely hidden: the edge fades below say
+       the same thing and are ours to style. Hiding it without them is what made
+       the old calendar's missing months unreachable. */
     scrollbar-width: none;
-    -ms-overflow-style: none;
-    &,
-    & * {
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    &::-webkit-scrollbar {
+      display: none;
     }
-    & footer {
-      @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
-    }
-    & text {
-      @apply text-micro fill-neutral-900 dark:fill-neutral-200;
-    }
+  }
+  /* Fade whichever side still has weeks behind it, and neither once the whole
+     year is visible. Declared after .contrib-scroll to win on source order. */
+  .contrib-scroll[data-edges='start'] {
+    mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  }
+  .contrib-scroll[data-edges='middle'] {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 3rem,
+      #000 calc(100% - 3rem),
+      transparent
+    );
+  }
+  .contrib-scroll[data-edges='end'] {
+    mask-image: linear-gradient(to right, transparent, #000 3rem);
+  }
+  .contrib-months,
+  .contrib-grid {
+    @apply grid w-max;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--contrib-cell);
+    gap: var(--contrib-gap);
+  }
+  .contrib-months {
+    @apply text-micro lg:text-caption font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .contrib-grid {
+    grid-template-rows: repeat(7, var(--contrib-cell));
+  }
+  .contrib-cell {
+    @apply block rounded-full;
+  }
+  .contrib-legend {
+    @apply text-micro lg:text-caption flex items-center gap-1.5 pt-1 font-mono text-neutral-500 lg:gap-2 dark:text-neutral-400;
+  }
+  .contrib-legend-dot {
+    @apply block h-2 w-2 rounded-full lg:h-2.5 lg:w-2.5;
+  }
+  /* The dark ramp runs the other way round, so each level is named per theme
+     rather than reused: more activity must read brighter in both. */
+  .contrib-cell-0 {
+    @apply bg-neutral-100 dark:bg-neutral-900;
+  }
+  .contrib-cell-1 {
+    @apply bg-brand-300 dark:bg-brand-800;
+  }
+  .contrib-cell-2 {
+    @apply bg-brand-400 dark:bg-brand-600;
+  }
+  .contrib-cell-3 {
+    @apply bg-brand-500 dark:bg-brand-400;
+  }
+  .contrib-cell-4 {
+    @apply bg-brand-600 dark:bg-brand-100;
   }
 
   /* =========================

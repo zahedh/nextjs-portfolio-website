@@ -162,3 +162,8 @@ export function getSkillsByIds<T extends { id: string }>(
     })
     .filter((skill): skill is T => skill !== undefined);
 }
+
+/** Totals a contribution calendar. Equals GitHub's own `totalContributions`. */
+export function sumContributions(activities: { count: number }[]): number {
+  return activities.reduce((total, activity) => total + activity.count, 0);
+}

@@ -140,21 +140,6 @@ export default function MobileMenu() {
                   className="w-full text-center"
                 >
                   <Link
-                    href={isHome ? '#contributions' : '/#contributions'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="nav-link"
-                  >
-                    {en.activity}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
                     href={isHome ? '#skills' : '/#skills'}
                     onClick={(mouseEvent) => {
                       if (isHome) handleSmoothScroll(mouseEvent);

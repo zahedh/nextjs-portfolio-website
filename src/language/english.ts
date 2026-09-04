@@ -6,7 +6,6 @@ export const en = {
   skills: 'Skills',
   projects: 'Projects',
   experience: 'Experience',
-  activity: 'Activity',
   contact: 'Contact',
   cV: 'CV',
   closeMenu: 'Close menu',
@@ -17,7 +16,6 @@ export const en = {
     projects: "What I've Worked On",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
-    contributionsSection: 'My GitHub Activity',
   },
 
   heroSection: {
@@ -160,7 +158,9 @@ export const en = {
   },
 
   contributionsCalendar: {
-    totalCount: '{{count}} contributions in the last year',
+    label: 'Contributions',
+    less: 'Less',
+    more: 'More',
     totalCountYear: '{{count}} contributions in {{year}}',
     contributions: 'contributions',
     contributionsSingular: 'contribution',
