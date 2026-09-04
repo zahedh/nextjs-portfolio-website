@@ -277,10 +277,13 @@
     @apply flex w-full flex-col gap-2.5;
   }
   .projects-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_300px] xl:max-w-none xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
+    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:max-w-none lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
   }
+  /* A lone card has no compact column to sit beside, so it keeps a card's width
+     rather than stretching the cover into a letterbox band across the section.
+     Declared after .projects-grid so both the columns and the cap win. */
   .projects-grid-single {
-    @apply lg:grid-cols-1;
+    @apply max-w-[740px] lg:grid-cols-1 xl:max-w-[740px];
   }
   .projects-compact-list {
     @apply flex min-w-0 flex-col gap-2.5 xl:grid xl:grid-cols-2 xl:content-start;
@@ -350,8 +353,10 @@
   .project-card-compact-excerpt {
     @apply text-body-sm truncate text-neutral-600 xl:line-clamp-2 xl:overflow-hidden xl:whitespace-normal dark:text-neutral-300;
   }
+  /* Same column steps as .projects-compact-list above it: the revealed cards
+     continue that list rather than starting a denser grid mid-column. */
   .projects-overflow-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-none xl:grid-cols-4;
+    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 lg:max-w-none xl:grid-cols-2;
   }
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
