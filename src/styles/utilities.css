@@ -24,4 +24,12 @@
   .section-inner {
     @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col items-start justify-center gap-4;
   }
+  /* Sits directly above a section's content in .section-inner's column, so the
+     1rem row gap above lands between the two. The margin is the token less
+     that gap, leaving the measured heading-to-content distance equal to
+     --spacing-heading-gap. Moving .section-inner's gap-4 moves this too. */
+  .section-heading-row {
+    @apply flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2;
+    margin-bottom: calc(var(--spacing-heading-gap) - 1rem);
+  }
 }

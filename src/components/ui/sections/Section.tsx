@@ -47,7 +47,7 @@ export default function Section({
     >
       <div className="section-inner">
         {title && (
-          <div className="mb-heading-gap flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="section-heading-row">
             <Heading
               as={titleAs}
               className={cn(
