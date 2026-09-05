@@ -169,12 +169,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {previousProject ? (
                 <Link
                   href={`/projects/${previousProject.slug}`}
-                  className="project-page-onward-link"
+                  className="project-page-onward-link group"
                 >
                   <span className="project-page-label">
                     {en.projectDisplay.previousProjectLabel}
                   </span>
-                  <span className="card-title">{previousProject.title}</span>
+                  <span className="project-page-onward-title">
+                    {previousProject.title}
+                  </span>
                 </Link>
               ) : (
                 <span />
@@ -182,12 +184,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {nextProject ? (
                 <Link
                   href={`/projects/${nextProject.slug}`}
-                  className="project-page-onward-link sm:items-end sm:text-right"
+                  className="project-page-onward-link group sm:items-end sm:text-right"
                 >
                   <span className="project-page-label">
                     {en.projectDisplay.nextProjectLabel}
                   </span>
-                  <span className="card-title">{nextProject.title}</span>
+                  <span className="project-page-onward-title">
+                    {nextProject.title}
+                  </span>
                 </Link>
               ) : (
                 <span />

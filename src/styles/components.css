@@ -485,10 +485,6 @@
   .btn-callout-ping-core {
     @apply bg-brand-500 relative inline-flex h-3 w-3 rounded-full ring-2 ring-white dark:ring-neutral-900;
   }
-  .btn-brand-link,
-  .brand-link-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 text-body-sm inline-flex items-center justify-center gap-2 rounded-full border font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
-  }
   .btn-card-expand,
   .card-expand-btn {
     @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 text-body mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
@@ -507,13 +503,14 @@
   }
   /* ---- A project's own page ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
-  /* A reading page holds a narrower measure than a section of cards: at the
-     section's 110rem the column reaches about 120 characters. It caps, and it
-     stays left-aligned rather than centring — .hero-composition is narrower
-     than its section too and starts on the same line, so a centred page would
-     be the only block on the site that does not line up with the header. */
+  /* The hero's measure, stepping the same way at 2xl: a project page is a page
+     of the site, so it ends where the hero and the footer end rather than
+     stopping short and leaving the rail marooned mid-screen. Left-aligned, not
+     centred — .hero-composition is narrower than its section too and starts on
+     the same line, so a centred page would be the only block on the site that
+     does not line up with the header. The prose keeps its own 72ch measure. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg flex w-full max-w-[78rem] flex-col;
+    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[100rem];
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -541,8 +538,23 @@
   .project-page-meta-active {
     @apply text-brand-700 dark:text-brand-300;
   }
+  /* The hero's pairing at the footer's size: the first link is the page's
+     primary call and the rest sit beside it. */
+  .project-page-actions {
+    @apply flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row;
+  }
+  .project-page-action {
+    @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* "group" stays on the element in the markup: it is a marker class, not a
+     utility, so @apply cannot take it. */
   .project-page-onward-link {
     @apply flex min-w-0 flex-col gap-1;
+  }
+  /* .card-title's job on a page that has no cards, and without the bottom
+     margin a card needs under its own title. */
+  .project-page-onward-title {
+    @apply font-display text-title-sm lg:text-title font-bold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-600 dark:text-neutral-100 dark:group-hover:text-neutral-300;
   }
   /* Stands where a cover will go. Every image the site holds today is a client
      logo or an avatar, and centring one in a page-wide plate reads as a picture
@@ -552,7 +564,7 @@
   }
   /* Reading column and a rail, the hero's shape at a calmer measure. */
   .project-page-body {
-    @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11;
+    @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11 2xl:grid-cols-[minmax(0,1fr)_320px] 2xl:gap-14;
   }
   /* Belt to the cap's braces: even inside the narrower page the prose keeps a
      measure of its own, so a long line never runs the full column. */
