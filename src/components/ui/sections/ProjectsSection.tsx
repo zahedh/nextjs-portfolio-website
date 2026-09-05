@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  PrimaryButton,
-  ProjectCard,
-  ProjectDetailPanel,
-  Section,
-} from '@/components';
+import { PrimaryButton, ProjectCard, Section } from '@/components';
 import { CategoryMark } from '@/components/ui/cards/ProjectCategoryMarks';
 import { ChevronDown } from 'lucide-react';
 import { projects } from '@/data/projects';
@@ -13,7 +8,7 @@ import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { cn } from '@/lib/utils';
 import { Project, ProjectFilter } from '@/types/project';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -35,11 +30,10 @@ const INITIAL_COMPACT_COUNT = 4;
 
 interface ProjectGridProps {
   projects: Project[];
-  onOpenFullDetails: (project: Project) => void;
 }
 
 /** Presents the filtered projects as one feature card followed by compact cards. */
-function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
+function ProjectGrid({ projects }: ProjectGridProps) {
   const [showAll, setShowAll] = useState(false);
   const [featureProject, ...compactProjects] = projects;
   const visibleProjects = showAll
@@ -61,18 +55,12 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
         <ProjectCard
           project={featureProject}
           variant="feature"
-          onOpenFullDetails={onOpenFullDetails}
           className={cn(
             compactProjects.length > 0 && 'project-card-feature-spanning'
           )}
         />
         {visibleProjects.map((project) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            variant="compact"
-            onOpenFullDetails={onOpenFullDetails}
-          />
+          <ProjectCard key={project.id} project={project} variant="compact" />
         ))}
       </div>
       {/* The row is kept whether or not it holds a control, so changing filter
@@ -108,11 +96,34 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
   );
 }
 
-/** Filterable projects section with an in-place detail panel. */
+const FILTER_PARAM = 'filter';
+
+function isProjectFilter(value: string | null): value is ProjectFilter {
+  return PROJECT_FILTERS.some((filter) => filter.value === value);
+}
+
+/** Filterable projects section. Each card links to the project's own page. */
 export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
-  const [panelProject, setPanelProject] = useState<Project | null>(null);
-  const [panelOpen, setPanelOpen] = useState(false);
+
+  // The filter lives in the URL so returning from a project page lands the
+  // reader back on the set of projects they were looking at. Written with
+  // replaceState rather than the router: it adds no history entry, and keeps
+  // the page static by not reading search params during render.
+  useEffect(() => {
+    const fromUrl = new URLSearchParams(window.location.search).get(
+      FILTER_PARAM
+    );
+    if (isProjectFilter(fromUrl)) setSelectedType(fromUrl);
+  }, []);
+
+  const chooseFilter = (value: ProjectFilter) => {
+    setSelectedType(value);
+    const url = new URL(window.location.href);
+    if (value === 'All') url.searchParams.delete(FILTER_PARAM);
+    else url.searchParams.set(FILTER_PARAM, value);
+    window.history.replaceState(null, '', url);
+  };
   const filteredProjects = useMemo(
     () => getFilteredProjectsForSection(projects, selectedType),
     [selectedType]
@@ -123,7 +134,7 @@ export default function ProjectsSection() {
       {PROJECT_FILTERS.map(({ value, label }) => (
         <PrimaryButton
           key={value}
-          onClick={() => setSelectedType(value)}
+          onClick={() => chooseFilter(value)}
           className={cn(
             'filter-pill',
             selectedType === value && 'filter-pill-selected'
@@ -142,28 +153,13 @@ export default function ProjectsSection() {
     </>
   );
 
-  const handleOpenFullDetails = (project: Project) => {
-    setPanelProject(project);
-    setPanelOpen(true);
-  };
-
   return (
     <Section
       anchor="projects"
       title={en.sectionHeaders.projects}
       rightChildren={filterButtons}
     >
-      <ProjectDetailPanel
-        project={panelProject}
-        open={panelOpen}
-        onClose={() => setPanelOpen(false)}
-        onExitComplete={() => setPanelProject(null)}
-      />
-      <ProjectGrid
-        key={selectedType}
-        projects={filteredProjects}
-        onOpenFullDetails={handleOpenFullDetails}
-      />
+      <ProjectGrid key={selectedType} projects={filteredProjects} />
     </Section>
   );
 }

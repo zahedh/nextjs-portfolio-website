@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { en } from '@/language';
 import { getProjectCardSummary, isProjectActive } from '@/lib/ui-logic';
 import { ProjectCategoryMarks } from '@/components/ui/cards/ProjectCategoryMarks';
@@ -9,17 +10,16 @@ import { Project } from '@/types/project';
 interface ProjectCardProps {
   project: Project;
   variant: 'feature' | 'compact';
-  onOpenFullDetails: (project: Project) => void;
   className?: string;
 }
 
-/** Opens a project detail panel from either a feature or compact card. */
+/** Links to a project's own page from either a feature or compact card. */
 export default function ProjectCard({
   project,
   variant,
-  onOpenFullDetails,
   className,
 }: ProjectCardProps) {
+  const href = `/projects/${project.slug}`;
   const excerpt = getProjectCardSummary(project);
   const label = [`${en.projectCard.viewProject}: ${project.title}`]
     .concat(project.categories.length ? project.categories.join(', ') : [])
@@ -27,10 +27,9 @@ export default function ProjectCard({
 
   if (variant === 'compact') {
     return (
-      <button
-        type="button"
+      <Link
+        href={href}
         className={cn('project-card-compact', className)}
-        onClick={() => onOpenFullDetails(project)}
         aria-label={label}
       >
         <ProjectCategoryMarks
@@ -63,7 +62,7 @@ export default function ProjectCard({
             {en.projectAccess[project.access]}
           </span>
         )}
-      </button>
+      </Link>
     );
   }
 
@@ -72,10 +71,9 @@ export default function ProjectCard({
     : en.projectDisplay.statusCompleted;
 
   return (
-    <button
-      type="button"
+    <Link
+      href={href}
       className={cn('project-card-feature', className)}
-      onClick={() => onOpenFullDetails(project)}
       aria-label={label}
     >
       <span className="project-card-cover" aria-hidden>
@@ -103,6 +101,6 @@ export default function ProjectCard({
           <span className="project-card-feature-excerpt">{excerpt}</span>
         ) : null}
       </span>
-    </button>
+    </Link>
   );
 }

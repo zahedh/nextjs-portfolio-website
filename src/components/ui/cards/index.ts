@@ -9,7 +9,6 @@ export {
   ProjectStatusBadge,
 } from './ProjectMetaItems';
 export { default as ProjectCard } from './ProjectCard';
-export { default as ProjectDetailPanel } from './ProjectDetailPanel';
 export { TechStack } from './TechStack';
 export { JobStack } from './JobStack';
 export { default as ExperienceRow } from './ExperienceRow';
