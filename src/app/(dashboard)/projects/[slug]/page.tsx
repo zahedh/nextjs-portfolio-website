@@ -160,7 +160,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {featureLines.length > 0 ? (
                   <section className="flex flex-col gap-3">
                     <h2 className="project-page-heading">
-                      {en.projectDisplay.sectionFeatures}
+                      {en.projectDisplay.sectionWork}
                     </h2>
                     <FeatureList lines={featureLines} />
                   </section>
