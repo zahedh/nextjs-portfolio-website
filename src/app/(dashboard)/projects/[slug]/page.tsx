@@ -2,15 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Lock } from 'lucide-react';
-import { SubHeading } from '@/components/text';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
-import {
-  ProjectAccessBadge,
-  ProjectPlatformTag,
-  ProjectStatusBadge,
-} from '@/components/ui/cards/ProjectMetaItems';
 import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
 import { projects } from '@/data/projects';
 import { en } from '@/language';
@@ -18,6 +12,7 @@ import { socialShareImageMeta } from '@/lib/meta';
 import {
   formatProjectTimeline,
   getProjectBySlug,
+  isProjectActive,
   getProjectExcerptLine,
   getProjectLinkItems,
 } from '@/lib/ui-logic';
@@ -61,11 +56,19 @@ export async function generateMetadata({
   };
 }
 
-/** The project after this one in the section's own order, wrapping at the end. */
-function getNextProject(project: Project): Project | undefined {
+/**
+ * The projects either side of this one in the section's own order, wrapping at
+ * both ends. Offering only "next" leaves a reader who takes it unable to get
+ * back to where they were without the browser.
+ */
+function getNeighbours(project: Project) {
   const index = projects.findIndex((entry) => entry.id === project.id);
-  if (index < 0 || projects.length < 2) return undefined;
-  return projects[(index + 1) % projects.length];
+  if (index < 0 || projects.length < 2) return {};
+  const count = projects.length;
+  return {
+    previous: projects[(index - 1 + count) % count],
+    next: projects[(index + 1) % count],
+  };
 }
 
 function MetaDot() {
@@ -86,7 +89,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // it is its own sentence, so dropping a line would simply lose it.
   const featureLines = project.description;
   const projectLinks = getProjectLinkItems(project);
-  const nextProject = getNextProject(project);
+  const { previous: previousProject, next: nextProject } =
+    getNeighbours(project);
   // Only a project with something to show gets a cover. The media component
   // falls back to an icon plate, which is the "image failed to load" reading
   // the design rejects, so the fallback is never reached from here.
@@ -120,11 +124,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <MetaDot />
                   </>
                 ) : null}
-                <ProjectPlatformTag project={project} />
+                <span>{project.categories.join(' · ')}</span>
                 <MetaDot />
-                <ProjectStatusBadge project={project} />
+                <span
+                  className={
+                    isProjectActive(project)
+                      ? 'project-page-meta-active'
+                      : undefined
+                  }
+                >
+                  {isProjectActive(project)
+                    ? en.projectDisplay.statusActive
+                    : en.projectDisplay.statusCompleted}
+                </span>
                 <MetaDot />
-                <ProjectAccessBadge project={project} />
+                <span>{en.projectAccess[project.access]}</span>
               </p>
 
               {hasCover ? (
@@ -143,9 +157,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className="project-page-column">
                 {featureLines.length > 0 ? (
                   <section className="flex flex-col gap-3">
-                    <SubHeading className="card-section-heading">
+                    <h2 className="project-page-heading">
                       {en.projectDisplay.sectionFeatures}
-                    </SubHeading>
+                    </h2>
                     <FeatureList lines={featureLines} />
                   </section>
                 ) : null}
@@ -155,7 +169,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 ) : (
                   <p className="project-page-note">
                     <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    {en.projectDisplay.noLinksPrivate}
+                    {en.projectDisplay.noLinksNote}
                   </p>
                 )}
               </div>
@@ -169,10 +183,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             <div className="project-page-onward">
+              {previousProject ? (
+                <Link
+                  href={`/projects/${previousProject.slug}`}
+                  className="project-page-onward-link"
+                >
+                  <span className="section-label mb-0">
+                    {en.projectDisplay.previousProjectLabel}
+                  </span>
+                  <span className="card-title">{previousProject.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
               {nextProject ? (
                 <Link
                   href={`/projects/${nextProject.slug}`}
-                  className="flex flex-col gap-1"
+                  className="project-page-onward-link sm:items-end sm:text-right"
                 >
                   <span className="section-label mb-0">
                     {en.projectDisplay.nextProjectLabel}
@@ -182,11 +209,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               ) : (
                 <span />
               )}
-              <Link href="/#projects" className="project-back-link">
-                {en.projectDisplay.allProjectsLink}
-                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-              </Link>
             </div>
+            {/* Centred under the pair: with previous and next holding both
+                ends, an edge-aligned third link reads as stray. */}
+            <Link href="/#projects" className="project-back-link mx-auto">
+              {en.projectDisplay.allProjectsLink}
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+            </Link>
           </div>
         </div>
       </section>

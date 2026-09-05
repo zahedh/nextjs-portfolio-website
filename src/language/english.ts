@@ -208,7 +208,8 @@ export const en = {
     sectionBuiltWith: 'Built with',
     nextProjectLabel: 'Next project',
     allProjectsLink: 'All projects',
-    noLinksPrivate: 'Private — no public repository or live site',
+    noLinksNote: 'No public repository or live site',
+    previousProjectLabel: 'Previous project',
   },
 
   /** Keyed by ProjectAccess so a new state cannot be added without its copy. */

@@ -527,6 +527,18 @@
   .project-page-meta {
     @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
   }
+  /* A heading on the heading face at the page's own step. Not the accent: the
+     refresh reserves brand for emphasis, and a section label is not emphasis. */
+  .project-page-heading {
+    @apply font-heading text-title lg:text-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+  }
+  /* The one fact that is a state rather than a label takes the accent. */
+  .project-page-meta-active {
+    @apply text-brand-700 dark:text-brand-300;
+  }
+  .project-page-onward-link {
+    @apply flex min-w-0 flex-col gap-1;
+  }
   /* Stands where a cover would, on the projects that have no image to show.
      A filled band there reads as a picture that failed to load. */
   .project-page-edge {
