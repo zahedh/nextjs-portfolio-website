@@ -217,7 +217,7 @@ export const en = {
   jobDisplay: {
     statusCurrent: 'Current',
     statusPast: 'Past',
-    stackLabel: 'Stack',
+    stackLabel: 'Technologies & tools',
     showDetails: 'Show details',
     hideDetails: 'Hide details',
   },

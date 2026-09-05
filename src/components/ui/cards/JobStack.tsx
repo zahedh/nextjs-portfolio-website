@@ -5,6 +5,7 @@ import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
 import { en } from '@/language';
+import { measureContentHeight } from '@/hooks/utilityHooks';
 
 /**
  * The stack a role used, shown beside its card where the rail has room.
@@ -27,7 +28,7 @@ export function JobStack({
     const content = contentRef.current;
     if (!content) return;
 
-    const measure = () => setContentHeight(content.scrollHeight);
+    const measure = () => setContentHeight(measureContentHeight(content));
     measure();
 
     const observer = new ResizeObserver(measure);
@@ -44,9 +45,10 @@ export function JobStack({
       >
         <div ref={contentRef}>
           <TechStack
-            className="experience-stack-tiles"
+            className="experience-stack-items"
             skills={getSkillsByIds(skillIds, skillsData)}
-            maxIcons={expanded ? undefined : 10}
+            maxItems={expanded ? undefined : 10}
+            variant="labels"
           />
         </div>
       </div>

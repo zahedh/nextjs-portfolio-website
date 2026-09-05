@@ -36,20 +36,20 @@
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
   /*
-   * Tiles past the tenth mount when a role opens, so they arrive on their own
+   * Labels past the tenth mount when a role opens, so they arrive on their own
    * rather than being uncovered by the height change alone. Banded delays give
-   * the run a direction without a rule per tile.
+   * the run a direction without a rule per label.
    */
-  .experience-stack-tiles > *:nth-child(n + 11) {
+  .experience-stack-items > *:nth-child(n + 11) {
     animation: stack-tile-in 260ms ease-out both;
   }
-  .experience-stack-tiles > *:nth-child(n + 15) {
+  .experience-stack-items > *:nth-child(n + 15) {
     animation-delay: 60ms;
   }
-  .experience-stack-tiles > *:nth-child(n + 19) {
+  .experience-stack-items > *:nth-child(n + 19) {
     animation-delay: 120ms;
   }
-  .experience-stack-tiles > *:nth-child(n + 23) {
+  .experience-stack-items > *:nth-child(n + 23) {
     animation-delay: 180ms;
   }
   @keyframes stack-tile-in {
@@ -63,12 +63,15 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .experience-stack-tiles > *:nth-child(n + 11) {
+    .experience-stack-items > *:nth-child(n + 11) {
       animation: none;
     }
   }
   .experience-stack-label {
     @apply text-caption mb-2.5 font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .experience-stack-pill {
+    @apply text-meta inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono text-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
   }
   .experience-year {
     @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
@@ -279,8 +282,13 @@
   /* One track set for every card in the section, revealed ones included, so a
      card always lines up with the card above it. Nothing else may introduce a
      second grid here; that is what used to make the rows disagree. */
+  /* Equal rows from md, where the feature card starts spanning two of them.
+     Without this the rows size to their own content, so a filter showing one
+     compact card gives it the height of its own text — shorter than the same
+     card under every other filter, with the second row left empty beside the
+     feature. Equal rows make a lone card measure the same as a full set. */
   .projects-grid {
-    @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:grid-cols-2 xl:grid-cols-3;
+    @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
     @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;

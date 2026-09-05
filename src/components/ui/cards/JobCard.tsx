@@ -86,7 +86,11 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
               </p>
             ))}
           </div>
-          <TechStack skills={jobSkills} className="xl:hidden" />
+          <TechStack
+            skills={jobSkills}
+            className="xl:hidden"
+            variant="labels"
+          />
         </div>
       </div>
     </article>
