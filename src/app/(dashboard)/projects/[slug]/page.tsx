@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Lock } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
 import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
 import { projects } from '@/data/projects';
+import { getFilteredProjectsForSection } from '@/lib/project';
 import { en } from '@/language';
 import { socialShareImageMeta } from '@/lib/meta';
 import {
@@ -57,17 +58,18 @@ export async function generateMetadata({
 }
 
 /**
- * The projects either side of this one in the section's own order, wrapping at
- * both ends. Offering only "next" leaves a reader who takes it unable to get
- * back to where they were without the browser.
+ * The projects either side of this one, in the order the section presents them
+ * rather than the order the data happens to be written in. The ends do not
+ * wrap: the first project has nothing before it, and offering the last one
+ * there tells a reader they have gone backwards past the beginning.
  */
 function getNeighbours(project: Project) {
-  const index = projects.findIndex((entry) => entry.id === project.id);
-  if (index < 0 || projects.length < 2) return {};
-  const count = projects.length;
+  const ordered = getFilteredProjectsForSection(projects, 'All');
+  const index = ordered.findIndex((entry) => entry.id === project.id);
+  if (index < 0) return {};
   return {
-    previous: projects[(index - 1 + count) % count],
-    next: projects[(index + 1) % count],
+    previous: index > 0 ? ordered[index - 1] : undefined,
+    next: index < ordered.length - 1 ? ordered[index + 1] : undefined,
   };
 }
 
@@ -166,16 +168,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                 {projectLinks.length > 0 ? (
                   <ProjectLinks links={projectLinks} />
-                ) : (
-                  <p className="project-page-note">
-                    <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    {en.projectDisplay.noLinksNote}
-                  </p>
-                )}
+                ) : null}
               </div>
 
               <div className="project-page-rail">
-                <p className="section-label">
+                <p className="project-page-label">
                   {en.projectDisplay.sectionBuiltWith}
                 </p>
                 <ProjectTechStack skillIds={project.skills} variant="labels" />
@@ -188,7 +185,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   href={`/projects/${previousProject.slug}`}
                   className="project-page-onward-link"
                 >
-                  <span className="section-label mb-0">
+                  <span className="project-page-label">
                     {en.projectDisplay.previousProjectLabel}
                   </span>
                   <span className="card-title">{previousProject.title}</span>
@@ -201,7 +198,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   href={`/projects/${nextProject.slug}`}
                   className="project-page-onward-link sm:items-end sm:text-right"
                 >
-                  <span className="section-label mb-0">
+                  <span className="project-page-label">
                     {en.projectDisplay.nextProjectLabel}
                   </span>
                   <span className="card-title">{nextProject.title}</span>
