@@ -52,6 +52,14 @@ export default function ProjectCard({
         {excerpt ? (
           <p className="project-card-compact-excerpt">{excerpt}</p>
         ) : null}
+        {/* Only the reachable projects say so. Most are private, so a label on
+            every card would repeat the rule instead of marking the exception.
+            Positioned out of flow, like the glyph, so it adds no height. */}
+        {project.access === 'Private' ? null : (
+          <span className="project-card-compact-access">
+            {en.projectAccess[project.access]}
+          </span>
+        )}
       </button>
     );
   }
@@ -75,8 +83,11 @@ export default function ProjectCard({
         />
       </span>
       <span className="project-card-feature-body">
+        {/* Year, status and access are one class of fact, so they share one
+            rail rather than splitting across two treatments on one card. */}
         <span className="project-card-feature-meta">
-          {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}
+          {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}{' '}
+          <span aria-hidden>·</span> {en.projectAccess[project.access]}
         </span>
         <span
           className="project-card-feature-title"

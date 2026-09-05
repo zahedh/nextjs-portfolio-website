@@ -36,6 +36,33 @@ export function ProjectPlatformTag({
   );
 }
 
+/**
+ * How much of the project a reader can reach. The two reachable states take the
+ * emphasised pill and Private the neutral one — most projects are private, so
+ * emphasis marks the exception rather than repeating the rule.
+ */
+export function ProjectAccessBadge({
+  project,
+  className,
+}: {
+  project: Project;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        'brand-pill',
+        project.access === 'Private'
+          ? 'brand-pill-inactive'
+          : 'brand-pill-active',
+        className
+      )}
+    >
+      {en.projectAccess[project.access]}
+    </span>
+  );
+}
+
 /** Active / Completed status pill. */
 export function ProjectStatusBadge({
   project,
@@ -129,6 +156,10 @@ export function ProjectMetaSummary({
       <MetaRow
         label={en.projectDisplay.statusLabel}
         value={<ProjectStatusBadge project={project} />}
+      />
+      <MetaRow
+        label={en.projectDisplay.accessLabel}
+        value={<ProjectAccessBadge project={project} />}
       />
     </div>
   );

@@ -357,6 +357,13 @@
        disagree. No default: a project with no category simply has no edge. */
     border-left: 3px solid var(--cover-a, transparent);
   }
+  /* In the flow rather than absolutely placed: out of flow it sat over the
+     summary's own box, and a two-line summary that ran the full width would
+     have collided with it. Trailing edge, muted — it marks an exception, it
+     does not shout. */
+  .project-card-compact-access {
+    @apply text-meta self-end font-mono text-neutral-500 dark:text-neutral-400;
+  }
   .project-card-compact-marks {
     @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
   }
@@ -710,6 +717,12 @@
      and the hover background win on source order rather than specificity. */
   .filter-pill {
     background-color: var(--filter-ink);
+
+    @apply gap-1.5;
+  }
+  /* Sized to the pill's own text rather than the card marks', which are larger. */
+  .filter-pill-mark {
+    @apply h-3.5 w-3.5 shrink-0;
   }
   .filter-pill:hover {
     background-color: color-mix(in oklab, var(--filter-ink) 86%, black);

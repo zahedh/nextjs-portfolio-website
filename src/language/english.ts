@@ -198,9 +198,17 @@ export const en = {
     sectionTechStack: 'Tech stack',
     sectionLinks: 'Links',
     sectionMetaItems: 'Project meta',
+    accessLabel: 'Access',
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
+  },
+
+  /** Keyed by ProjectAccess so a new state cannot be added without its copy. */
+  projectAccess: {
+    'Open source': 'Open source',
+    Public: 'Public',
+    Private: 'Private',
   },
 
   jobDisplay: {

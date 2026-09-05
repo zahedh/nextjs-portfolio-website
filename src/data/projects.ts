@@ -4,6 +4,7 @@ export const projects: Project[] = [
   {
     id: 'project-8',
     categories: ['Web'],
+    access: 'Private',
     title: 'Render Lab — Video FX Editor',
     summary:
       'A browser video FX editor doing frame-accurate compositing with no server round trip.',
@@ -40,6 +41,7 @@ export const projects: Project[] = [
   {
     id: 'project-0',
     categories: ['Web'],
+    access: 'Open source',
     title: 'Portfolio Website',
     summary:
       'This site. Designed in Figma from scratch, built on Next.js 15 and TypeScript.',
@@ -88,6 +90,7 @@ export const projects: Project[] = [
   {
     id: 'project-1',
     categories: ['Mobile'],
+    access: 'Private',
     title: 'Smarty',
     summary:
       'React Native app for managing SMARTY mobile accounts and plans, on iOS and Android.',
@@ -140,6 +143,7 @@ export const projects: Project[] = [
   {
     id: 'project-2',
     categories: ['Web'],
+    access: 'Private',
     title: 'Curtains Made',
     summary:
       'Made-to-measure e-commerce plus the stock tooling and scheduler behind it.',
@@ -173,6 +177,7 @@ export const projects: Project[] = [
   {
     id: 'project-3',
     categories: ['Mobile'],
+    access: 'Public',
     title: 'BeAware',
     summary:
       'Crime and policing data from the UK Police API, mapped across England.',
@@ -207,6 +212,7 @@ export const projects: Project[] = [
   {
     id: 'project-4',
     categories: ['Mobile'],
+    access: 'Private',
     title: 'Michelin Costings',
     summary:
       'Internal Michelin tyre costing app, led off the legacy Alloy framework onto React Native.',
@@ -240,6 +246,7 @@ export const projects: Project[] = [
   {
     id: 'project-5',
     categories: ['Mobile'],
+    access: 'Private',
     title: 'Michelin Truck Audit',
     summary:
       'Digitised Michelin truck audits, migrated from Alloy to React Native.',
@@ -273,6 +280,7 @@ export const projects: Project[] = [
   {
     id: 'project-6',
     categories: ['Web'],
+    access: 'Private',
     title: 'RedFred PDF Generator',
     summary:
       'WordPress plugin turning uploaded data into 100 bespoke PDFs in under an hour.',
@@ -300,6 +308,7 @@ export const projects: Project[] = [
   {
     id: 'project-7',
     categories: ['Mobile'],
+    access: 'Private',
     title: 'Warmshowers',
     summary:
       'Hospitality network app connecting touring cyclists with 150,000+ hosts worldwide.',
@@ -333,6 +342,7 @@ export const projects: Project[] = [
   {
     id: 'project-ai-placeholder',
     categories: ['AI', 'Web'],
+    access: 'Private',
     title: 'Markscheme — Eval Harness',
     summary:
       'Eval harness scoring LLM spec extraction against a rubric, not an exact string.',

@@ -6,6 +6,7 @@ import {
   ProjectDetailPanel,
   Section,
 } from '@/components';
+import { CategoryMark } from '@/components/ui/cards/ProjectCategoryMarks';
 import { projects } from '@/data/projects';
 import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
@@ -126,6 +127,12 @@ export default function ProjectsSection() {
             selectedType !== value && 'btn-toggle-idle'
           )}
         >
+          {/* The row doubles as the legend for the marks on the cards, which
+              carry no label of their own. All has no glyph because it is the
+              absence of a category rather than one of them. */}
+          {value === 'All' ? null : (
+            <CategoryMark category={value} className="filter-pill-mark" />
+          )}
           {label}
         </PrimaryButton>
       ))}
