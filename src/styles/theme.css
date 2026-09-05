@@ -86,15 +86,22 @@
   /* Project covers. One leading colour per category plus a shared end stop; the
      cover composes them, so a project spanning two categories blends the two
      rather than picking a winner. See getProjectCoverClasses. */
-  --cover-web: #e7c893;
+  --cover-web: #eccbbf;
   --cover-mobile: #a9c9d2;
   --cover-ai: #c6b4cd;
   /* Short of the card ground (#f7f6f3) so the plate stays a plate. */
   --cover-end: #f2eee7;
 
   /* The same three categories at control weight. A cover tint is a plate and is
-     far too pale to carry an active control, so each category has an ink as well. */
-  --cat-ink-web: #dd993c;
+     far too pale to carry an active control, so each category has an ink as well.
+     Web held the brand amber verbatim, which left the accent meaning both
+     "emphasis" and "this is a web project" on the same card. Amber is now
+     emphasis and nothing else. Web's clay is kept well below the accent in
+     saturation and lightness rather than merely far from it in hue, so the two
+     never read as the same colour even though both are warm. The three
+     categories are spaced to stay legible from one another on the compact
+     card's 3px edge, where there is no label to fall back on. */
+  --cat-ink-web: #b5705a;
   --cat-ink-mobile: #5b93a5;
   --cat-ink-ai: #8b6ea8;
   /* The control that filters nothing takes no category's colour. */
@@ -127,11 +134,11 @@
   --color-brand-700: #6d4713;
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
-  --cover-web: #4a3117;
+  --cover-web: #3d211a;
   --cover-mobile: #1b3a45;
   --cover-ai: #342550;
   --cover-end: #1f2226;
-  --cat-ink-web: #98631b;
+  --cat-ink-web: #6b3a2c;
   --cat-ink-mobile: #2f5f6e;
   --cat-ink-ai: #55407a;
   --cat-ink-all: #34383d;
