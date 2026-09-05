@@ -13,19 +13,24 @@ import { cn } from '@/lib/utils';
 import { Project, ProjectFilter } from '@/types/project';
 import { useMemo, useState } from 'react';
 
-/** The filter controls, each carrying its own category's colour. */
+/**
+ * The filter controls, each carrying its own category's colour. Ordered by depth
+ * of experience — mobile, then web, then AI — rather than alphabetically or by
+ * project count. The section's own order is chronological and independent of
+ * this; see getFilteredProjectsForSection.
+ */
 const PROJECT_FILTERS: {
   value: ProjectFilter;
   label: string;
   pill: string;
 }[] = [
   { value: 'All', label: en.projectFilters.all, pill: 'filter-pill-all' },
-  { value: 'Web', label: en.projectFilters.web, pill: 'filter-pill-web' },
   {
     value: 'Mobile',
     label: en.projectFilters.mobile,
     pill: 'filter-pill-mobile',
   },
+  { value: 'Web', label: en.projectFilters.web, pill: 'filter-pill-web' },
   { value: 'AI', label: en.projectFilters.ai, pill: 'filter-pill-ai' },
 ];
 
