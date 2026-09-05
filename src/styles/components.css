@@ -338,11 +338,16 @@
   .project-card-feature-meta {
     @apply text-brand-600 dark:text-brand-300 text-meta font-mono;
   }
+  /* Both reserve two lines whether or not they need them. A title that wraps on
+     one project and not the next would otherwise change the feature card's
+     height, and the card spans two rows — so the whole block moved when the
+     filter changed. The reserved space costs a short title some slack beneath
+     it; a moving grid costs more. */
   .project-card-feature-title {
-    @apply font-heading text-heading font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
+    @apply font-heading text-heading min-h-[2lh] font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
   }
   .project-card-feature-excerpt {
-    @apply text-body-sm leading-[1.55] text-neutral-700 dark:text-neutral-300;
+    @apply text-body-sm line-clamp-2 min-h-[2lh] leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
     @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
@@ -365,8 +370,13 @@
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
   }
+  /* The row is always present, so the page below the section does not jump by
+     the button's height when a filter has nothing left to expand. */
+  .projects-see-all-row {
+    @apply mt-3.5 flex min-h-12 w-full justify-center;
+  }
   .projects-see-all {
-    @apply focus-visible:ring-brand-500 text-body-sm mt-3.5 min-h-11 w-full cursor-pointer rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 sm:self-center dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 text-body-sm min-h-11 w-full cursor-pointer rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;

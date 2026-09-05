@@ -76,21 +76,25 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
           />
         ))}
       </div>
-      {hasOverflow ? (
-        <button
-          type="button"
-          className="projects-see-all"
-          aria-expanded={showAll}
-          onClick={() => setShowAll((expanded) => !expanded)}
-        >
-          {showAll
-            ? en.projectCard.showFewerProjects
-            : en.projectCard.seeAllProjects.replace(
-                '{{count}}',
-                String(projects.length)
-              )}
-        </button>
-      ) : null}
+      {/* The row is kept whether or not it holds a control, so changing filter
+          does not shift everything below the section by the button's height. */}
+      <div className="projects-see-all-row">
+        {hasOverflow ? (
+          <button
+            type="button"
+            className="projects-see-all"
+            aria-expanded={showAll}
+            onClick={() => setShowAll((expanded) => !expanded)}
+          >
+            {showAll
+              ? en.projectCard.showFewerProjects
+              : en.projectCard.seeAllProjects.replace(
+                  '{{count}}',
+                  String(projects.length)
+                )}
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }
