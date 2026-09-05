@@ -67,3 +67,28 @@ Which side an icon sits on is decided by what the icon _means_, not by a house p
 ```
 
 A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`, `DismissButton`) are outside this rule and need an `aria-label`.
+
+## Control state
+
+A toggle says which of its options is active by changing **fill and border**, never by dimming itself.
+
+- **Idle** — transparent fill, neutral border, text at full strength.
+- **Selected** — solid brand fill, with the label checked for contrast against it.
+- **Hover** — a visible background change on the idle state, distinct from selected.
+- Add `aria-pressed` when the control is a toggle rather than a link or an action.
+
+```css
+.filter-pill {
+  @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 hover:bg-neutral-200 ...;
+}
+/* Declared after, so the selected fill wins on source order. */
+.filter-pill-selected {
+  @apply bg-brand-500 border-brand-500 dark:bg-brand-100 text-neutral-900 dark:text-neutral-900;
+}
+```
+
+**Never use opacity to mean "not selected".** `opacity: 50%` on a control dims its label and its icon along with its fill, and it halves whatever the hover rule shifts — a 14% background change becomes roughly 7% of perceived change, which reads as a control that does not respond. This is what made the projects filters look greyed out and unclickable.
+
+**Check both themes.** The dark brand ramp runs the opposite way to the light one: `brand-100` is dark's _brightest_ amber, not its lightest tint. A selected fill of `brand-500` measured 3.50:1 against its label in dark; the same pattern on `brand-100` measures 6.60:1, against 7.15:1 in light.
+
+**An icon inside a control inherits the control's colour** — `text-current`, not a colour of its own. `.category-mark` hard-pins a muted grey and is declared late in the file, so at equal specificity it beats a pill's own colour and the glyph washes out against a saturated fill. Two classes (`.filter-pill .category-mark`) is enough to win it back.
