@@ -207,7 +207,6 @@ export const en = {
     backToProjects: 'All projects',
     sectionBuiltWith: 'Built with',
     nextProjectLabel: 'Next project',
-    allProjectsLink: 'All projects',
     noLinksNote: 'No public repository or live site',
     previousProjectLabel: 'Previous project',
   },

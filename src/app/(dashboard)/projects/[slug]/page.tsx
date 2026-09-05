@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Lock } from 'lucide-react';
+import { ArrowLeft, Lock } from 'lucide-react';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
@@ -210,12 +210,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <span />
               )}
             </div>
-            {/* Centred under the pair: with previous and next holding both
-                ends, an edge-aligned third link reads as stray. */}
-            <Link href="/#projects" className="project-back-link mx-auto">
-              {en.projectDisplay.allProjectsLink}
-              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-            </Link>
           </div>
         </div>
       </section>
