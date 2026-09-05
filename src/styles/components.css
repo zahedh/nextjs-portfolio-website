@@ -276,22 +276,32 @@
   .projects-stack {
     @apply flex w-full flex-col gap-2.5;
   }
+  /* One track set for every card in the section, revealed ones included, so a
+     card always lines up with the card above it. Nothing else may introduce a
+     second grid here; that is what used to make the rows disagree. */
   .projects-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:max-w-none lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
-  }
-  .projects-compact-list {
-    @apply flex min-w-0 flex-col gap-2.5 xl:grid xl:grid-cols-2 xl:content-start;
+    @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
     @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
+  /* The feature card earns its emphasis by spanning two rows, not by sitting in
+     a wider track — so the compact cards beside it form a clean rectangle. Set
+     here rather than as a utility in JSX: this layer wins on source order and
+     would otherwise silently beat it. Applied only when there are compact cards
+     to align against; a lone card has nothing to span. */
+  .project-card-feature-spanning {
+    @apply md:row-span-2;
+  }
   /* --cover-a is the primary category's colour, --cover-b the one it blends into.
      A single-category project has no --cover-b, so it falls back to a tint of its
      own colour and reads as the plain ramp it was drawn as. */
-  /* Fixed below lg; from lg the card is stretched to the compact column's height,
-     so the cover takes the slack rather than leaving it blank under the excerpt. */
+  /* Fixed at every width, 182px from lg as drawn in .design/Main.dc.html. The
+     cover does not absorb slack: the feature card is sized by its own content
+     and the compact cards stretch to meet it, so a card with no neighbours is
+     the same height as one with them. */
   .project-card-cover {
-    @apply relative block h-[154px] shrink-0 lg:h-auto lg:min-h-[182px] lg:flex-1 lg:shrink;
+    @apply relative block h-[154px] shrink-0 lg:h-[182px];
 
     --cover-a: var(--cover-web);
     --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
@@ -335,7 +345,7 @@
     @apply text-body-sm leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-500 relative flex min-h-20 flex-1 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
 
     /* Reads the same --cover-a the covers use, so a card and its cover cannot
        disagree. No default: a project with no category simply has no edge. */
@@ -347,17 +357,10 @@
   .project-card-compact-title {
     @apply font-heading text-title-sm truncate font-bold text-neutral-900 dark:text-neutral-100;
   }
-  /* Declared after .project-card-compact so its display wins on source order. */
-  .project-card-compact-wide-only {
-    @apply hidden xl:flex;
-  }
+  /* A compact card is roughly a third of the content width now rather than a
+     300px rail, so it has room for two lines and no longer needs truncating. */
   .project-card-compact-excerpt {
-    @apply text-body-sm truncate text-neutral-600 xl:line-clamp-2 xl:overflow-hidden xl:whitespace-normal dark:text-neutral-300;
-  }
-  /* Same column steps as .projects-compact-list above it: the revealed cards
-     continue that list rather than starting a denser grid mid-column. */
-  .projects-overflow-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 lg:max-w-none xl:grid-cols-2;
+    @apply text-body-sm line-clamp-2 text-neutral-600 dark:text-neutral-300;
   }
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;

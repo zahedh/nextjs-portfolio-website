@@ -29,9 +29,10 @@ const PROJECT_FILTERS: {
   { value: 'AI', label: en.projectFilters.ai, pill: 'filter-pill-ai' },
 ];
 
-/** Cards drawn before the overflow control, and the larger count the 2xl grid fits. */
-const INITIAL_PROJECT_COUNT = 4;
-const WIDE_PROJECT_COUNT = 7;
+/** Compact cards drawn before the overflow control. Four fills exactly two rows
+    beside the feature card at both md and xl, so the initial block is a clean
+    rectangle at every width without counting columns at runtime. */
+const INITIAL_COMPACT_COUNT = 4;
 
 interface ProjectGridProps {
   projects: Project[];
@@ -41,12 +42,11 @@ interface ProjectGridProps {
 /** Presents the filtered projects as one feature card followed by compact cards. */
 function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
   const [showAll, setShowAll] = useState(false);
-  const [featureProject, ...compactProjects] = projects.slice(
-    0,
-    WIDE_PROJECT_COUNT
-  );
-  const overflowProjects = showAll ? projects.slice(WIDE_PROJECT_COUNT) : [];
-  const hasOverflow = projects.length > INITIAL_PROJECT_COUNT;
+  const [featureProject, ...compactProjects] = projects;
+  const visibleProjects = showAll
+    ? compactProjects
+    : compactProjects.slice(0, INITIAL_COMPACT_COUNT);
+  const hasOverflow = compactProjects.length > INITIAL_COMPACT_COUNT;
 
   if (!featureProject) {
     return (
@@ -56,51 +56,30 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
 
   return (
     <div className="projects-stack">
-      {/* A lone card keeps the feature column rather than taking the row, so its
-          width matches a feature card that has compact cards beside it. */}
+      {/* Every card is a cell in this one grid, revealed ones included, so rows
+          always align. A lone card has nothing to span and keeps its own height. */}
       <div className="projects-grid">
         <ProjectCard
           project={featureProject}
           variant="feature"
           onOpenFullDetails={onOpenFullDetails}
+          className={cn(
+            compactProjects.length > 0 && 'project-card-feature-spanning'
+          )}
         />
-        {compactProjects.length > 0 ? (
-          <div className="projects-compact-list">
-            {compactProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                variant="compact"
-                onOpenFullDetails={onOpenFullDetails}
-                className={cn(
-                  !showAll &&
-                    index >= INITIAL_PROJECT_COUNT - 1 &&
-                    'project-card-compact-wide-only'
-                )}
-              />
-            ))}
-          </div>
-        ) : null}
+        {visibleProjects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            variant="compact"
+            onOpenFullDetails={onOpenFullDetails}
+          />
+        ))}
       </div>
-      {overflowProjects.length > 0 ? (
-        <div className="projects-overflow-grid">
-          {overflowProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              variant="compact"
-              onOpenFullDetails={onOpenFullDetails}
-            />
-          ))}
-        </div>
-      ) : null}
       {hasOverflow ? (
         <button
           type="button"
-          className={cn(
-            'projects-see-all',
-            projects.length <= WIDE_PROJECT_COUNT && !showAll && 'xl:hidden'
-          )}
+          className="projects-see-all"
           aria-expanded={showAll}
           onClick={() => setShowAll((expanded) => !expanded)}
         >

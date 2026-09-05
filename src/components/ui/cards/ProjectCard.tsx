@@ -63,7 +63,7 @@ export default function ProjectCard({
   return (
     <button
       type="button"
-      className="project-card-feature"
+      className={cn('project-card-feature', className)}
       onClick={() => onOpenFullDetails(project)}
       aria-label={label}
     >
