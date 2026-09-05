@@ -293,9 +293,8 @@
   .project-card-feature-spanning {
     @apply md:row-span-2;
   }
-  /* --cover-a is the primary category's colour, --cover-b the one it blends into.
-     A single-category project has no --cover-b, so it falls back to a tint of its
-     own colour and reads as the plain ramp it was drawn as. */
+  /* One warm ramp for every project. The artboard draws an AI project with this
+     cover, so it was never a category signal; the card's glyph carries that. */
   /* Fixed at every width, 182px from lg as drawn in .design/Main.dc.html. The
      cover does not absorb slack: the feature card is sized by its own content
      and the compact cards stretch to meet it, so a card with no neighbours is
@@ -303,7 +302,7 @@
   .project-card-cover {
     @apply relative block h-[154px] shrink-0 lg:h-[182px];
 
-    --cover-a: var(--cover-web);
+    --cover-a: var(--cover-brand);
     --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
 
     background-image: linear-gradient(
@@ -314,24 +313,6 @@
     );
   }
   /* Declared after .project-card-cover so both custom properties win on source order. */
-  .cover-a-web {
-    --cover-a: var(--cover-web);
-  }
-  .cover-a-mobile {
-    --cover-a: var(--cover-mobile);
-  }
-  .cover-a-ai {
-    --cover-a: var(--cover-ai);
-  }
-  .cover-b-web {
-    --cover-b: var(--cover-web);
-  }
-  .cover-b-mobile {
-    --cover-b: var(--cover-mobile);
-  }
-  .cover-b-ai {
-    --cover-b: var(--cover-ai);
-  }
   /* Reserves the space a two-line title and two-line summary would need, so the
      card is the same height whichever project is featured and the grid cannot
      move when the filter changes. Reserved on the body rather than on the title
@@ -352,17 +333,16 @@
   }
   .project-card-compact {
     @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
-
-    /* Reads the same --cover-a the covers use, so a card and its cover cannot
-       disagree. No default: a project with no category simply has no edge. */
-    border-left: 3px solid var(--cover-a, transparent);
   }
-  /* In the flow rather than absolutely placed: out of flow it sat over the
-     summary's own box, and a two-line summary that ran the full width would
-     have collided with it. Trailing edge, muted — it marks an exception, it
-     does not shout. */
+  /* Out of flow, so a card carrying it is no taller than one that does not —
+     in the flow it added a line to whichever row held it and the section moved
+     when the filter changed. The summary on those cards is inset by
+     .project-card-compact-excerpt-inset instead, so the two cannot collide. */
   .project-card-compact-access {
-    @apply text-meta self-end font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-meta absolute right-[15px] bottom-[13px] font-mono text-neutral-500 xl:right-5 xl:bottom-4 dark:text-neutral-400;
+  }
+  .project-card-compact-excerpt-inset {
+    @apply pr-24;
   }
   .project-card-compact-marks {
     @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
@@ -715,29 +695,22 @@
   /* Each filter takes its own category's colour, so the colour a cover spends
      has somewhere to be learned. Declared after .btn-primary so both the resting
      and the hover background win on source order rather than specificity. */
+  /* Category is carried by the glyph and the label, so colour here is brand and
+     neutral only. State is a change of fill, never opacity: dimming the pill
+     dimmed its label and glyph too, and halved the hover shift into invisibility. */
   .filter-pill {
-    background-color: var(--filter-ink);
-
-    @apply gap-1.5;
+    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
   }
   /* Sized to the pill's own text rather than the card marks', which are larger. */
   .filter-pill-mark {
-    @apply h-3.5 w-3.5 shrink-0;
+    @apply h-3.5 w-3.5 shrink-0 opacity-75;
   }
-  .filter-pill:hover {
-    background-color: color-mix(in oklab, var(--filter-ink) 86%, black);
+  /* Declared after .filter-pill so the selected fill wins on source order. */
+  .filter-pill-selected {
+    @apply bg-brand-500 border-brand-500 hover:bg-brand-500 text-neutral-900 dark:text-neutral-100;
   }
-  .filter-pill-all {
-    --filter-ink: var(--cat-ink-all);
-  }
-  .filter-pill-web {
-    --filter-ink: var(--cat-ink-web);
-  }
-  .filter-pill-mobile {
-    --filter-ink: var(--cat-ink-mobile);
-  }
-  .filter-pill-ai {
-    --filter-ink: var(--cat-ink-ai);
+  .filter-pill-selected .filter-pill-mark {
+    @apply opacity-100;
   }
   /* Category glyphs. The card's own label carries the categories for a reader
      who cannot see them, so the marks themselves are hidden from the tree. */

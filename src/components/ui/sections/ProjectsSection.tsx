@@ -20,19 +20,11 @@ import { useMemo, useState } from 'react';
  * project count. The section's own order is chronological and independent of
  * this; see getFilteredProjectsForSection.
  */
-const PROJECT_FILTERS: {
-  value: ProjectFilter;
-  label: string;
-  pill: string;
-}[] = [
-  { value: 'All', label: en.projectFilters.all, pill: 'filter-pill-all' },
-  {
-    value: 'Mobile',
-    label: en.projectFilters.mobile,
-    pill: 'filter-pill-mobile',
-  },
-  { value: 'Web', label: en.projectFilters.web, pill: 'filter-pill-web' },
-  { value: 'AI', label: en.projectFilters.ai, pill: 'filter-pill-ai' },
+const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
+  { value: 'All', label: en.projectFilters.all },
+  { value: 'Mobile', label: en.projectFilters.mobile },
+  { value: 'Web', label: en.projectFilters.web },
+  { value: 'AI', label: en.projectFilters.ai },
 ];
 
 /** Compact cards drawn before the overflow control. Four fills exactly two rows
@@ -117,15 +109,15 @@ export default function ProjectsSection() {
 
   const filterButtons = (
     <>
-      {PROJECT_FILTERS.map(({ value, label, pill }) => (
+      {PROJECT_FILTERS.map(({ value, label }) => (
         <PrimaryButton
           key={value}
           onClick={() => setSelectedType(value)}
           className={cn(
             'filter-pill',
-            pill,
-            selectedType !== value && 'btn-toggle-idle'
+            selectedType === value && 'filter-pill-selected'
           )}
+          aria-pressed={selectedType === value}
         >
           {/* The row doubles as the legend for the marks on the cards, which
               carry no label of their own. All has no glyph because it is the

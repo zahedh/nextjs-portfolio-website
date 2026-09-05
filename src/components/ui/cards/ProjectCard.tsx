@@ -1,11 +1,7 @@
 'use client';
 
 import { en } from '@/language';
-import {
-  getProjectCardSummary,
-  getProjectCoverClasses,
-  isProjectActive,
-} from '@/lib/ui-logic';
+import { getProjectCardSummary, isProjectActive } from '@/lib/ui-logic';
 import { ProjectCategoryMarks } from '@/components/ui/cards/ProjectCategoryMarks';
 import { cn } from '@/lib/utils';
 import { Project } from '@/types/project';
@@ -25,7 +21,6 @@ export default function ProjectCard({
   className,
 }: ProjectCardProps) {
   const excerpt = getProjectCardSummary(project);
-  const coverClassNames = getProjectCoverClasses(project);
   const label = [`${en.projectCard.viewProject}: ${project.title}`]
     .concat(project.categories.length ? project.categories.join(', ') : [])
     .join('. ');
@@ -34,7 +29,7 @@ export default function ProjectCard({
     return (
       <button
         type="button"
-        className={cn('project-card-compact', coverClassNames, className)}
+        className={cn('project-card-compact', className)}
         onClick={() => onOpenFullDetails(project)}
         aria-label={label}
       >
@@ -50,7 +45,15 @@ export default function ProjectCard({
           {project.title}
         </span>
         {excerpt ? (
-          <p className="project-card-compact-excerpt">{excerpt}</p>
+          <p
+            className={cn(
+              'project-card-compact-excerpt',
+              project.access !== 'Private' &&
+                'project-card-compact-excerpt-inset'
+            )}
+          >
+            {excerpt}
+          </p>
         ) : null}
         {/* Only the reachable projects say so. Most are private, so a label on
             every card would repeat the rule instead of marking the exception.
@@ -75,7 +78,7 @@ export default function ProjectCard({
       onClick={() => onOpenFullDetails(project)}
       aria-label={label}
     >
-      <span className={cn('project-card-cover', coverClassNames)} aria-hidden>
+      <span className="project-card-cover" aria-hidden>
         <ProjectCategoryMarks
           project={project}
           className="category-marks-on-cover"

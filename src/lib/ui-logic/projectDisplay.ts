@@ -11,25 +11,6 @@ export function isProjectActive(project: Project): boolean {
   return project.endDate.trim().toLowerCase() === 'present';
 }
 
-const CATEGORY_SLUG: Record<ProjectCategory, string> = {
-  Web: 'web',
-  Mobile: 'mobile',
-  AI: 'ai',
-};
-
-/**
- * Cover ramp classes for a project card, keyed to what the project is rather than
- * to its id. The primary category sets the leading colour; a second, where the
- * project spans one, sets the colour it blends into.
- */
-export function getProjectCoverClasses(project: Project): string[] {
-  const [primary, secondary] = project.categories;
-  if (!primary) return [];
-  const classes = [`cover-a-${CATEGORY_SLUG[primary]}`];
-  if (secondary) classes.push(`cover-b-${CATEGORY_SLUG[secondary]}`);
-  return classes;
-}
-
 /** The platform a project ships on, for the fallback media icon. AI is not a platform. */
 export function getProjectPlatform(project: Project): 'Web' | 'Mobile' {
   return project.categories.includes('Mobile') ? 'Mobile' : 'Web';
