@@ -24,7 +24,7 @@ npm run validate      # Full checkpoint: type-check + lint + prettier-check + te
 
 `AGENTS.md` holds the project rules that bind both agents — role division, the small-fix workflow, the architecture map, and the repo-local patterns. Read it when planning or writing a brief, not only when executing one.
 
-Repo-local conventions the hub does not cover live in `.claude/rules/project-conventions.md`.
+Repo-local conventions the hub does not cover live in `AGENTS.md`, under Repo-local conventions.
 
 ---
 
