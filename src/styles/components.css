@@ -507,11 +507,13 @@
   }
   /* ---- A project's own page ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
-  /* A reading page holds a narrower measure than a section of cards. The site's
-     sections run to 110rem; here the column would reach ~120 characters at 2xl,
-     which is well past comfortable, so the page caps itself and centres. */
+  /* A reading page holds a narrower measure than a section of cards: at the
+     section's 110rem the column reaches about 120 characters. It caps, and it
+     stays left-aligned rather than centring — .hero-composition is narrower
+     than its section too and starts on the same line, so a centred page would
+     be the only block on the site that does not line up with the header. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg mx-auto flex w-full max-w-[78rem] flex-col;
+    @apply gap-block lg:gap-block-lg flex w-full max-w-[78rem] flex-col;
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -542,13 +544,11 @@
   .project-page-onward-link {
     @apply flex min-w-0 flex-col gap-1;
   }
-  /* Stands where a cover would, on the projects that have no image to show.
-     A filled band there reads as a picture that failed to load. */
+  /* Stands where a cover will go. Every image the site holds today is a client
+     logo or an avatar, and centring one in a page-wide plate reads as a picture
+     that failed to load, so no project shows a cover yet. */
   .project-page-edge {
     @apply bg-brand-500 h-[3px] w-24 rounded-full;
-  }
-  .project-page-cover {
-    @apply h-52 sm:h-64 lg:h-80;
   }
   /* Reading column and a rail, the hero's shape at a calmer measure. */
   .project-page-body {

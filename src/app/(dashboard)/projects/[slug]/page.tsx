@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
-import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
 import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
 import { projects } from '@/data/projects';
@@ -93,10 +92,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const projectLinks = getProjectLinkItems(project);
   const { previous: previousProject, next: nextProject } =
     getNeighbours(project);
-  // Only a project with something to show gets a cover. The media component
-  // falls back to an icon plate, which is the "image failed to load" reading
-  // the design rejects, so the fallback is never reached from here.
-  const hasCover = Boolean(project.image || project.imageToken);
 
   return (
     <div className="screen-parent">
@@ -143,16 +138,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <span>{en.projectAccess[project.access]}</span>
               </p>
 
-              {hasCover ? (
-                <ProjectHeroMedia
-                  project={project}
-                  imagePriority
-                  className="w-full"
-                  frameClassName="project-page-cover"
-                />
-              ) : (
-                <span className="project-page-edge" aria-hidden />
-              )}
+              <span className="project-page-edge" aria-hidden />
             </div>
 
             <div className="project-page-body">
@@ -160,7 +146,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {featureLines.length > 0 ? (
                   <section className="flex flex-col gap-3">
                     <h2 className="project-page-heading">
-                      {en.projectDisplay.sectionWork}
+                      {en.projectDisplay.sectionOverview}
                     </h2>
                     <FeatureList lines={featureLines} />
                   </section>

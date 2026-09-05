@@ -195,7 +195,7 @@ export const en = {
     contextLabel: 'Context',
     personalTag: 'Personal',
     statusLabel: 'Status',
-    sectionWork: 'The work',
+    sectionOverview: 'Overview',
     accessLabel: 'Access',
     visitLive: 'Visit site',
     viewRepo: 'View repo',
