@@ -126,6 +126,8 @@ export const en = {
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
+    promptEngineering: 'Prompt Engineering',
+    contextEngineering: 'Context Engineering',
 
     // Operating Systems
     macOS: 'macOS',
@@ -190,7 +192,7 @@ export const en = {
     platformMobile: 'Mobile',
     timelineLabel: 'Timeline',
     platformLabel: 'Platform',
-    contextLabel: 'Organisation',
+    contextLabel: 'Context',
     personalTag: 'Personal',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
@@ -202,6 +204,7 @@ export const en = {
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
+    backToProjects: 'Back to projects',
   },
 
   /** Keyed by ProjectAccess so a new state cannot be added without its copy. */

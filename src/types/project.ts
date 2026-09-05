@@ -13,6 +13,8 @@ export type ProjectAccess = 'Open source' | 'Public' | 'Private';
 
 export interface Project {
   id: string;
+  /** Stable URL segment. Set once and never derived from the title, which can change. */
+  slug: string;
   /**
    * Every category the project genuinely spans, primary first. The primary drives
    * the cover ramp and the platform icon; a second blends into the cover behind it.
@@ -23,7 +25,8 @@ export interface Project {
   title: string;
   /** One-line card summary, ~85 characters. Cards fall back to the first description line. */
   summary?: string;
-  company: string;
+  /** Who the work was for. Omitted where there is no client or employer to name. */
+  company?: string;
   startDate: string;
   endDate: string;
   description: string[];

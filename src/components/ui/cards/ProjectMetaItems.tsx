@@ -152,7 +152,12 @@ export function ProjectMetaSummary({
         label={en.projectDisplay.platformLabel}
         value={<ProjectPlatformTag project={project} />}
       />
-      <MetaRow label={en.projectDisplay.contextLabel} value={project.company} />
+      {project.company ? (
+        <MetaRow
+          label={en.projectDisplay.contextLabel}
+          value={project.company}
+        />
+      ) : null}
       <MetaRow
         label={en.projectDisplay.statusLabel}
         value={<ProjectStatusBadge project={project} />}

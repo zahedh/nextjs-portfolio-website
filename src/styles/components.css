@@ -497,6 +497,10 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
+  /* Return to the projects section from a project's own page. */
+  .project-back-link {
+    @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;
+  }
   .section-label {
     @apply font-heading text-meta mb-3 font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
   }
@@ -641,12 +645,6 @@
        capped so it cannot dominate at tablet widths. Two-column from lg, where
        the column sets the width and the height is fixed per step. */
     @apply relative z-10 col-start-1 row-start-1 aspect-[390/214] max-h-[360px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:aspect-auto lg:h-[340px] lg:max-h-none 2xl:h-[520px];
-  }
-  .feature-list-item {
-    @apply text-body-sm flex gap-3 text-neutral-600 dark:text-neutral-400;
-  }
-  .feature-list-bullet {
-    @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
   }
   /* Scrollable project description preview - thin brand scrollbars (Firefox + WebKit) */
   .project-card-scroll {
