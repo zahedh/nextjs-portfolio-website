@@ -692,12 +692,11 @@
   .filter-inactive {
     @apply opacity-50;
   }
-  /* Each filter takes its own category's colour, so the colour a cover spends
-     has somewhere to be learned. Declared after .btn-primary so both the resting
-     and the hover background win on source order rather than specificity. */
   /* Category is carried by the glyph and the label, so colour here is brand and
      neutral only. State is a change of fill, never opacity: dimming the pill
-     dimmed its label and glyph too, and halved the hover shift into invisibility. */
+     dimmed its label and glyph too, and halved the hover shift into invisibility.
+     Declared after .btn-primary so the resting and hover backgrounds win on
+     source order rather than specificity. */
   .filter-pill {
     @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
   }
