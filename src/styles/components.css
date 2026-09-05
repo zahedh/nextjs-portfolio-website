@@ -332,22 +332,23 @@
   .cover-b-ai {
     --cover-b: var(--cover-ai);
   }
+  /* Reserves the space a two-line title and two-line summary would need, so the
+     card is the same height whichever project is featured and the grid cannot
+     move when the filter changes. Reserved on the body rather than on the title
+     and summary themselves: that way a short title keeps its summary tight
+     beneath it and the slack pools once, at the foot of the card, where it
+     reads as padding instead of as a gap in the middle of the text. */
   .project-card-feature-body {
-    @apply flex flex-col gap-2 p-5;
+    @apply flex min-h-[177px] flex-col gap-2 p-5;
   }
   .project-card-feature-meta {
     @apply text-brand-600 dark:text-brand-300 text-meta font-mono;
   }
-  /* Both reserve two lines whether or not they need them. A title that wraps on
-     one project and not the next would otherwise change the feature card's
-     height, and the card spans two rows — so the whole block moved when the
-     filter changed. The reserved space costs a short title some slack beneath
-     it; a moving grid costs more. */
   .project-card-feature-title {
-    @apply font-heading text-heading min-h-[2lh] font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
+    @apply font-heading text-heading font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
   }
   .project-card-feature-excerpt {
-    @apply text-body-sm line-clamp-2 min-h-[2lh] leading-[1.55] text-neutral-700 dark:text-neutral-300;
+    @apply text-body-sm line-clamp-2 leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
     @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
