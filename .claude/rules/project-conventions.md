@@ -45,3 +45,25 @@ export const sectionViewport = { once: true, amount: 0.2 };
 ## Where logic goes
 
 Keep UI files thin. Beyond simple conditional rendering or a single derived value, extract: data transforms and filtering to `src/lib/utils/`, side effects and DOM interaction to `src/hooks/`, motion configuration to `src/lib/ui-logic/`.
+
+## Icons in buttons
+
+Which side an icon sits on is decided by what the icon _means_, not by a house preference for one side:
+
+- **Leading** — the icon says what the control **is**. `Download`, `Mail`, a category glyph. This is the `icon` prop on `SecondaryButton` and `TertiaryButton`, which render it before their children.
+- **Trailing** — the icon says where the control **takes you**, or what happens next. `ChevronDown` for disclosure, `ExternalLink` for a link that leaves the page, an arrow for "continue". Write these inline after the label rather than through the `icon` prop.
+
+```tsx
+// Leading: the glyph names the action
+<TertiaryButton icon={<Download aria-hidden className="size-4" />}>
+  {en.footerSection.cvLabel}
+</TertiaryButton>
+
+// Trailing: the glyph names the destination or the consequence
+<a href={link.url}>
+  {link.label}
+  <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+</a>
+```
+
+A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`, `DismissButton`) are outside this rule and need an `aria-label`.

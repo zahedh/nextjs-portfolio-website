@@ -42,8 +42,9 @@ export function ProjectLinks({
               className
             )}
           >
-            <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
             {link.label}
+            {/* Trailing: it says where the link goes, not what it is. */}
+            <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
           </a>
         </CalloutWrapper>
       ))}

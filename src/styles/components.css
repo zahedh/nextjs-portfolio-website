@@ -364,7 +364,7 @@
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-500 text-body-sm min-h-11 w-full cursor-pointer rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
@@ -701,16 +701,21 @@
   .filter-pill {
     @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
   }
-  /* Sized to the pill's own text rather than the card marks', which are larger. */
   .filter-pill-mark {
-    @apply h-3.5 w-3.5 shrink-0 opacity-75;
+    @apply shrink-0;
+  }
+  /* Two classes, so this beats .category-mark's muted grey — that grey is right
+     on a card but washed out against the selected fill. The glyph takes the
+     pill's own colour in both states, and is never dimmed. */
+  .filter-pill .category-mark {
+    @apply text-current;
   }
   /* Declared after .filter-pill so the selected fill wins on source order. */
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber —
+     so both themes get a bright fill under dark text: 7.15:1 light, 6.60:1
+     dark. Using brand-500 in dark gave 3.50:1, which is why it looked washed. */
   .filter-pill-selected {
-    @apply bg-brand-500 border-brand-500 hover:bg-brand-500 text-neutral-900 dark:text-neutral-100;
-  }
-  .filter-pill-selected .filter-pill-mark {
-    @apply opacity-100;
+    @apply bg-brand-500 border-brand-500 hover:bg-brand-500 dark:bg-brand-100 dark:border-brand-100 dark:hover:bg-brand-100 text-neutral-900 dark:text-neutral-900;
   }
   /* Category glyphs. The card's own label carries the categories for a reader
      who cannot see them, so the marks themselves are hidden from the tree. */

@@ -7,6 +7,7 @@ import {
   Section,
 } from '@/components';
 import { CategoryMark } from '@/components/ui/cards/ProjectCategoryMarks';
+import { ChevronDown } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
@@ -15,8 +16,8 @@ import { Project, ProjectFilter } from '@/types/project';
 import { useMemo, useState } from 'react';
 
 /**
- * The filter controls, each carrying its own category's colour. Ordered by depth
- * of experience — mobile, then web, then AI — rather than alphabetically or by
+ * The filter controls, each carrying its category's glyph. Ordered by depth of
+ * experience — mobile, then web, then AI — rather than alphabetically or by
  * project count. The section's own order is chronological and independent of
  * this; see getFilteredProjectsForSection.
  */
@@ -90,6 +91,16 @@ function ProjectGrid({ projects, onOpenFullDetails }: ProjectGridProps) {
                   '{{count}}',
                   String(projects.length)
                 )}
+            {/* Same disclosure affordance as the experience rail's expander:
+                trailing chevron, flipped while open. */}
+            <ChevronDown
+              size={15}
+              aria-hidden="true"
+              className={cn(
+                'transition-transform duration-300 motion-reduce:transition-none',
+                showAll && 'rotate-180'
+              )}
+            />
           </button>
         ) : null}
       </div>
