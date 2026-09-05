@@ -507,8 +507,11 @@
   }
   /* ---- A project's own page ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
+  /* A reading page holds a narrower measure than a section of cards. The site's
+     sections run to 110rem; here the column would reach ~120 characters at 2xl,
+     which is well past comfortable, so the page caps itself and centres. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg flex w-full flex-col;
+    @apply gap-block lg:gap-block-lg mx-auto flex w-full max-w-[78rem] flex-col;
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -551,8 +554,10 @@
   .project-page-body {
     @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11;
   }
+  /* Belt to the cap's braces: even inside the narrower page the prose keeps a
+     measure of its own, so a long line never runs the full column. */
   .project-page-column {
-    @apply gap-stack flex min-w-0 flex-col;
+    @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
   }
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;
