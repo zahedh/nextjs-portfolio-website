@@ -24,6 +24,14 @@ export function projectHasCategory(
   return project.categories.includes(category);
 }
 
+/** The project owning a URL slug, or undefined when nothing does. */
+export function getProjectBySlug(
+  slug: string,
+  allProjects: Project[]
+): Project | undefined {
+  return allProjects.find((project) => project.slug === slug);
+}
+
 /** Strip leading bullet markers (✦, •, -, *) from a description line for excerpts and list items. */
 export function stripDescriptionLine(raw: string): string {
   return raw.replace(/^\s*[✦•\-*]\s*/, '').trim();
