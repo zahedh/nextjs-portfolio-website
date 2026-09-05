@@ -505,6 +505,54 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
+  /* ---- A project's own page ---- */
+  /* Blocks down the page carry the same rhythm a section uses internally. */
+  .project-page-stack {
+    @apply gap-block lg:gap-block-lg flex w-full flex-col;
+  }
+  .project-page-head {
+    @apply flex w-full flex-col items-start gap-4 lg:gap-5;
+  }
+  /* One step under the hero and one above a section heading: the hero runs
+     display through display-xl, a section heading heading through display. */
+  .project-page-title {
+    @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
+  }
+  /* Lead work, not caption work: it is the first sentence a reader gets. */
+  .project-page-summary {
+    @apply text-lead lg:text-title-sm max-w-[54ch] leading-relaxed text-neutral-700 dark:text-neutral-300;
+  }
+  /* The facts as one mono rail. A ruled list belonged to the dialog, where it
+     had an aside to sit in; at page width it reads as a stray box. */
+  .project-page-meta {
+    @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
+  }
+  /* Stands where a cover would, on the projects that have no image to show.
+     A filled band there reads as a picture that failed to load. */
+  .project-page-edge {
+    @apply bg-brand-500 h-[3px] w-24 rounded-full;
+  }
+  .project-page-cover {
+    @apply h-52 sm:h-64 lg:h-80;
+  }
+  /* Reading column and a rail, the hero's shape at a calmer measure. */
+  .project-page-body {
+    @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11;
+  }
+  .project-page-column {
+    @apply gap-stack flex min-w-0 flex-col;
+  }
+  .project-page-rail {
+    @apply flex min-w-0 flex-col gap-3;
+  }
+  /* Says why there is nothing to click. An empty gap teaches a reader the page
+     is broken; a sentence teaches them the project is private. */
+  .project-page-note {
+    @apply text-meta inline-flex items-center gap-2 font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .project-page-onward {
+    @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
+  }
   /* Return to the projects section from a project's own page. */
   .project-back-link {
     @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;

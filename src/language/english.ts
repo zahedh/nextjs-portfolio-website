@@ -204,7 +204,11 @@ export const en = {
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
-    backToProjects: 'Back to projects',
+    backToProjects: 'All projects',
+    sectionBuiltWith: 'Built with',
+    nextProjectLabel: 'Next project',
+    allProjectsLink: 'All projects',
+    noLinksPrivate: 'Private — no public repository or live site',
   },
 
   /** Keyed by ProjectAccess so a new state cannot be added without its copy. */

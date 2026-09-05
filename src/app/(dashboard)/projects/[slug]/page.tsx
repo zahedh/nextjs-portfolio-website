@@ -1,23 +1,27 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
-import { Section } from '@/components';
+import { ArrowLeft, ArrowRight, Lock } from 'lucide-react';
 import { SubHeading } from '@/components/text';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
-import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
+import {
+  ProjectAccessBadge,
+  ProjectPlatformTag,
+  ProjectStatusBadge,
+} from '@/components/ui/cards/ProjectMetaItems';
 import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
 import { projects } from '@/data/projects';
 import { en } from '@/language';
 import { socialShareImageMeta } from '@/lib/meta';
 import {
+  formatProjectTimeline,
   getProjectBySlug,
-  getProjectDetailFeatureLines,
   getProjectExcerptLine,
   getProjectLinkItems,
 } from '@/lib/ui-logic';
+import type { Project } from '@/types/project';
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
 
@@ -57,65 +61,135 @@ export async function generateMetadata({
   };
 }
 
+/** The project after this one in the section's own order, wrapping at the end. */
+function getNextProject(project: Project): Project | undefined {
+  const index = projects.findIndex((entry) => entry.id === project.id);
+  if (index < 0 || projects.length < 2) return undefined;
+  return projects[(index + 1) % projects.length];
+}
+
+function MetaDot() {
+  return (
+    <span className="text-neutral-300 dark:text-neutral-600" aria-hidden>
+      ·
+    </span>
+  );
+}
+
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug, projects);
   if (!project) notFound();
 
-  const overview = getProjectExcerptLine(project);
-  const featureLines = getProjectDetailFeatureLines(project);
+  // Every line, not the panel's set: that one dropped the first line because the
+  // dialog printed it above as an overview. Here the summary does that job, and
+  // it is its own sentence, so dropping a line would simply lose it.
+  const featureLines = project.description;
   const projectLinks = getProjectLinkItems(project);
+  const nextProject = getNextProject(project);
+  // Only a project with something to show gets a cover. The media component
+  // falls back to an icon plate, which is the "image failed to load" reading
+  // the design rejects, so the fallback is never reached from here.
+  const hasCover = Boolean(project.image || project.imageToken);
 
   return (
     <div className="screen-parent">
-      <Section title={project.title} titleAs="h1" showDivider>
-        <div className="mx-auto flex max-w-3xl flex-col gap-8">
-          <Link href="/#projects" className="project-back-link">
-            <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
-            {en.projectDisplay.backToProjects}
-          </Link>
+      {/* Cancels the shell's header offset the way the hero does, so a project
+          opens at the same height as the front page rather than 72px lower. */}
+      <section className="screen-section -mt-18">
+        <div className="section-inner">
+          <div className="project-page-stack">
+            <div className="project-page-head">
+              <Link href="/#projects" className="project-back-link">
+                <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
+                {en.projectDisplay.backToProjects}
+              </Link>
 
-          <ProjectHeroMedia project={project} />
+              <h1 className="project-page-title">{project.title}</h1>
 
-          <ProjectMetaSummary project={project} variant="panel" />
+              {project.summary ? (
+                <p className="project-page-summary">{project.summary}</p>
+              ) : null}
 
-          {overview ? (
-            <section>
-              <p className="section-label">
-                {en.projectDisplay.sectionOverview}
+              <p className="project-page-meta">
+                <span>{formatProjectTimeline(project)}</span>
+                <MetaDot />
+                {project.company ? (
+                  <>
+                    <span>{project.company}</span>
+                    <MetaDot />
+                  </>
+                ) : null}
+                <ProjectPlatformTag project={project} />
+                <MetaDot />
+                <ProjectStatusBadge project={project} />
+                <MetaDot />
+                <ProjectAccessBadge project={project} />
               </p>
-              <p className="body-text-muted text-body max-w-prose">
-                {overview}
-              </p>
-            </section>
-          ) : null}
 
-          {featureLines.length > 0 ? (
-            <section>
-              <SubHeading className="card-section-heading">
-                {en.projectDisplay.sectionFeatures}
-              </SubHeading>
-              <FeatureList lines={featureLines} />
-            </section>
-          ) : null}
+              {hasCover ? (
+                <ProjectHeroMedia
+                  project={project}
+                  imagePriority
+                  className="w-full"
+                  frameClassName="project-page-cover"
+                />
+              ) : (
+                <span className="project-page-edge" aria-hidden />
+              )}
+            </div>
 
-          <section>
-            <SubHeading className="card-section-heading">
-              {en.projectDisplay.sectionTechStack}
-            </SubHeading>
-            <ProjectTechStack skillIds={project.skills} />
-          </section>
+            <div className="project-page-body">
+              <div className="project-page-column">
+                {featureLines.length > 0 ? (
+                  <section className="flex flex-col gap-3">
+                    <SubHeading className="card-section-heading">
+                      {en.projectDisplay.sectionFeatures}
+                    </SubHeading>
+                    <FeatureList lines={featureLines} />
+                  </section>
+                ) : null}
 
-          {projectLinks.length > 0 ? (
-            <section>
-              <SubHeading className="card-section-heading">
-                {en.projectDisplay.sectionLinks}
-              </SubHeading>
-              <ProjectLinks links={projectLinks} />
-            </section>
-          ) : null}
+                {projectLinks.length > 0 ? (
+                  <ProjectLinks links={projectLinks} />
+                ) : (
+                  <p className="project-page-note">
+                    <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                    {en.projectDisplay.noLinksPrivate}
+                  </p>
+                )}
+              </div>
+
+              <div className="project-page-rail">
+                <p className="section-label">
+                  {en.projectDisplay.sectionBuiltWith}
+                </p>
+                <ProjectTechStack skillIds={project.skills} variant="labels" />
+              </div>
+            </div>
+
+            <div className="project-page-onward">
+              {nextProject ? (
+                <Link
+                  href={`/projects/${nextProject.slug}`}
+                  className="flex flex-col gap-1"
+                >
+                  <span className="section-label mb-0">
+                    {en.projectDisplay.nextProjectLabel}
+                  </span>
+                  <span className="card-title">{nextProject.title}</span>
+                </Link>
+              ) : (
+                <span />
+              )}
+              <Link href="/#projects" className="project-back-link">
+                {en.projectDisplay.allProjectsLink}
+                <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+              </Link>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }

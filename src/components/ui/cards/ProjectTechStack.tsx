@@ -8,6 +8,17 @@ import { getSkillsByIds } from '@/lib/utils';
  * Resolves skill ids on the client, so a server page can render the stack without
  * passing skill objects across the boundary — each one carries an icon component.
  */
-export function ProjectTechStack({ skillIds }: { skillIds: string[] }) {
-  return <TechStack skills={getSkillsByIds(skillIds, skillsData)} />;
+export function ProjectTechStack({
+  skillIds,
+  variant,
+}: {
+  skillIds: string[];
+  variant?: 'tiles' | 'labels';
+}) {
+  return (
+    <TechStack
+      skills={getSkillsByIds(skillIds, skillsData)}
+      variant={variant}
+    />
+  );
 }
