@@ -519,8 +519,13 @@
    * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
    * 4. Tertiary: TertiaryButton
    */
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber and
+     brand-500 its dimmest — so the light theme's fill left every primary button
+     at 3.42:1 in dark, the site's two calls to action included. Dark takes the
+     bright fill under dark ink, which is what .filter-pill-selected already did
+     locally; this is that fix at the source rather than a third copy of it. */
   .btn-primary {
-    @apply font-heading bg-brand-500 hover:bg-brand-700 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
+    @apply font-heading bg-brand-500 hover:bg-brand-700 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
   }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
@@ -561,7 +566,12 @@
        affordances (see-all, card expanders), not for real buttons. */
     @apply text-body min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold sm:w-auto;
   }
-  .footer-action-secondary {
+  /* The secondary in a primary/secondary pairing, shared by the hero and the
+     footer. Neutral outline rather than TertiaryButton's brand border and amber
+     hover: the accent marks the one action worth taking, and spending it on both
+     halves of a pair leaves neither leading. Named for the role, not the section,
+     because the hero and the footer draw the same pairing. */
+  .btn-outline {
     @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-200 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800;
   }
   .footer-social-links {
@@ -795,9 +805,11 @@
     @apply mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row 2xl:mt-4 2xl:gap-4;
   }
   /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
-     pill. Scoped here so PrimaryButton stays compact everywhere else. */
+     pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
+     matches the footer's, which is what takes these over the 48px touch target
+     the drawn padding alone missed by two pixels. */
   .hero-action {
-    @apply text-body focus-visible:ring-brand-500 2xl:text-lead w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-500 2xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
     /* The rocket renders square and refuses to go under 320px, since the body

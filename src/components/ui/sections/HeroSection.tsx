@@ -72,7 +72,7 @@ export default function HeroSection() {
               hyperlink="/documents/CV.pdf"
               aria-label={en.heroSection.downloadCvAriaLabel}
               icon={<Download aria-hidden className="size-4" />}
-              className="hero-action"
+              className="hero-action btn-outline"
               {...{ download: true }}
             >
               {en.heroSection.secondaryButton}
