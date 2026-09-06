@@ -525,7 +525,7 @@
      bright fill under dark ink, which is what .filter-pill-selected already did
      locally; this is that fix at the source rather than a third copy of it. */
   .btn-primary {
-    @apply font-heading bg-brand-500 hover:bg-brand-700 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
+    @apply font-heading bg-brand-500 hover:bg-brand-600 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
   }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
@@ -567,12 +567,17 @@
     @apply text-body min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold sm:w-auto;
   }
   /* The secondary in a primary/secondary pairing, shared by the hero and the
-     footer. Neutral outline rather than TertiaryButton's brand border and amber
+     footer. Its hover is ink at low alpha rather than a named neutral, because
+     a named one is a fixed colour and these controls sit on three different
+     surfaces: hover:bg-neutral-200 was exactly the footer's and the activity
+     band's own background, so on those two the hover was invisible while
+     working fine on the page. An overlay darkens or lightens whatever is
+     behind it, so one rule holds on every surface. Neutral outline rather than TertiaryButton's brand border and amber
      hover: the accent marks the one action worth taking, and spending it on both
      halves of a pair leaves neither leading. Named for the role, not the section,
      because the hero and the footer draw the same pairing. */
   .btn-outline {
-    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-200 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800;
+    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-900/8 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-100/10;
   }
   .footer-social-links {
     @apply flex flex-wrap items-center gap-x-[18px];
@@ -890,7 +895,7 @@
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-900/8 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-100/10;
   }
   .filter-pill-mark {
     @apply shrink-0;
