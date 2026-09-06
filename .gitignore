@@ -26,7 +26,7 @@
 *.pem
 
 # Claude Code (local-only files)
-.claude/settings.local.json
+.claude/
 .claudeignore
 .superpowers/
 .context/

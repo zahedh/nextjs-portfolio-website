@@ -1,19 +1,21 @@
 'use client';
 
-import { CalloutWrapper } from '@/components';
+import { ExternalLink } from 'lucide-react';
+import { PrimaryButton, TertiaryButton } from '@/components/ui/buttons';
 import { en } from '@/language';
 import { cn } from '@/lib/utils';
-import { ExternalLink } from 'lucide-react';
 import { ProjectLinkItem } from '@/types/project';
 
-/** External link buttons for a project's live site/repo. */
+/**
+ * A project's external links as the site's own actions: the first one is the
+ * page's primary call, the rest sit beside it. The same pairing the hero and
+ * the footer use, so a project page has no button of its own invention.
+ */
 export function ProjectLinks({
   links,
-  fullWidth,
   className,
 }: {
   links: ProjectLinkItem[];
-  fullWidth?: boolean;
   className?: string;
 }) {
   const normalizedLinks = links
@@ -26,27 +28,37 @@ export function ProjectLinks({
   if (normalizedLinks.length === 0) return null;
 
   return (
-    <div className={cn('flex flex-col gap-4', fullWidth && 'w-full')}>
-      {normalizedLinks.map((link) => (
-        <CalloutWrapper
-          key={`${link.url}-${link.label}`}
-          className={fullWidth ? 'block w-full' : undefined}
-        >
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              'btn-brand-link btn-callout min-h-12 px-5 py-3',
-              fullWidth && 'w-full',
-              className
-            )}
-          >
-            <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+    <div className={cn('project-page-actions', className)}>
+      {normalizedLinks.map((link, index) => {
+        const key = `${link.url}-${link.label}`;
+        // Trailing: the icon says where the link goes, not what it is.
+        const content = (
+          <>
             {link.label}
-          </a>
-        </CalloutWrapper>
-      ))}
+            <ExternalLink aria-hidden className="size-4 shrink-0" />
+          </>
+        );
+
+        return index === 0 ? (
+          <PrimaryButton
+            key={key}
+            hyperlink={link.url}
+            target="_blank"
+            className="project-page-action"
+          >
+            {content}
+          </PrimaryButton>
+        ) : (
+          <TertiaryButton
+            key={key}
+            hyperlink={link.url}
+            target="_blank"
+            className="project-page-action"
+          >
+            {content}
+          </TertiaryButton>
+        );
+      })}
     </div>
   );
 }

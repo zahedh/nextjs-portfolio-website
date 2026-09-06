@@ -126,6 +126,8 @@ export const en = {
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
+    promptEngineering: 'Prompt Engineering',
+    contextEngineering: 'Context Engineering',
 
     // Operating Systems
     macOS: 'macOS',
@@ -190,23 +192,31 @@ export const en = {
     platformMobile: 'Mobile',
     timelineLabel: 'Timeline',
     platformLabel: 'Platform',
-    contextLabel: 'Organisation',
+    contextLabel: 'Context',
     personalTag: 'Personal',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
-    sectionFeatures: 'Description',
-    sectionTechStack: 'Tech stack',
-    sectionLinks: 'Links',
-    sectionMetaItems: 'Project meta',
+    accessLabel: 'Access',
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
+    backToProjects: 'All projects',
+    sectionBuiltWith: 'Built with',
+    nextProjectLabel: 'Next project',
+    previousProjectLabel: 'Previous project',
+  },
+
+  /** Keyed by ProjectAccess so a new state cannot be added without its copy. */
+  projectAccess: {
+    'Open source': 'Open source',
+    Public: 'Public',
+    Private: 'Private',
   },
 
   jobDisplay: {
     statusCurrent: 'Current',
     statusPast: 'Past',
-    stackLabel: 'Stack',
+    stackLabel: 'Technologies & tools',
     showDetails: 'Show details',
     hideDetails: 'Hide details',
   },

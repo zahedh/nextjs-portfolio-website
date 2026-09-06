@@ -50,6 +50,20 @@ export function useTheme() {
   return { isDark, toggleTheme };
 }
 
+/**
+ * Height to open a collapsed panel to. `scrollHeight` is an integer, so content
+ * measuring 75.25px reports 75 and the last row loses a quarter pixel behind
+ * `overflow: hidden` — enough to shave the descenders off a wrapped row. The
+ * rect keeps the fraction; the max of the two also covers the case where the
+ * element scrolls its own content and the rect is the shorter of the two.
+ */
+export function measureContentHeight(element: HTMLElement): number {
+  return Math.max(
+    element.scrollHeight,
+    Math.ceil(element.getBoundingClientRect().height)
+  );
+}
+
 /** Manages expandable content with overflow detection and smooth transitions. */
 export function useExpandableContent(maxHeight: number = 300) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -62,7 +76,7 @@ export function useExpandableContent(maxHeight: number = 300) {
     if (!contentElement) return;
 
     const checkOverflow = () => {
-      const fullHeight = contentElement.scrollHeight;
+      const fullHeight = measureContentHeight(contentElement);
       setContentHeight(fullHeight);
       setShowExpandButton(fullHeight > maxHeight);
     };
@@ -86,7 +100,7 @@ export function useExpandableContent(maxHeight: number = 300) {
       setIsExpanded((prev) => !prev);
       return;
     }
-    flushSync(() => setContentHeight(content.scrollHeight));
+    flushSync(() => setContentHeight(measureContentHeight(content)));
     if (isExpanded) {
       requestAnimationFrame(() => setIsExpanded(false));
     } else {

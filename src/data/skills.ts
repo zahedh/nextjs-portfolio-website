@@ -44,7 +44,9 @@ import {
   Code2,
   Drama,
   Film,
+  FolderTree,
   Layers,
+  MessageSquareCode,
   MousePointer2,
   Network,
   NotebookPen,
@@ -354,6 +356,18 @@ export const skillsData: Skill[] = [
     id: 'codex',
     label: en.skillsCollageSection.codex,
     icon: Braces,
+    category: 'ai',
+  },
+  {
+    id: 'prompt-engineering',
+    label: en.skillsCollageSection.promptEngineering,
+    icon: MessageSquareCode,
+    category: 'ai',
+  },
+  {
+    id: 'context-engineering',
+    label: en.skillsCollageSection.contextEngineering,
+    icon: FolderTree,
     category: 'ai',
   },
   {

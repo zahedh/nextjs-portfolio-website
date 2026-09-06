@@ -83,16 +83,12 @@
   --spacing-block-lg: 2.5rem;
   --spacing-stack: 1.5rem;
 
-  /* Project covers */
-  --project-cover-amber: linear-gradient(
-    152deg,
-    #e7c893 0%,
-    #efe0cb 58%,
-    #f4efe6 100%
-  );
-  --project-cover-violet: linear-gradient(140deg, #f0eaf0 0%, #f7f6f3 70%);
-  --project-cover-blue: linear-gradient(140deg, #e8f0f2 0%, #f7f6f3 70%);
-  --project-cover-brown: linear-gradient(140deg, #f4ebe2 0%, #f7f6f3 70%);
+  /* Project covers. One brand ramp for every project, as the artboard draws it:
+     Main.dc.html gives an AI project a warm brown cover, so the cover was never
+     category-coded there. Category is carried by the card's glyph instead. */
+  --cover-brand: #e7c893;
+  /* Short of the card ground (#f7f6f3) so the plate stays a plate. */
+  --cover-end: #f2eee7;
 }
 
 /* =========================
@@ -121,15 +117,8 @@
   --color-brand-700: #6d4713;
   --color-brand-800: #57390f;
   --color-brand-900: #412b0c;
-  --project-cover-amber: linear-gradient(
-    152deg,
-    #4a3117 0%,
-    #241d1a 58%,
-    #1f2226 100%
-  );
-  --project-cover-violet: linear-gradient(140deg, #262129 0%, #1f2226 70%);
-  --project-cover-blue: linear-gradient(140deg, #1e2529 0%, #1f2226 70%);
-  --project-cover-brown: linear-gradient(140deg, #29231c 0%, #1f2226 70%);
+  --cover-brand: #4a3117;
+  --cover-end: #1f2226;
 }
 
 /* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */

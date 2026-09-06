@@ -22,7 +22,7 @@ export function isOngoing(endDate: string): boolean {
  * Parses the `Mmm YYYY` form the experience data uses, returning the month
  * index since year zero so two dates can be subtracted directly.
  */
-function toMonthIndex(value: string, now: Date): number | null {
+export function toMonthIndex(value: string, now: Date): number | null {
   if (isOngoing(value)) {
     return now.getFullYear() * 12 + now.getMonth();
   }

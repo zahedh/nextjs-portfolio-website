@@ -36,20 +36,20 @@
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
   /*
-   * Tiles past the tenth mount when a role opens, so they arrive on their own
+   * Labels past the tenth mount when a role opens, so they arrive on their own
    * rather than being uncovered by the height change alone. Banded delays give
-   * the run a direction without a rule per tile.
+   * the run a direction without a rule per label.
    */
-  .experience-stack-tiles > *:nth-child(n + 11) {
+  .experience-stack-items > *:nth-child(n + 11) {
     animation: stack-tile-in 260ms ease-out both;
   }
-  .experience-stack-tiles > *:nth-child(n + 15) {
+  .experience-stack-items > *:nth-child(n + 15) {
     animation-delay: 60ms;
   }
-  .experience-stack-tiles > *:nth-child(n + 19) {
+  .experience-stack-items > *:nth-child(n + 19) {
     animation-delay: 120ms;
   }
-  .experience-stack-tiles > *:nth-child(n + 23) {
+  .experience-stack-items > *:nth-child(n + 23) {
     animation-delay: 180ms;
   }
   @keyframes stack-tile-in {
@@ -63,12 +63,15 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .experience-stack-tiles > *:nth-child(n + 11) {
+    .experience-stack-items > *:nth-child(n + 11) {
       animation: none;
     }
   }
   .experience-stack-label {
     @apply text-caption mb-2.5 font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .experience-stack-pill {
+    @apply text-meta inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono text-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
   }
   .experience-year {
     @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
@@ -276,35 +279,56 @@
   .projects-stack {
     @apply flex w-full flex-col gap-2.5;
   }
+  /* One track set for every card in the section, revealed ones included, so a
+     card always lines up with the card above it. Nothing else may introduce a
+     second grid here; that is what used to make the rows disagree. */
+  /* Equal rows from md, where the feature card starts spanning two of them.
+     Without this the rows size to their own content, so a filter showing one
+     compact card gives it the height of its own text — shorter than the same
+     card under every other filter, with the second row left empty beside the
+     feature. Equal rows make a lone card measure the same as a full set. */
   .projects-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_300px] xl:max-w-none xl:grid-cols-[minmax(0,7fr)_minmax(0,9fr)];
-  }
-  .projects-grid-single {
-    @apply lg:grid-cols-1;
-  }
-  .projects-compact-list {
-    @apply flex min-w-0 flex-col gap-2.5 xl:grid xl:grid-cols-2 xl:content-start;
+    @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
     @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
+  /* The feature card earns its emphasis by spanning two rows, not by sitting in
+     a wider track — so the compact cards beside it form a clean rectangle. Set
+     here rather than as a utility in JSX: this layer wins on source order and
+     would otherwise silently beat it. Applied only when there are compact cards
+     to align against; a lone card has nothing to span. */
+  .project-card-feature-spanning {
+    @apply md:row-span-2;
+  }
+  /* One warm ramp for every project. The artboard draws an AI project with this
+     cover, so it was never a category signal; the card's glyph carries that. */
+  /* Fixed at every width, 182px from lg as drawn in .design/Main.dc.html. The
+     cover does not absorb slack: the feature card is sized by its own content
+     and the compact cards stretch to meet it, so a card with no neighbours is
+     the same height as one with them. */
   .project-card-cover {
-    @apply block h-[154px] shrink-0 lg:h-[182px];
+    @apply relative block h-[154px] shrink-0 lg:h-[182px];
+
+    --cover-a: var(--cover-brand);
+    --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
+
+    background-image: linear-gradient(
+      152deg,
+      var(--cover-a) 0%,
+      var(--cover-b) 52%,
+      var(--cover-end) 100%
+    );
   }
-  .project-cover-amber {
-    background: var(--project-cover-amber);
-  }
-  .project-cover-violet {
-    background: var(--project-cover-violet);
-  }
-  .project-cover-blue {
-    background: var(--project-cover-blue);
-  }
-  .project-cover-brown {
-    background: var(--project-cover-brown);
-  }
+  /* Declared after .project-card-cover so both custom properties win on source order. */
+  /* Reserves the space a two-line title and two-line summary would need, so the
+     card is the same height whichever project is featured and the grid cannot
+     move when the filter changes. Reserved on the body rather than on the title
+     and summary themselves: that way a short title keeps its summary tight
+     beneath it and the slack pools once, at the foot of the card, where it
+     reads as padding instead of as a gap in the middle of the text. */
   .project-card-feature-body {
-    @apply flex flex-col gap-2 p-5;
+    @apply flex min-h-[177px] flex-col gap-2 p-5;
   }
   .project-card-feature-meta {
     @apply text-brand-600 dark:text-brand-300 text-meta font-mono;
@@ -313,29 +337,58 @@
     @apply font-heading text-heading font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
   }
   .project-card-feature-excerpt {
-    @apply text-body-sm leading-[1.55] text-neutral-700 dark:text-neutral-300;
+    @apply text-body-sm line-clamp-2 leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-500 flex min-h-20 flex-1 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* Out of flow, so a card carrying it is no taller than one that does not —
+     in the flow it added a line to whichever row held it and the section moved
+     when the filter changed. The summary on those cards is inset by
+     .project-card-compact-excerpt-inset instead, so the two cannot collide. */
+  .project-card-compact-access {
+    @apply text-meta absolute right-[15px] bottom-[13px] font-mono text-neutral-500 xl:right-5 xl:bottom-4 dark:text-neutral-400;
+  }
+  .project-card-compact-excerpt-inset {
+    @apply pr-24;
+  }
+  .project-card-compact-marks {
+    @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
   }
   .project-card-compact-title {
     @apply font-heading text-title-sm truncate font-bold text-neutral-900 dark:text-neutral-100;
   }
-  /* Declared after .project-card-compact so its display wins on source order. */
-  .project-card-compact-wide-only {
-    @apply hidden xl:flex;
-  }
+  /* A compact card is roughly a third of the content width now rather than a
+     300px rail, so it has room for two lines and no longer needs truncating. */
   .project-card-compact-excerpt {
-    @apply text-body-sm truncate text-neutral-600 xl:line-clamp-2 xl:overflow-hidden xl:whitespace-normal dark:text-neutral-300;
-  }
-  .projects-overflow-grid {
-    @apply grid w-full max-w-[900px] grid-cols-[minmax(0,1fr)] gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-none xl:grid-cols-4;
+    @apply text-body-sm line-clamp-2 text-neutral-600 dark:text-neutral-300;
   }
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
   }
+  /* Carries the measured height of the grid inside it, so the section can open
+     to a real height rather than a guessed one. It holds no transition of its
+     own: the same height change happens when a back navigation restores the
+     expansion from the URL, and animating there would leave the section short
+     across the frames in which the browser restores the reader's position. */
+  .projects-grid-reveal {
+    @apply w-full;
+  }
+  /* Armed by the press, for the length of the reveal. The pace and easing are
+     .experience-details', so a project opening and a role opening read as the
+     same gesture. Clipping is what makes the extra rows wipe in rather than
+     appear whole, and it is dropped again with this class: a wrapper left
+     clipped cuts the focus ring off every card sitting on its edge. */
+  .projects-grid-reveal-active {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+  }
+  /* The row is always present, so the page below the section does not jump by
+     the button's height when a filter has nothing left to expand. */
+  .projects-see-all-row {
+    @apply mt-3.5 flex min-h-12 w-full justify-center;
+  }
   .projects-see-all {
-    @apply focus-visible:ring-brand-500 text-body-sm mt-3.5 min-h-11 w-full cursor-pointer rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 sm:self-center dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-500 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
@@ -448,10 +501,6 @@
   .btn-callout-ping-core {
     @apply bg-brand-500 relative inline-flex h-3 w-3 rounded-full ring-2 ring-white dark:ring-neutral-900;
   }
-  .btn-brand-link,
-  .brand-link-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 text-body-sm inline-flex items-center justify-center gap-2 rounded-full border font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
-  }
   .btn-card-expand,
   .card-expand-btn {
     @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 text-body mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
@@ -468,8 +517,96 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
-  .section-label {
-    @apply font-heading text-meta mb-3 font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
+  /* ---- A project's own page ---- */
+  /* Blocks down the page carry the same rhythm a section uses internally. */
+  /* The hero's measure, stepping the same way at 2xl: a project page is a page
+     of the site, so it ends where the hero and the footer end rather than
+     stopping short and leaving the rail marooned mid-screen. Left-aligned, not
+     centred — .hero-composition is narrower than its section too and starts on
+     the same line, so a centred page would be the only block on the site that
+     does not line up with the header. The prose keeps its own 72ch measure. */
+  .project-page-stack {
+    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[100rem];
+  }
+  .project-page-head {
+    @apply flex w-full flex-col items-start gap-4 lg:gap-5;
+  }
+  /* One step under the hero and one above a section heading: the hero runs
+     display through display-xl, a section heading heading through display. */
+  .project-page-title {
+    @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
+
+    /* The receiving half of the morph from a project card. Only one element on
+       a page may carry a name, and a project page has exactly one heading; the
+       card that sends it is named at the moment it is clicked. */
+    view-transition-name: project-title;
+  }
+  /* Lead work, not caption work: it is the first sentence a reader gets. */
+  .project-page-summary {
+    @apply text-lead lg:text-title-sm max-w-[54ch] leading-relaxed text-neutral-700 dark:text-neutral-300;
+  }
+  /* The facts as one mono rail. A ruled list belonged to the dialog, where it
+     had an aside to sit in; at page width it reads as a stray box. */
+  .project-page-meta {
+    @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
+  }
+  /* A heading on the heading face at the page's own step. Not the accent: the
+     refresh reserves brand for emphasis, and a section label is not emphasis. */
+  .project-page-heading {
+    @apply font-display text-title lg:text-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+  }
+  /* The one fact that is a state rather than a label takes the accent. */
+  .project-page-meta-active {
+    @apply text-brand-700 dark:text-brand-300;
+  }
+  /* The hero's pairing at the footer's size: the first link is the page's
+     primary call and the rest sit beside it. */
+  .project-page-actions {
+    @apply flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row;
+  }
+  .project-page-action {
+    @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* "group" stays on the element in the markup: it is a marker class, not a
+     utility, so @apply cannot take it. */
+  .project-page-onward-link {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+  /* .card-title's job on a page that has no cards, and without the bottom
+     margin a card needs under its own title. */
+  .project-page-onward-title {
+    @apply font-display text-title-sm lg:text-title font-bold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-600 dark:text-neutral-100 dark:group-hover:text-neutral-300;
+  }
+  /* Stands where a cover will go. Every image the site holds today is a client
+     logo or an avatar, and centring one in a page-wide plate reads as a picture
+     that failed to load, so no project shows a cover yet. */
+  .project-page-edge {
+    @apply bg-brand-500 h-[3px] w-24 rounded-full;
+  }
+  /* Reading column and a rail, the hero's shape at a calmer measure. */
+  .project-page-body {
+    @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11 2xl:grid-cols-[minmax(0,1fr)_320px] 2xl:gap-14;
+  }
+  /* Belt to the cap's braces: even inside the narrower page the prose keeps a
+     measure of its own, so a long line never runs the full column. */
+  .project-page-column {
+    @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
+  }
+  .project-page-rail {
+    @apply flex min-w-0 flex-col gap-3;
+  }
+  /* The same treatment .experience-stack-label gives "Technologies & tools":
+     mono at caption size, neutral, no case change. The uppercase tracked label
+     came from the dialog and appears nowhere else on the site. */
+  .project-page-label {
+    @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  .project-page-onward {
+    @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
+  }
+  /* Return to the projects section from a project's own page. */
+  .project-back-link {
+    @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;
   }
   .skill-tile-tooltip {
     @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
@@ -503,20 +640,18 @@
   .body-text-muted {
     @apply text-body-sm text-neutral-600 dark:text-neutral-400;
   }
-  .detail-accordion {
-    @apply rounded-xl border border-neutral-200/80 dark:border-neutral-700/60;
+  /* Meta rows on a project. A flat ruled list, not a card nested in a card. */
+  .meta-list {
+    @apply divide-y divide-neutral-200/70 rounded-lg border border-neutral-200/80 dark:divide-neutral-700/70 dark:border-neutral-700/60;
   }
-  .detail-accordion-trigger {
-    @apply font-heading text-body-sm flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400 [&::-webkit-details-marker]:hidden;
+  .meta-list-row {
+    @apply flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4;
   }
-  .detail-accordion-body {
-    @apply border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60;
+  .meta-list-label {
+    @apply text-micro font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400;
   }
-  .dialog-backdrop {
-    @apply absolute inset-0 bg-neutral-900/55 backdrop-blur-md dark:bg-black/65;
-  }
-  .dialog-header {
-    @apply border-brand-300/55 p-surface flex shrink-0 items-start justify-between gap-4 border-b;
+  .meta-list-value {
+    @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
   /* Placeholder surface for the visuals that are not built yet. Shared by the
      hero and about slots so both retire in the same change. */
@@ -569,39 +704,6 @@
        the column sets the width and the height is fixed per step. */
     @apply relative z-10 col-start-1 row-start-1 aspect-[390/214] max-h-[360px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:aspect-auto lg:h-[340px] lg:max-h-none 2xl:h-[520px];
   }
-  .feature-list-item {
-    @apply text-body-sm flex gap-3 text-neutral-600 dark:text-neutral-400;
-  }
-  .feature-list-bullet {
-    @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
-  }
-  /* Scrollable project description preview - thin brand scrollbars (Firefox + WebKit) */
-  .project-card-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(221 153 60 / 0.45) transparent;
-    overscroll-behavior-y: contain;
-  }
-  .dark .project-card-scroll {
-    scrollbar-color: rgb(152 99 27 / 0.42) transparent;
-  }
-  .project-card-scroll::-webkit-scrollbar {
-    width: 6px;
-  }
-  .project-card-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .project-card-scroll::-webkit-scrollbar-thumb {
-    @apply bg-brand-400/55 rounded-full;
-  }
-  .project-card-scroll::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-500/70;
-  }
-  .dark .project-card-scroll::-webkit-scrollbar-thumb {
-    @apply bg-brand-500/45;
-  }
-  .dark .project-card-scroll::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-400/60;
-  }
 
   /* Stat card (metric tiles) */
   .stat-card {
@@ -618,6 +720,44 @@
   .btn-toggle-idle,
   .filter-inactive {
     @apply opacity-50;
+  }
+  /* Category is carried by the glyph and the label, so colour here is brand and
+     neutral only. State is a change of fill, never opacity: dimming the pill
+     dimmed its label and glyph too, and halved the hover shift into invisibility.
+     Declared after .btn-primary so the resting and hover backgrounds win on
+     source order rather than specificity. */
+  .filter-pill {
+    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
+  }
+  .filter-pill-mark {
+    @apply shrink-0;
+  }
+  /* Two classes, so this beats .category-mark's muted grey — that grey is right
+     on a card but washed out against the selected fill. The glyph takes the
+     pill's own colour in both states, and is never dimmed. */
+  .filter-pill .category-mark {
+    @apply text-current;
+  }
+  /* Declared after .filter-pill so the selected fill wins on source order. */
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber —
+     so both themes get a bright fill under dark text: 7.15:1 light, 6.60:1
+     dark. Using brand-500 in dark gave 3.50:1, which is why it looked washed. */
+  .filter-pill-selected {
+    @apply bg-brand-500 border-brand-500 hover:bg-brand-500 dark:bg-brand-100 dark:border-brand-100 dark:hover:bg-brand-100 text-neutral-900 dark:text-neutral-900;
+  }
+  /* Category glyphs. The card's own label carries the categories for a reader
+     who cannot see them, so the marks themselves are hidden from the tree. */
+  .category-marks {
+    @apply pointer-events-none inline-flex items-center gap-1.5;
+  }
+  .category-mark {
+    @apply h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400;
+  }
+  .category-marks-on-cover {
+    @apply absolute top-3 right-3;
+  }
+  .category-mark-on-cover {
+    @apply h-4 w-4 text-neutral-700/70 dark:text-neutral-300/70;
   }
 
   /* Contributions calendar tooltip */
