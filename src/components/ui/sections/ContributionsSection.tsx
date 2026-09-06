@@ -131,7 +131,10 @@ export default function ContributionsSection() {
                 onPointerEnter={() => prefetch(year)}
                 onFocus={() => prefetch(year)}
                 aria-pressed={selectedYear === year}
-                className={selectedYear !== year ? 'btn-toggle-idle' : ''}
+                className={cn(
+                  'contrib-year-pill',
+                  selectedYear !== year && 'btn-toggle-idle'
+                )}
               >
                 {year}
               </PrimaryButton>

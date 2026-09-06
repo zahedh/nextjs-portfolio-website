@@ -133,7 +133,7 @@
      Cell size is a fixed step per breakpoint, not a fraction of the viewport —
      the year is allowed to overflow and scroll rather than shrink to fit. */
   .contrib-band {
-    @apply flex w-full max-w-[90rem] flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-12 2xl:max-w-[100rem];
+    @apply flex w-full max-w-[90rem] flex-col gap-6 2xl:max-w-[110rem];
   }
   /* A year already fetched swaps instantly; only a genuine wait dims, and it
      dims the data rather than replacing it, so the band keeps its height and
@@ -154,19 +154,19 @@
     }
   }
   .contrib-figure-group {
-    @apply flex flex-shrink-0 flex-col items-start gap-3 lg:gap-2;
+    /* A row that wraps, not a column. The figure, its label and the year pills
+       come to roughly 350px, so from the first width that can hold them they
+       belong on one line; only 390 is narrow enough to genuinely need two. It
+       returns to a column at 1700, where the band puts this group beside the
+       calendar and the vertical stack is the point. */
+    @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
   }
   .contrib-figure-row {
-    @apply flex flex-wrap items-baseline gap-x-2.5 gap-y-1 lg:flex-col lg:items-start lg:gap-1;
+    @apply flex flex-wrap items-baseline gap-x-3.5 gap-y-1.5;
   }
   .contrib-figure {
     @apply font-display text-numeral lg:text-numeral-lg font-extrabold tracking-tight text-neutral-900 tabular-nums dark:text-neutral-100;
   }
-  .contrib-label {
-    @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
-  }
-  .contrib-years {
-    @apply flex gap-2;
   /* A year still in flight. The figure keeps its own text — three tabular
      zeroes — and paints over it, so the block is exactly the size the number
      will be and nothing shifts when it lands. It takes the empty cell's fill
@@ -180,15 +180,65 @@
   .contrib-figure.is-pending {
     @apply rounded-lg bg-neutral-100 text-transparent dark:bg-neutral-900;
   }
+  .contrib-label {
+    @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
+  }
+  /* The band goes side-by-side only once the calendar has already reached its
+     ceiling, so putting the figure beside it costs nothing. At 2xl it still
+     did: the figure group and its gap took ~186px back and the calendar
+     dropped from 21px at 1440 to 19px at 1536 — it shrank as the screen grew.
+     1700px is where the remaining width still caps out at 22px. A plain media
+     query, not a `min-[1700px]:` variant, so it cannot be reordered ahead of
+     the base rules it overrides. */
+  @media (min-width: 1700px) {
+    .contrib-band {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    .contrib-figure-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contrib-figure-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .contrib-chart {
+      flex: 1;
+      gap: 0.625rem;
+    }
+  }
+  .contrib-years {
+    @apply flex gap-3;
+  }
+  /* The year pills carry a bare four-digit label, so .btn-primary's px-3/py-1.5
+     wrapped the digits tightly enough to read as a chip rather than a control.
+     Scoped here so every other primary pill keeps its compact padding. */
+  .contrib-year-pill {
+    @apply px-5 py-2.5;
   }
   .contrib-chart {
-    @apply flex w-full min-w-0 flex-col gap-2 lg:w-auto lg:gap-2.5;
+    @apply flex w-full min-w-0 flex-col gap-2;
   }
   /* The one place the page is allowed to scroll sideways. Focusable so the
      overflow is reachable by keyboard, and the scrollbar is left visible —
      hiding it is what made the old calendar's missing months unreachable. */
   .contrib-scroll {
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:10px] [--contrib-gap:2px] sm:[--contrib-cell:11px] sm:[--contrib-gap:3px] lg:[--contrib-cell:11px] lg:[--contrib-gap:2px] xl:[--contrib-cell:14px] xl:[--contrib-gap:4px] 2xl:[--contrib-cell:17px];
+    /* One rule, no size breakpoints. A day is a track between a floor and a
+       ceiling, and the year is asked to fill whatever width it is handed: wide
+       enough and it fills and stops growing at the ceiling; too narrow and the
+       floor holds, the row overflows, and this container scrolls it. That is
+       the same behaviour the old seven px steps were approximating badly — each
+       step had to fit the narrowest width in its range, which is why 1279px sat
+       at 11px cells with 335px of empty space beside them.
+
+       Both bounds are rem, so the calendar tracks the reader's text size rather
+       than a device pixel count. */
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell-max:1.375rem] [--contrib-cell-min:1rem] [--contrib-gap:0.25rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -214,21 +264,36 @@
   .contrib-scroll[data-edges='end'] {
     mask-image: linear-gradient(to right, transparent, #000 3rem);
   }
+  /* The week count is the year's own, set on the chart by the component: a
+     padded year is 53 or 54 columns depending on the weekday it opens on, and a
+     hard-coded 53 silently drops a week. The ceiling is applied as a max-width
+     on the whole row rather than to each track, because a capped track would
+     leave the grid narrower than its box and the month labels would drift off
+     the weeks beneath them. */
   .contrib-months,
   .contrib-grid {
-    @apply grid w-max;
+    @apply grid w-full;
+    max-width: calc(
+      var(--contrib-weeks) * var(--contrib-cell-max) +
+        (var(--contrib-weeks) - 1) * var(--contrib-gap)
+    );
     grid-auto-flow: column;
-    grid-auto-columns: var(--contrib-cell);
+    grid-template-columns: repeat(
+      var(--contrib-weeks),
+      minmax(var(--contrib-cell-min), 1fr)
+    );
     gap: var(--contrib-gap);
   }
   .contrib-months {
     @apply text-micro lg:text-caption font-mono text-neutral-500 dark:text-neutral-400;
   }
   .contrib-grid {
-    grid-template-rows: repeat(7, var(--contrib-cell));
+    grid-template-rows: repeat(7, auto);
   }
+  /* Columns are fractional, so a day is squared by its ratio rather than by a
+     row track that has to match a fixed cell width. */
   .contrib-cell {
-    @apply block rounded-full;
+    @apply block aspect-square rounded-full;
   }
   .contrib-legend {
     @apply text-micro lg:text-caption flex items-center gap-1.5 pt-1 font-mono text-neutral-500 lg:gap-2 dark:text-neutral-400;
@@ -698,6 +763,15 @@
        2xl so the block does not tighten as the headline grows. */
     @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1 2xl:gap-7;
   }
+  .hero-identity {
+    @apply flex flex-col gap-1;
+  }
+  /* Between the mono rail and the headline in every respect: the display face
+     so it belongs to the headline, but a third of its size and a normal weight
+     so it introduces the page rather than competing with the claim. */
+  .hero-name {
+    @apply font-display text-title-sm 2xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+  }
   .hero-eyebrow {
     @apply text-brand-700 dark:text-brand-300 text-body-sm 2xl:text-lead font-mono tracking-wide;
   }
@@ -776,15 +850,6 @@
     }
     .hero-visual {
       height: 470px;
-  .hero-identity {
-    @apply flex flex-col gap-1;
-  }
-  /* Between the mono rail and the headline in every respect: the display face
-     so it belongs to the headline, but a third of its size and a normal weight
-     so it introduces the page rather than competing with the claim. */
-  .hero-name {
-    @apply font-display text-title-sm 2xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
-  }
     }
   }
 
