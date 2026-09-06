@@ -526,7 +526,7 @@
      the same line, so a centred page would be the only block on the site that
      does not line up with the header. The prose keeps its own 72ch measure. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[100rem];
+    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[110rem];
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -670,8 +670,15 @@
   .hero-composition {
     /* The whole composition steps up by about a quarter at 2xl: the 1440 measure
        reads small on a very wide viewport, so type, actions and visual all scale
-       together rather than the block simply sitting further apart. */
-    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_340px] lg:items-center lg:gap-11 2xl:max-w-[100rem] 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:gap-14;
+       together rather than the block simply sitting further apart.
+
+       Height is the content's, never the viewport's. A `min-height: 75vh` here
+       sat under fixed-height content, so the hero grew with the window while
+       nothing inside it did: 318px of dead space at 1440x900 and 290px at
+       1920x1080, all of it between the actions and the Contributions band.
+       Content height holds the opening composition at a constant 437px through
+       xl and 600px at 2xl, whatever the window does. */
+    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-center lg:gap-11 xl:grid-cols-[minmax(0,1fr)_420px] 2xl:max-w-[110rem] 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:gap-14;
   }
   .hero-copy {
     /* The artboard's 20px rhythm at the drawn scale; it steps with the type at
@@ -683,9 +690,13 @@
   }
   .hero-headline {
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
-       stops at 700, so this sets its own. The 13ch measure applies only once the
-       hero is two columns; stacked, the headline runs the full width. */
-    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl font-extrabold tracking-[-0.035em] text-balance lg:max-w-[13ch];
+       stops at 700, so this sets its own. Two measures: 13ch once the hero is
+       two columns, and a 24ch backstop before that. Stacked, the column is
+       wider than the headline needs from about 834px up, and the whole line
+       collapsed onto one — a limp full-width row where the artboard draws a
+       stacked block. 24ch is inert at 390 and 768, where the column is already
+       narrower than the cap, so only the widths that broke are touched. */
+    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl max-w-[24ch] font-extrabold tracking-[-0.035em] text-balance lg:max-w-[13ch];
   }
   .hero-supporting-text {
     @apply text-lead 2xl:text-title-sm max-w-[46ch] 2xl:max-w-[52ch];
@@ -699,10 +710,60 @@
     @apply text-body focus-visible:ring-brand-500 2xl:text-lead w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
-    /* Stacked: a full-width band at the aspect the artboard draws it (390x214),
-       capped so it cannot dominate at tablet widths. Two-column from lg, where
-       the column sets the width and the height is fixed per step. */
-    @apply relative z-10 col-start-1 row-start-1 aspect-[390/214] max-h-[360px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:aspect-auto lg:h-[340px] lg:max-h-none 2xl:h-[520px];
+    /* The rocket renders square and refuses to go under 320px, since the body
+       is its touch target — so the slot is square everywhere rather than the
+       390x214 band the artboard drew for a flat image. Stacked, it is capped so
+       it cannot swallow a tablet's first screen, and centred once the column
+       outgrows that cap from about 404px up. At 390 the column and the visual
+       are the same width, so the centring is inert and mobile's left-aligned
+       copy is untouched. From lg the column sets the width and the fixed height
+       per step matches it.
+
+       No rounding or clipping: the canvas is transparent and its halo is drawn
+       past the edges, so a clip would cut the glow rather than frame anything.
+       Rocket.module.css is unlayered and wins over these utilities where the
+       two overlap; nothing here contradicts it. */
+    @apply relative z-10 col-start-1 row-start-1 mx-auto aspect-square w-full max-w-[360px] lg:col-start-2 lg:mx-0 lg:h-[380px] lg:max-w-none xl:h-[420px] 2xl:h-[520px];
+  }
+
+  /* Two columns start before lg. The hero stacked all the way to 1024, so a
+     977px window put the rocket on its own row above the copy with empty space
+     either side of both. It cannot start at md though: the rocket will not go
+     below 320px without losing its touch target, and at 768 that leaves the
+     copy ~310px, which is not a column a 38px headline can live in. 900px is
+     where 320px of rocket plus a 460px copy column both fit. Bounded at 1023 so
+     it cannot argue with the lg rules that follow. */
+  @media (min-width: 900px) and (max-width: 1023px) {
+    .hero-composition {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: center;
+      column-gap: 2.5rem;
+    }
+    .hero-copy {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .hero-visual {
+      grid-column: 2;
+      grid-row: 1;
+      height: 320px;
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+
+  /* The step between xl and 2xl. Bounded rather than a plain `min-width`, and
+     not a `min-[1440px]:` variant: Tailwind emits arbitrary variants ahead of
+     the named breakpoints, so an unbounded rule here would either lose to 2xl
+     or beat it depending on source order. Closing the range at 1535px means it
+     cannot argue with 2xl at all. */
+  @media (min-width: 1440px) and (max-width: 1535px) {
+    .hero-composition {
+      grid-template-columns: minmax(0, 1fr) 470px;
+    }
+    .hero-visual {
+      height: 470px;
+    }
   }
 
   /* Stat card (metric tiles) */
