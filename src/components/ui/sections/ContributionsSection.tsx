@@ -132,8 +132,8 @@ export default function ContributionsSection() {
                 onFocus={() => prefetch(year)}
                 aria-pressed={selectedYear === year}
                 className={cn(
-                  'contrib-year-pill',
-                  selectedYear !== year && 'btn-toggle-idle'
+                  'contrib-year-pill filter-pill',
+                  selectedYear === year && 'filter-pill-selected'
                 )}
               >
                 {year}

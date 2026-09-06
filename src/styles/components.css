@@ -217,7 +217,10 @@
   }
   /* The year pills carry a bare four-digit label, so .btn-primary's px-3/py-1.5
      wrapped the digits tightly enough to read as a chip rather than a control.
-     Scoped here so every other primary pill keeps its compact padding. */
+     Scoped here so every other primary pill keeps its compact padding. Colour
+     and state come from .filter-pill, which the markup also applies: these are
+     the same affordance as the project filters, and the fill-over-opacity rule
+     and the dark ramp both belong in one place rather than two. */
   .contrib-year-pill {
     @apply px-5 py-2.5;
   }
