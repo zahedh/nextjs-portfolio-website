@@ -7,9 +7,10 @@ import {
   Section,
   TertiaryButton,
 } from '@/components';
-import { HeroFloatingOrbs } from '@/components/ui/animations';
+import { HeroFloatingOrbs, Rocket } from '@/components/ui/animations';
 import { en } from '@/language';
 import { handleSmoothScroll } from '@/lib/utils';
+import { useGlobalStore } from '@/providers/global-store-provider';
 import { Download } from 'lucide-react';
 
 function isAnchorMouseEvent(
@@ -32,12 +33,18 @@ function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
  * would leave the composition sitting low in its band.
  */
 export default function HeroSection() {
+  // The rocket takes the resolved theme rather than reading it itself; it
+  // relights the running scene on a change instead of remounting. Before
+  // hydration settles the theme this is the store's light default, which is
+  // also what the canvas fades in from.
+  const isDark = useGlobalStore((state) => state.isDark);
+
   return (
     <Section anchor="home" showDivider={false} className="-mt-18">
       <div className="hero-composition">
         <HeroFloatingOrbs />
 
-        <div className="hero-visual visual-placeholder" aria-hidden />
+        <Rocket theme={isDark ? 'dark' : 'light'} className="hero-visual" />
 
         <div className="hero-copy">
           <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>

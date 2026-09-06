@@ -653,8 +653,8 @@
   .meta-list-value {
     @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
-  /* Placeholder surface for the visuals that are not built yet. Shared by the
-     hero and about slots so both retire in the same change. */
+  /* Placeholder surface for the about visual, which is not built yet. The hero
+     slot carried this too until the rocket replaced it. */
   .visual-placeholder {
     @apply overflow-hidden rounded-lg;
 
