@@ -8,7 +8,9 @@ import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { cn } from '@/lib/utils';
 import { Project, ProjectFilter } from '@/types/project';
-import { useLayoutEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { measureContentHeight } from '@/hooks/utilityHooks';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -28,6 +30,9 @@ const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
     rectangle at every width without counting columns at runtime. */
 const INITIAL_COMPACT_COUNT = 4;
 
+/** Matches .projects-grid-reveal's duration, plus a frame to land on. */
+const REVEAL_MS = 560;
+
 interface ProjectGridProps {
   projects: Project[];
   showAll: boolean;
@@ -37,10 +42,80 @@ interface ProjectGridProps {
 /** Presents the filtered projects as one feature card followed by compact cards. */
 function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
   const [featureProject, ...compactProjects] = projects;
-  const visibleProjects = showAll
-    ? compactProjects
-    : compactProjects.slice(0, INITIAL_COMPACT_COUNT);
   const hasOverflow = compactProjects.length > INITIAL_COMPACT_COUNT;
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [gridHeight, setGridHeight] = useState<number>();
+  const [revealing, setRevealing] = useState(false);
+  // Kept mounted through a collapse, after showAll has already gone false.
+  const [holdingRows, setHoldingRows] = useState(false);
+
+  const visibleProjects =
+    showAll || holdingRows
+      ? compactProjects
+      : compactProjects.slice(0, INITIAL_COMPACT_COUNT);
+
+  // The closed height, remembered from the last time it was genuinely on
+  // screen: through a collapse the extra rows are still mounted, so the grid
+  // cannot report it while it is the very thing being animated to.
+  const closedHeight = useRef<number>(undefined);
+
+  // Measured after every change, and on resize, so the wrapper opens to a real
+  // height rather than a guessed one — which is what lets the cards keep their
+  // own wrapping instead of being held to a number chosen at one width.
+  useLayoutEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const measure = () => {
+      const height = measureContentHeight(grid);
+      if (!showAll && !holdingRows) closedHeight.current = height;
+      setGridHeight(holdingRows ? closedHeight.current : height);
+    };
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, [showAll, holdingRows, projects]);
+
+  const revealRef = useRef<HTMLDivElement>(null);
+  const releaseTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  /**
+   * Opens the set with a press, and only with a press.
+   *
+   * The transition is armed here rather than left on the wrapper because the
+   * same height change happens on a back navigation, where the expansion is
+   * restored from the URL: animating there would leave the section short for
+   * half a second, which is exactly when the browser restores the reader's
+   * scroll position, and it would land them past the card they came from.
+   *
+   * The layout read between the two is doing work. It settles the height that
+   * is on screen now, with the transition already applied, so the change that
+   * follows has a value to move from; without it both land in one style pass
+   * and the browser has nothing to animate between.
+   *
+   * Opening needs nothing else: the rows mount, and the height follows them up.
+   * Closing is not its mirror. Dropping the rows on the press empties the grid
+   * before the height has moved, so what closes is a space with nothing in it.
+   * They are held until the height has arrived, and the clip takes them away on
+   * the way down.
+   */
+  const pressToggle = () => {
+    flushSync(() => setRevealing(true));
+    void revealRef.current?.offsetHeight;
+    if (showAll) setHoldingRows(true);
+    onToggleShowAll();
+
+    clearTimeout(releaseTimer.current);
+    releaseTimer.current = setTimeout(() => {
+      setRevealing(false);
+      setHoldingRows(false);
+    }, REVEAL_MS);
+  };
+
+  useLayoutEffect(() => () => clearTimeout(releaseTimer.current), []);
 
   if (!featureProject) {
     return (
@@ -50,19 +125,28 @@ function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
 
   return (
     <div className="projects-stack">
-      {/* Every card is a cell in this one grid, revealed ones included, so rows
-          always align. A lone card has nothing to span and keeps its own height. */}
-      <div className="projects-grid">
-        <ProjectCard
-          project={featureProject}
-          variant="feature"
-          className={cn(
-            compactProjects.length > 0 && 'project-card-feature-spanning'
-          )}
-        />
-        {visibleProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} variant="compact" />
-        ))}
+      <div
+        ref={revealRef}
+        className={cn(
+          'projects-grid-reveal',
+          revealing && 'projects-grid-reveal-active'
+        )}
+        style={gridHeight ? { maxHeight: `${gridHeight}px` } : undefined}
+      >
+        {/* Every card is a cell in this one grid, revealed ones included, so rows
+            always align. A lone card has nothing to span and keeps its own height. */}
+        <div ref={gridRef} className="projects-grid">
+          <ProjectCard
+            project={featureProject}
+            variant="feature"
+            className={cn(
+              compactProjects.length > 0 && 'project-card-feature-spanning'
+            )}
+          />
+          {visibleProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} variant="compact" />
+          ))}
+        </div>
       </div>
       {/* The row is kept whether or not it holds a control, so changing filter
           does not shift everything below the section by the button's height. */}
@@ -72,7 +156,7 @@ function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
             type="button"
             className="projects-see-all"
             aria-expanded={showAll}
-            onClick={onToggleShowAll}
+            onClick={pressToggle}
           >
             {showAll
               ? en.projectCard.showFewerProjects

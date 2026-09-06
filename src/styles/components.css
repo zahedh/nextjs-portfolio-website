@@ -366,6 +366,22 @@
   .projects-empty {
     @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
   }
+  /* Carries the measured height of the grid inside it, so the section can open
+     to a real height rather than a guessed one. It holds no transition of its
+     own: the same height change happens when a back navigation restores the
+     expansion from the URL, and animating there would leave the section short
+     across the frames in which the browser restores the reader's position. */
+  .projects-grid-reveal {
+    @apply w-full;
+  }
+  /* Armed by the press, for the length of the reveal. The pace and easing are
+     .experience-details', so a project opening and a role opening read as the
+     same gesture. Clipping is what makes the extra rows wipe in rather than
+     appear whole, and it is dropped again with this class: a wrapper left
+     clipped cuts the focus ring off every card sitting on its edge. */
+  .projects-grid-reveal-active {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+  }
   /* The row is always present, so the page below the section does not jump by
      the button's height when a filter has nothing left to expand. */
   .projects-see-all-row {
