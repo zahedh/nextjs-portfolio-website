@@ -33,3 +33,36 @@
     margin-bottom: calc(var(--spacing-heading-gap) - 1rem);
   }
 }
+
+/* =========================
+   🎞️ VIEW TRANSITIONS
+   =========================
+   Unlayered on purpose: these address the browser's own transition
+   pseudo-elements, which sit outside the document tree that @layer orders. */
+
+/* The morph from a project card's title to the project page's heading. Slower
+   than the browser's 250ms default because the two sit far apart on the page
+   and a short travel over that distance reads as a jump. */
+::view-transition-group(project-title) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The card title is bold and small, the heading extrabold and large; cross-
+   fading the two through each other blurs the letters mid-travel. Showing only
+   the arriving text keeps it legible the whole way. */
+::view-transition-old(project-title) {
+  animation: none;
+  opacity: 0;
+}
+::view-transition-new(project-title) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

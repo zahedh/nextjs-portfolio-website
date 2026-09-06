@@ -1,10 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
 import { en } from '@/language';
 import { getProjectCardSummary, isProjectActive } from '@/lib/ui-logic';
 import { ProjectCategoryMarks } from '@/components/ui/cards/ProjectCategoryMarks';
 import { cn } from '@/lib/utils';
+import {
+  canMorph,
+  morphInto,
+  PROJECT_TITLE_SELECTOR,
+} from '@/lib/viewTransition';
 import { Project } from '@/types/project';
 
 interface ProjectCardProps {
@@ -21,6 +28,33 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const href = `/projects/${project.slug}`;
   const excerpt = getProjectCardSummary(project);
+  const router = useRouter();
+  const titleRef = useRef<HTMLSpanElement>(null);
+
+  /**
+   * Carries the card's title into the page's heading. Every reason not to —
+   * a modified click that wants a new tab, a browser without the API, a reader
+   * who asked for less motion — falls through to the link's own navigation, so
+   * the card behaves as a link first and animates second.
+   */
+  const openProject = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      !titleRef.current ||
+      !canMorph()
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    morphInto(titleRef.current, PROJECT_TITLE_SELECTOR, () =>
+      router.push(href)
+    );
+  };
   const label = [`${en.projectCard.viewProject}: ${project.title}`]
     .concat(project.categories.length ? project.categories.join(', ') : [])
     .join('. ');
@@ -31,12 +65,14 @@ export default function ProjectCard({
         href={href}
         className={cn('project-card-compact', className)}
         aria-label={label}
+        onClick={openProject}
       >
         <ProjectCategoryMarks
           project={project}
           className="project-card-compact-marks"
         />
         <span
+          ref={titleRef}
           className="project-card-compact-title"
           role="heading"
           aria-level={3}
@@ -75,6 +111,7 @@ export default function ProjectCard({
       href={href}
       className={cn('project-card-feature', className)}
       aria-label={label}
+      onClick={openProject}
     >
       <span className="project-card-cover" aria-hidden>
         <ProjectCategoryMarks
@@ -91,6 +128,7 @@ export default function ProjectCard({
           <span aria-hidden>·</span> {en.projectAccess[project.access]}
         </span>
         <span
+          ref={titleRef}
           className="project-card-feature-title"
           role="heading"
           aria-level={3}

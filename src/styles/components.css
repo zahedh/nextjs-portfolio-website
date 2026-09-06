@@ -519,6 +519,11 @@
      display through display-xl, a section heading heading through display. */
   .project-page-title {
     @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
+
+    /* The receiving half of the morph from a project card. Only one element on
+       a page may carry a name, and a project page has exactly one heading; the
+       card that sends it is named at the moment it is clicked. */
+    view-transition-name: project-title;
   }
   /* Lead work, not caption work: it is the first sentence a reader gets. */
   .project-page-summary {
