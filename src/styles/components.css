@@ -133,7 +133,7 @@
      Cell size is a fixed step per breakpoint, not a fraction of the viewport —
      the year is allowed to overflow and scroll rather than shrink to fit. */
   .contrib-band {
-    @apply flex w-full max-w-[90rem] flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-12 2xl:max-w-[100rem];
+    @apply flex w-full max-w-[90rem] flex-col gap-6 2xl:max-w-[110rem];
   }
   /* A year already fetched swaps instantly; only a genuine wait dims, and it
      dims the data rather than replacing it, so the band keeps its height and
@@ -154,28 +154,94 @@
     }
   }
   .contrib-figure-group {
-    @apply flex flex-shrink-0 flex-col items-start gap-3 lg:gap-2;
+    /* A row that wraps, not a column. The figure, its label and the year pills
+       come to roughly 350px, so from the first width that can hold them they
+       belong on one line; only 390 is narrow enough to genuinely need two. It
+       returns to a column at 1700, where the band puts this group beside the
+       calendar and the vertical stack is the point. */
+    @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
   }
   .contrib-figure-row {
-    @apply flex flex-wrap items-baseline gap-x-2.5 gap-y-1 lg:flex-col lg:items-start lg:gap-1;
+    @apply flex flex-wrap items-baseline gap-x-3.5 gap-y-1.5;
   }
   .contrib-figure {
     @apply font-display text-numeral lg:text-numeral-lg font-extrabold tracking-tight text-neutral-900 tabular-nums dark:text-neutral-100;
   }
+  /* A year still in flight. The figure keeps its own text — three tabular
+     zeroes — and paints over it, so the block is exactly the size the number
+     will be and nothing shifts when it lands. It takes the empty cell's fill
+     rather than its own, so the figure and the stand-in calendar read as one
+     material; the band underneath is neutral-200, which is why the block cannot
+     be that. Declared after .contrib-figure to win on source order. */
+  .contrib-figure.is-pending,
+  .contrib-chart.is-pending {
+    @apply animate-pulse motion-reduce:animate-none;
+  }
+  .contrib-figure.is-pending {
+    @apply rounded-lg bg-neutral-100 text-transparent dark:bg-neutral-900;
+  }
   .contrib-label {
     @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
   }
+  /* The band goes side-by-side only once the calendar has already reached its
+     ceiling, so putting the figure beside it costs nothing. At 2xl it still
+     did: the figure group and its gap took ~186px back and the calendar
+     dropped from 21px at 1440 to 19px at 1536 — it shrank as the screen grew.
+     1700px is where the remaining width still caps out at 22px. A plain media
+     query, not a `min-[1700px]:` variant, so it cannot be reordered ahead of
+     the base rules it overrides. */
+  @media (min-width: 1700px) {
+    .contrib-band {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    .contrib-figure-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contrib-figure-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .contrib-chart {
+      flex: 1;
+      gap: 0.625rem;
+    }
+  }
   .contrib-years {
-    @apply flex gap-2;
+    @apply flex gap-3;
+  }
+  /* The year pills carry a bare four-digit label, so .btn-primary's px-3/py-1.5
+     wrapped the digits tightly enough to read as a chip rather than a control.
+     Scoped here so every other primary pill keeps its compact padding. Colour
+     and state come from .filter-pill, which the markup also applies: these are
+     the same affordance as the project filters, and the fill-over-opacity rule
+     and the dark ramp both belong in one place rather than two. */
+  .contrib-year-pill {
+    @apply px-5 py-2.5;
   }
   .contrib-chart {
-    @apply flex w-full min-w-0 flex-col gap-2 lg:w-auto lg:gap-2.5;
+    @apply flex w-full min-w-0 flex-col gap-2;
   }
   /* The one place the page is allowed to scroll sideways. Focusable so the
      overflow is reachable by keyboard, and the scrollbar is left visible —
      hiding it is what made the old calendar's missing months unreachable. */
   .contrib-scroll {
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:10px] [--contrib-gap:2px] sm:[--contrib-cell:11px] sm:[--contrib-gap:3px] lg:[--contrib-cell:11px] lg:[--contrib-gap:2px] xl:[--contrib-cell:14px] xl:[--contrib-gap:4px] 2xl:[--contrib-cell:17px];
+    /* One rule, no size breakpoints. A day is a track between a floor and a
+       ceiling, and the year is asked to fill whatever width it is handed: wide
+       enough and it fills and stops growing at the ceiling; too narrow and the
+       floor holds, the row overflows, and this container scrolls it. That is
+       the same behaviour the old seven px steps were approximating badly — each
+       step had to fit the narrowest width in its range, which is why 1279px sat
+       at 11px cells with 335px of empty space beside them.
+
+       Both bounds are rem, so the calendar tracks the reader's text size rather
+       than a device pixel count. */
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell-max:1.375rem] [--contrib-cell-min:1rem] [--contrib-gap:0.25rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -201,21 +267,36 @@
   .contrib-scroll[data-edges='end'] {
     mask-image: linear-gradient(to right, transparent, #000 3rem);
   }
+  /* The week count is the year's own, set on the chart by the component: a
+     padded year is 53 or 54 columns depending on the weekday it opens on, and a
+     hard-coded 53 silently drops a week. The ceiling is applied as a max-width
+     on the whole row rather than to each track, because a capped track would
+     leave the grid narrower than its box and the month labels would drift off
+     the weeks beneath them. */
   .contrib-months,
   .contrib-grid {
-    @apply grid w-max;
+    @apply grid w-full;
+    max-width: calc(
+      var(--contrib-weeks) * var(--contrib-cell-max) +
+        (var(--contrib-weeks) - 1) * var(--contrib-gap)
+    );
     grid-auto-flow: column;
-    grid-auto-columns: var(--contrib-cell);
+    grid-template-columns: repeat(
+      var(--contrib-weeks),
+      minmax(var(--contrib-cell-min), 1fr)
+    );
     gap: var(--contrib-gap);
   }
   .contrib-months {
     @apply text-micro lg:text-caption font-mono text-neutral-500 dark:text-neutral-400;
   }
   .contrib-grid {
-    grid-template-rows: repeat(7, var(--contrib-cell));
+    grid-template-rows: repeat(7, auto);
   }
+  /* Columns are fractional, so a day is squared by its ratio rather than by a
+     row track that has to match a fixed cell width. */
   .contrib-cell {
-    @apply block rounded-full;
+    @apply block aspect-square rounded-full;
   }
   .contrib-legend {
     @apply text-micro lg:text-caption flex items-center gap-1.5 pt-1 font-mono text-neutral-500 lg:gap-2 dark:text-neutral-400;
@@ -438,8 +519,13 @@
    * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
    * 4. Tertiary: TertiaryButton
    */
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber and
+     brand-500 its dimmest — so the light theme's fill left every primary button
+     at 3.42:1 in dark, the site's two calls to action included. Dark takes the
+     bright fill under dark ink, which is what .filter-pill-selected already did
+     locally; this is that fix at the source rather than a third copy of it. */
   .btn-primary {
-    @apply font-heading bg-brand-500 hover:bg-brand-700 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
+    @apply font-heading bg-brand-500 hover:bg-brand-600 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
   }
   .btn-callout {
     @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
@@ -480,8 +566,18 @@
        affordances (see-all, card expanders), not for real buttons. */
     @apply text-body min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold sm:w-auto;
   }
-  .footer-action-secondary {
-    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-200 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-800;
+  /* The secondary in a primary/secondary pairing, shared by the hero and the
+     footer. Its hover is ink at low alpha rather than a named neutral, because
+     a named one is a fixed colour and these controls sit on three different
+     surfaces: hover:bg-neutral-200 was exactly the footer's and the activity
+     band's own background, so on those two the hover was invisible while
+     working fine on the page. An overlay darkens or lightens whatever is
+     behind it, so one rule holds on every surface. Neutral outline rather than TertiaryButton's brand border and amber
+     hover: the accent marks the one action worth taking, and spending it on both
+     halves of a pair leaves neither leading. Named for the role, not the section,
+     because the hero and the footer draw the same pairing. */
+  .btn-outline {
+    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-900/8 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-100/10;
   }
   .footer-social-links {
     @apply flex flex-wrap items-center gap-x-[18px];
@@ -526,7 +622,7 @@
      the same line, so a centred page would be the only block on the site that
      does not line up with the header. The prose keeps its own 72ch measure. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[100rem];
+    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[110rem];
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -653,8 +749,8 @@
   .meta-list-value {
     @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
-  /* Placeholder surface for the visuals that are not built yet. Shared by the
-     hero and about slots so both retire in the same change. */
+  /* Placeholder surface for the about visual, which is not built yet. The hero
+     slot carried this too until the rocket replaced it. */
   .visual-placeholder {
     @apply overflow-hidden rounded-lg;
 
@@ -670,22 +766,42 @@
   .hero-composition {
     /* The whole composition steps up by about a quarter at 2xl: the 1440 measure
        reads small on a very wide viewport, so type, actions and visual all scale
-       together rather than the block simply sitting further apart. */
-    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:min-h-[75vh] lg:grid-cols-[minmax(0,1fr)_340px] lg:items-center lg:gap-11 2xl:max-w-[100rem] 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:gap-14;
+       together rather than the block simply sitting further apart.
+
+       Height is the content's, never the viewport's. A `min-height: 75vh` here
+       sat under fixed-height content, so the hero grew with the window while
+       nothing inside it did: 318px of dead space at 1440x900 and 290px at
+       1920x1080, all of it between the actions and the Contributions band.
+       Content height holds the opening composition at a constant 437px through
+       xl and 600px at 2xl, whatever the window does. */
+    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-center lg:gap-11 xl:grid-cols-[minmax(0,1fr)_420px] 2xl:max-w-[110rem] 2xl:grid-cols-[minmax(0,1fr)_520px] 2xl:gap-14;
   }
   .hero-copy {
     /* The artboard's 20px rhythm at the drawn scale; it steps with the type at
        2xl so the block does not tighten as the headline grows. */
     @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1 2xl:gap-7;
   }
+  .hero-identity {
+    @apply flex flex-col gap-1;
+  }
+  /* Between the mono rail and the headline in every respect: the display face
+     so it belongs to the headline, but a third of its size and a normal weight
+     so it introduces the page rather than competing with the claim. */
+  .hero-name {
+    @apply font-display text-title-sm 2xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+  }
   .hero-eyebrow {
     @apply text-brand-700 dark:text-brand-300 text-body-sm 2xl:text-lead font-mono tracking-wide;
   }
   .hero-headline {
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
-       stops at 700, so this sets its own. The 13ch measure applies only once the
-       hero is two columns; stacked, the headline runs the full width. */
-    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl font-extrabold tracking-[-0.035em] text-balance lg:max-w-[13ch];
+       stops at 700, so this sets its own. Two measures: 13ch once the hero is
+       two columns, and a 24ch backstop before that. Stacked, the column is
+       wider than the headline needs from about 834px up, and the whole line
+       collapsed onto one — a limp full-width row where the artboard draws a
+       stacked block. 24ch is inert at 390 and 768, where the column is already
+       narrower than the cap, so only the widths that broke are touched. */
+    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl max-w-[24ch] font-extrabold tracking-[-0.035em] text-balance lg:max-w-[13ch];
   }
   .hero-supporting-text {
     @apply text-lead 2xl:text-title-sm max-w-[46ch] 2xl:max-w-[52ch];
@@ -694,15 +810,67 @@
     @apply mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row 2xl:mt-4 2xl:gap-4;
   }
   /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
-     pill. Scoped here so PrimaryButton stays compact everywhere else. */
+     pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
+     matches the footer's, which is what takes these over the 48px touch target
+     the drawn padding alone missed by two pixels. */
   .hero-action {
-    @apply text-body focus-visible:ring-brand-500 2xl:text-lead w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-500 2xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
-    /* Stacked: a full-width band at the aspect the artboard draws it (390x214),
-       capped so it cannot dominate at tablet widths. Two-column from lg, where
-       the column sets the width and the height is fixed per step. */
-    @apply relative z-10 col-start-1 row-start-1 aspect-[390/214] max-h-[360px] w-full overflow-hidden rounded-lg lg:col-start-2 lg:aspect-auto lg:h-[340px] lg:max-h-none 2xl:h-[520px];
+    /* The rocket renders square and refuses to go under 320px, since the body
+       is its touch target — so the slot is square everywhere rather than the
+       390x214 band the artboard drew for a flat image. Stacked, it is capped so
+       it cannot swallow a tablet's first screen, and centred once the column
+       outgrows that cap from about 404px up. At 390 the column and the visual
+       are the same width, so the centring is inert and mobile's left-aligned
+       copy is untouched. From lg the column sets the width and the fixed height
+       per step matches it.
+
+       No rounding or clipping: the canvas is transparent and its halo is drawn
+       past the edges, so a clip would cut the glow rather than frame anything.
+       Rocket.module.css is unlayered and wins over these utilities where the
+       two overlap; nothing here contradicts it. */
+    @apply relative z-10 col-start-1 row-start-1 mx-auto aspect-square w-full max-w-[360px] lg:col-start-2 lg:mx-0 lg:h-[380px] lg:max-w-none xl:h-[420px] 2xl:h-[520px];
+  }
+
+  /* Two columns start before lg. The hero stacked all the way to 1024, so a
+     977px window put the rocket on its own row above the copy with empty space
+     either side of both. It cannot start at md though: the rocket will not go
+     below 320px without losing its touch target, and at 768 that leaves the
+     copy ~310px, which is not a column a 38px headline can live in. 900px is
+     where 320px of rocket plus a 460px copy column both fit. Bounded at 1023 so
+     it cannot argue with the lg rules that follow. */
+  @media (min-width: 900px) and (max-width: 1023px) {
+    .hero-composition {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: center;
+      column-gap: 2.5rem;
+    }
+    .hero-copy {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .hero-visual {
+      grid-column: 2;
+      grid-row: 1;
+      height: 320px;
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+
+  /* The step between xl and 2xl. Bounded rather than a plain `min-width`, and
+     not a `min-[1440px]:` variant: Tailwind emits arbitrary variants ahead of
+     the named breakpoints, so an unbounded rule here would either lose to 2xl
+     or beat it depending on source order. Closing the range at 1535px means it
+     cannot argue with 2xl at all. */
+  @media (min-width: 1440px) and (max-width: 1535px) {
+    .hero-composition {
+      grid-template-columns: minmax(0, 1fr) 470px;
+    }
+    .hero-visual {
+      height: 470px;
+    }
   }
 
   /* Stat card (metric tiles) */
@@ -727,7 +895,7 @@
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-200 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-900/8 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-100/10;
   }
   .filter-pill-mark {
     @apply shrink-0;
