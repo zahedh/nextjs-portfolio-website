@@ -8,7 +8,7 @@ import { en } from '@/language';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { cn } from '@/lib/utils';
 import { Project, ProjectFilter } from '@/types/project';
-import { useEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -30,11 +30,12 @@ const INITIAL_COMPACT_COUNT = 4;
 
 interface ProjectGridProps {
   projects: Project[];
+  showAll: boolean;
+  onToggleShowAll: () => void;
 }
 
 /** Presents the filtered projects as one feature card followed by compact cards. */
-function ProjectGrid({ projects }: ProjectGridProps) {
-  const [showAll, setShowAll] = useState(false);
+function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
   const [featureProject, ...compactProjects] = projects;
   const visibleProjects = showAll
     ? compactProjects
@@ -71,7 +72,7 @@ function ProjectGrid({ projects }: ProjectGridProps) {
             type="button"
             className="projects-see-all"
             aria-expanded={showAll}
-            onClick={() => setShowAll((expanded) => !expanded)}
+            onClick={onToggleShowAll}
           >
             {showAll
               ? en.projectCard.showFewerProjects
@@ -97,6 +98,7 @@ function ProjectGrid({ projects }: ProjectGridProps) {
 }
 
 const FILTER_PARAM = 'filter';
+const EXPANDED_PARAM = 'all';
 
 function isProjectFilter(value: string | null): value is ProjectFilter {
   return PROJECT_FILTERS.some((filter) => filter.value === value);
@@ -105,24 +107,48 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 /** Filterable projects section. Each card links to the project's own page. */
 export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
+  const [showAll, setShowAll] = useState(false);
 
-  // The filter lives in the URL so returning from a project page lands the
-  // reader back on the set of projects they were looking at. Written with
-  // replaceState rather than the router: it adds no history entry, and keeps
-  // the page static by not reading search params during render.
-  useEffect(() => {
-    const fromUrl = new URLSearchParams(window.location.search).get(
-      FILTER_PARAM
-    );
-    if (isProjectFilter(fromUrl)) setSelectedType(fromUrl);
+  // Both the filter and the expansion live in the URL, so returning from a
+  // project page lands the reader on the set of cards they left. The expansion
+  // matters as much as the filter: without it the section comes back two rows
+  // shorter than it was, and the position the browser restores on back lands
+  // past the card they came from.
+  //
+  // Read in a layout effect rather than during render, which would make the
+  // page dynamic, and rather than in an effect, which runs a frame too late:
+  // the browser restores scroll against whatever is already laid out, so a
+  // section that grows afterwards has already missed it. Written with
+  // replaceState rather than the router, which would add a history entry per
+  // click and bury the page the reader actually came from.
+  useLayoutEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const filter = params.get(FILTER_PARAM);
+    if (isProjectFilter(filter)) setSelectedType(filter);
+    setShowAll(params.get(EXPANDED_PARAM) === '1');
   }, []);
 
+  const writeUrl = (filter: ProjectFilter, expanded: boolean) => {
+    const url = new URL(window.location.href);
+    if (filter === 'All') url.searchParams.delete(FILTER_PARAM);
+    else url.searchParams.set(FILTER_PARAM, filter);
+    if (expanded) url.searchParams.set(EXPANDED_PARAM, '1');
+    else url.searchParams.delete(EXPANDED_PARAM);
+    window.history.replaceState(null, '', url);
+  };
+
+  // A new filter shows a different set, so the old set's expansion does not
+  // carry across to it.
   const chooseFilter = (value: ProjectFilter) => {
     setSelectedType(value);
-    const url = new URL(window.location.href);
-    if (value === 'All') url.searchParams.delete(FILTER_PARAM);
-    else url.searchParams.set(FILTER_PARAM, value);
-    window.history.replaceState(null, '', url);
+    setShowAll(false);
+    writeUrl(value, false);
+  };
+
+  const toggleShowAll = () => {
+    const expanded = !showAll;
+    setShowAll(expanded);
+    writeUrl(selectedType, expanded);
   };
   const filteredProjects = useMemo(
     () => getFilteredProjectsForSection(projects, selectedType),
@@ -159,7 +185,11 @@ export default function ProjectsSection() {
       title={en.sectionHeaders.projects}
       rightChildren={filterButtons}
     >
-      <ProjectGrid key={selectedType} projects={filteredProjects} />
+      <ProjectGrid
+        projects={filteredProjects}
+        showAll={showAll}
+        onToggleShowAll={toggleShowAll}
+      />
     </Section>
   );
 }
