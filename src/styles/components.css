@@ -763,6 +763,15 @@
     }
     .hero-visual {
       height: 470px;
+  .hero-identity {
+    @apply flex flex-col gap-1;
+  }
+  /* Between the mono rail and the headline in every respect: the display face
+     so it belongs to the headline, but a third of its size and a normal weight
+     so it introduces the page rather than competing with the claim. */
+  .hero-name {
+    @apply font-display text-title-sm 2xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+  }
     }
   }
 

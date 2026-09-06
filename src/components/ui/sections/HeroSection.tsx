@@ -47,7 +47,13 @@ export default function HeroSection() {
         <Rocket theme={isDark ? 'dark' : 'light'} className="hero-visual" />
 
         <div className="hero-copy">
-          <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>
+          {/* Name and role read as one identity block, tighter than the copy
+              column's own rhythm, so the hero opens with a person rather than
+              two unrelated preamble lines above the headline. */}
+          <div className="hero-identity">
+            <p className="hero-name">{en.heroSection.name}</p>
+            <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>
+          </div>
           <Heading as="h1" className="hero-headline">
             {en.heroSection.headline}
           </Heading>

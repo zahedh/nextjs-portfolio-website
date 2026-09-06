@@ -19,6 +19,7 @@ export const en = {
   },
 
   heroSection: {
+    name: 'Zahed Heidari',
     eyebrow: 'Senior Software Engineer · Blue Beck',
     headline: 'Half a million users. Six years shipping.',
     supportingText:
