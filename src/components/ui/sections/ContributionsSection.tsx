@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Section, PrimaryButton, BodyText } from '@/components';
 import { en } from '@/language';
 import { cn, sumContributions } from '@/lib/utils';
-import { getContributionsBandVariants } from '@/lib/ui-logic';
+import { buildEmptyYear, getContributionsBandVariants } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
 import ContributionsCalendar from './ContributionsCalendar';
 
@@ -97,6 +97,14 @@ export default function ContributionsSection() {
 
   const updating = loading && activities.length > 0;
 
+  /**
+   * Nothing has arrived yet. The figure would read a confident `0` and the
+   * calendar's slot would hold a line of body copy, so a cold load looked
+   * unstyled rather than pending. Both stand in at their finished size instead:
+   * an empty year under the calendar, and the figure painted over its own text.
+   */
+  const pending = !failed && activities.length === 0;
+
   return (
     <Section anchor="contributions" banded>
       <motion.div
@@ -108,7 +116,9 @@ export default function ContributionsSection() {
       >
         <div className="contrib-figure-group">
           <div className="contrib-figure-row">
-            <span className="contrib-figure">{total}</span>
+            <span className={cn('contrib-figure', pending && 'is-pending')}>
+              {pending ? '000' : total}
+            </span>
             <span className="contrib-label">
               {en.contributionsCalendar.label}
             </span>
@@ -129,15 +139,17 @@ export default function ContributionsSection() {
           </div>
         </div>
 
-        {activities.length > 0 ? (
-          <ContributionsCalendar activities={activities} summary={summary} />
-        ) : failed || loading ? (
+        {failed ? (
           <BodyText className="text-neutral-600 dark:text-neutral-400">
-            {failed
-              ? en.contributionsSection.error
-              : en.contributionsSection.loading}
+            {en.contributionsSection.error}
           </BodyText>
-        ) : null}
+        ) : (
+          <ContributionsCalendar
+            activities={pending ? buildEmptyYear(selectedYear) : activities}
+            summary={pending ? en.contributionsSection.loading : summary}
+            pending={pending}
+          />
+        )}
       </motion.div>
     </Section>
   );

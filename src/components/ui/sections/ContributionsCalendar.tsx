@@ -19,11 +19,18 @@ type ContributionsCalendarProps = {
   activities: ActivityCalendarData[];
   /** The sentence the figure and its label already say, for assistive tech. */
   summary: string;
+  /**
+   * These are stand-in days for a year still in flight. They hold the finished
+   * layout, so they must not answer a hover with `No contributions` as though
+   * that were the answer.
+   */
+  pending?: boolean;
 };
 
 export default function ContributionsCalendar({
   activities,
   summary,
+  pending = false,
 }: ContributionsCalendarProps) {
   const { weeks, months } = buildContributionGrid(activities);
   const { tooltip, handleMouseOver, handleMouseLeave } =
@@ -31,7 +38,10 @@ export default function ContributionsCalendar({
   const { ref: scrollRef, edges } = useScrollEdges<HTMLDivElement>();
 
   return (
-    <div className="contrib-chart">
+    <div
+      className={cn('contrib-chart', pending && 'is-pending')}
+      style={{ '--contrib-weeks': weeks.length } as React.CSSProperties}
+    >
       {/* Both rows sit on identical fixed tracks, so a month label cannot drift
           from the weeks beneath it, and both scroll together as one. */}
       <div
@@ -41,8 +51,8 @@ export default function ContributionsCalendar({
         role="img"
         aria-label={summary}
         tabIndex={0}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
+        onMouseOver={pending ? undefined : handleMouseOver}
+        onMouseLeave={pending ? undefined : handleMouseLeave}
       >
         <div className="contrib-months">
           {months.map((month) => (

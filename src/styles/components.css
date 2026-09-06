@@ -167,6 +167,19 @@
   }
   .contrib-years {
     @apply flex gap-2;
+  /* A year still in flight. The figure keeps its own text — three tabular
+     zeroes — and paints over it, so the block is exactly the size the number
+     will be and nothing shifts when it lands. It takes the empty cell's fill
+     rather than its own, so the figure and the stand-in calendar read as one
+     material; the band underneath is neutral-200, which is why the block cannot
+     be that. Declared after .contrib-figure to win on source order. */
+  .contrib-figure.is-pending,
+  .contrib-chart.is-pending {
+    @apply animate-pulse motion-reduce:animate-none;
+  }
+  .contrib-figure.is-pending {
+    @apply rounded-lg bg-neutral-100 text-transparent dark:bg-neutral-900;
+  }
   }
   .contrib-chart {
     @apply flex w-full min-w-0 flex-col gap-2 lg:w-auto lg:gap-2.5;
