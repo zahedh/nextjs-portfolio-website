@@ -23,7 +23,7 @@ export const en = {
     eyebrow: 'Senior Software Engineer · Blue Beck',
     headline: 'Half a million users. Six years shipping.',
     supportingText:
-      'Full stack web and mobile, built to still work next year — and the AI tooling my team now works through every day.',
+      'I build full stack web and mobile products, and the AI that runs inside them.',
     primaryButton: 'See the work',
     secondaryButton: 'Download CV',
     downloadCvAriaLabel: 'Download CV (PDF)',
