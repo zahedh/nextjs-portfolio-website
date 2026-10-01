@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { createRocketModel } from './model';
 import { createAnimation } from './animation';
-import { createHitTest } from './hit-test';
+import { createHitTest, hitRadiusFor } from './hit-test';
 import type {
   RocketController,
   RocketPhase,
@@ -121,7 +121,12 @@ export function mountRocket(
   function isHit(event: PointerEvent) {
     return (
       interactive() &&
-      hitTest(event.clientX, event.clientY, host.getBoundingClientRect())
+      hitTest(
+        event.clientX,
+        event.clientY,
+        host.getBoundingClientRect(),
+        hitRadiusFor(event.pointerType)
+      )
     );
   }
   function pointerDown(event: PointerEvent) {

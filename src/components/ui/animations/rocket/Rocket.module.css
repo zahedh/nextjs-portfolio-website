@@ -2,7 +2,11 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1;
-  min-block-size: 320px;
+  /* A floor, not a size: below it the parts are too small to read. It was
+     320 while an exact raycast made the body the only dependable touch
+     target; the touch radius in hit-test.ts covers that now, and a 320px
+     phone leaves the stacked rocket about 276 wide. */
+  min-block-size: 240px;
   isolation: isolate;
 }
 .scene {
