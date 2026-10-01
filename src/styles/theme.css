@@ -2,6 +2,16 @@
    🎨 THEME & COLOR TOKENS
    ========================= */
 @theme {
+  /* Where the page becomes a desktop layout: the nav trades the burger for six
+     links and the theme toggle, and the hero puts the rocket beside the copy.
+     Not a Tailwind default. The hero sets it — 430px of rocket beside a copy
+     column wide enough for both buttons on one row first fits here — and the
+     nav shares it, because between 768 and 899 the site used to show six
+     desktop links above a stacked mobile hero. Named so the places that
+     switch on it cannot drift apart; the hero's bounded query in
+     components.css repeats the number and must move with it. */
+  --breakpoint-wide: 900px;
+
   /* Neutral scale */
   --color-neutral-50: #f7f6f3;
   --color-neutral-100: #efece6;

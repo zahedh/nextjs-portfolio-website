@@ -50,7 +50,7 @@ export default function Navbar({
         </Link>
       )}
 
-      <ul className="hidden items-center gap-5 md:flex">
+      <ul className="wide:flex hidden items-center gap-5">
         <li>
           <Link href="/" className="nav-link" onClick={handleHomeClick}>
             {en.home}
