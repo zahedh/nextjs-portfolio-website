@@ -1,3 +1,6 @@
+import { getYearsOfExperience } from '@/lib/date';
+import { capitalise, spellNumber } from '@/lib/utils';
+
 /** English copy used throughout the UI. */
 export const en = {
   // Navigation Labels
@@ -21,7 +24,7 @@ export const en = {
   heroSection: {
     name: 'Zahed Heidari',
     eyebrow: 'Senior Software Engineer · Blue Beck',
-    headline: 'Half a million users. Six years shipping.',
+    headline: `Half a million users. ${capitalise(spellNumber(getYearsOfExperience()))} years shipping.`,
     supportingText:
       'I build full stack web and mobile products, and the AI that runs inside them.',
     primaryButton: 'See the work',

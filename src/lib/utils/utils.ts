@@ -167,3 +167,41 @@ export function getSkillsByIds<T extends { id: string }>(
 export function sumContributions(activities: { count: number }[]): number {
   return activities.reduce((total, activity) => total + activity.count, 0);
 }
+
+const NUMBER_WORDS = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen',
+  'seventeen',
+  'eighteen',
+  'nineteen',
+  'twenty',
+] as const;
+
+/**
+ * Spells a small whole number as a word, for copy that reads as a sentence
+ * rather than a statistic ("six years", not "6 years"). Falls back to digits
+ * past twenty, where a spelled number stops reading well anyway.
+ */
+export function spellNumber(value: number): string {
+  return NUMBER_WORDS[value] ?? String(value);
+}
+
+/** Upper-cases the first character, for a word that opens a sentence. */
+export function capitalise(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
