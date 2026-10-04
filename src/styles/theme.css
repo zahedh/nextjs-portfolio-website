@@ -72,8 +72,6 @@
      every breakpoint the page measure does, because the rocket is sized
      against it and the page measure is sized by both: 32px beside a phone
      rocket, then 58, 72, 84 and 96 from md. */
-  --text-display-sm: 2rem;
-  --text-display-sm--line-height: 1;
   --text-display-md: 2.875rem;
   --text-display-md--line-height: 1;
   --text-display-xl: 4.5rem;
@@ -86,11 +84,10 @@
   --text-numeral-lg--line-height: 1;
 
   /* Spacing scale */
-  /* One gutter up to lg and one from it, so it changes only where the hero
-     rearranges too. A third value at md made the margins jump between two
-     layouts that otherwise look alike. */
+  /* One gutter at every width. It only keeps content off the window's edge;
+     the margins on a wide screen come from the page measure's cap, so a
+     larger desktop value would only make the page jump where it changed. */
   --spacing-gutter: 1.375rem;
-  --spacing-gutter-lg: 3.25rem;
   --spacing-surface: 1.125rem;
   --spacing-rhythm: 1.375rem;
   /* The whole measured distance between a heading and its content. The

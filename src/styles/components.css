@@ -515,7 +515,7 @@
     @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
   }
   .footer-container {
-    @apply px-gutter lg:px-gutter-lg max-w-page mx-auto flex w-full flex-col gap-9;
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-9;
   }
   .footer-primary {
     @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
@@ -743,25 +743,23 @@
        sat under fixed-height content, so the hero grew with the window while
        nothing inside it did.
 
-       Phones keep the rocket beside the name and headline, with the supporting
-       text and actions full width below. A tall rocket cannot fill a phone
-       column on its own row without being ~650px high, so stacked it always
-       left space either side. From sm the whole copy block sits beside it:
-       the phone arrangement on a 640 column left a two-line headline beside
-       a rocket a sixth of its width.
+       On a phone the rocket sits on its own row above the copy. Beside the headline it could only have the width the
+       headline did not need, which held it to 99px. On its own row the frame
+       takes the column's width at a fixed height, and since the camera's
+       vertical field is fixed the height alone sets the rocket's size: it
+       stays one size at every phone width and the camera centres it. From sm
+       the whole copy block sits beside it.
 
        Each step's rocket frame is sized so the drawn rocket stands about as
        tall as the copy block beside it, and so the hero fits the content width
        at the first pixel of its range: the headline's measure + gap + frame
        is 324 + 24 + 216 inside 640's 581, 409 + 28 + 240 inside 768's 709,
        and 508 + 48 + 288 inside 1024's 905. */
-    @apply py-block lg:py-block-lg relative grid w-full gap-x-3 gap-y-5 sm:items-center sm:gap-x-6 sm:gap-y-0 md:gap-x-7 lg:gap-x-12 xl:gap-x-14;
-    grid-template-columns: minmax(0, 1fr) 99px;
+    @apply py-block lg:py-block-lg relative grid w-full gap-y-5 sm:items-center sm:gap-x-6 sm:gap-y-0 md:gap-x-7 lg:gap-x-12 xl:gap-x-14;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      'identity visual'
-      'headline visual'
-      'support support'
-      'actions actions';
+      'visual'
+      'copy';
 
     @variant sm {
       grid-template-columns: minmax(0, 1fr) 216px;
@@ -778,16 +776,14 @@
     }
   }
   .hero-copy {
-    /* Below sm it dissolves so its children can sit in the hero's own grid,
-       two of them beside the rocket and two beneath it. The artboard's 20px
+    /* The artboard's 20px
        rhythm at the drawn scale; it steps with the type at xl so the block
        does not tighten as the headline grows. */
-    @apply relative z-10 contents min-w-0 flex-col items-start gap-5 text-left sm:flex xl:gap-7;
+    @apply relative z-10 flex min-w-0 flex-col items-start gap-5 text-left xl:gap-7;
     grid-area: copy;
   }
   .hero-identity {
-    @apply relative z-10 flex flex-col gap-1;
-    grid-area: identity;
+    @apply flex flex-col gap-1;
   }
   /* Between the mono rail and the headline in every respect: the display face
      so it belongs to the headline, but a third of its size and a normal weight
@@ -803,24 +799,21 @@
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
        stops at 700, so this sets its own.
 
-       One size per breakpoint, stepping with the rocket. 32px beside a phone
-       rocket, where 38 set the headline one word to a line at 360. From sm
+       One size per breakpoint, stepping with the rocket. 38px on a phone, the
+       drawn size. From sm
        46px and from md 58px, both at 11ch, a three-line block that leaves
        both buttons a row; 13ch
        from lg, where each step's copy column has the room for the full
        measure. No 2xl step: the page stops growing before 1536. */
-    @apply font-display text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl relative z-10 font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch] lg:max-w-[13ch];
-    grid-area: headline;
+    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch] lg:max-w-[13ch];
   }
   .hero-supporting-text {
-    @apply text-lead xl:text-title-sm relative z-10 max-w-[46ch] xl:max-w-[52ch];
-    grid-area: support;
+    @apply text-lead xl:text-title-sm max-w-[46ch] xl:max-w-[52ch];
   }
   .hero-actions {
     /* One row from sm; the wrap is a backstop, so a longer label can never
        break inside a pill. */
-    @apply relative z-10 mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
-    grid-area: actions;
+    @apply mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
   }
   /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
      pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
@@ -830,15 +823,18 @@
     @apply text-body focus-visible:ring-brand-500 xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto xl:px-7 xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
-    /* The frame is the grid column's width at Rocket.module.css's 3:5, so no
-       step keeps a height in sync. Portrait because the rocket is: in a square
-       it filled 45% of the width and left ~120px of empty canvas either side.
+    /* From sm the frame is the grid column's width at Rocket.module.css's 3:5,
+       so no step keeps a height in sync. On a phone it is the full column at a
+       fixed 280px; a definite height overrides the module's aspect ratio.
+
+       Portrait because the rocket is: in a square it filled 45% of the width
+       and left ~120px of empty canvas either side.
        The camera's vertical field is fixed, so trimming the sides leaves the
        rocket exactly the size it was.
 
        No rounding or clipping: the canvas is transparent and its halo is drawn
        past the edges, so a clip would cut the glow rather than frame anything. */
-    @apply relative z-10 w-full self-center;
+    @apply relative z-10 h-70 w-full self-center sm:h-auto;
     grid-area: visual;
   }
 

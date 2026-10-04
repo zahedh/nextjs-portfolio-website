@@ -4,7 +4,7 @@
 @layer utilities {
   /* max-width + horizontally centered in the viewport (mx-auto), gutters via padding */
   .prime-parent {
-    @apply px-gutter lg:px-gutter-lg max-w-page mx-auto w-full;
+    @apply px-gutter max-w-page mx-auto w-full;
   }
 
   .screen-parent {
@@ -22,7 +22,7 @@
      Repeats .prime-parent's utilities rather than applying it: a class declared
      in @layer utilities is plain CSS and Tailwind cannot @apply it. */
   .section-inner {
-    @apply px-gutter lg:px-gutter-lg max-w-page mx-auto flex w-full flex-col items-start justify-center gap-4;
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col items-start justify-center gap-4;
   }
   /* Sits directly above a section's content in .section-inner's column, so the
      1rem row gap above lands between the two. The margin is the token less
