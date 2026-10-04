@@ -36,7 +36,7 @@ const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
           variant === 'plain' &&
             'absolute top-4 right-4 z-10 p-2 text-neutral-900 hover:bg-neutral-200/90 dark:text-neutral-200 dark:hover:bg-neutral-700/80',
           variant === 'plainNav' &&
-            'wide:hidden fixed top-0 right-0 z-[60] flex h-16 items-center p-2 text-neutral-900 hover:bg-neutral-200/90 dark:text-neutral-200 dark:hover:bg-neutral-700/80',
+            'fixed top-0 right-0 z-[60] flex h-16 items-center p-2 text-neutral-900 hover:bg-neutral-200/90 md:hidden dark:text-neutral-200 dark:hover:bg-neutral-700/80',
           variant === 'brand' && 'brand-icon-btn h-10 w-10 md:h-9 md:w-9',
           className
         )}

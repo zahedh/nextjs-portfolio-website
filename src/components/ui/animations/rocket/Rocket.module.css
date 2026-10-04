@@ -1,12 +1,12 @@
 .root {
   position: relative;
   width: 100%;
-  aspect-ratio: 1;
-  /* A floor, not a size: below it the parts are too small to read. It was
-     320 while an exact raycast made the body the only dependable touch
-     target; the touch radius in hit-test.ts covers that now, and a 320px
-     phone leaves the stacked rocket about 276 wide. */
-  min-block-size: 240px;
+  /* Portrait, the rocket's own shape: across its whole idle swing it spans
+     48% of a square's width and 89% of its height. The camera's vertical
+     field is fixed, so the frame's height sets the rocket's size and its
+     width only trims empty canvas. Across the full swing the rocket fills
+     81% of this frame's width. */
+  aspect-ratio: 3 / 5;
   isolation: isolate;
 }
 .scene {

@@ -133,7 +133,7 @@
      Cell size is a fixed step per breakpoint, not a fraction of the viewport —
      the year is allowed to overflow and scroll rather than shrink to fit. */
   .contrib-band {
-    @apply flex w-full max-w-[90rem] flex-col gap-6 2xl:max-w-[110rem];
+    @apply flex w-full flex-col gap-6;
   }
   /* A year already fetched swaps instantly; only a genuine wait dims, and it
      dims the data rather than replacing it, so the band keeps its height and
@@ -156,9 +156,9 @@
   .contrib-figure-group {
     /* A row that wraps, not a column. The figure, its label and the year pills
        come to roughly 350px, so from the first width that can hold them they
-       belong on one line; only 390 is narrow enough to genuinely need two. It
-       returns to a column at 1700, where the band puts this group beside the
-       calendar and the vertical stack is the point. */
+       belong on one line; only 390 is narrow enough to genuinely need two.
+       The band never puts this group beside the calendar: within the 90rem
+       page that would take ~230px from a year that needs all of it. */
     @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
   }
   .contrib-figure-row {
@@ -182,35 +182,6 @@
   }
   .contrib-label {
     @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
-  }
-  /* The band goes side-by-side only once the calendar has already reached its
-     ceiling, so putting the figure beside it costs nothing. At 2xl it still
-     did: the figure group and its gap took ~186px back and the calendar
-     dropped from 21px at 1440 to 19px at 1536 — it shrank as the screen grew.
-     1700px is where the remaining width still caps out at 22px. A plain media
-     query, not a `min-[1700px]:` variant, so it cannot be reordered ahead of
-     the base rules it overrides. */
-  @media (min-width: 1700px) {
-    .contrib-band {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 3rem;
-    }
-    .contrib-figure-group {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-    .contrib-figure-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .contrib-chart {
-      flex: 1;
-      gap: 0.625rem;
-    }
   }
   .contrib-years {
     @apply flex gap-3;
@@ -339,7 +310,7 @@
   }
 
   .mobile-menu-panel {
-    @apply border-brand-500 wide:hidden fixed top-0 z-50 w-56 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl dark:bg-neutral-800;
+    @apply border-brand-500 fixed top-0 z-50 w-56 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800;
     right: 0 !important;
   }
 
@@ -544,7 +515,7 @@
     @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
   }
   .footer-container {
-    @apply px-gutter md:px-gutter-md lg:px-gutter-lg mx-auto flex w-full max-w-[110rem] flex-col gap-9;
+    @apply px-gutter lg:px-gutter-lg max-w-page mx-auto flex w-full flex-col gap-9;
   }
   .footer-primary {
     @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
@@ -559,7 +530,7 @@
     @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
-    @apply mt-7 flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row;
+    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
   }
   .footer-action {
     /* Same type as the hero's actions: mono is reserved for the weakest
@@ -615,14 +586,10 @@
   }
   /* ---- A project's own page ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
-  /* The hero's measure, stepping the same way at 2xl: a project page is a page
-     of the site, so it ends where the hero and the footer end rather than
-     stopping short and leaving the rail marooned mid-screen. Left-aligned, not
-     centred — .hero-composition is narrower than its section too and starts on
-     the same line, so a centred page would be the only block on the site that
-     does not line up with the header. The prose keeps its own 72ch measure. */
+  /* The page measure, like every block on the site, so a project page ends
+     where the hero and the footer end. The prose keeps its own 72ch measure. */
   .project-page-stack {
-    @apply gap-block lg:gap-block-lg flex w-full max-w-[90rem] flex-col 2xl:max-w-[110rem];
+    @apply gap-block lg:gap-block-lg flex w-full flex-col;
   }
   .project-page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
@@ -658,7 +625,7 @@
   /* The hero's pairing at the footer's size: the first link is the page's
      primary call and the rest sit beside it. */
   .project-page-actions {
-    @apply flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row;
+    @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
   }
   .project-page-action {
     @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
@@ -764,127 +731,115 @@
     @apply aspect-[4/5] w-full;
   }
   .hero-composition {
-    /* The type steps up by about a quarter at 2xl: the 1440 measure reads small
-       on a very wide viewport, so type and actions scale with the visual rather
-       than the block simply sitting further apart.
+    /* The copy column takes what the rocket leaves, so the page around the hero
+       flows with the window like every other section. The type and the rocket
+       do not: each changes size only at a breakpoint, together, so inside a
+       range the space between the copy and the rocket grows with the window.
+       That is the accepted cost of not resizing anything per pixel. It is
+       bounded by the next step, and from xl by the page measure, which the xl
+       hero fills: 690 + 56 + 396 inside 80rem's 1176.
 
        Height is the content's, never the viewport's. A `min-height: 75vh` here
        sat under fixed-height content, so the hero grew with the window while
-       nothing inside it did: 318px of dead space at 1440x900 and 290px at
-       1920x1080, all of it between the actions and the Contributions band.
+       nothing inside it did.
 
-       The visual steps with the type rather than scaling continuously. What
-       the rocket is read against is the headline, and the headline does not
-       move inside a band: capped at its measure it is the same 427px block
-       everywhere from lg to xl, and 627px from 2xl. A fluid column grew the
-       rocket from 0.69x that block to 0.86x across one band, which read as a
-       rocket too small at 1024 and about right by 1280. Fixed per step it
-       holds roughly 0.85x throughout. Sag against the copy column is not worth
-       pricing in: nobody reads the column, they read the headline beside it.
+       Phones keep the rocket beside the name and headline, with the supporting
+       text and actions full width below. A tall rocket cannot fill a phone
+       column on its own row without being ~650px high, so stacked it always
+       left space either side. From sm the whole copy block sits beside it:
+       the phone arrangement on a 640 column left a two-line headline beside
+       a rocket a sixth of its width.
 
-       The sizes are ceilinged by arithmetic, not taste. At 1024 there is 905px
-       of content; the headline wants 427 and the gap takes 44, leaving 434 —
-       which is why lg is 430. The 900–1023 split uses the same 430, so nothing
-       steps at 1024. 450 at xl and 620 at 2xl
-       are then set to hold the ratio rather than to look like a progression:
-       2xl is the big jump because the headline jumps there too, 427 to 627. */
-    @apply py-block lg:py-block-lg relative grid w-full max-w-[90rem] grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-center lg:gap-11 xl:grid-cols-[minmax(0,1fr)_450px] 2xl:max-w-[110rem] 2xl:grid-cols-[minmax(0,1fr)_620px] 2xl:gap-14;
+       Each step's rocket frame is sized so the drawn rocket stands about as
+       tall as the copy block beside it, and so the hero fits the content width
+       at the first pixel of its range: the headline's measure + gap + frame
+       is 324 + 24 + 216 inside 640's 581, 409 + 28 + 240 inside 768's 709,
+       and 508 + 48 + 288 inside 1024's 905. */
+    @apply py-block lg:py-block-lg relative grid w-full gap-x-3 gap-y-5 sm:items-center sm:gap-x-6 sm:gap-y-0 md:gap-x-7 lg:gap-x-12 xl:gap-x-14;
+    grid-template-columns: minmax(0, 1fr) 99px;
+    grid-template-areas:
+      'identity visual'
+      'headline visual'
+      'support support'
+      'actions actions';
+
+    @variant sm {
+      grid-template-columns: minmax(0, 1fr) 216px;
+      grid-template-areas: 'copy visual';
+    }
+    @variant md {
+      grid-template-columns: minmax(0, 1fr) 240px;
+    }
+    @variant lg {
+      grid-template-columns: minmax(0, 1fr) 288px;
+    }
+    @variant xl {
+      grid-template-columns: minmax(0, 1fr) 396px;
+    }
   }
   .hero-copy {
-    /* The artboard's 20px rhythm at the drawn scale; it steps with the type at
-       2xl so the block does not tighten as the headline grows. */
-    @apply relative z-10 col-start-1 row-start-2 flex min-w-0 flex-col items-start gap-5 text-left lg:row-start-1 2xl:gap-7;
+    /* Below sm it dissolves so its children can sit in the hero's own grid,
+       two of them beside the rocket and two beneath it. The artboard's 20px
+       rhythm at the drawn scale; it steps with the type at xl so the block
+       does not tighten as the headline grows. */
+    @apply relative z-10 contents min-w-0 flex-col items-start gap-5 text-left sm:flex xl:gap-7;
+    grid-area: copy;
   }
   .hero-identity {
-    @apply flex flex-col gap-1;
+    @apply relative z-10 flex flex-col gap-1;
+    grid-area: identity;
   }
   /* Between the mono rail and the headline in every respect: the display face
      so it belongs to the headline, but a third of its size and a normal weight
      so it introduces the page rather than competing with the claim. */
   .hero-name {
-    @apply font-display text-title-sm 2xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+    @apply font-display text-title-sm xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
   }
   .hero-eyebrow {
     /* Pretty, so if the line wraps it does not leave "Beck" on its own. */
-    @apply text-brand-700 dark:text-brand-300 text-body-sm 2xl:text-lead font-mono tracking-wide text-pretty;
+    @apply text-brand-700 dark:text-brand-300 text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
   }
   .hero-headline {
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
-       stops at 700, so this sets its own. Two measures: 13ch once the hero is
-       two columns, and a 24ch backstop before that. Stacked, the column is
-       wider than the headline needs from about 834px up, and the whole line
-       collapsed onto one — a limp full-width row where the artboard draws a
-       stacked block. 24ch is inert at 390 and 768, where the column is already
-       narrower than the cap, so only the widths that broke are touched.
+       stops at 700, so this sets its own.
 
-       11ch rather than 13ch from lg: at 1024 a 13ch measure takes 505px of the
-       905px available and leaves the rocket 356, which is what made it
-       read small beside the headline. The tighter measure frees 78px, costs no
-       extra line at this size, and gives a denser block closer to the one the
-       artboard draws. 2xl has the room for the full measure and keeps it. */
-    @apply font-display text-display lg:text-display-lg 2xl:text-display-xl max-w-[24ch] font-extrabold tracking-[-0.035em] text-balance lg:max-w-[11ch] 2xl:max-w-[13ch];
+       One size per breakpoint, stepping with the rocket. 32px beside a phone
+       rocket, where 38 set the headline one word to a line at 360. From sm
+       46px and from md 58px, both at 11ch, a three-line block that leaves
+       both buttons a row; 13ch
+       from lg, where each step's copy column has the room for the full
+       measure. No 2xl step: the page stops growing before 1536. */
+    @apply font-display text-display-sm sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl relative z-10 font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch] lg:max-w-[13ch];
+    grid-area: headline;
   }
   .hero-supporting-text {
-    @apply text-lead 2xl:text-title-sm max-w-[46ch] 2xl:max-w-[52ch];
+    @apply text-lead xl:text-title-sm relative z-10 max-w-[46ch] xl:max-w-[52ch];
+    grid-area: support;
   }
   .hero-actions {
-    /* The split starts where both buttons fit one row; the wrap is a backstop,
-       so a longer label can never break inside a pill again. */
-    @apply mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row 2xl:mt-4 2xl:gap-4;
+    /* One row from sm; the wrap is a backstop, so a longer label can never
+       break inside a pill. */
+    @apply relative z-10 mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
+    grid-area: actions;
   }
   /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
      pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
      matches the footer's, which is what takes these over the 48px touch target
      the drawn padding alone missed by two pixels. */
   .hero-action {
-    @apply text-body focus-visible:ring-brand-500 2xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto 2xl:px-7 2xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-500 xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto xl:px-7 xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
-    /* Square everywhere, rather than the 390x214 band the artboard drew for a
-       flat image: the camera's vertical field is fixed, so the canvas shape is
-       the framing.
-
-       Stacked, below 900, it is capped at 520 and left-aligned. Under ~580 the
-       canvas is the full column and both are inert, so a phone is untouched.
-       Above that the cap stops it outgrowing the first screen, and left
-       alignment keeps it on the edge the name, headline and buttons share —
-       centred, it was the only thing in the hero that left it. From 900 it
-       sits beside the copy and the grid column sets its width; the square
-       aspect derives the height, so no step needs a height kept in sync.
+    /* The frame is the grid column's width at Rocket.module.css's 3:5, so no
+       step keeps a height in sync. Portrait because the rocket is: in a square
+       it filled 45% of the width and left ~120px of empty canvas either side.
+       The camera's vertical field is fixed, so trimming the sides leaves the
+       rocket exactly the size it was.
 
        No rounding or clipping: the canvas is transparent and its halo is drawn
-       past the edges, so a clip would cut the glow rather than frame anything.
-       Rocket.module.css is unlayered and wins over these utilities where the
-       two overlap; nothing here contradicts it. */
-    @apply relative z-10 col-start-1 row-start-1 mr-auto aspect-square w-full max-w-[520px] lg:col-start-2 lg:mr-0 lg:max-w-none;
-  }
-
-  /* Side by side from the shared `wide` step, 900 — the same width the nav
-     switches at. Not earlier: equal columns fit both buttons on one row from
-     about 760, but the rocket there is ~320px and read as too small, and
-     anything other than a fixed size means it grows per pixel inside the
-     band. 430, lg's size, so it changes nowhere until xl. The copy keeps
-     335px, which the buttons (314) fit. Bounded at 1023 so it cannot argue
-     with the lg rules that follow.
-
-     Known gap: stacked below this, a square rocket under a wide copy column
-     leaves dead space to its right from ~540 up. Parked on the ticket. */
-  @media (min-width: 900px) and (max-width: 1023px) {
-    .hero-composition {
-      grid-template-columns: minmax(0, 1fr) 430px;
-      align-items: center;
-      column-gap: 2.5rem;
-    }
-    .hero-copy {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    .hero-visual {
-      grid-column: 2;
-      grid-row: 1;
-      max-width: none;
-      margin-inline: 0;
-    }
+       past the edges, so a clip would cut the glow rather than frame anything. */
+    @apply relative z-10 w-full self-center;
+    grid-area: visual;
   }
 
   /* Stat card (metric tiles) */
