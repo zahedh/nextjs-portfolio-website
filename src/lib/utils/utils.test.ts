@@ -1,7 +1,9 @@
 import {
+  capitalise,
   cn,
   createEscapeHandler,
   getSkillsByIds,
+  spellNumber,
   sumContributions,
 } from './utils';
 
@@ -243,6 +245,25 @@ describe('utils', () => {
 
     it('GIVEN an empty calendar WHEN totalling THEN returns zero', () => {
       expect(sumContributions([])).toBe(0);
+    });
+  });
+
+  describe('spellNumber', () => {
+    it('GIVEN a small whole number WHEN spelled THEN returns the word', () => {
+      expect(spellNumber(0)).toBe('zero');
+      expect(spellNumber(6)).toBe('six');
+      expect(spellNumber(20)).toBe('twenty');
+    });
+
+    it('GIVEN a number past twenty WHEN spelled THEN falls back to digits', () => {
+      expect(spellNumber(21)).toBe('21');
+    });
+  });
+
+  describe('capitalise', () => {
+    it('GIVEN a word WHEN capitalised THEN upper-cases only its first letter', () => {
+      expect(capitalise('six')).toBe('Six');
+      expect(capitalise('')).toBe('');
     });
   });
 });

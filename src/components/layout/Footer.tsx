@@ -29,7 +29,7 @@ export default function Footer() {
               <TertiaryButton
                 hyperlink="/documents/CV.pdf"
                 target="_blank"
-                className="footer-action footer-action-secondary"
+                className="footer-action btn-outline"
                 icon={<Download aria-hidden className="size-4" />}
               >
                 {en.footerSection.downloadCVLabel}

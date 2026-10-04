@@ -43,6 +43,24 @@ function parseUtcDate(isoDate: string): Date {
 }
 
 /**
+ * A whole year of empty days, matching the Jan 1 - Dec 31 range the API asks
+ * GitHub for. The band renders this while a year is in flight, so a cold load
+ * shows the calendar's own shape rather than a line of body copy, and the real
+ * data arrives as a change of colour with no reflow behind it.
+ */
+export function buildEmptyYear(year: number): ActivityCalendarData[] {
+  const days: ActivityCalendarData[] = [];
+  const day = new Date(Date.UTC(year, 0, 1));
+
+  while (day.getUTCFullYear() === year) {
+    days.push({ date: day.toISOString().slice(0, 10), count: 0, level: 0 });
+    day.setUTCDate(day.getUTCDate() + 1);
+  }
+
+  return days;
+}
+
+/**
  * Lays contribution days out as weekday-aligned columns, and derives the month
  * row from those same columns so a label cannot drift from the data beneath it.
  */

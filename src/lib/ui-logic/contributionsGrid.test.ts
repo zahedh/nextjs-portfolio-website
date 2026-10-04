@@ -1,5 +1,5 @@
 import { ActivityCalendarData } from '@/types/github';
-import { buildContributionGrid } from './contributionsGrid';
+import { buildContributionGrid, buildEmptyYear } from './contributionsGrid';
 
 /** Builds one activity per day across an inclusive ISO date range. */
 function daysBetween(startIso: string, endIso: string): ActivityCalendarData[] {
@@ -59,5 +59,30 @@ describe('buildContributionGrid', () => {
 
   it('GIVEN no activities WHEN building THEN the grid is empty rather than throwing', () => {
     expect(buildContributionGrid([])).toEqual({ weeks: [], months: [] });
+  });
+});
+
+describe('buildEmptyYear', () => {
+  it('GIVEN a leap year WHEN building THEN it spans every day from January to December', () => {
+    const days = buildEmptyYear(2024);
+
+    expect(days).toHaveLength(366);
+    expect(days[0].date).toBe('2024-01-01');
+    expect(days[days.length - 1].date).toBe('2024-12-31');
+  });
+
+  it('GIVEN a common year WHEN building THEN every day is empty', () => {
+    const days = buildEmptyYear(2026);
+
+    expect(days).toHaveLength(365);
+    expect(days.every((day) => day.count === 0 && day.level === 0)).toBe(true);
+  });
+
+  it('GIVEN an empty year WHEN laid out THEN it fills the same columns as real data', () => {
+    const real = buildContributionGrid(daysBetween('2026-01-01', '2026-12-31'));
+    const stand = buildContributionGrid(buildEmptyYear(2026));
+
+    expect(stand.weeks).toHaveLength(real.weeks.length);
+    expect(stand.months).toEqual(real.months);
   });
 });
