@@ -6,3 +6,4 @@ export { default as ThemeToggleButton } from './ThemeToggleButton';
 export { default as BurgerMenuButton } from './BurgerMenuButton';
 export { default as DismissButton } from './DismissButton';
 export { default as CloseButton } from './DismissButton';
+export { default as ThemeSwitch } from './ThemeSwitch';

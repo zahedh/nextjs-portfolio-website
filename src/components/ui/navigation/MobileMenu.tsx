@@ -130,7 +130,7 @@ export default function MobileMenu() {
                       }
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.home}
                   </Link>
@@ -145,7 +145,7 @@ export default function MobileMenu() {
                       if (isHome) handleSmoothScroll(mouseEvent);
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.skills}
                   </Link>
@@ -160,7 +160,7 @@ export default function MobileMenu() {
                       if (isHome) handleSmoothScroll(mouseEvent);
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.projects}
                   </Link>
@@ -175,7 +175,7 @@ export default function MobileMenu() {
                       if (isHome) handleSmoothScroll(mouseEvent);
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.experience}
                   </Link>
@@ -190,7 +190,7 @@ export default function MobileMenu() {
                       if (isHome) handleSmoothScroll(mouseEvent);
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.about}
                   </Link>
@@ -205,7 +205,7 @@ export default function MobileMenu() {
                       if (isHome) handleSmoothScroll(mouseEvent);
                       setIsOpen(false);
                     }}
-                    className="nav-link"
+                    className="mobile-nav-link"
                   >
                     {en.contact}
                   </Link>

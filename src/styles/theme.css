@@ -88,6 +88,9 @@
      the margins on a wide screen come from the page measure's cap, so a
      larger desktop value would only make the page jump where it changed. */
   --spacing-gutter: 1.375rem;
+  /* The sticky header's height at every width. .screen-section's scroll
+     margin is derived from it, so anchors keep clearing the bar. */
+  --spacing-header: 4.5rem;
   --spacing-surface: 1.125rem;
   --spacing-rhythm: 1.375rem;
   /* The whole measured distance between a heading and its content. The

@@ -286,7 +286,56 @@
   /* =========================
      ðŸ”— NAVIGATION
      ========================= */
+  /* The text mark and the burger share the accent, so the bar is bookended in
+     one colour. Its left edge is the glyph's, so it sits on the content edge;
+     min-h-11 keeps a full touch target without moving that edge. */
+  .nav-mark {
+    @apply font-display text-title-sm text-brand-500 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
+  }
+  .nav-burger {
+    @apply text-brand-500 dark:text-brand-100 flex size-11 flex-col items-end justify-center gap-[5px] transition-opacity duration-100 active:opacity-70 md:hidden;
+
+    & > span {
+      @apply h-0.5 rounded-full bg-current;
+    }
+  }
+  /* Mono at the drawn 12px, the bar's quiet register. Rest is neutral-600, not
+     the drawn mid grey, which falls under 4.5:1 on the light ground. The
+     current section takes full ink and an accent underline set below the
+     text, so marking it moves nothing. */
+  .nav-links {
+    @apply flex items-center gap-[22px];
+  }
   .nav-link {
+    @apply text-caption relative inline-flex min-h-11 items-center font-mono text-neutral-600 transition-colors duration-150 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100;
+
+    &::after {
+      content: '';
+      @apply bg-brand-500 dark:bg-brand-100 absolute inset-x-0 bottom-[9px] h-[2px] scale-x-0 rounded-full transition-transform duration-200 ease-out;
+    }
+    &[aria-current='location'] {
+      @apply text-neutral-900 dark:text-neutral-100;
+    }
+    &[aria-current='location']::after {
+      @apply scale-x-100;
+    }
+  }
+  .theme-switch {
+    @apply focus-visible:ring-brand-500 flex cursor-pointer items-center gap-0.5 rounded-full border border-neutral-300 p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:border-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+  }
+  .theme-switch-option {
+    @apply flex size-6 items-center justify-center rounded-full text-neutral-600 transition-colors duration-150 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-100;
+
+    /* Keyed off the root class rather than store state, which only settles
+       once the store has read the stored theme after hydration. */
+    :root:not(.dark) &[data-theme-option='light'] {
+      @apply bg-brand-500 text-neutral-900;
+    }
+    .dark &[data-theme-option='dark'] {
+      @apply bg-brand-100 text-neutral-900;
+    }
+  }
+  .mobile-nav-link {
     @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-body-sm relative inline-block font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
 
     &::after {

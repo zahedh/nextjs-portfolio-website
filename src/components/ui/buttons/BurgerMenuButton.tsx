@@ -1,7 +1,6 @@
 'use client';
 
 import { forwardRef } from 'react';
-import { Menu } from 'lucide-react';
 
 export type BurgerMenuButtonProps = {
   onClick: () => void;
@@ -9,7 +8,11 @@ export type BurgerMenuButtonProps = {
   'aria-controls': string;
 };
 
-/** Icon-only button that opens the mobile navigation drawer. */
+/**
+ * Icon-only button that opens the mobile navigation drawer. Two lines of
+ * unequal length, set against the button's right edge so they sit on the
+ * content edge.
+ */
 const BurgerMenuButton = forwardRef<HTMLButtonElement, BurgerMenuButtonProps>(
   function BurgerMenuButton(
     { onClick, 'aria-expanded': ariaExpanded, 'aria-controls': ariaControls },
@@ -20,12 +23,13 @@ const BurgerMenuButton = forwardRef<HTMLButtonElement, BurgerMenuButtonProps>(
         ref={ref}
         type="button"
         onClick={onClick}
-        className="text-brand-500 p-2 transition-opacity duration-100 active:opacity-70 md:hidden"
+        className="nav-burger"
         aria-label="Toggle menu"
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
       >
-        <Menu className="h-6 w-6" strokeWidth={2} aria-hidden />
+        <span aria-hidden className="w-[22px]" />
+        <span aria-hidden className="w-[14px]" />
       </button>
     );
   }
