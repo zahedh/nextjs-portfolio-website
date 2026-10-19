@@ -706,19 +706,84 @@
   .meta-list-value {
     @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
-  /* Placeholder surface for the about visual, which is not built yet. The hero
-     slot carried this too until the rocket replaced it. */
-  .visual-placeholder {
-    @apply overflow-hidden rounded-lg;
+  /* About. Like the hero, a phone below sm stacks the photograph above the
+     copy, and from sm the two sit side by side, so the stacked layout never
+     has to fill a tablet-width window. Beside the copy the photograph has one
+     place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
+     and xl, so it only ever grows. The last row is 1fr so a photograph taller
+     than the copy pools its slack under the closing note rather than spreading
+     the copy apart. Every size steps; nothing is fluid. */
+  .about-grid {
+    @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
-    background: linear-gradient(
-      168deg,
-      var(--color-brand-400),
-      var(--color-brand-600)
-    );
+    grid-template-areas: 'visual' 'tagline' 'narrative' 'credentials' 'note';
   }
+  @media (width >= 40rem) {
+    .about-grid {
+      @apply gap-x-11;
+
+      grid-template-columns: minmax(0, 1fr) 200px;
+      grid-template-rows: auto auto auto 1fr;
+      grid-template-areas:
+        'tagline visual'
+        'narrative visual'
+        'credentials visual'
+        'note visual';
+    }
+  }
+  @media (width >= 48rem) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 240px;
+    }
+  }
+  @media (width >= 64rem) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 300px;
+    }
+  }
+  @media (width >= 80rem) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 360px;
+    }
+  }
+  /* Stacked, the frame is capped so it stays a plate rather than a banner on a
+     large phone. The face sits in the upper half of the photograph, so the
+     crop favours it. */
   .about-visual {
-    @apply aspect-[4/5] w-full;
+    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+
+    grid-area: visual;
+
+    & img {
+      @apply object-cover object-[50%_35%];
+    }
+  }
+  /* A statement rather than a second heading: the section heading's size at
+     each of its steps, but medium weight in a mid neutral, so the two differ
+     in weight and tone instead of competing as two bold headings. */
+  .about-tagline {
+    @apply font-display text-heading lg:text-heading-lg 2xl:text-display max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
+
+    grid-area: tagline;
+  }
+  .about-narrative {
+    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
+
+    grid-area: narrative;
+  }
+  .about-credentials {
+    grid-area: credentials;
+  }
+  .about-credential-list {
+    @apply flex flex-col gap-[11px];
+  }
+  .about-credential {
+    @apply border-brand-500 dark:border-brand-400 text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
+  }
+  .about-note {
+    @apply text-body max-w-[56ch] border-t border-neutral-200 pt-[18px] text-neutral-500 italic lg:max-w-[52ch] dark:border-neutral-800 dark:text-neutral-400;
+
+    grid-area: note;
   }
   .hero-composition {
     /* The copy column takes what the rocket leaves, so the page around the hero

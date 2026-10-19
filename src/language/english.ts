@@ -43,6 +43,7 @@ export const en = {
     closingNote:
       'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
     credentialsAriaLabel: 'At a glance',
+    photoAlt: 'Zahed Heidari, smiling in sunglasses at a café table',
   },
 
   skillsSection: {
