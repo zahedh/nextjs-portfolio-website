@@ -14,6 +14,7 @@ export const en = {
   closeMenu: 'Close menu',
   menu: 'Menu',
   theme: 'Theme',
+  initials: 'ZH',
 
   // Static Home Content
   sectionHeaders: {

@@ -91,7 +91,7 @@ export default function MobileMenu({
               className="nav-mark"
               aria-label={en.home}
             >
-              ZH
+              {en.initials}
             </Link>
             <button
               ref={closeRef}

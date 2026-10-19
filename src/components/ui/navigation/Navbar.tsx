@@ -60,7 +60,7 @@ export default function Navbar() {
         className="nav-mark"
         aria-label={en.home}
       >
-        ZH
+        {en.initials}
       </Link>
 
       <div className="hidden items-center gap-[26px] md:flex">
