@@ -1,5 +1,4 @@
 export * from './projectDisplay';
-export * from './projectHeroMedia';
 export * from './mobileMenuMotion';
 export * from './skillsCollageMotion';
 export * from './skillTileTooltip';

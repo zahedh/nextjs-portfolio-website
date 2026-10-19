@@ -31,8 +31,6 @@ export interface Project {
   endDate: string;
   description: string[];
   skills: string[];
-  image?: string;
-  imageToken?: string;
   url?: string;
   urlLabel?: string;
   repoUrl?: string;
