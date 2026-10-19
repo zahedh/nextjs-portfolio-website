@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import LightModeInitials from '../../../public/images/lightModeInitials.png';
-import DarkModeInitials from '../../../public/images/darkModeInitials.png';
+import { initialsDark, initialsLight } from '@/images';
 
 type Props = {
   alt?: string;
@@ -22,7 +21,7 @@ export default function InitialsGraphic({
         className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}
       >
         <Image
-          src={LightModeInitials}
+          src={initialsLight}
           alt={alt}
           fill
           sizes={sizes}
@@ -35,7 +34,7 @@ export default function InitialsGraphic({
         className={`relative hidden shrink-0 overflow-hidden dark:block ${className}`}
       >
         <Image
-          src={DarkModeInitials}
+          src={initialsDark}
           alt={alt}
           fill
           sizes={sizes}

@@ -3,99 +3,85 @@
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion, useReducedMotion } from 'motion/react';
-import { useBreakpoint } from '@/hooks/utilityHooks';
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { aboutPhoto } from '@/images';
 
 const viewMotion = { once: true, margin: '-80px' as const };
 
-/** Editorial About: vertical stack (graphic above copy) below lg; text left + sticky graphic right from lg up. */
+/** About: photograph, tagline, narrative, credential rail and closing note, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
-  const isDesktop = useBreakpoint('lg');
-  const prefersReducedMotion = useReducedMotion();
-  const graphicFloat =
-    !isDesktop && prefersReducedMotion !== true ? { y: [0, -6, 0] } : undefined;
 
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
-      <div className="mx-auto w-3/4 min-w-0">
-        <div className="gap-stack flex flex-col lg:flex-row lg:items-start lg:gap-11">
-          <div className="gap-stack order-2 flex min-w-0 flex-1 flex-col lg:order-1">
-            <div className="gap-stack flex flex-col text-center lg:text-left">
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={viewMotion}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="font-heading text-brand-600 dark:text-brand-400 text-heading lg:text-heading-lg mx-auto max-w-3xl font-bold italic lg:mx-0 lg:max-w-none"
-              >
-                {en.aboutSection.tagline}
-              </motion.p>
-            </div>
+      <div className="about-grid">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={viewMotion}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+          className="about-visual"
+        >
+          {/* sizes asks for twice each frame width: a source at the frame's own
+              width rendered visibly soft, while one twice as wide, scaled down
+              by the browser, renders sharp. */}
+          <Image
+            src={aboutPhoto}
+            alt={en.aboutSection.photoAlt}
+            placeholder="blur"
+            fill
+            sizes="(min-width: 80rem) 720px, (min-width: 64rem) 600px, (min-width: 48rem) 480px, (min-width: 40rem) 400px, 704px"
+          />
+        </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewMotion}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-              className="text-lead mx-auto max-w-3xl space-y-6 text-center text-neutral-800 lg:mx-0 lg:max-w-none lg:text-left dark:text-neutral-300"
-            >
-              <p>{narrativeFirst}</p>
-              <p>{narrativeSecond}</p>
-            </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewMotion}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+          className="about-tagline"
+        >
+          {en.aboutSection.tagline}
+        </motion.p>
 
-            <motion.aside
-              aria-label={en.aboutSection.credentialsAriaLabel}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewMotion}
-              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
-            >
-              <ul className="font-heading text-body mx-auto flex w-full max-w-2xl flex-col items-center gap-y-4 font-semibold tracking-tight lg:mx-0 lg:items-start">
-                {aboutCredentialLines.map((line) => (
-                  <li
-                    key={line}
-                    className="flex w-full justify-center lg:justify-start"
-                  >
-                    <span className="text-brand-700 dark:text-brand-300 border-brand-500/25 inline-block border-l-[3px] pl-4 text-center lg:text-left">
-                      {line}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </motion.aside>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewMotion}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+          className="about-narrative"
+        >
+          <p>{narrativeFirst}</p>
+          <p>{narrativeSecond}</p>
+        </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={viewMotion}
-              transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
-              className="text-brand-700 dark:text-brand-400 text-body border-t border-neutral-300/70 pt-10 text-center font-normal italic lg:text-left dark:border-neutral-700"
-            >
-              {en.aboutSection.closingNote}
-            </motion.p>
-          </div>
+        <motion.aside
+          aria-label={en.aboutSection.credentialsAriaLabel}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewMotion}
+          transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
+          className="about-credentials"
+        >
+          <ul className="about-credential-list">
+            {aboutCredentialLines.map((line) => (
+              <li key={line} className="about-credential">
+                {line}
+              </li>
+            ))}
+          </ul>
+        </motion.aside>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={viewMotion}
-            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-            className="order-1 mx-auto flex w-full max-w-[min(100%,360px)] shrink-0 justify-center sm:max-w-[400px] lg:sticky lg:top-24 lg:z-0 lg:order-2 lg:mx-0 lg:w-[460px] lg:max-w-[460px] lg:shrink-0 lg:justify-end lg:self-start"
-          >
-            <motion.div
-              className="flex w-full justify-center lg:max-w-[460px]"
-              animate={graphicFloat}
-              transition={{
-                duration: 5,
-                repeat: graphicFloat ? Infinity : 0,
-                ease: 'easeInOut',
-              }}
-            >
-              <div className="about-visual visual-placeholder" aria-hidden />
-            </motion.div>
-          </motion.div>
-        </div>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewMotion}
+          transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
+          className="about-note"
+        >
+          {en.aboutSection.closingNote}
+        </motion.p>
       </div>
     </Section>
   );

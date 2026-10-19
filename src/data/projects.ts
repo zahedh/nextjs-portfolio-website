@@ -13,7 +13,6 @@ export const projects: Project[] = [
     startDate: 'Jan 2025',
     endDate: 'Mar 2026',
     repoUrl: 'https://github.com/zahedh/nextjs-portfolio-website',
-    imageToken: 'avatar',
     description: [
       'Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
       'A modern, responsive portfolio website built with Next.js 15 and TypeScript showcasing my professional work and skills.',
@@ -59,7 +58,6 @@ export const projects: Project[] = [
     startDate: 'Mar 2023',
     endDate: 'Present',
     url: 'https://smarty.co.uk/app',
-    image: '/images/smartyLogo.png',
     description: [
       'A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
       'Built using React Native to support both iOS and Android platforms under a shared codebase.',
@@ -142,7 +140,6 @@ export const projects: Project[] = [
     company: 'Staffordshire University',
     startDate: 'Dec 2021',
     endDate: 'May 2022',
-    image: '/images/staffordshireUniversityLogo.jpg',
     repoUrl: 'https://github.com/zahedh/BeAware',
     description: [
       'Developed a React Native mobile application as my final year project at Staffordshire University.',
@@ -177,7 +174,6 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
-    image: '/images/michelinLogo.jpeg',
     description: [
       'Led the migration of Michelin’s internal mobile apps from the legacy Alloy framework to React Native, covering a tyre costing tool and a truck auditing tool.',
       'The costings app calculates and analyses the cost of Michelin tyres for internal business processes.',
@@ -211,7 +207,6 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jun 2021',
     endDate: 'Jul 2021',
-    image: '/images/redFredLogo.png',
     description: [
       "Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
       "Significantly reduced RedFred's production time for TheirCare PDFs through automation.",
