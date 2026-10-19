@@ -37,13 +37,9 @@ export function useTheme() {
 
   useEffect(() => {
     if (!store) return;
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-    const shouldBeDark =
-      storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
-    document.documentElement.classList.toggle('dark', shouldBeDark);
+    // The pre-paint script in the root layout has already set the class from
+    // the stored choice, dark unless the visitor chose light; mirror it.
+    const shouldBeDark = document.documentElement.classList.contains('dark');
     store.setState({ isDark: shouldBeDark });
   }, [store]);
 

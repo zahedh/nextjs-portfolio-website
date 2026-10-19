@@ -118,12 +118,11 @@ export default function RootLayout({
             dangerouslySetInnerHTML={{
               __html: `
                 (function() {
-                  const theme = localStorage.getItem('theme');
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else if (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                  }
+                  // Dark unless the visitor chose light. Storage can throw in a
+                  // private window, which still means dark.
+                  let theme = null;
+                  try { theme = localStorage.getItem('theme'); } catch (e) {}
+                  if (theme !== 'light') document.documentElement.classList.add('dark');
                 })();
               `,
             }}

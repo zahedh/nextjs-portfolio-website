@@ -16,13 +16,13 @@ export type GlobalStore = GlobalState & GlobalActions;
 /** Returns the initial global store state. */
 export const initGlobalStore = (): GlobalState => {
   return {
-    isDark: false,
+    isDark: true,
   };
 };
 
 /** Default initial state used when no override is provided. */
 export const defaultInitState: GlobalState = {
-  isDark: false,
+  isDark: true,
 };
 
 /**
