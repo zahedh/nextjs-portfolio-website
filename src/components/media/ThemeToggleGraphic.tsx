@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import LightModeToggle from '../../../public/images/lightModeToggle.png';
-import DarkModeToggle from '../../../public/images/darkModeToggle.png';
+import { themeToggleDark, themeToggleLight } from '@/images';
 
 type Props = {
   alt?: string;
@@ -19,7 +18,7 @@ export default function ThemeToggleGraphic({
         className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}
       >
         <Image
-          src={LightModeToggle}
+          src={themeToggleLight}
           alt={alt}
           fill
           sizes="14px"
@@ -30,7 +29,7 @@ export default function ThemeToggleGraphic({
         className={`relative hidden shrink-0 overflow-hidden dark:block ${className}`}
       >
         <Image
-          src={DarkModeToggle}
+          src={themeToggleDark}
           alt={alt}
           fill
           sizes="14px"

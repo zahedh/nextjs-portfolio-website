@@ -59,7 +59,7 @@ export const projects: Project[] = [
     startDate: 'Mar 2023',
     endDate: 'Present',
     url: 'https://smarty.co.uk/app',
-    image: '/images/smartyLogo.png',
+    image: '/images/smarty-logo.png',
     description: [
       'A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
       'Built using React Native to support both iOS and Android platforms under a shared codebase.',
@@ -142,7 +142,7 @@ export const projects: Project[] = [
     company: 'Staffordshire University',
     startDate: 'Dec 2021',
     endDate: 'May 2022',
-    image: '/images/staffordshireUniversityLogo.jpg',
+    image: '/images/staffordshire-university-logo.jpg',
     repoUrl: 'https://github.com/zahedh/BeAware',
     description: [
       'Developed a React Native mobile application as my final year project at Staffordshire University.',
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jul 2021',
     endDate: 'Sep 2021',
-    image: '/images/michelinLogo.jpeg',
+    image: '/images/michelin-logo.jpg',
     description: [
       'Led the migration of Michelin’s internal mobile apps from the legacy Alloy framework to React Native, covering a tyre costing tool and a truck auditing tool.',
       'The costings app calculates and analyses the cost of Michelin tyres for internal business processes.',
@@ -211,7 +211,7 @@ export const projects: Project[] = [
     company: 'Interlockdigital',
     startDate: 'Jun 2021',
     endDate: 'Jul 2021',
-    image: '/images/redFredLogo.png',
+    image: '/images/red-fred-logo.png',
     description: [
       "Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
       "Significantly reduced RedFred's production time for TheirCare PDFs through automation.",

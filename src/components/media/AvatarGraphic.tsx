@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import LightModeAvatar from '../../../public/images/lightModeAvatar.png';
-import DarkModeAvatar from '../../../public/images/darkModeAvatar.png';
+import { avatarDark, avatarLight } from '@/images';
 
 type Props = {
   alt?: string;
@@ -24,7 +23,7 @@ export default function AvatarGraphic({
         className={`relative shrink-0 overflow-hidden dark:hidden ${className}`}
       >
         <Image
-          src={LightModeAvatar}
+          src={avatarLight}
           alt={alt}
           fill
           sizes={sizes}
@@ -36,7 +35,7 @@ export default function AvatarGraphic({
         className={`relative hidden shrink-0 overflow-hidden dark:block ${className}`}
       >
         <Image
-          src={DarkModeAvatar}
+          src={avatarDark}
           alt={alt}
           fill
           sizes={sizes}

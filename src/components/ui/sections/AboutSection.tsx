@@ -5,7 +5,7 @@ import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import aboutPhoto from '../../../../public/images/FormalCasual.jpg';
+import { aboutPhoto } from '@/images';
 
 const viewMotion = { once: true, margin: '-80px' as const };
 
