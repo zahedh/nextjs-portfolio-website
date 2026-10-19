@@ -762,7 +762,7 @@
      each of its steps, but medium weight in a mid neutral, so the two differ
      in weight and tone instead of competing as two bold headings. */
   .about-tagline {
-    @apply font-display text-heading lg:text-heading-lg 2xl:text-display max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
+    @apply font-display text-heading lg:text-heading-lg 2xl:text-display max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-brand-700 dark:text-brand-200;
 
     grid-area: tagline;
   }
