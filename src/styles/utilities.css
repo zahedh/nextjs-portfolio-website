@@ -13,10 +13,12 @@
 
   .screen-section {
     @apply py-section-end w-full;
-    /* The 64px sticky header, less the section's own top padding, which lands
-       after the scroll margin. Leaves the heading ~24px clear of the header,
+    /* The sticky header, less the section's own top padding, which lands
+       after the scroll margin. Leaves the heading 24px clear of the header,
        with room for the focus rings on the filter controls. */
-    scroll-margin-top: 2rem;
+    scroll-margin-top: calc(
+      var(--spacing-header) - var(--spacing-section-end) + 1.5rem
+    );
   }
   /* Carries the page measure now that the section itself spans the viewport.
      Repeats .prime-parent's utilities rather than applying it: a class declared

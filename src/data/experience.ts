@@ -14,7 +14,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2026',
     endDate: 'Present',
     summary:
-      "One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 500k+ user ecosystem.",
+      "One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
     description: [
       '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow.',
       '✦ Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
@@ -52,7 +52,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Mar 2023',
     endDate: 'Jul 2026',
     summary:
-      "Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 500k+ user ecosystem.",
+      "Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 1M+ user ecosystem.",
     description: [
       '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
       '✦ Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',

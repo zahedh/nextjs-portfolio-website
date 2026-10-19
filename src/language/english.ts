@@ -12,6 +12,9 @@ export const en = {
   contact: 'Contact',
   cV: 'CV',
   closeMenu: 'Close menu',
+  menu: 'Menu',
+  theme: 'Theme',
+  initials: 'ZH',
 
   // Static Home Content
   sectionHeaders: {
@@ -24,7 +27,7 @@ export const en = {
   heroSection: {
     name: 'Zahed Heidari',
     eyebrow: 'Senior Software Engineer · Blue Beck',
-    headline: `Half a million users. ${capitalise(spellNumber(getYearsOfExperience()))} years shipping.`,
+    headline: `Over a million users. ${capitalise(spellNumber(getYearsOfExperience()))} years shipping.`,
     supportingText:
       'I build full stack web and mobile products, and the AI that runs inside them.',
     primaryButton: 'See the work',
