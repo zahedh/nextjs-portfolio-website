@@ -25,6 +25,12 @@ export default function Navbar() {
   const isHome = pathname === '/';
   // Before the first section reaches the line the reader is in the hero.
   const activeSection = useActiveSection(SECTION_IDS, isHome) ?? 'home';
+  const currentSection = isHome ? activeSection : null;
+  const links = SECTIONS.map(({ id, label }) => ({
+    id,
+    label,
+    href: id === 'home' ? '/' : isHome ? `#${id}` : `/#${id}`,
+  }));
 
   const handleClick = (
     mouseEvent: React.MouseEvent<HTMLAnchorElement>,
@@ -33,6 +39,17 @@ export default function Navbar() {
     if (!isHome) return;
     if (id === 'home') scrollToTop(mouseEvent);
     else handleSmoothScroll(mouseEvent);
+  };
+
+  // The phone sheet closes onto the section rather than scrolling to it.
+  const handleSheetClick = (
+    mouseEvent: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    if (!isHome) return;
+    mouseEvent.preventDefault();
+    if (id === 'home') window.scrollTo({ top: 0, behavior: 'instant' });
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
   };
 
   return (
@@ -48,14 +65,12 @@ export default function Navbar() {
 
       <div className="hidden items-center gap-[26px] md:flex">
         <ul className="nav-links">
-          {SECTIONS.map(({ id, label }) => (
+          {links.map(({ id, label, href }) => (
             <li key={id}>
               <Link
-                href={id === 'home' ? '/' : isHome ? `#${id}` : `/#${id}`}
+                href={href}
                 className="nav-link"
-                aria-current={
-                  isHome && activeSection === id ? 'location' : undefined
-                }
+                aria-current={currentSection === id ? 'location' : undefined}
                 onClick={(mouseEvent) => handleClick(mouseEvent, id)}
               >
                 {label}
@@ -66,7 +81,11 @@ export default function Navbar() {
         <ThemeSwitch />
       </div>
 
-      <MobileMenu />
+      <MobileMenu
+        links={links}
+        activeSection={currentSection}
+        onNavigate={handleSheetClick}
+      />
     </nav>
   );
 }

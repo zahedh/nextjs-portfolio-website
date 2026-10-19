@@ -12,6 +12,8 @@ export const en = {
   contact: 'Contact',
   cV: 'CV',
   closeMenu: 'Close menu',
+  menu: 'Menu',
+  theme: 'Theme',
 
   // Static Home Content
   sectionHeaders: {

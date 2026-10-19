@@ -9,7 +9,7 @@ export type BurgerMenuButtonProps = {
 };
 
 /**
- * Icon-only button that opens the mobile navigation drawer. Two lines of
+ * Icon-only button that opens the phone menu. Two lines of
  * unequal length, set against the button's right edge so they sit on the
  * content edge.
  */

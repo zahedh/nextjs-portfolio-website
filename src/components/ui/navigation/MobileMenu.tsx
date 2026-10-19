@@ -1,223 +1,130 @@
 'use client';
 
-import { useState, useId, useRef, useCallback } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import {
-  motion,
-  AnimatePresence,
-  useReducedMotion,
-  type PanInfo,
-} from 'motion/react';
+import { X } from 'lucide-react';
 import { en } from '@/language';
-import {
-  ThemeToggleButton,
-  BurgerMenuButton,
-  DismissButton,
-} from '@/components/ui/buttons';
-import {
-  useBodyScrollLock,
-  useEscapeKeydown,
-  useFocusCloseButtonOnOpen,
-} from '@/hooks/overlayHooks';
-import { scrollToTop, handleSmoothScroll } from '@/lib/utils';
-import {
-  MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX,
-  MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX,
-  getMobileMenuOverlayTransition,
-  getMobileMenuPanelTransition,
-  getMobileMenuNavContainerVariants,
-  getMobileMenuNavItemVariants,
-} from '@/lib/ui-logic';
+import { BurgerMenuButton, ThemeSwitch } from '@/components/ui/buttons';
+import { useBodyScrollLock } from '@/hooks/overlayHooks';
+
+// Tailwind's `md`, where the bar shows its own links and the sheet is hidden.
+const WIDE_QUERY = '(min-width: 48rem)';
+
+export type MobileMenuLink = { id: string; label: string; href: string };
+
+type MobileMenuProps = {
+  links: readonly MobileMenuLink[];
+  activeSection: string | null;
+  onNavigate: (
+    mouseEvent: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => void;
+};
 
 /**
- * Slide-in mobile navigation drawer with backdrop, swipe-to-dismiss, scroll lock,
- * Escape to close, and focus management on the dismiss control while open.
+ * Full-screen phone menu. A modal `<dialog>`, so the browser traps focus,
+ * makes the page inert, closes on Escape and returns focus to the burger.
+ * Its top row repeats the bar's, so the mark does not move when it opens.
  */
-export default function MobileMenu() {
+export default function MobileMenu({
+  links,
+  activeSection,
+  onNavigate,
+}: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuId = useId();
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const noMotion = Boolean(prefersReducedMotion);
-  const pathname = usePathname();
-  const isHome = pathname === '/';
 
   useBodyScrollLock(isOpen);
-  useEscapeKeydown(isOpen, () => setIsOpen(false));
-  useFocusCloseButtonOnOpen(isOpen, closeRef);
 
-  const overlayTransition = getMobileMenuOverlayTransition(noMotion);
-  const panelTransition = getMobileMenuPanelTransition(noMotion);
-  const navContainerVariants = getMobileMenuNavContainerVariants(noMotion);
-  const navItemVariants = getMobileMenuNavItemVariants(noMotion);
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
+      closeRef.current?.focus();
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
 
-  const handleDragEnd = useCallback(
-    (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-      if (noMotion) return;
-      if (
-        info.offset.x > MOBILE_MENU_SWIPE_DISMISS_OFFSET_PX ||
-        info.velocity.x > MOBILE_MENU_SWIPE_DISMISS_VELOCITY_PX
-      ) {
-        setIsOpen(false);
-      }
-    },
-    [noMotion]
-  );
+  // A hidden modal would leave the page inert and scroll-locked, so widening
+  // past the phone layout (rotating to landscape on a tablet) closes it.
+  useEffect(() => {
+    const wide = window.matchMedia(WIDE_QUERY);
+    const closeIfWide = () => {
+      if (wide.matches) setIsOpen(false);
+    };
+    wide.addEventListener('change', closeIfWide);
+    return () => wide.removeEventListener('change', closeIfWide);
+  }, []);
+
+  const navigate = (
+    mouseEvent: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    onNavigate(mouseEvent, id);
+    setIsOpen(false);
+  };
 
   return (
     <>
-      {isOpen ? (
-        <DismissButton
-          ref={closeRef}
-          variant="plainNav"
-          onClick={() => setIsOpen(false)}
-          aria-label={en.closeMenu}
-          aria-controls={menuId}
-        />
-      ) : (
-        <BurgerMenuButton
-          aria-expanded={isOpen}
-          aria-controls={menuId}
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      )}
+      <BurgerMenuButton
+        aria-expanded={isOpen}
+        aria-controls={menuId}
+        onClick={() => setIsOpen(true)}
+      />
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={overlayTransition}
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
-              onClick={() => setIsOpen(false)}
-            />
-
-            <motion.div
-              id={menuId}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobile navigation menu"
-              initial={noMotion ? { opacity: 0 } : { x: '100%' }}
-              animate={noMotion ? { opacity: 1 } : { x: 0 }}
-              exit={noMotion ? { opacity: 0 } : { x: '100%' }}
-              transition={panelTransition}
-              drag={noMotion ? false : 'x'}
-              dragConstraints={{ left: 0, right: 320 }}
-              dragElastic={0.06}
-              dragMomentum={false}
-              onDragEnd={handleDragEnd}
-              className="mobile-menu-panel"
+      <dialog
+        id={menuId}
+        ref={dialogRef}
+        aria-label={en.menu}
+        className="mobile-sheet"
+        onClose={() => setIsOpen(false)}
+      >
+        <div className="prime-parent flex flex-col pb-[26px]">
+          <div className="h-header flex items-center justify-between">
+            <Link
+              href="/"
+              onClick={(mouseEvent) => navigate(mouseEvent, 'home')}
+              className="nav-mark"
+              aria-label={en.home}
             >
-              <motion.nav
-                className="flex flex-col items-center gap-6 p-8 pt-8"
-                variants={navContainerVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
+              ZH
+            </Link>
+            <button
+              ref={closeRef}
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="nav-close"
+              aria-label={en.closeMenu}
+            >
+              <X className="size-[17px]" strokeWidth={2} aria-hidden />
+            </button>
+          </div>
+
+          <ul className="mobile-sheet-links">
+            {links.map(({ id, label, href }) => (
+              <li key={id}>
+                <Link
+                  href={href}
+                  className="mobile-sheet-link"
+                  aria-current={activeSection === id ? 'location' : undefined}
+                  onClick={(mouseEvent) => navigate(mouseEvent, id)}
                 >
-                  <Link
-                    href="/"
-                    onClick={(mouseEvent) => {
-                      if (isHome) {
-                        mouseEvent.preventDefault();
-                        scrollToTop(mouseEvent);
-                      }
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.home}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={isHome ? '#skills' : '/#skills'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.skills}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={isHome ? '#projects' : '/#projects'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.projects}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={isHome ? '#experience' : '/#experience'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.experience}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={isHome ? '#about' : '/#about'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.about}
-                  </Link>
-                </motion.div>
-                <motion.div
-                  variants={navItemVariants}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={isHome ? '#contact' : '/#contact'}
-                    onClick={(mouseEvent) => {
-                      if (isHome) handleSmoothScroll(mouseEvent);
-                      setIsOpen(false);
-                    }}
-                    className="mobile-nav-link"
-                  >
-                    {en.contact}
-                  </Link>
-                </motion.div>
-                <motion.div variants={navItemVariants}>
-                  <ThemeToggleButton />
-                </motion.div>
-              </motion.nav>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mobile-sheet-theme">
+            <span>{en.theme}</span>
+            <ThemeSwitch />
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }

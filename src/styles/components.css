@@ -340,22 +340,44 @@
       @apply bg-brand-100 text-neutral-900;
     }
   }
-  .mobile-nav-link {
-    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 text-body-sm relative inline-block font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
-
-    &::after {
-      content: '';
-      @apply bg-brand-500 dark:bg-brand-400 absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-[width] duration-200 ease-out;
-    }
-    &:hover::after,
-    &:focus-visible::after {
-      @apply w-full;
-    }
+  /* The close control takes the burger's 44px box, so it sits where the
+     burger was. */
+  .nav-close {
+    @apply focus-visible:ring-brand-500 flex size-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800;
   }
 
-  .mobile-menu-panel {
-    @apply border-brand-500 fixed top-0 z-50 w-56 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800;
-    right: 0 !important;
+  /* Phone menu: a modal <dialog> over the whole viewport on the page ground.
+     It scrolls itself, so a short landscape viewport still reaches the
+     theme row. Fades in and out; the display and overlay transitions keep
+     the closing fade from being cut off. */
+  .mobile-sheet {
+    @apply fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain bg-neutral-100 p-0 text-neutral-900 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden dark:bg-neutral-900 dark:text-neutral-100 starting:open:opacity-0;
+
+    &::backdrop {
+      @apply bg-transparent;
+    }
+  }
+  .mobile-sheet-links {
+    @apply flex flex-col gap-0.5 pt-[30px] pb-2;
+  }
+  /* Display face at the drawn 27px. The current section takes an accent
+     marker; the marker's slot is always there, so marking it moves nothing. */
+  .mobile-sheet-link {
+    @apply font-display flex min-h-12 items-center gap-3.5 text-[1.6875rem] leading-tight font-bold tracking-[-0.025em];
+
+    &::before {
+      content: '';
+      @apply h-[22px] w-[3px] shrink-0 rounded-full bg-transparent;
+    }
+    &[aria-current='location']::before {
+      @apply bg-brand-500;
+    }
+    .dark &[aria-current='location']::before {
+      @apply bg-brand-100;
+    }
+  }
+  .mobile-sheet-theme {
+    @apply text-caption mt-[18px] flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-neutral-600 dark:border-neutral-800 dark:text-neutral-400;
   }
 
   /* =========================
