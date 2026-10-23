@@ -892,8 +892,10 @@
   .about-credentials {
     grid-area: credentials;
   }
+  /* One column until lg, where the copy is wide enough for two; six lines
+     stacked made a tall, narrow strip that ran the copy past the photograph. */
   .about-credential-list {
-    @apply flex flex-col gap-[11px];
+    @apply grid grid-cols-1 gap-x-6 gap-y-[11px] lg:grid-cols-2;
   }
   .about-credential {
     @apply border-brand-500 dark:border-brand-400 text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
