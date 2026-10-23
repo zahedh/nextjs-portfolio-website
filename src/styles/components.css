@@ -822,7 +822,7 @@
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
-    grid-template-areas: 'visual' 'tagline' 'narrative' 'credentials';
+    grid-template-areas: 'visual' 'narrative' 'credentials';
   }
   @media (width >= 40rem) {
     .about-grid {
@@ -830,9 +830,8 @@
 
       grid-template-columns: minmax(0, max-content) 200px;
       justify-content: start;
-      grid-template-rows: auto auto 1fr;
+      grid-template-rows: auto 1fr;
       grid-template-areas:
-        'tagline visual'
         'narrative visual'
         'credentials visual';
     }
@@ -858,29 +857,39 @@
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
      large phone. The face sits in the upper half of the photograph, so the
-     crop favours it. Beside the copy its top meets the tagline's cap height
-     rather than its line box, which the leading and the face's ascender put
-     5px above the capitals at the title and heading sizes and 7px at
-     heading-lg; the photograph moves down rather than the text up, so the space
-     under the section heading matches every other section's. */
+     crop favours it. Beside the copy its top meets the narrative's cap height
+     rather than its line box; the photograph moves down rather than the text
+     up, so the space under the section heading matches every other
+     section's. The frame does not clip, so the stickers can overhang it; the
+     image carries the rounding instead. */
   .about-visual {
-    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:mt-[5px] sm:aspect-[4/5] sm:h-auto sm:max-w-none 2xl:mt-[7px];
+    @apply relative h-[300px] w-full max-w-88 sm:mt-2 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
 
     grid-area: visual;
 
     & img {
-      @apply object-cover object-[50%_35%];
+      @apply rounded-lg object-cover object-[50%_35%];
     }
   }
-  /* A statement rather than a second heading: one size below the section
-     heading at each of its steps, 21, 24 and 30px against 24, 30 and 38, in
-     the body face's true italic at regular weight and a mid neutral. Set bold
-     on the display face, it differed from the heading only in size and tone,
-     and read as competing with it; the italic differs in shape. */
-  .about-tagline {
-    @apply font-body-italic text-title lg:text-heading 2xl:text-heading-lg max-w-[18ch] leading-[1.15] font-normal text-balance text-neutral-600 italic dark:text-neutral-400;
+  /* Three stickers slapped on the photograph's edges, the section's one
+     playful note. They overhang by no more than the page gutter at sm and md,
+     where the photograph meets the gutter, and further from lg, where the
+     row has slack beside it. */
+  .about-stickers {
+    @apply pointer-events-none absolute inset-0;
+  }
+  .about-sticker {
+    @apply font-display text-body lg:text-title-sm absolute rounded-full px-3 py-1.5 font-bold whitespace-nowrap text-neutral-900 shadow-lg shadow-black/35 lg:px-4 lg:py-2;
 
-    grid-area: tagline;
+    &:nth-child(1) {
+      @apply bg-brand-400 -top-2.5 -left-2 -rotate-6 lg:-top-3.5 lg:-left-6.5;
+    }
+    &:nth-child(2) {
+      @apply top-[41%] -right-2 rotate-[5deg] bg-neutral-100 lg:-right-8.5;
+    }
+    &:nth-child(3) {
+      @apply border-brand-400 -bottom-3 left-5 -rotate-3 border-2 bg-neutral-900 py-1 text-neutral-50 lg:-bottom-4 lg:left-9 lg:py-1.5;
+    }
   }
   /* 52ch from lg, where the photograph takes the most of the row; from xl the
      row has room again, and the copy takes some of the slack beside it. */

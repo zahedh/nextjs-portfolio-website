@@ -9,7 +9,7 @@ import { aboutPhoto } from '@/images';
 
 const viewMotion = { once: true, margin: '-80px' as const };
 
-/** About: photograph, tagline, narrative, and credential rail, arranged per breakpoint by `.about-grid`. */
+/** About: photograph with its stickers, narrative and credential rail, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
 
@@ -33,17 +33,14 @@ export default function AboutSection() {
             fill
             sizes="(min-width: 77rem) 760px, (min-width: 64rem) 640px, (min-width: 48rem) 528px, (min-width: 40rem) 400px, 704px"
           />
+          <ul className="about-stickers">
+            {en.aboutSection.stickers.map((sticker) => (
+              <li key={sticker} className="about-sticker">
+                {sticker}
+              </li>
+            ))}
+          </ul>
         </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.45, ease: 'easeOut' }}
-          className="about-tagline"
-        >
-          {en.aboutSection.tagline}
-        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

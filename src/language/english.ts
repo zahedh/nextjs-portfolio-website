@@ -36,7 +36,7 @@ export const en = {
   },
 
   aboutSection: {
-    tagline: 'Tech loving, gym obsessed problem solver',
+    stickers: ['tech nerd', 'gym rat', 'wannabe vocalist'],
     introParagraph:
       'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
     narrativeParagraphs: [

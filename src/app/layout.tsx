@@ -25,16 +25,6 @@ const ibmPlexSans = IBM_Plex_Sans({
   display: 'swap',
 });
 
-// Its own instance, so the one italic the site sets, the About tagline, loads
-// a single file rather than an italic of every body weight.
-const ibmPlexSansItalic = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: '400',
-  style: 'italic',
-  variable: '--font-ibm-plex-sans-italic',
-  display: 'swap',
-});
-
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
@@ -51,7 +41,7 @@ const bricolageGrotesque = Bricolage_Grotesque({
   display: 'swap',
 });
 
-const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexSansItalic.variable} ${ibmPlexMono.variable} ${bricolageGrotesque.variable}`;
+const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${bricolageGrotesque.variable}`;
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {
