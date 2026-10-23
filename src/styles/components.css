@@ -786,9 +786,11 @@
      copy, and from sm the two sit side by side, so the stacked layout never
      has to fill a tablet-width window. Beside the copy the photograph has one
      place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
-     and xl, so it only ever grows. The last row is 1fr so a photograph taller
-     than the copy pools its slack under the closing note rather than spreading
-     the copy apart. Every size steps; nothing is fluid. */
+     and xl, so it only ever grows. As in the hero, the copy column is as wide
+     as its copy and the grid packs to the start, so the photograph keeps one
+     gap from the copy and the slack falls to its right. The last row is 1fr so
+     a photograph taller than the copy pools its slack under the closing note
+     rather than spreading the copy apart. Every size steps; nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
@@ -798,7 +800,8 @@
     .about-grid {
       @apply gap-x-11;
 
-      grid-template-columns: minmax(0, 1fr) 200px;
+      grid-template-columns: minmax(0, max-content) 200px;
+      justify-content: start;
       grid-template-rows: auto auto auto 1fr;
       grid-template-areas:
         'tagline visual'
@@ -809,17 +812,17 @@
   }
   @media (width >= 48rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 240px;
+      grid-template-columns: minmax(0, max-content) 240px;
     }
   }
   @media (width >= 64rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 300px;
+      grid-template-columns: minmax(0, max-content) 300px;
     }
   }
   @media (width >= 80rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 360px;
+      grid-template-columns: minmax(0, max-content) 360px;
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
@@ -862,13 +865,15 @@
     grid-area: note;
   }
   .hero-composition {
-    /* The copy column takes what the rocket leaves, so the page around the hero
-       flows with the window like every other section. The type and the rocket
-       do not: each changes size only at a breakpoint, together, so inside a
-       range the space between the copy and the rocket grows with the window.
-       That is the accepted cost of not resizing anything per pixel. It is
-       bounded by the next step, and from xl by the page measure, which the xl
-       hero fills: 690 + 56 + 396 inside 80rem's 1176.
+    /* The copy column is as wide as its copy and the grid packs to the start,
+       so the rocket sits one column gap from the copy at every width and the
+       window's slack falls to its right. The type and the rocket change size
+       only at a breakpoint, together, so between steps nothing in the hero
+       moves. The cost is a right edge that stops short of the sections', by
+       up to 353px at the end of the lg range and 61px at the 80rem cap. A copy
+       column that took what the rocket left pinned the rocket to the page edge
+       instead, and the gap beside it grew across each range and snapped back
+       at the next, 169 to 424 and then 147 at 1280.
 
        Height is the content's, never the viewport's. A `min-height: 75vh` here
        sat under fixed-height content, so the hero grew with the window while
@@ -893,17 +898,18 @@
       'copy';
 
     @variant sm {
-      grid-template-columns: minmax(0, 1fr) 216px;
+      grid-template-columns: minmax(0, max-content) 216px;
       grid-template-areas: 'copy visual';
+      justify-content: start;
     }
     @variant md {
-      grid-template-columns: minmax(0, 1fr) 240px;
+      grid-template-columns: minmax(0, max-content) 240px;
     }
     @variant lg {
-      grid-template-columns: minmax(0, 1fr) 288px;
+      grid-template-columns: minmax(0, max-content) 288px;
     }
     @variant xl {
-      grid-template-columns: minmax(0, 1fr) 396px;
+      grid-template-columns: minmax(0, max-content) 396px;
     }
   }
   .hero-copy {
@@ -931,12 +937,13 @@
        stops at 700, so this sets its own.
 
        One size per breakpoint, stepping with the rocket. 38px on a phone, the
-       drawn size. From sm
-       46px and from md 58px, both at 11ch, a three-line block that leaves
-       both buttons a row; 13ch
-       from lg, where each step's copy column has the room for the full
-       measure. No 2xl step: the page stops growing before 1536. */
-    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch] lg:max-w-[13ch];
+       drawn size. From sm 46px, from md 58px, from lg 72px and from xl 96px,
+       all at 11ch, a three-line block that leaves both buttons a row. The copy
+       column is as wide as this box, and balanced lines stop short of it, so
+       a wider measure set the rocket that much further from the text: 13ch
+       broke the same three lines and left 167px beside the rocket at lg
+       against 70 at 11ch. No 2xl step: the page stops growing before 1536. */
+    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch];
   }
   .hero-supporting-text {
     @apply text-lead xl:text-title-sm max-w-[46ch] xl:max-w-[52ch];
