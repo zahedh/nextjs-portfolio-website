@@ -885,8 +885,10 @@
 
     grid-area: tagline;
   }
+  /* 52ch from lg, where the photograph takes the most of the row; from xl the
+     row has room again, and the copy takes some of the slack beside it. */
   .about-narrative {
-    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
+    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] xl:max-w-[60ch] dark:text-neutral-300;
 
     grid-area: narrative;
   }
