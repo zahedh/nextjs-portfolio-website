@@ -1,6 +1,7 @@
 'use client';
 
 import { createPortal } from 'react-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { buildContributionGrid } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
@@ -37,49 +38,80 @@ export default function ContributionsCalendar({
     useContributionTooltip();
   const { ref: scrollRef, edges } = useScrollEdges<HTMLDivElement>();
 
+  // Most of a view per click, so the weeks just passed stay in sight as an
+  // anchor. The scroller's own scroll-behavior decides smooth or instant.
+  const scrollByView = (direction: -1 | 1) => {
+    const element = scrollRef.current;
+    element?.scrollBy({ left: direction * element.clientWidth * 0.8 });
+  };
+
   return (
     <div
       className={cn('contrib-chart', pending && 'is-pending')}
       style={{ '--contrib-weeks': weeks.length } as React.CSSProperties}
     >
-      {/* Both rows sit on identical fixed tracks, so a month label cannot drift
-          from the weeks beneath it, and both scroll together as one. */}
-      <div
-        ref={scrollRef}
-        data-edges={edges}
-        className="contrib-scroll"
-        role="img"
-        aria-label={summary}
-        tabIndex={0}
-        onMouseOver={pending ? undefined : handleMouseOver}
-        onMouseLeave={pending ? undefined : handleMouseLeave}
-      >
-        <div className="contrib-months">
-          {months.map((month) => (
-            <div key={month.key} style={{ gridColumn: `span ${month.span}` }}>
-              {month.label}
-            </div>
-          ))}
-        </div>
+      {/* A mouse has no sideways gesture, so where a side still has weeks
+          behind its fade, a button over that edge scrolls to them. Touch
+          swipes, and the buttons stay hidden there. */}
+      <div className="contrib-scroll-frame">
+        <button
+          type="button"
+          className="contrib-scroll-button contrib-scroll-button-start"
+          aria-label={en.contributionsCalendar.scrollEarlier}
+          hidden={edges === 'none' || edges === 'start'}
+          onClick={() => scrollByView(-1)}
+        >
+          <ChevronLeft aria-hidden className="size-4" />
+        </button>
+        <button
+          type="button"
+          className="contrib-scroll-button contrib-scroll-button-end"
+          aria-label={en.contributionsCalendar.scrollLater}
+          hidden={edges === 'none' || edges === 'end'}
+          onClick={() => scrollByView(1)}
+        >
+          <ChevronRight aria-hidden className="size-4" />
+        </button>
 
-        <div className="contrib-grid">
-          {weeks.map((week, weekIndex) =>
-            week.map((day, weekday) =>
-              day ? (
-                <i
-                  key={day.date}
-                  className={cn('contrib-cell', `contrib-cell-${day.level}`)}
-                  data-date={day.date}
-                  data-count={day.count}
-                />
-              ) : (
-                <i
-                  key={`pad-${weekIndex}-${weekday}`}
-                  className="contrib-cell invisible"
-                />
+        {/* Both rows sit on identical fixed tracks, so a month label cannot drift
+          from the weeks beneath it, and both scroll together as one. */}
+        <div
+          ref={scrollRef}
+          data-edges={edges}
+          className="contrib-scroll"
+          role="img"
+          aria-label={summary}
+          tabIndex={0}
+          onMouseOver={pending ? undefined : handleMouseOver}
+          onMouseLeave={pending ? undefined : handleMouseLeave}
+        >
+          <div className="contrib-months">
+            {months.map((month) => (
+              <div key={month.key} style={{ gridColumn: `span ${month.span}` }}>
+                {month.label}
+              </div>
+            ))}
+          </div>
+
+          <div className="contrib-grid">
+            {weeks.map((week, weekIndex) =>
+              week.map((day, weekday) =>
+                day ? (
+                  <i
+                    key={day.date}
+                    className={cn('contrib-cell', `contrib-cell-${day.level}`)}
+                    data-date={day.date}
+                    data-count={day.count}
+                  />
+                ) : (
+                  <i
+                    key={`pad-${weekIndex}-${weekday}`}
+                    className="contrib-cell invisible"
+                  />
+                )
               )
-            )
-          )}
+            )}
+          </div>
         </div>
       </div>
 

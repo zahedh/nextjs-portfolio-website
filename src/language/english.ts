@@ -175,6 +175,8 @@ export const en = {
     contributions: 'contributions',
     contributionsSingular: 'contribution',
     noContributions: 'No contributions',
+    scrollEarlier: 'Scroll to earlier weeks',
+    scrollLater: 'Scroll to later weeks',
   },
 
   projectFilters: {

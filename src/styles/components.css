@@ -214,7 +214,7 @@
        18 is the largest size at which a 54-week year still fits at 1280
        (54 × 22 − 4 = 1184 of 1221), so xl never scrolls. Both are rem, so the
        calendar tracks the reader's text size rather than a device pixel. */
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] xl:[--contrib-cell:1.125rem];
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth xl:[--contrib-cell:1.125rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -222,6 +222,24 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+  .contrib-scroll-frame {
+    @apply relative;
+  }
+  /* Only where the pointer can hover, so a mouse; touch swipes the year. The
+     hidden attribute, set while a side has nothing behind it, still wins. */
+  .contrib-scroll-button {
+    @apply focus-visible:ring-brand-500 absolute top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+
+    @media (hover: hover) and (pointer: fine) {
+      display: flex;
+    }
+  }
+  .contrib-scroll-button-start {
+    @apply left-0;
+  }
+  .contrib-scroll-button-end {
+    @apply right-0;
   }
   /* Fade whichever side still has weeks behind it, and neither once the whole
      year is visible. Declared after .contrib-scroll to win on source order. */
