@@ -806,14 +806,16 @@
   /* About. Like the hero, a phone below sm stacks the photograph above the
      copy, and from sm the two sit side by side, so the stacked layout never
      has to fill a tablet-width window. Beside the copy the photograph has one
-     place, top right, and one shape, 4:5; only its size steps, at sm, md, lg,
-     xl and 2xl, so it only ever grows. As in the hero, the copy column is as
-     wide as its copy and the grid packs to the start, so the photograph keeps
-     one gap from the copy and the slack falls to its right. The gap steps with
-     the photograph from lg, 56, 64 and 72px: held at 44px while the photograph
-     grew, it read as pressed against the copy at 2xl. The last row is 1fr so
-     a photograph taller than the copy pools its slack under the closing note
-     rather than spreading the copy apart. Every size steps; nothing is fluid. */
+     place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
+     and xl, so it only ever grows. It holds at 2xl, where the page is already
+     at its cap and a larger photograph only crowded the copy. md stops at 264:
+     at 768 the row is full, so each pixel more narrows the copy. As in the
+     hero, the copy column is as wide as its copy and the grid packs to the
+     start, so the photograph keeps one gap from the copy and the slack falls
+     to its right. The gap steps with the photograph from lg, 56 and 64px. The
+     last row is 1fr so a photograph taller than the copy pools its slack
+     under the closing note rather than spreading the copy apart. Every
+     size steps; nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
@@ -835,7 +837,7 @@
   }
   @media (width >= 48rem) {
     .about-grid {
-      grid-template-columns: minmax(0, max-content) 240px;
+      grid-template-columns: minmax(0, max-content) 264px;
     }
   }
   @media (width >= 64rem) {
@@ -850,13 +852,6 @@
       @apply gap-x-16;
 
       grid-template-columns: minmax(0, max-content) 380px;
-    }
-  }
-  @media (width >= 96rem) {
-    .about-grid {
-      @apply gap-x-18;
-
-      grid-template-columns: minmax(0, max-content) 420px;
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
