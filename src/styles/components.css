@@ -827,9 +827,13 @@
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
      large phone. The face sits in the upper half of the photograph, so the
-     crop favours it. */
+     crop favours it. Beside the copy its top meets the tagline's cap height
+     rather than its line box, which the leading and the face's ascender put
+     5px above the capitals at the heading size, 7px at heading-lg and 9px at
+     display; the photograph moves down rather than the text up, so the space
+     under the section heading matches every other section's. */
   .about-visual {
-    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:mt-[5px] sm:aspect-[4/5] sm:h-auto sm:max-w-none lg:mt-[7px] 2xl:mt-[9px];
 
     grid-area: visual;
 
