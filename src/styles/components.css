@@ -809,10 +809,8 @@
      xl and 2xl, so it only ever grows. As in the hero, the copy column is as
      wide as its copy and the grid packs to the start, so the photograph keeps
      one gap from the copy and the slack falls to its right. The gap steps with
-     the photograph and the tagline from lg: held at 44px while both grew, it
-     left a 480px photograph pressed against a 38px tagline at 2xl. Stepping
-     both brings the photograph to within 42px of the copy's height there,
-     where at 360px it ended 192px short. The last row is 1fr so
+     the photograph from lg, 56, 64 and 72px: held at 44px while the photograph
+     grew, it read as pressed against the copy at 2xl. The last row is 1fr so
      a photograph taller than the copy pools its slack under the closing note
      rather than spreading the copy apart. Every size steps; nothing is fluid. */
   .about-grid {
@@ -836,39 +834,39 @@
   }
   @media (width >= 48rem) {
     .about-grid {
-      grid-template-columns: minmax(0, max-content) 260px;
+      grid-template-columns: minmax(0, max-content) 240px;
     }
   }
   @media (width >= 64rem) {
     .about-grid {
       @apply gap-x-14;
 
-      grid-template-columns: minmax(0, max-content) 340px;
+      grid-template-columns: minmax(0, max-content) 320px;
     }
   }
   @media (width >= 80rem) {
     .about-grid {
       @apply gap-x-16;
 
-      grid-template-columns: minmax(0, max-content) 420px;
+      grid-template-columns: minmax(0, max-content) 380px;
     }
   }
   @media (width >= 96rem) {
     .about-grid {
-      @apply gap-x-20;
+      @apply gap-x-18;
 
-      grid-template-columns: minmax(0, max-content) 480px;
+      grid-template-columns: minmax(0, max-content) 420px;
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
      large phone. The face sits in the upper half of the photograph, so the
      crop favours it. Beside the copy its top meets the tagline's cap height
      rather than its line box, which the leading and the face's ascender put
-     5px above the capitals at the heading size, 7px at heading-lg and 9px at
-     display; the photograph moves down rather than the text up, so the space
+     5px above the capitals at the title and heading sizes and 7px at
+     heading-lg; the photograph moves down rather than the text up, so the space
      under the section heading matches every other section's. */
   .about-visual {
-    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:mt-[5px] sm:aspect-[4/5] sm:h-auto sm:max-w-none lg:mt-[7px] 2xl:mt-[9px];
+    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:mt-[5px] sm:aspect-[4/5] sm:h-auto sm:max-w-none 2xl:mt-[7px];
 
     grid-area: visual;
 
@@ -876,11 +874,12 @@
       @apply object-cover object-[50%_35%];
     }
   }
-  /* A statement rather than a second heading: the section heading's size at
-     each of its steps, but medium weight in a mid neutral, so the two differ
-     in weight and tone instead of competing as two bold headings. */
+  /* A statement rather than a second heading: one size below the section
+     heading at each of its steps, 21, 24 and 30px against 24, 30 and 38, and
+     medium weight in a mid neutral. At the heading's own size it differed only
+     in weight and tone, and read as competing with it. */
   .about-tagline {
-    @apply font-display text-heading lg:text-heading-lg 2xl:text-display max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
+    @apply font-display text-title lg:text-heading 2xl:text-heading-lg max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
 
     grid-area: tagline;
   }

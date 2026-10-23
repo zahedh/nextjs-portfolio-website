@@ -31,7 +31,7 @@ export default function AboutSection() {
             alt={en.aboutSection.photoAlt}
             placeholder="blur"
             fill
-            sizes="(min-width: 96rem) 960px, (min-width: 80rem) 840px, (min-width: 64rem) 680px, (min-width: 48rem) 520px, (min-width: 40rem) 400px, 704px"
+            sizes="(min-width: 96rem) 840px, (min-width: 80rem) 760px, (min-width: 64rem) 640px, (min-width: 48rem) 480px, (min-width: 40rem) 400px, 704px"
           />
         </motion.div>
 
