@@ -204,18 +204,21 @@
      overflow is reachable by keyboard, and the scrollbar is left visible —
      hiding it is what made the old calendar's missing months unreachable. */
   .contrib-scroll {
-    /* A day is a fixed size, stepped once: 16px, and 18px from xl. It used to
-       be a track between a 16px floor and a 22px ceiling that filled the
-       width, which meant every dot grew with the window between ~1060 and the
-       page cap. Fixed, the year takes the width it needs: where that is more
-       than the column, this container scrolls it, as it already did below
-       ~1060; where it is less, the slack sits to the right of the year.
+    /* A day is a fixed size, stepped twice: 16px, 18px from xl, and 19px from
+       the 80rem page cap. It used to be a track between a 16px floor and a
+       22px ceiling that filled the width, which meant every dot grew with the
+       window between ~1060 and the page cap. Fixed, the year takes the width
+       it needs: where that is more than the column, this container scrolls
+       it, as it already did below ~1060; where it is less, the slack sits to
+       the right of the year.
 
-       18 is the largest size at which a 54-week year still fits at 1280
-       (54 × 22 − 4 = 1184 of 1221). xl starts at 1232, where a 53-week year
-       fits and a 54-week one scrolls by up to 11px until 1243. Both are rem, so the
-       calendar tracks the reader's text size rather than a device pixel. */
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth xl:[--contrib-cell:1.125rem];
+       xl starts at 1232, where a 53-week year fits at 18px and a 54-week one
+       scrolls by up to 11px until 1243. At the cap the column stops growing
+       at 1236, where 18px left 74px of it empty; 19px brings a 53-week year
+       to 1215 (53 × 23 − 4), and a 54-week one, the next is 2028, scrolls by
+       2px. Both are rem, so the calendar tracks the reader's text size rather
+       than a device pixel. */
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth min-[80rem]:[--contrib-cell:1.1875rem] xl:[--contrib-cell:1.125rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
