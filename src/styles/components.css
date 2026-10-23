@@ -17,13 +17,15 @@
   .experience-group-meta {
     @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
   }
-  /* The spine: one line down the year column, broken by a dot per role. */
+  /* The spine: one line down the year column, broken by a dot per role. It
+     runs 8px past the company name's capitals, which sit 5px into the group,
+     and 8px past the last card, so it overhangs both ends equally. */
   .experience-group-roles {
     @apply flex flex-col gap-5;
   }
   .experience-group::before {
     content: '';
-    @apply absolute top-2 bottom-3 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
+    @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
     @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
