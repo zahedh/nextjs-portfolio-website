@@ -860,10 +860,12 @@
      crop favours it. Beside the copy its top meets the narrative's cap height
      rather than its line box; the photograph moves down rather than the text
      up, so the space under the section heading matches every other
-     section's. The frame does not clip, so the stickers can overhang it; the
-     image carries the rounding instead. */
+     section's. Stacked, it keeps as much space beneath it as the heading
+     leaves above, 56px, where the row gap alone left 22 and the bottom
+     sticker 6px off the text. The frame does not clip, so the stickers can
+     overhang it; the image carries the rounding instead. */
   .about-visual {
-    @apply relative h-[300px] w-full max-w-88 sm:mt-2 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
 
     grid-area: visual;
 
