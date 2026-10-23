@@ -45,6 +45,7 @@
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
+  --font-body-italic: var(--font-ibm-plex-sans-italic, sans-serif);
   --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
   /* Reserved for the hero headline and standalone figures, as the artboards
      draw them. Section headings stay on the heading face. */

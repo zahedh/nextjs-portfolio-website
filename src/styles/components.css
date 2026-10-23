@@ -876,11 +876,12 @@
     }
   }
   /* A statement rather than a second heading: one size below the section
-     heading at each of its steps, 21, 24 and 30px against 24, 30 and 38, and
-     medium weight in a mid neutral. At the heading's own size it differed only
-     in weight and tone, and read as competing with it. */
+     heading at each of its steps, 21, 24 and 30px against 24, 30 and 38, in
+     the body face's true italic at regular weight and a mid neutral. Set bold
+     on the display face, it differed from the heading only in size and tone,
+     and read as competing with it; the italic differs in shape. */
   .about-tagline {
-    @apply font-display text-title lg:text-heading 2xl:text-heading-lg max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
+    @apply font-body-italic text-title lg:text-heading 2xl:text-heading-lg max-w-[18ch] leading-[1.15] font-normal text-balance text-neutral-600 italic dark:text-neutral-400;
 
     grid-area: tagline;
   }
