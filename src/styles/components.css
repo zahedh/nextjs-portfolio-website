@@ -212,7 +212,8 @@
        ~1060; where it is less, the slack sits to the right of the year.
 
        18 is the largest size at which a 54-week year still fits at 1280
-       (54 × 22 − 4 = 1184 of 1221), so xl never scrolls. Both are rem, so the
+       (54 × 22 − 4 = 1184 of 1221). xl starts at 1232, where a 53-week year
+       fits and a 54-week one scrolls by up to 11px until 1243. Both are rem, so the
        calendar tracks the reader's text size rather than a device pixel. */
     @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth xl:[--contrib-cell:1.125rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
@@ -844,7 +845,7 @@
       grid-template-columns: minmax(0, max-content) 320px;
     }
   }
-  @media (width >= 80rem) {
+  @media (width >= 77rem) {
     .about-grid {
       @apply gap-x-16;
 
@@ -908,7 +909,7 @@
        window's slack falls to its right. The type and the rocket change size
        only at a breakpoint, together, so between steps nothing in the hero
        moves. The cost is a right edge that stops short of the sections', by
-       up to 353px at the end of the lg range and 61px at the 80rem cap. A copy
+       up to 305px at the end of the lg range and 61px at the 80rem cap. A copy
        column that took what the rocket left pinned the rocket to the page edge
        instead, and the gap beside it grew across each range and snapped back
        at the next, 169 to 424 and then 147 at 1280.
