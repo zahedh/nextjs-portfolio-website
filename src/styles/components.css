@@ -583,7 +583,7 @@
     @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
   }
   .footer-container {
-    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-9;
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-12;
   }
   .footer-primary {
     @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
