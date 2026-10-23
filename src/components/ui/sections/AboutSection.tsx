@@ -9,7 +9,7 @@ import { aboutPhoto } from '@/images';
 
 const viewMotion = { once: true, margin: '-80px' as const };
 
-/** About: photograph, tagline, narrative, credential rail and closing note, arranged per breakpoint by `.about-grid`. */
+/** About: photograph, tagline, narrative, and credential rail, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
 
@@ -72,16 +72,6 @@ export default function AboutSection() {
             ))}
           </ul>
         </motion.aside>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.45, ease: 'easeOut', delay: 0.08 }}
-          className="about-note"
-        >
-          {en.aboutSection.closingNote}
-        </motion.p>
       </div>
     </Section>
   );

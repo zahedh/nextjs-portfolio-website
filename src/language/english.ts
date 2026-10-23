@@ -43,8 +43,6 @@ export const en = {
       "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
       'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
     ],
-    closingNote:
-      'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
     credentialsAriaLabel: 'At a glance',
     photoAlt: 'Zahed Heidari, smiling in sunglasses at a café table',
   },

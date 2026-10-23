@@ -814,12 +814,12 @@
      start, so the photograph keeps one gap from the copy and the slack falls
      to its right. The gap steps with the photograph from lg, 56 and 64px. The
      last row is 1fr so a photograph taller than the copy pools its slack
-     under the closing note rather than spreading the copy apart. Every
-     size steps; nothing is fluid. */
+     under the credentials rather than spreading the copy apart. Every size
+     steps; nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
-    grid-template-areas: 'visual' 'tagline' 'narrative' 'credentials' 'note';
+    grid-template-areas: 'visual' 'tagline' 'narrative' 'credentials';
   }
   @media (width >= 40rem) {
     .about-grid {
@@ -827,12 +827,11 @@
 
       grid-template-columns: minmax(0, max-content) 200px;
       justify-content: start;
-      grid-template-rows: auto auto auto 1fr;
+      grid-template-rows: auto auto 1fr;
       grid-template-areas:
         'tagline visual'
         'narrative visual'
-        'credentials visual'
-        'note visual';
+        'credentials visual';
     }
   }
   @media (width >= 48rem) {
@@ -895,11 +894,6 @@
   }
   .about-credential {
     @apply border-brand-500 dark:border-brand-400 text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
-  }
-  .about-note {
-    @apply text-body max-w-[56ch] border-t border-neutral-200 pt-[18px] text-neutral-500 italic lg:max-w-[52ch] dark:border-neutral-800 dark:text-neutral-400;
-
-    grid-area: note;
   }
   .hero-composition {
     /* The copy column is as wide as its copy and the grid packs to the start,
