@@ -1,14 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Mail } from 'lucide-react';
 import { en } from '@/language';
-import TertiaryButton from './TertiaryButton';
+import PrimaryButton from './PrimaryButton';
 
 const CONFIRM_MS = 2000;
 
-/** Copies the contact address, for visitors whose mailto opens no mail app.
-    The confirmation floats above the button so the row never reflows. */
+/** The contact address as a button that copies it, since a mailto opens
+    nothing for visitors without a mail app. The confirmation floats above,
+    so the parent must be positioned, and the row never reflows. */
 export default function CopyEmailButton({ className }: { className?: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -23,28 +24,28 @@ export default function CopyEmailButton({ className }: { className?: string }) {
       await navigator.clipboard.writeText(en.footerSection.email);
       setCopied(true);
     } catch {
-      // Clipboard refused (permissions, insecure context): the mailto beside it still works.
+      // Clipboard refused (permissions, insecure context): fall back to the mail app.
+      window.location.href = `mailto:${en.footerSection.email}`;
     }
   };
 
   return (
-    <span className="relative inline-flex shrink-0">
-      <TertiaryButton
+    <>
+      <PrimaryButton
         onClick={copy}
-        iconOnly
-        aria-label={en.footerSection.copyLabel}
+        aria-label={`${en.footerSection.copyLabel}, ${en.footerSection.email}`}
         className={className}
-        icon={
-          copied ? (
-            <Check aria-hidden className="size-4" />
-          ) : (
-            <Copy aria-hidden className="size-4" />
-          )
-        }
-      />
+      >
+        {copied ? (
+          <Check aria-hidden className="size-4" />
+        ) : (
+          <Mail aria-hidden className="size-4" />
+        )}
+        {en.footerSection.email}
+      </PrimaryButton>
       <span role="status" aria-live="polite" className="copy-confirm">
         {copied ? en.footerSection.copiedLabel : ''}
       </span>
-    </span>
+    </>
   );
 }

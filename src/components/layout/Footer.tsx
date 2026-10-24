@@ -1,12 +1,8 @@
 import Link from 'next/link';
 import { en } from '@/language';
 import { BodyText, SubHeading } from '@/components/text';
-import {
-  CopyEmailButton,
-  PrimaryButton,
-  TertiaryButton,
-} from '@/components/ui';
-import { Download, Mail } from 'lucide-react';
+import { CopyEmailButton, TertiaryButton } from '@/components/ui';
+import { Download } from 'lucide-react';
 
 /** Site footer: closing pitch and contact actions, with secondary navigation alongside. */
 export default function Footer() {
@@ -24,14 +20,7 @@ export default function Footer() {
 
             <div className="footer-actions">
               <div className="footer-email">
-                <PrimaryButton
-                  hyperlink={`mailto:${en.footerSection.email}`}
-                  className="footer-action"
-                >
-                  <Mail aria-hidden className="size-4" />
-                  {en.footerSection.email}
-                </PrimaryButton>
-                <CopyEmailButton className="footer-copy-action btn-outline" />
+                <CopyEmailButton className="footer-action" />
               </div>
               <TertiaryButton
                 hyperlink="/documents/CV.pdf"

@@ -604,13 +604,9 @@
   .footer-actions {
     @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
   }
-  /* The address and its copy button stay one pair at every width, so a phone
-     stacks two rows rather than three. */
+  /* Positions the copy confirmation that floats above the address. */
   .footer-email {
-    @apply flex w-full gap-3 sm:w-auto;
-  }
-  .footer-copy-action {
-    @apply size-12;
+    @apply relative flex w-full sm:w-auto;
   }
   /* Floats above its button so confirming a copy never reflows the row. */
   .copy-confirm {

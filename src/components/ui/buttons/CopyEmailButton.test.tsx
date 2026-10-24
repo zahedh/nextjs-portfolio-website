@@ -11,7 +11,9 @@ describe('CopyEmailButton', () => {
     render(<CopyEmailButton />);
     await act(async () => {
       fireEvent.click(
-        screen.getByRole('button', { name: en.footerSection.copyLabel })
+        screen.getByRole('button', {
+          name: `${en.footerSection.copyLabel}, ${en.footerSection.email}`,
+        })
       );
     });
 
