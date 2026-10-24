@@ -219,7 +219,7 @@
        of it empty; 19px brings a 53-week year to 1215 (53 × 23 − 4), and a
        54-week one, the next is 2028, scrolls by 2px. Both are rem, so the calendar tracks the reader's text size rather
        than a device pixel. */
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
+    @apply flex flex-col gap-1.5 overflow-x-auto motion-safe:scroll-smooth;
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -228,13 +228,17 @@
       display: none;
     }
   }
+  /* Holds the day size, so the scroll buttons beside the year can read it. */
   .contrib-scroll-frame {
-    @apply relative;
+    @apply relative [--contrib-cell:1rem] [--contrib-gap:0.25rem] lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
   }
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-500 absolute top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-500 absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+
+    /* Centred on the days, not on the days and the month row above them. */
+    bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
 
     @media (hover: hover) and (pointer: fine) {
       display: flex;
