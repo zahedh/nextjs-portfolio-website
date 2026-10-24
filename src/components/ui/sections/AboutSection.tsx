@@ -54,13 +54,19 @@ export default function AboutSection() {
         </motion.div>
 
         <motion.aside
-          aria-label={en.aboutSection.credentialsAriaLabel}
+          aria-labelledby="about-credentials-heading"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewMotion}
           transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
           className="about-credentials"
         >
+          <h3
+            id="about-credentials-heading"
+            className="about-credentials-heading"
+          >
+            {en.aboutSection.credentialsHeading}
+          </h3>
           <ul className="about-credential-list">
             {aboutCredentialLines.map((line) => (
               <li key={line} className="about-credential">

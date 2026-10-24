@@ -906,6 +906,11 @@
   .about-credentials {
     grid-area: credentials;
   }
+  /* Leads the narrative into the list, so the six lines read as a set rather
+     than a third paragraph. */
+  .about-credentials-heading {
+    @apply font-display text-title-sm mb-4 font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+  }
   /* One column until lg, where the copy is wide enough for two; six lines
      stacked made a tall, narrow strip that ran the copy past the photograph. */
   .about-credential-list {
