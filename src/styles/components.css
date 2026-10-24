@@ -692,38 +692,40 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
-  /* ---- A project's own page ---- */
+  /* ---- A page of its own: a project, the privacy policy ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
   /* The page measure, like every block on the site, so a project page ends
      where the hero and the footer end. The prose keeps its own 72ch measure. */
-  .project-page-stack {
+  .page-stack {
     @apply gap-block lg:gap-block-lg flex w-full flex-col;
   }
-  .project-page-head {
+  .page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
   }
   /* One step under the hero and one above a section heading: the hero runs
      display through display-xl, a section heading heading through display. */
-  .project-page-title {
+  .page-title {
     @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
-
-    /* The receiving half of the morph from a project card. Only one element on
-       a page may carry a name, and a project page has exactly one heading; the
-       card that sends it is named at the moment it is clicked. */
+  }
+  /* The receiving half of the morph from a project card. Only one element on
+     a page may carry a name, and a project page has exactly one heading; the
+     card that sends it is named at the moment it is clicked. Kept off
+     .page-title so another page's heading never morphs into a project's. */
+  .project-page-title {
     view-transition-name: project-title;
   }
   /* Lead work, not caption work: it is the first sentence a reader gets. */
-  .project-page-summary {
+  .page-summary {
     @apply text-lead lg:text-title-sm max-w-[54ch] leading-relaxed text-neutral-700 dark:text-neutral-300;
   }
   /* The facts as one mono rail. A ruled list belonged to the dialog, where it
      had an aside to sit in; at page width it reads as a stray box. */
-  .project-page-meta {
+  .page-meta {
     @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
   }
   /* A heading on the heading face at the page's own step. Not the accent: the
      refresh reserves brand for emphasis, and a section label is not emphasis. */
-  .project-page-heading {
+  .page-heading {
     @apply font-display text-title lg:text-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   /* The one fact that is a state rather than a label takes the accent. */
@@ -760,8 +762,12 @@
   }
   /* Belt to the cap's braces: even inside the narrower page the prose keeps a
      measure of its own, so a long line never runs the full column. */
-  .project-page-column {
+  .page-column {
     @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
+  }
+  /* A heading and the prose under it, at the gap a project page's overview uses. */
+  .page-block {
+    @apply flex flex-col gap-3;
   }
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;

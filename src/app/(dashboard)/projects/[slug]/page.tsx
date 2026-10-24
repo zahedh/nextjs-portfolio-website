@@ -99,20 +99,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           opens at the same height as the front page rather than 72px lower. */}
       <section className="screen-section -mt-18">
         <div className="section-inner">
-          <div className="project-page-stack">
-            <div className="project-page-head">
+          <div className="page-stack">
+            <div className="page-head">
               <Link href="/#projects" className="project-back-link">
                 <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
                 {en.projectDisplay.backToProjects}
               </Link>
 
-              <h1 className="project-page-title">{project.title}</h1>
+              <h1 className="page-title project-page-title">{project.title}</h1>
 
               {project.summary ? (
-                <p className="project-page-summary">{project.summary}</p>
+                <p className="page-summary">{project.summary}</p>
               ) : null}
 
-              <p className="project-page-meta">
+              <p className="page-meta">
                 <span>{formatProjectTimeline(project)}</span>
                 <MetaDot />
                 {project.company ? (
@@ -142,10 +142,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             <div className="project-page-body">
-              <div className="project-page-column">
+              <div className="page-column">
                 {featureLines.length > 0 ? (
-                  <section className="flex flex-col gap-3">
-                    <h2 className="project-page-heading">
+                  <section className="page-block">
+                    <h2 className="page-heading">
                       {en.projectDisplay.sectionOverview}
                     </h2>
                     <FeatureList lines={featureLines} />
