@@ -219,7 +219,7 @@
        of it empty; 19px brings a 53-week year to 1215 (53 × 23 − 4), and a
        54-week one, the next is 2028, scrolls by 2px. Both are rem, so the calendar tracks the reader's text size rather
        than a device pixel. */
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
+    @apply flex flex-col gap-1.5 overflow-x-auto motion-safe:scroll-smooth;
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -228,13 +228,17 @@
       display: none;
     }
   }
+  /* Holds the day size, so the scroll buttons beside the year can read it. */
   .contrib-scroll-frame {
-    @apply relative;
+    @apply relative [--contrib-cell:1rem] [--contrib-gap:0.25rem] lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
   }
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-500 absolute top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-500 absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+
+    /* Centred on the days, not on the days and the month row above them. */
+    bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
 
     @media (hover: hover) and (pointer: fine) {
       display: flex;
@@ -408,15 +412,6 @@
   /* =========================
      ðŸƒ CARD UTILITIES
      ========================= */
-  .surface-card {
-    @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
-  }
-  .surface-card-interactive {
-    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
-  }
-  .surface-card-flat {
-    @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
-  }
   /* Holds the grid, the overflow grid and the control on one rhythm, so the
      cards revealed by "See all" do not inherit the wider .section-inner gap. */
   .projects-stack {
@@ -545,21 +540,6 @@
   .card-fade-gradient {
     @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
   }
-  .card-description {
-    @apply text-neutral-700 dark:text-neutral-300;
-  }
-  .card-section-heading {
-    @apply text-brand-600 dark:text-brand-400 mt-8 mb-3;
-  }
-  .card-meta {
-    @apply text-neutral-600 dark:text-neutral-400;
-  }
-  .card-footer-note {
-    @apply text-body-sm mt-10 border-t border-neutral-300 pt-6 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
-  }
-  .card-list {
-    @apply font-body text-body mb-6 list-disc pl-6 text-neutral-700 dark:text-neutral-300;
-  }
   .link-accent {
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
@@ -596,9 +576,10 @@
   .btn-primary-sm {
     @apply text-body-sm px-4 py-2.5 font-bold;
   }
-  /* The closing band sits one step off the page ground, as the artboards draw it. */
-  /* Emphasis, not rhythm: a band marks the few sections that earn one, a step
-     deeper than the page behind them. Alternating every section reads as noise. */
+  /* Emphasis, not rhythm: a band is a step deeper than the page and marks a
+     section with no heading of its own, the activity band and the footer.
+     A heading already marks where a chapter starts, and alternating every
+     section reads as noise. */
   .section-band {
     @apply bg-neutral-200 dark:bg-neutral-950;
   }
@@ -609,7 +590,7 @@
     @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-12;
   }
   .footer-primary {
-    @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
+    @apply grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_auto] lg:gap-11;
   }
   .footer-pitch {
     @apply flex flex-col items-start;
@@ -621,7 +602,19 @@
     @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
-    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
+    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
+  }
+  /* The address and its copy button stay one pair at every width, so a phone
+     stacks two rows rather than three. */
+  .footer-email {
+    @apply flex w-full gap-3 sm:w-auto;
+  }
+  .footer-copy-action {
+    @apply size-12;
+  }
+  /* Floats above its button so confirming a copy never reflows the row. */
+  .copy-confirm {
+    @apply text-meta pointer-events-none absolute right-0 bottom-full mb-2 rounded-full bg-neutral-900 px-2.5 py-1 font-mono whitespace-nowrap text-neutral-100 empty:hidden dark:bg-neutral-100 dark:text-neutral-900;
   }
   .footer-action {
     /* Same type as the hero's actions: mono is reserved for the weakest
@@ -675,38 +668,40 @@
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
   }
-  /* ---- A project's own page ---- */
+  /* ---- A page of its own: a project, the privacy policy ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
   /* The page measure, like every block on the site, so a project page ends
      where the hero and the footer end. The prose keeps its own 72ch measure. */
-  .project-page-stack {
+  .page-stack {
     @apply gap-block lg:gap-block-lg flex w-full flex-col;
   }
-  .project-page-head {
+  .page-head {
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
   }
   /* One step under the hero and one above a section heading: the hero runs
      display through display-xl, a section heading heading through display. */
-  .project-page-title {
+  .page-title {
     @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
-
-    /* The receiving half of the morph from a project card. Only one element on
-       a page may carry a name, and a project page has exactly one heading; the
-       card that sends it is named at the moment it is clicked. */
+  }
+  /* The receiving half of the morph from a project card. Only one element on
+     a page may carry a name, and a project page has exactly one heading; the
+     card that sends it is named at the moment it is clicked. Kept off
+     .page-title so another page's heading never morphs into a project's. */
+  .project-page-title {
     view-transition-name: project-title;
   }
   /* Lead work, not caption work: it is the first sentence a reader gets. */
-  .project-page-summary {
+  .page-summary {
     @apply text-lead lg:text-title-sm max-w-[54ch] leading-relaxed text-neutral-700 dark:text-neutral-300;
   }
   /* The facts as one mono rail. A ruled list belonged to the dialog, where it
      had an aside to sit in; at page width it reads as a stray box. */
-  .project-page-meta {
+  .page-meta {
     @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
   }
   /* A heading on the heading face at the page's own step. Not the accent: the
      refresh reserves brand for emphasis, and a section label is not emphasis. */
-  .project-page-heading {
+  .page-heading {
     @apply font-display text-title lg:text-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   /* The one fact that is a state rather than a label takes the accent. */
@@ -715,10 +710,10 @@
   }
   /* The hero's pairing at the footer's size: the first link is the page's
      primary call and the rest sit beside it. */
-  .project-page-actions {
+  .page-actions {
     @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
   }
-  .project-page-action {
+  .page-action {
     @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
   }
   /* "group" stays on the element in the markup: it is a marker class, not a
@@ -743,8 +738,19 @@
   }
   /* Belt to the cap's braces: even inside the narrower page the prose keeps a
      measure of its own, so a long line never runs the full column. */
-  .project-page-column {
+  .page-column {
     @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
+  }
+  /* A heading and the prose under it, at the gap a project page's overview uses. */
+  .page-block {
+    @apply flex flex-col gap-3;
+  }
+  /* Reading text on a page of its own: the project overview's size and ink. */
+  .page-prose {
+    @apply text-body text-neutral-700 dark:text-neutral-300;
+  }
+  .page-list {
+    @apply list-disc space-y-3 pl-5 marker:text-neutral-400 dark:marker:text-neutral-600;
   }
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;

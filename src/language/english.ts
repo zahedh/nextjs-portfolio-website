@@ -147,7 +147,8 @@ export const en = {
     heading: 'Building something ambitious?',
     supportingText:
       "I blend design, development and AI into systems that hold together. If that's the kind of problem you have, I'd like to hear about it.",
-    emailLabel: 'Email me',
+    copyLabel: 'Copy email address',
+    copiedLabel: 'Copied',
     downloadCVLabel: 'Download CV',
     socialLinksAriaLabel: 'Social profiles',
     linkedInLabel: 'LinkedIn',
@@ -234,15 +235,17 @@ export const en = {
   },
 
   notFound: {
-    heading: 'Page Not Found',
+    heading: 'Page not found',
     description: "Oops! The page you're looking for doesn't exist.",
-    returnHome: 'Return Home',
+    returnHome: 'Return home',
     code: '404',
   },
 
   privacyPage: {
     title: 'Privacy Policy',
     lastUpdatedLabel: 'Last updated:',
+    // Revise only when the policy's substance changes, never on a redesign.
+    lastUpdated: '24 October 2026',
     intro:
       'This site (zahedheidari.co.uk) is a personal portfolio. Below is how we handle information when you visit.',
     sectionInfoWeCollect: 'Information we collect',
@@ -250,7 +253,7 @@ export const en = {
       'We do not collect personal data through forms or accounts. The only data stored in your browser is:',
     themePreferenceLabel: 'Theme preference',
     themePreferenceDetail:
-      'On first visit we follow your operating system preference (light or dark). Your manual choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
+      'The site opens in dark mode. If you switch themes, your choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
     sectionHowWeUse: 'How we use it',
     howWeUseText:
       'Theme preference is used only to display the site in your preferred appearance. We do not use it for analytics or advertising.',

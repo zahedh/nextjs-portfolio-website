@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import { Section } from '@/components';
-import { SubHeading, BodyText } from '@/components/text';
 import { socialShareImageMeta } from '@/lib/meta';
 import { en } from '@/language';
 
@@ -29,92 +27,77 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  const lastUpdatedDate = new Date().toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+  const p = en.privacyPage;
 
   return (
     <div className="screen-parent">
-      <Section
-        title={en.privacyPage.title}
-        titleAs="h1"
-        showDivider={true}
-        showBottomDivider={true}
-      >
-        <div className="surface-card p-surface mx-auto max-w-3xl">
-          <BodyText className="card-meta mb-6">
-            {en.privacyPage.lastUpdatedLabel} {lastUpdatedDate}
-          </BodyText>
+      {/* Cancels the shell's header offset, as a project page does. */}
+      <section className="screen-section -mt-18">
+        <div className="section-inner">
+          <div className="page-stack">
+            <div className="page-head">
+              <h1 className="page-title">{p.title}</h1>
+              <p className="page-summary">{p.intro}</p>
+              <p className="page-meta">
+                {p.lastUpdatedLabel} {p.lastUpdated}
+              </p>
+            </div>
 
-          <BodyText className="mb-8">{en.privacyPage.intro}</BodyText>
+            <div className="page-column">
+              <section className="page-block">
+                <h2 className="page-heading">{p.sectionInfoWeCollect}</h2>
+                <p className="page-prose">{p.infoWeCollectIntro}</p>
+                <ul className="page-prose page-list">
+                  <li>
+                    <strong>{p.themePreferenceLabel}:</strong>{' '}
+                    {p.themePreferenceDetail}
+                  </li>
+                </ul>
+              </section>
 
-          <SubHeading className="card-section-heading">
-            {en.privacyPage.sectionInfoWeCollect}
-          </SubHeading>
-          <BodyText className="card-description mb-4">
-            {en.privacyPage.infoWeCollectIntro}
-          </BodyText>
-          <ul className="card-list">
-            <li className="mb-2">
-              <strong>{en.privacyPage.themePreferenceLabel}</strong> —{' '}
-              {en.privacyPage.themePreferenceDetail}
-            </li>
-          </ul>
+              <section className="page-block">
+                <h2 className="page-heading">{p.sectionHowWeUse}</h2>
+                <p className="page-prose">{p.howWeUseText}</p>
+              </section>
 
-          <SubHeading className="card-section-heading">
-            {en.privacyPage.sectionHowWeUse}
-          </SubHeading>
-          <BodyText className="card-description mb-6">
-            {en.privacyPage.howWeUseText}
-          </BodyText>
+              <section className="page-block">
+                <h2 className="page-heading">{p.sectionThirdParty}</h2>
+                <p className="page-prose">{p.thirdPartyIntro}</p>
+                <p className="page-prose">
+                  {p.thirdPartyFuture}
+                  <a
+                    href={p.thirdPartyVercelLinkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-accent"
+                  >
+                    {p.thirdPartyVercelLinkLabel}
+                  </a>
+                  .
+                </p>
+              </section>
 
-          <SubHeading className="card-section-heading">
-            {en.privacyPage.sectionThirdParty}
-          </SubHeading>
-          <BodyText className="card-description mb-4">
-            {en.privacyPage.thirdPartyIntro}
-          </BodyText>
-          <BodyText className="card-description mb-6">
-            {en.privacyPage.thirdPartyFuture}
-            <a
-              href={en.privacyPage.thirdPartyVercelLinkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-accent"
-            >
-              {en.privacyPage.thirdPartyVercelLinkLabel}
-            </a>
-            .
-          </BodyText>
+              <section className="page-block">
+                <h2 className="page-heading">{p.sectionYourRights}</h2>
+                <p className="page-prose">{p.yourRightsText}</p>
+              </section>
 
-          <SubHeading className="card-section-heading">
-            {en.privacyPage.sectionYourRights}
-          </SubHeading>
-          <BodyText className="card-description mb-6">
-            {en.privacyPage.yourRightsText}
-          </BodyText>
+              <section className="page-block">
+                <h2 className="page-heading">{p.sectionChanges}</h2>
+                <p className="page-prose">{p.changesText}</p>
+              </section>
 
-          <SubHeading className="card-section-heading">
-            {en.privacyPage.sectionChanges}
-          </SubHeading>
-          <BodyText className="card-description mb-6">
-            {en.privacyPage.changesText}
-          </BodyText>
-
-          <BodyText className="card-footer-note">
-            {en.privacyPage.contactIntro}{' '}
-            <a
-              href={`mailto:${en.privacyPage.contactEmail}`}
-              className="link-accent"
-            >
-              {en.privacyPage.contactEmail}
-            </a>
-            .
-          </BodyText>
+              <p className="page-prose">
+                {p.contactIntro}{' '}
+                <a href={`mailto:${p.contactEmail}`} className="link-accent">
+                  {p.contactEmail}
+                </a>
+                .
+              </p>
+            </div>
+          </div>
         </div>
-      </Section>
+      </section>
     </div>
   );
 }

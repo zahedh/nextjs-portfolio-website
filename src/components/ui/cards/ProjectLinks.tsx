@@ -28,7 +28,7 @@ export function ProjectLinks({
   if (normalizedLinks.length === 0) return null;
 
   return (
-    <div className={cn('project-page-actions', className)}>
+    <div className={cn('page-actions', className)}>
       {normalizedLinks.map((link, index) => {
         const key = `${link.url}-${link.label}`;
         // Trailing: the icon says where the link goes, not what it is.
@@ -44,7 +44,7 @@ export function ProjectLinks({
             key={key}
             hyperlink={link.url}
             target="_blank"
-            className="project-page-action"
+            className="page-action"
           >
             {content}
           </PrimaryButton>
@@ -53,7 +53,7 @@ export function ProjectLinks({
             key={key}
             hyperlink={link.url}
             target="_blank"
-            className="project-page-action"
+            className="page-action"
           >
             {content}
           </TertiaryButton>
