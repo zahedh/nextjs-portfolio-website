@@ -79,7 +79,7 @@
     @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
   }
   .experience-year-active {
-    @apply text-brand-600 text-title-sm dark:text-brand-400 font-medium;
+    @apply text-brand-700 text-title-sm dark:text-brand-400 font-medium;
   }
   .experience-duration {
     @apply text-micro mt-0.5 block font-mono text-neutral-400 dark:text-neutral-500;
@@ -111,7 +111,7 @@
     @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-current {
-    @apply text-brand-600 dark:text-brand-400 text-meta font-mono;
+    @apply text-brand-700 dark:text-brand-400 text-meta font-mono;
   }
   .experience-meta {
     @apply text-caption truncate font-mono text-neutral-500 dark:text-neutral-400;
@@ -235,7 +235,7 @@
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-500 absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-600 absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
 
     /* Centred on the days, not on the days and the month row above them. */
     bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
@@ -319,10 +319,10 @@
      one colour. Its left edge is the glyph's, so it sits on the content edge;
      min-h-11 keeps a full touch target without moving that edge. */
   .nav-mark {
-    @apply font-display text-title-sm text-brand-500 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
+    @apply font-display text-title-sm text-brand-600 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
   }
   .nav-burger {
-    @apply text-brand-500 dark:text-brand-100 flex size-11 flex-col items-end justify-center gap-[5px] transition-opacity duration-100 active:opacity-70 md:hidden;
+    @apply text-brand-600 dark:text-brand-100 flex size-11 flex-col items-end justify-center gap-[5px] transition-opacity duration-100 active:opacity-70 md:hidden;
 
     & > span {
       @apply h-0.5 rounded-full bg-current;
@@ -355,7 +355,7 @@
     }
   }
   .theme-switch {
-    @apply focus-visible:ring-brand-500 flex cursor-pointer items-center gap-0.5 rounded-full border border-neutral-300 p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:border-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 flex cursor-pointer items-center gap-0.5 rounded-full border border-neutral-300 p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:border-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .theme-switch-option {
     @apply flex size-6 items-center justify-center rounded-full text-neutral-600 transition-colors duration-150 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-100;
@@ -372,7 +372,7 @@
   /* The close control takes the burger's 44px box, so it sits where the
      burger was. */
   .nav-close {
-    @apply focus-visible:ring-brand-500 flex size-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800;
+    @apply focus-visible:ring-brand-600 flex size-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800;
   }
 
   /* Phone menu: a modal <dialog> over the whole viewport on the page ground.
@@ -429,7 +429,7 @@
     @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
-    @apply focus-visible:ring-brand-500 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
   /* The feature card earns its emphasis by spanning two rows, not by sitting in
      a wider track — so the compact cards beside it form a clean rectangle. Set
@@ -469,7 +469,7 @@
     @apply flex min-h-[177px] flex-col gap-2 p-5;
   }
   .project-card-feature-meta {
-    @apply text-brand-600 dark:text-brand-300 text-meta font-mono;
+    @apply text-brand-700 dark:text-brand-300 text-meta font-mono;
   }
   .project-card-feature-title {
     @apply font-heading text-heading font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
@@ -478,7 +478,7 @@
     @apply text-body-sm line-clamp-2 leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-500 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
   /* Out of flow, so a card carrying it is no taller than one that does not —
      in the flow it added a line to whichever row held it and the section moved
@@ -526,7 +526,7 @@
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-500 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
@@ -535,13 +535,13 @@
     @apply text-title mb-2 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .card-title-link {
-    @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
+    @apply text-brand-700 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
   }
   .card-fade-gradient {
     @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
   }
   .link-accent {
-    @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
+    @apply text-brand-700 decoration-brand-500 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
 
   /** JobCard date range pill — base + active/current vs inactive/past */
@@ -710,7 +710,7 @@
     @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
   }
   .page-action {
-    @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-600 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
   }
   /* "group" stays on the element in the markup: it is a marker class, not a
      utility, so @apply cannot take it. */
@@ -782,7 +782,7 @@
   }
   /* Declared after .skills-group-label so its colour wins on source order. */
   .skills-group-label--accent {
-    @apply text-brand-600 dark:text-brand-400;
+    @apply text-brand-700 dark:text-brand-400;
   }
   .skills-group-count {
     @apply text-caption col-start-2 row-start-1 text-right font-mono text-neutral-500 tabular-nums md:col-start-3 dark:text-neutral-400;
@@ -1008,7 +1008,7 @@
      matches the footer's, which is what takes these over the 48px touch target
      the drawn padding alone missed by two pixels. */
   .hero-action {
-    @apply text-body focus-visible:ring-brand-500 xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto xl:px-7 xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
+    @apply text-body focus-visible:ring-brand-600 xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto xl:px-7 xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
   }
   .hero-visual {
     /* From sm the frame is the grid column's width at Rocket.module.css's 3:5,
@@ -1031,7 +1031,7 @@
     @apply border-brand-300 p-surface relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
   }
   .stat-card-value {
-    @apply font-heading text-brand-500 dark:text-brand-400 text-numeral lg:text-numeral-lg font-bold;
+    @apply font-heading text-brand-600 dark:text-brand-400 text-numeral lg:text-numeral-lg font-bold;
   }
   .stat-card-label {
     @apply text-meta font-semibold text-neutral-700 dark:text-neutral-300;

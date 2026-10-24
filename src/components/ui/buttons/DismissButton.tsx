@@ -32,7 +32,7 @@ const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
         aria-label={ariaLabel}
         aria-controls={ariaControls}
         className={cn(
-          'focus-visible:ring-brand-500 flex shrink-0 items-center justify-center rounded-full transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900',
+          'focus-visible:ring-brand-600 flex shrink-0 items-center justify-center rounded-full transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900',
           variant === 'plain' &&
             'absolute top-4 right-4 z-10 p-2 text-neutral-900 hover:bg-neutral-200/90 dark:text-neutral-200 dark:hover:bg-neutral-700/80',
           variant === 'brand' && 'brand-icon-btn h-10 w-10 md:h-9 md:w-9',
