@@ -147,7 +147,8 @@ export const en = {
     heading: 'Building something ambitious?',
     supportingText:
       "I blend design, development and AI into systems that hold together. If that's the kind of problem you have, I'd like to hear about it.",
-    emailLabel: 'Email me',
+    copyLabel: 'Copy email address',
+    copiedLabel: 'Copied',
     downloadCVLabel: 'Download CV',
     socialLinksAriaLabel: 'Social profiles',
     linkedInLabel: 'LinkedIn',

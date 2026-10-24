@@ -610,7 +610,7 @@
     @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-12;
   }
   .footer-primary {
-    @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
+    @apply grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_auto] lg:gap-11;
   }
   .footer-pitch {
     @apply flex flex-col items-start;
@@ -622,7 +622,19 @@
     @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
-    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
+    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
+  }
+  /* The address and its copy button stay one pair at every width, so a phone
+     stacks two rows rather than three. */
+  .footer-email {
+    @apply flex w-full gap-3 sm:w-auto;
+  }
+  .footer-copy-action {
+    @apply size-12;
+  }
+  /* Floats above its button so confirming a copy never reflows the row. */
+  .copy-confirm {
+    @apply text-meta pointer-events-none absolute right-0 bottom-full mb-2 rounded-full bg-neutral-900 px-2.5 py-1 font-mono whitespace-nowrap text-neutral-100 empty:hidden dark:bg-neutral-100 dark:text-neutral-900;
   }
   .footer-action {
     /* Same type as the hero's actions: mono is reserved for the weakest
