@@ -9,7 +9,8 @@ type SectionProps = {
   subheading?: string;
   align?: 'left' | 'center' | 'right';
   italicize?: boolean;
-  /** Marks a section as one that earns a band, a step deeper than the ground. */
+  /** A band, a step deeper than the ground, for a section with no heading of
+      its own: a heading already marks where a chapter starts. */
   banded?: boolean;
   showDivider?: boolean;
   showBottomDivider?: boolean;

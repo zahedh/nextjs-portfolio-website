@@ -596,9 +596,10 @@
   .btn-primary-sm {
     @apply text-body-sm px-4 py-2.5 font-bold;
   }
-  /* The closing band sits one step off the page ground, as the artboards draw it. */
-  /* Emphasis, not rhythm: a band marks the few sections that earn one, a step
-     deeper than the page behind them. Alternating every section reads as noise. */
+  /* Emphasis, not rhythm: a band is a step deeper than the page and marks a
+     section with no heading of its own, the activity band and the footer.
+     A heading already marks where a chapter starts, and alternating every
+     section reads as noise. */
   .section-band {
     @apply bg-neutral-200 dark:bg-neutral-950;
   }
