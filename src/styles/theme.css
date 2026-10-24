@@ -11,6 +11,13 @@
      also still fits a 54-week year above the calendar's 16px floor. */
   --container-page: 80rem;
 
+  /* xl starts where the xl hero first fits beside its rocket rather than at
+     Tailwind's 1280: 708 + 56 + 396 and two gutters is 1204, plus a scrollbar.
+     Every section that changes at xl changes here with it, so the page still
+     rearranges at one width. A 54-week contributions year needs 1243 at the
+     xl cell and scrolls by up to 11px below that, behind its scroll buttons. */
+  --breakpoint-xl: 77rem;
+
   /* Neutral scale */
   --color-neutral-50: #f7f6f3;
   --color-neutral-100: #efece6;

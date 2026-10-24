@@ -17,13 +17,15 @@
   .experience-group-meta {
     @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
   }
-  /* The spine: one line down the year column, broken by a dot per role. */
+  /* The spine: one line down the year column, broken by a dot per role. It
+     runs 8px past the company name's capitals, which sit 5px into the group,
+     and 8px past the last card, so it overhangs both ends equally. */
   .experience-group-roles {
     @apply flex flex-col gap-5;
   }
   .experience-group::before {
     content: '';
-    @apply absolute top-2 bottom-3 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
+    @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
     @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
@@ -202,17 +204,22 @@
      overflow is reachable by keyboard, and the scrollbar is left visible —
      hiding it is what made the old calendar's missing months unreachable. */
   .contrib-scroll {
-    /* A day is a fixed size, stepped once: 16px, and 18px from xl. It used to
-       be a track between a 16px floor and a 22px ceiling that filled the
-       width, which meant every dot grew with the window between ~1060 and the
-       page cap. Fixed, the year takes the width it needs: where that is more
-       than the column, this container scrolls it, as it already did below
-       ~1060; where it is less, the slack sits to the right of the year.
+    /* A day is a fixed size, stepped twice: 16px, 18px from lg, and 19px from
+       the 80rem page cap. It used to be a track between a 16px floor and a
+       22px ceiling that filled the width, which meant every dot grew with the
+       window between ~1060 and the page cap. Fixed, the year takes the width
+       it needs: where that is more than the column, this container scrolls
+       it, as it already did below ~1060; where it is less, the slack sits to
+       the right of the year.
 
-       18 is the largest size at which a 54-week year still fits at 1280
-       (54 × 22 − 4 = 1184 of 1221), so xl never scrolls. Both are rem, so the
-       calendar tracks the reader's text size rather than a device pixel. */
-    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] xl:[--contrib-cell:1.125rem];
+       At lg the year is 1162 wide at 18px, more than the column until 1221,
+       so across lg it scrolls rather than stopping short of the column's
+       edge, which at 16px left 116px empty by 1231. A 54-week year fits from
+       1243. At the cap the column stops growing at 1236, where 18px left 74px
+       of it empty; 19px brings a 53-week year to 1215 (53 × 23 − 4), and a
+       54-week one, the next is 2028, scrolls by 2px. Both are rem, so the calendar tracks the reader's text size rather
+       than a device pixel. */
+    @apply flex flex-col gap-1.5 overflow-x-auto [--contrib-cell:1rem] [--contrib-gap:0.25rem] motion-safe:scroll-smooth lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
     /* The native bar is replaced, not merely hidden: the edge fades below say
        the same thing and are ours to style. Hiding it without them is what made
        the old calendar's missing months unreachable. */
@@ -220,6 +227,24 @@
     &::-webkit-scrollbar {
       display: none;
     }
+  }
+  .contrib-scroll-frame {
+    @apply relative;
+  }
+  /* Only where the pointer can hover, so a mouse; touch swipes the year. The
+     hidden attribute, set while a side has nothing behind it, still wins. */
+  .contrib-scroll-button {
+    @apply focus-visible:ring-brand-500 absolute top-1/2 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+
+    @media (hover: hover) and (pointer: fine) {
+      display: flex;
+    }
+  }
+  .contrib-scroll-button-start {
+    @apply left-0;
+  }
+  .contrib-scroll-button-end {
+    @apply right-0;
   }
   /* Fade whichever side still has weeks behind it, and neither once the whole
      year is visible. Declared after .contrib-scroll to win on source order. */
@@ -581,7 +606,7 @@
     @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
   }
   .footer-container {
-    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-9;
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-12;
   }
   .footer-primary {
     @apply grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_auto] md:gap-11;
@@ -786,89 +811,117 @@
      copy, and from sm the two sit side by side, so the stacked layout never
      has to fill a tablet-width window. Beside the copy the photograph has one
      place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
-     and xl, so it only ever grows. The last row is 1fr so a photograph taller
-     than the copy pools its slack under the closing note rather than spreading
-     the copy apart. Every size steps; nothing is fluid. */
+     and xl, so it only ever grows. It holds at 2xl, where the page is already
+     at its cap and a larger photograph only crowded the copy. md stops at 264:
+     at 768 the row is full, so each pixel more narrows the copy. As in the
+     hero, the copy column is as wide as its copy and the grid packs to the
+     start, so the photograph keeps one gap from the copy and the slack falls
+     to its right. The gap steps with the photograph from lg, 56 and 64px. The
+     last row is 1fr so a photograph taller than the copy pools its slack
+     under the credentials rather than spreading the copy apart. Every size
+     steps; nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
-    grid-template-areas: 'visual' 'tagline' 'narrative' 'credentials' 'note';
+    grid-template-areas: 'visual' 'narrative' 'credentials';
   }
   @media (width >= 40rem) {
     .about-grid {
       @apply gap-x-11;
 
-      grid-template-columns: minmax(0, 1fr) 200px;
-      grid-template-rows: auto auto auto 1fr;
+      grid-template-columns: minmax(0, max-content) 200px;
+      justify-content: start;
+      grid-template-rows: auto 1fr;
       grid-template-areas:
-        'tagline visual'
         'narrative visual'
-        'credentials visual'
-        'note visual';
+        'credentials visual';
     }
   }
   @media (width >= 48rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 240px;
+      grid-template-columns: minmax(0, max-content) 264px;
     }
   }
   @media (width >= 64rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 300px;
+      @apply gap-x-14;
+
+      grid-template-columns: minmax(0, max-content) 320px;
     }
   }
-  @media (width >= 80rem) {
+  @media (width >= 77rem) {
     .about-grid {
-      grid-template-columns: minmax(0, 1fr) 360px;
+      @apply gap-x-16;
+
+      grid-template-columns: minmax(0, max-content) 380px;
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
      large phone. The face sits in the upper half of the photograph, so the
-     crop favours it. */
+     crop favours it. Beside the copy its top meets the narrative's cap height
+     rather than its line box; the photograph moves down rather than the text
+     up, so the space under the section heading matches every other
+     section's. Stacked, it keeps as much space beneath it as the heading
+     leaves above, 56px, where the row gap alone left 22 and the bottom
+     sticker 6px off the text. The frame does not clip, so the stickers can
+     overhang it; the image carries the rounding instead. */
   .about-visual {
-    @apply relative h-[300px] w-full max-w-88 overflow-hidden rounded-lg sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
 
     grid-area: visual;
 
     & img {
-      @apply object-cover object-[50%_35%];
+      @apply rounded-lg object-cover object-[50%_35%];
     }
   }
-  /* A statement rather than a second heading: the section heading's size at
-     each of its steps, but medium weight in a mid neutral, so the two differ
-     in weight and tone instead of competing as two bold headings. */
-  .about-tagline {
-    @apply font-display text-heading lg:text-heading-lg 2xl:text-display max-w-[18ch] leading-[1.15] font-medium tracking-tight text-balance text-neutral-600 dark:text-neutral-400;
-
-    grid-area: tagline;
+  /* Three stickers slapped on the photograph's edges, the section's one
+     playful note. They overhang by no more than the page gutter at sm and md,
+     where the photograph meets the gutter, and further from lg, where the
+     row has slack beside it. */
+  .about-stickers {
+    @apply pointer-events-none absolute inset-0;
   }
+  .about-sticker {
+    @apply font-display text-body lg:text-title-sm absolute rounded-full px-3 py-1.5 font-bold whitespace-nowrap text-neutral-900 shadow-lg shadow-black/35 lg:px-4 lg:py-2;
+
+    &:nth-child(1) {
+      @apply bg-brand-400 -top-2.5 -left-2 -rotate-6 lg:-top-3.5 lg:-left-6.5;
+    }
+    &:nth-child(2) {
+      @apply top-[41%] -right-2 rotate-[5deg] bg-neutral-100 lg:-right-8.5;
+    }
+    &:nth-child(3) {
+      @apply border-brand-400 -bottom-3 left-5 -rotate-3 border-2 bg-neutral-900 py-1 text-neutral-50 lg:-bottom-4 lg:left-9 lg:py-1.5;
+    }
+  }
+  /* 52ch from lg, where the photograph takes the most of the row; from xl the
+     row has room again, and the copy takes some of the slack beside it. */
   .about-narrative {
-    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
+    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] xl:max-w-[60ch] dark:text-neutral-300;
 
     grid-area: narrative;
   }
   .about-credentials {
     grid-area: credentials;
   }
+  /* One column until lg, where the copy is wide enough for two; six lines
+     stacked made a tall, narrow strip that ran the copy past the photograph. */
   .about-credential-list {
-    @apply flex flex-col gap-[11px];
+    @apply grid grid-cols-1 gap-x-6 gap-y-[11px] lg:grid-cols-2;
   }
   .about-credential {
     @apply border-brand-500 dark:border-brand-400 text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
   }
-  .about-note {
-    @apply text-body max-w-[56ch] border-t border-neutral-200 pt-[18px] text-neutral-500 italic lg:max-w-[52ch] dark:border-neutral-800 dark:text-neutral-400;
-
-    grid-area: note;
-  }
   .hero-composition {
-    /* The copy column takes what the rocket leaves, so the page around the hero
-       flows with the window like every other section. The type and the rocket
-       do not: each changes size only at a breakpoint, together, so inside a
-       range the space between the copy and the rocket grows with the window.
-       That is the accepted cost of not resizing anything per pixel. It is
-       bounded by the next step, and from xl by the page measure, which the xl
-       hero fills: 690 + 56 + 396 inside 80rem's 1176.
+    /* The copy column is as wide as its copy and the grid packs to the start,
+       so the rocket sits one column gap from the copy at every width and the
+       window's slack falls to its right. The type and the rocket change size
+       only at a breakpoint, together, so between steps nothing in the hero
+       moves. The cost is a right edge that stops short of the sections', by
+       up to 305px at the end of the lg range and 61px at the 80rem cap. A copy
+       column that took what the rocket left pinned the rocket to the page edge
+       instead, and the gap beside it grew across each range and snapped back
+       at the next, 169 to 424 and then 147 at 1280.
 
        Height is the content's, never the viewport's. A `min-height: 75vh` here
        sat under fixed-height content, so the hero grew with the window while
@@ -893,17 +946,18 @@
       'copy';
 
     @variant sm {
-      grid-template-columns: minmax(0, 1fr) 216px;
+      grid-template-columns: minmax(0, max-content) 216px;
       grid-template-areas: 'copy visual';
+      justify-content: start;
     }
     @variant md {
-      grid-template-columns: minmax(0, 1fr) 240px;
+      grid-template-columns: minmax(0, max-content) 240px;
     }
     @variant lg {
-      grid-template-columns: minmax(0, 1fr) 288px;
+      grid-template-columns: minmax(0, max-content) 288px;
     }
     @variant xl {
-      grid-template-columns: minmax(0, 1fr) 396px;
+      grid-template-columns: minmax(0, max-content) 396px;
     }
   }
   .hero-copy {
@@ -931,12 +985,13 @@
        stops at 700, so this sets its own.
 
        One size per breakpoint, stepping with the rocket. 38px on a phone, the
-       drawn size. From sm
-       46px and from md 58px, both at 11ch, a three-line block that leaves
-       both buttons a row; 13ch
-       from lg, where each step's copy column has the room for the full
-       measure. No 2xl step: the page stops growing before 1536. */
-    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch] lg:max-w-[13ch];
+       drawn size. From sm 46px, from md 58px, from lg 72px and from xl 96px,
+       all at 11ch, a three-line block that leaves both buttons a row. The copy
+       column is as wide as this box, and balanced lines stop short of it, so
+       a wider measure set the rocket that much further from the text: 13ch
+       broke the same three lines and left 167px beside the rocket at lg
+       against 70 at 11ch. No 2xl step: the page stops growing before 1536. */
+    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch];
   }
   .hero-supporting-text {
     @apply text-lead xl:text-title-sm max-w-[46ch] xl:max-w-[52ch];

@@ -36,15 +36,13 @@ export const en = {
   },
 
   aboutSection: {
-    tagline: 'Tech loving, gym obsessed problem solver',
+    stickers: ['tech nerd', 'gym rat', 'wannabe vocalist'],
     introParagraph:
       'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
     narrativeParagraphs: [
       "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
       'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
     ],
-    closingNote:
-      'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
     credentialsAriaLabel: 'At a glance',
     photoAlt: 'Zahed Heidari, smiling in sunglasses at a café table',
   },
@@ -175,6 +173,8 @@ export const en = {
     contributions: 'contributions',
     contributionsSingular: 'contribution',
     noContributions: 'No contributions',
+    scrollEarlier: 'Scroll to earlier weeks',
+    scrollLater: 'Scroll to later weeks',
   },
 
   projectFilters: {
