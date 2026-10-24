@@ -710,10 +710,10 @@
   }
   /* The hero's pairing at the footer's size: the first link is the page's
      primary call and the rest sit beside it. */
-  .project-page-actions {
+  .page-actions {
     @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
   }
-  .project-page-action {
+  .page-action {
     @apply text-body focus-visible:ring-brand-500 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
   }
   /* "group" stays on the element in the markup: it is a marker class, not a

@@ -235,9 +235,9 @@ export const en = {
   },
 
   notFound: {
-    heading: 'Page Not Found',
+    heading: 'Page not found',
     description: "Oops! The page you're looking for doesn't exist.",
-    returnHome: 'Return Home',
+    returnHome: 'Return home',
     code: '404',
   },
 

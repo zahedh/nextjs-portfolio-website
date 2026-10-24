@@ -1,32 +1,34 @@
-import Link from 'next/link';
-import { BodyText } from '@/components';
+import type { Metadata } from 'next';
+import HeaderFooter from '@/components/layout/HeaderFooter';
 import { PrimaryButton } from '@/components';
 import { en } from '@/language/english';
 
-/**
- * Custom 404 Page Not Found component
- * Displayed when a user navigates to a non-existent route
- */
+export const metadata: Metadata = {
+  title: '404 Not Found | Zahed Heidari',
+};
+
+/** Shown for any route that does not exist, inside the site's own header and
+    footer so a visitor arriving on a broken link can reach every section. */
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-6 px-4">
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="font-heading text-brand-500 text-[120px] leading-none font-bold sm:text-[180px]">
-          {en.notFound.code}
-        </div>
-
-        <h1 className="font-heading text-heading lg:text-heading-lg text-center font-bold tracking-tight text-neutral-900 dark:text-neutral-200">
-          {en.notFound.heading}
-        </h1>
-
-        <BodyText className="max-w-md text-center text-neutral-700 dark:text-neutral-300">
-          {en.notFound.description}
-        </BodyText>
-
-        <Link href="/" className="mt-4">
-          <PrimaryButton>{en.notFound.returnHome}</PrimaryButton>
-        </Link>
+    <HeaderFooter>
+      <div className="screen-parent">
+        {/* Cancels the shell's header offset, as a project page does. */}
+        <section className="screen-section -mt-18">
+          <div className="section-inner">
+            <div className="page-head">
+              <p className="page-meta">{en.notFound.code}</p>
+              <h1 className="page-title">{en.notFound.heading}</h1>
+              <p className="page-summary">{en.notFound.description}</p>
+              <div className="page-actions mt-2">
+                <PrimaryButton hyperlink="/" className="page-action">
+                  {en.notFound.returnHome}
+                </PrimaryButton>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
+    </HeaderFooter>
   );
 }
