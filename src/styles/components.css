@@ -412,15 +412,6 @@
   /* =========================
      ðŸƒ CARD UTILITIES
      ========================= */
-  .surface-card {
-    @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
-  }
-  .surface-card-interactive {
-    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
-  }
-  .surface-card-flat {
-    @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
-  }
   /* Holds the grid, the overflow grid and the control on one rhythm, so the
      cards revealed by "See all" do not inherit the wider .section-inner gap. */
   .projects-stack {
@@ -548,21 +539,6 @@
   }
   .card-fade-gradient {
     @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
-  }
-  .card-description {
-    @apply text-neutral-700 dark:text-neutral-300;
-  }
-  .card-section-heading {
-    @apply text-brand-600 dark:text-brand-400 mt-8 mb-3;
-  }
-  .card-meta {
-    @apply text-neutral-600 dark:text-neutral-400;
-  }
-  .card-footer-note {
-    @apply text-body-sm mt-10 border-t border-neutral-300 pt-6 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
-  }
-  .card-list {
-    @apply font-body text-body mb-6 list-disc pl-6 text-neutral-700 dark:text-neutral-300;
   }
   .link-accent {
     @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
@@ -768,6 +744,13 @@
   /* A heading and the prose under it, at the gap a project page's overview uses. */
   .page-block {
     @apply flex flex-col gap-3;
+  }
+  /* Reading text on a page of its own: the project overview's size and ink. */
+  .page-prose {
+    @apply text-body text-neutral-700 dark:text-neutral-300;
+  }
+  .page-list {
+    @apply list-disc space-y-3 pl-5 marker:text-neutral-400 dark:marker:text-neutral-600;
   }
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;
