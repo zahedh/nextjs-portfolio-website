@@ -604,7 +604,7 @@
     @apply font-display text-heading lg:text-heading-lg 2xl:text-display font-bold text-balance;
   }
   .footer-copy {
-    @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-lead mt-8 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
     @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
