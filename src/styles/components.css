@@ -814,17 +814,16 @@
   .meta-list-value {
     @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
-  /* About. Like the hero, a phone below sm stacks the photograph above the
-     copy, and from sm the two sit side by side, so the stacked layout never
-     has to fill a tablet-width window. Beside the copy the photograph has one
-     place, top right, and one shape, 4:5; only its size steps, at sm, md and
-     lg. It holds from lg, where 320 wide is about as tall as the copy beside
-     it; a larger one overshadowed the copy. md stops at 264: at 768 the row is
-     full, so each pixel more narrows the copy. Below lg the copy column is as
-     wide as its copy and the grid packs to the start. From lg the row splits
-     in half, though the copy's half never narrows below the copy, which
-     would wrap the highlights at 1024. The photograph centres in its half,
-     so the slack sits either side of it rather than pooling at the right. The last row is
+  /* About. Below md the photograph stacks above the copy, as on a phone:
+     beside the copy at sm it could be no wider than 200, since the copy
+     column was already at its narrowest. From md the two sit side by side.
+     Beside the copy the photograph has one place, top right, one shape, 4:5,
+     and one size, 320 wide, about as tall as the copy beside it; a larger
+     one overshadowed the copy. Below lg the copy column is as wide as its
+     copy and the grid packs to the start. From lg the row splits in half,
+     though the copy's half never narrows below the copy, which would wrap
+     the highlights at 1024. The photograph centres in its half, so the slack
+     sits either side of it rather than pooling at the right. The last row is
      1fr so a photograph taller than the copy pools its slack under the
      credentials rather than spreading the copy apart. Every size steps;
      nothing is fluid. */
@@ -833,21 +832,16 @@
 
     grid-template-areas: 'visual' 'narrative' 'credentials';
   }
-  @media (width >= 40rem) {
+  @media (width >= 48rem) {
     .about-grid {
       @apply gap-x-11;
 
-      grid-template-columns: minmax(0, max-content) 200px;
+      grid-template-columns: minmax(0, max-content) 320px;
       justify-content: start;
       grid-template-rows: auto 1fr;
       grid-template-areas:
         'narrative visual'
         'credentials visual';
-    }
-  }
-  @media (width >= 48rem) {
-    .about-grid {
-      grid-template-columns: minmax(0, max-content) 264px;
     }
   }
   @media (width >= 64rem) {
@@ -867,7 +861,7 @@
      sticker 6px off the text. The frame does not clip, so the stickers can
      overhang it; the image carries the rounding instead. */
   .about-visual {
-    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none lg:w-80 lg:justify-self-center;
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 md:mt-2 md:mb-0 md:aspect-[4/5] md:h-auto md:max-w-none lg:w-80 lg:justify-self-center;
 
     grid-area: visual;
 
@@ -876,8 +870,8 @@
     }
   }
   /* Three stickers slapped on the photograph's edges, the section's one
-     playful note. They overhang by no more than the page gutter at sm and md,
-     where the photograph meets the gutter, and further from lg, where the
+     playful note. They overhang by no more than the page gutter at md, where
+     the photograph meets the gutter, and further from lg, where the
      row has slack beside it. */
   .about-stickers {
     @apply pointer-events-none absolute inset-0;
