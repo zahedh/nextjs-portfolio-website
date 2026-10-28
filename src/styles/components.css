@@ -3,16 +3,16 @@
    ========================= */
 @layer utilities {
   .experience-rail {
-    @apply flex w-full max-w-[900px] flex-col gap-9 xl:max-w-none;
+    @apply flex w-full flex-col gap-9;
   }
   .experience-group {
     @apply relative flex flex-col gap-2.5;
   }
   .experience-group-header {
-    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] xl:pl-[128px];
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] lg:pl-[128px];
   }
   .experience-group-company {
-    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-group-meta {
     @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
@@ -28,10 +28,10 @@
     @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
-    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
+    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch lg:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] lg:items-start lg:gap-x-8;
   }
   .experience-stack {
-    @apply hidden xl:flex xl:flex-col xl:pt-5;
+    @apply hidden lg:flex lg:flex-col lg:pt-5;
   }
   /* Matches .experience-details so the stack and the card open at one pace. */
   .experience-stack-reveal {
@@ -75,6 +75,11 @@
   .experience-stack-pill {
     @apply text-meta inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono text-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
   }
+  /* The overflow count in the same pill as the labels it stands for, set
+     apart by colour alone rather than by a taller shape in another face. */
+  .experience-stack-more {
+    @apply border-brand-500/50 text-brand-700 dark:border-brand-400/50 dark:text-brand-400;
+  }
   .experience-year {
     @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
   }
@@ -108,16 +113,16 @@
     @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
   }
   .experience-card-title {
-    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-current {
     @apply text-brand-700 dark:text-brand-400 text-meta font-mono;
   }
-  .experience-meta {
-    @apply text-caption truncate font-mono text-neutral-500 dark:text-neutral-400;
-  }
+  /* Below lg the card fills the rail, so the summary fills the card, as the
+     details beneath it already do; a measure there would leave the card empty
+     past the text. From lg the stack's column keeps the card near 62ch. */
   .experience-summary {
-    @apply text-body max-w-[62ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-body text-neutral-700 lg:max-w-[62ch] dark:text-neutral-300;
   }
   .experience-expand-button {
     @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
