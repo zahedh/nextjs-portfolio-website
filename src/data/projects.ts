@@ -110,7 +110,7 @@ export const projects: Project[] = [
     endDate: 'Mar 2023',
     url: 'https://www.curtainsmade.co.uk/',
     description: [
-      'E-commerce and internal tooling for Curtains Made (curtainsmade.co.uk) — made-to-measure curtains and blinds by Lynn Lloyd, replacing and modernising the legacy storefront.',
+      'E-commerce and internal tooling for Curtains Made, a made-to-measure curtain and blind maker, replacing its legacy storefront.',
       "Developed a programmatic bridge between the client's stock system and Oracle NetSuite.",
       'Built a front-end stock management interface using VB.NET on a bespoke CMS.',
       'Implemented an automated task scheduler to sync stock data and images on a schedule.',
@@ -124,7 +124,9 @@ export const projects: Project[] = [
       'jira',
       'postman',
       'rest-api',
+      'netsuite',
       'mysql',
+      'xslt',
       'html',
       'css',
     ],

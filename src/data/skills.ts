@@ -37,6 +37,8 @@ import {
   SiReacttable,
   SiReacthookform,
   SiTestinglibrary,
+  SiOracle,
+  SiXml,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
@@ -158,6 +160,12 @@ export const skillsData: Skill[] = [
     id: 'objective-c',
     label: en.skillsCollageSection.objectiveC,
     icon: Code2,
+    category: 'legacy',
+  },
+  {
+    id: 'xslt',
+    label: en.skillsCollageSection.xslt,
+    icon: SiXml,
     category: 'legacy',
   },
 
@@ -302,6 +310,12 @@ export const skillsData: Skill[] = [
     id: 'postman',
     label: en.skillsCollageSection.postman,
     icon: SiPostman,
+    category: 'api',
+  },
+  {
+    id: 'netsuite',
+    label: en.skillsCollageSection.netSuite,
+    icon: SiOracle,
     category: 'api',
   },
 

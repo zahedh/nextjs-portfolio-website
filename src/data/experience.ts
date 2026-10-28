@@ -103,6 +103,8 @@ export const jobExperiences: JobExperience[] = [
       'Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
     ],
     skills: [
+      'netsuite',
+      'xslt',
       'React Native',
       'html',
       'javascript',

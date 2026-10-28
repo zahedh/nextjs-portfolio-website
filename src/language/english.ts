@@ -81,6 +81,7 @@ export const en = {
 
     // Legacy/Additional Languages
     objectiveC: 'Objective-C',
+    xslt: 'XSLT',
 
     // Web Fundamentals
     html: 'HTML5',
@@ -115,6 +116,7 @@ export const en = {
     // API & Development
     restAPI: 'REST API',
     postman: 'Postman',
+    netSuite: 'Oracle NetSuite',
 
     // Project Management & Collaboration
     jira: 'Jira',
