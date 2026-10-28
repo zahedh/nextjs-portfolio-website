@@ -16,12 +16,12 @@ export const jobExperiences: JobExperience[] = [
     summary:
       "Leads the team's AI adoption: runs the Claude team subscription, wrote the AI usage standard, and set the guardrails that let developers run agents in auto mode.",
     description: [
-      "✦ One of three core code maintainers on SMARTY's React Native app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
-      "✦ Maintain the team's shared context library, so every developer's AI tools work from the same standards and project knowledge.",
-      '✦ Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
-      '✦ Drive removal of legacy code and modernisation of development standards to improve long-term scalability and maintainability.',
-      "✦ Collaborate across SMARTY's multi-company tech stack to ensure seamless integration and alignment between teams.",
-      '✦ Liaise directly with clients to clarify requirements, ensuring technical implementation matches business needs within Agile delivery.',
+      "One of three core code maintainers on SMARTY's React Native app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
+      "Maintain the team's shared context library, so every developer's AI tools work from the same standards and project knowledge.",
+      'Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
+      'Drive removal of legacy code and modernisation of development standards to improve long-term scalability and maintainability.',
+      "Collaborate across SMARTY's multi-company tech stack to ensure seamless integration and alignment between teams.",
+      'Liaise directly with clients to clarify requirements, ensuring technical implementation matches business needs within Agile delivery.',
     ],
     skills: [
       'react',
@@ -56,14 +56,14 @@ export const jobExperiences: JobExperience[] = [
     summary:
       "Joined SMARTY's React Native team as its most junior developer, on an app used by over a million people, and grew into one of its core maintainers.",
     description: [
-      '✦ Part of the team that rewrote the app from the ground up, integrating its group functionality.',
-      '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
-      '✦ Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
-      "✦ Collaborate within SMARTY's multi-company tech stack to ensure seamless integration, alignment, and efficient cross-team development.",
-      '✦ Regularly present technical updates and progress in large client meetings, supporting transparency and collaboration.',
-      "✦ Research, learn, and integrate emerging technologies into the app's development workflow to drive innovation.",
-      '✦ Liaise directly with clients to clarify requirements, ensuring alignment between technical implementation and business needs.',
-      '✦ Work within Agile methodologies, collaborating closely with developers, QA, and PMs to deliver continuous improvements.',
+      'Part of the team that rewrote the app from the ground up, integrating its group functionality.',
+      'Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
+      'Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
+      "Collaborate within SMARTY's multi-company tech stack to ensure seamless integration, alignment, and efficient cross-team development.",
+      'Regularly present technical updates and progress in large client meetings, supporting transparency and collaboration.',
+      "Research, learn, and integrate emerging technologies into the app's development workflow to drive innovation.",
+      'Liaise directly with clients to clarify requirements, ensuring alignment between technical implementation and business needs.',
+      'Work within Agile methodologies, collaborating closely with developers, QA, and PMs to deliver continuous improvements.',
     ],
     skills: [
       'react',
@@ -95,12 +95,12 @@ export const jobExperiences: JobExperience[] = [
     summary:
       "Led Michelin's internal React Native app, alongside back-end, stock-system and e-commerce integration work for other clients.",
     description: [
-      '✦ Converted legacy Alloy applications to a modern React Native framework.',
-      '✦ Revamped an e-commerce site with a heavy focus on back-end development.',
-      "✦ Developed a programmatic bridge between a client's stock system and Oracle NetSuite.",
-      '✦ Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
-      '✦ Developed a dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
-      '✦ Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
+      'Converted legacy Alloy applications to a modern React Native framework.',
+      'Revamped an e-commerce site with a heavy focus on back-end development.',
+      "Developed a programmatic bridge between a client's stock system and Oracle NetSuite.",
+      'Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
+      'Developed a dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
+      'Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
     ],
     skills: [
       'React Native',
@@ -133,9 +133,9 @@ export const jobExperiences: JobExperience[] = [
     summary:
       "First role in industry: shipped a community app to both stores and a WordPress plugin that automated a client's PDF production.",
     description: [
-      '✦ Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
-      "✦ Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
-      '✦ Reduced PDF production time drastically — capable of creating 100 PDFs in under 15 minutes with dynamic content generation.',
+      'Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
+      "Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
+      'Reduced PDF production time drastically — capable of creating 100 PDFs in under 15 minutes with dynamic content generation.',
     ],
     skills: [
       'React Native',

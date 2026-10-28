@@ -2,6 +2,7 @@
 
 import { useId } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 import { getSkillsByIds } from '@/lib/utils';
@@ -73,16 +74,10 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
         inert={!isExpanded}
       >
         <div ref={contentRef} className="experience-details-content">
-          <div className="space-y-3">
-            {job.description.map((paragraph, index) => (
-              <p
-                key={index}
-                className="text-body leading-relaxed text-neutral-600 dark:text-neutral-400"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <FeatureList
+            lines={job.description}
+            className="leading-relaxed text-neutral-600 dark:text-neutral-400"
+          />
           <TechStack
             skills={jobSkills}
             className="lg:hidden"

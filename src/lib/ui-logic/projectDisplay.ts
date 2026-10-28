@@ -32,16 +32,9 @@ export function getProjectBySlug(
   return allProjects.find((project) => project.slug === slug);
 }
 
-/** Strip leading bullet markers (✦, •, -, *) from a description line for excerpts and list items. */
-export function stripDescriptionLine(raw: string): string {
-  return raw.replace(/^\s*[✦•\-*]\s*/, '').trim();
-}
-
-/** First description paragraph, stripped of bullet markers — used for card excerpts and overview blocks. */
+/** First description paragraph, used for card excerpts and overview blocks. */
 export function getProjectExcerptLine(project: Project): string {
-  const first = project.description[0];
-  if (!first) return '';
-  return stripDescriptionLine(first);
+  return project.description[0]?.trim() ?? '';
 }
 
 /** Card excerpt: the written summary where there is one, else the first description line. */
