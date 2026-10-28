@@ -93,14 +93,12 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
     summary:
-      "Led Michelin's internal React Native app, alongside back-end, stock-system and e-commerce integration work for other clients.",
+      "Rebuilt Curtains Made's storefront and the stock tooling behind it, including a bridge from the client's stock system to Oracle NetSuite.",
     description: [
-      'Converted legacy Alloy applications to a modern React Native framework.',
-      'Revamped an e-commerce site with a heavy focus on back-end development.',
-      "Developed a programmatic bridge between a client's stock system and Oracle NetSuite.",
       'Created a front-end stock management system using VB.NET with an automated task scheduler for periodic stock data and image management.',
       'Developed a dynamic email system for customers/suppliers using XSLT templates triggered after order completion.',
-      'Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronization.',
+      'Created a custom WordPress plugin to integrate with a third-party API for real-time data synchronisation.',
+      'Continued to build features for, and maintain, the client apps already in production.',
     ],
     skills: [
       'netsuite',
@@ -133,11 +131,12 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     summary:
-      "First role in industry: shipped a community app to both stores and a WordPress plugin that automated a client's PDF production.",
+      "First role in industry: led an app in Michelin's move to React Native and shipped a community app to both stores.",
     description: [
       'Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
       "Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
       'Reduced PDF production time drastically — capable of creating 100 PDFs in under 15 minutes with dynamic content generation.',
+      "Led the truck audit app in Michelin's move off the legacy Alloy framework to React Native.",
     ],
     skills: [
       'React Native',
