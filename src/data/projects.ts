@@ -60,13 +60,12 @@ export const projects: Project[] = [
     endDate: 'Present',
     url: 'https://smarty.co.uk/app',
     description: [
-      'A large-scale mobile application developed for SMARTY, focused on delivering a smooth and user-friendly experience for managing mobile accounts and plans.',
+      "SMARTY's app for managing mobile accounts and plans, used by over a million people.",
+      'Rewritten from the ground up since I joined the team, and still growing: the project in hand now is the largest yet.',
       'Built using React Native to support both iOS and Android platforms under a shared codebase.',
-      'Designed for scalability and performance across a multi-company technical ecosystem.',
-      'Involved in continuous development, optimisation, and integration of new features aligned with SMARTY’s growing service offerings.',
       'Codebase actively maintained with modern development practices, including automated testing, code review, and refactoring for long-term stability.',
       'Collaborated across multiple development teams to ensure seamless integration between app, web, and backend services.',
-      'Research and adoption of emerging technologies, including the modern use of AI tools to improve development efficiency and workflow automation.',
+      "Where I lead the team's AI adoption: a shared usage standard, guardrails for running agents, and a context library the whole team works from.",
     ],
     skills: [
       'react',
