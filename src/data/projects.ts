@@ -203,7 +203,7 @@ export const projects: Project[] = [
     slug: 'redfred',
     title: 'RedFred',
     summary:
-      'WordPress plugin turning uploaded data into 100 bespoke PDFs in under an hour.',
+      'WordPress plugin turning uploaded data into 100 bespoke PDFs in under 15 minutes.',
     company: 'Interlockdigital',
     startDate: 'Jun 2021',
     endDate: 'Jul 2021',
@@ -211,7 +211,7 @@ export const projects: Project[] = [
       "Engineered an automated tool for generating TheirCare's summer activity PDFs at Interlockdigital.",
       "Significantly reduced RedFred's production time for TheirCare PDFs through automation.",
       'Dynamically generates content and layouts based on user-uploaded data.',
-      'Efficiently produces up to 100 customised PDFs in under an hour.',
+      'Efficiently produces up to 100 customised PDFs in under 15 minutes.',
       'Built during my computing degree at Staffordshire University, in the same summer as the Michelin work.',
     ],
     skills: ['javascript', 'github', 'mysql', 'html', 'css'],

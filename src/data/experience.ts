@@ -14,11 +14,11 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2026',
     endDate: 'Present',
     summary:
-      "One of three core code maintainers on SMARTY's React Native mobile app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
+      "Leads the team's AI adoption: runs the Claude team subscription, wrote the AI usage standard, and set the guardrails that let developers run agents in auto mode.",
     description: [
-      '✦ Lead AI tooling adoption across the team — evaluating and embedding tools like GitHub Copilot into the development workflow.',
+      "✦ One of three core code maintainers on SMARTY's React Native app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
+      "✦ Maintain the team's shared context library, so every developer's AI tools work from the same standards and project knowledge.",
       '✦ Present technical updates and strategy to SMARTY stakeholders on a rotating basis, translating engineering decisions for non-technical audiences.',
-      '✦ Guide developers on AI-assisted development practices, raising delivery velocity and code quality across the team.',
       '✦ Drive removal of legacy code and modernisation of development standards to improve long-term scalability and maintainability.',
       "✦ Collaborate across SMARTY's multi-company tech stack to ensure seamless integration and alignment between teams.",
       '✦ Liaise directly with clients to clarify requirements, ensuring technical implementation matches business needs within Agile delivery.',
@@ -54,8 +54,9 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Mar 2023',
     endDate: 'Jul 2026',
     summary:
-      "Development and maintenance of SMARTY's React Native mobile app, ensuring high performance and stability across a 1M+ user ecosystem.",
+      "Joined SMARTY's React Native team as its most junior developer, on an app used by over a million people, and grew into one of its core maintainers.",
     description: [
+      '✦ Part of the team that rewrote the app from the ground up, integrating its group functionality.',
       '✦ Responsible for reviewing, testing, and blocking harmful or unstable code to maintain long-term project health.',
       '✦ Actively removing legacy code and implementing modern development standards to enhance scalability and maintainability.',
       "✦ Collaborate within SMARTY's multi-company tech stack to ensure seamless integration, alignment, and efficient cross-team development.",
@@ -92,7 +93,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2022',
     endDate: 'Mar 2023',
     summary:
-      'Led the development of an internal React Native mobile application for Michelin.',
+      "Led Michelin's internal React Native app, alongside back-end, stock-system and e-commerce integration work for other clients.",
     description: [
       '✦ Converted legacy Alloy applications to a modern React Native framework.',
       '✦ Revamped an e-commerce site with a heavy focus on back-end development.',
@@ -130,12 +131,11 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'May 2020',
     endDate: 'Jul 2022',
     summary:
-      'Contributed to both React Native and WordPress client projects, delivering features, fixes, and production-ready updates across mobile and web.',
+      "First role in industry: shipped a community app to both stores and a WordPress plugin that automated a client's PDF production.",
     description: [
-      '✦ Gained early experience delivering production-ready features across mobile and web projects in a client-focused environment.',
       '✦ Co-developed the Warmshowers mobile app using React Native, published in both the Google Play and Apple App stores. Serves a 150,000+ member community, generating over £50,000 annual revenue.',
       "✦ Developed the RedFred PDF Generator WordPress Plugin to automate TheirCare's summer activity PDF production.",
-      '✦ Reduced PDF production time drastically — capable of creating 100 PDFs in under an hour with dynamic content generation.',
+      '✦ Reduced PDF production time drastically — capable of creating 100 PDFs in under 15 minutes with dynamic content generation.',
     ],
     skills: [
       'React Native',
