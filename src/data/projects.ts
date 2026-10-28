@@ -62,10 +62,10 @@ export const projects: Project[] = [
     description: [
       "SMARTY's app for managing mobile accounts and plans, used by over a million people.",
       'Rewritten from the ground up since I joined the team, and still growing: the project in hand now is the largest yet.',
+      "I lead the team's AI adoption: a shared usage standard, guardrails for running agents, and a context library the whole team works from.",
       'Built using React Native to support both iOS and Android platforms under a shared codebase.',
       'Codebase actively maintained with modern development practices, including automated testing, code review, and refactoring for long-term stability.',
       'Collaborated across multiple development teams to ensure seamless integration between app, web, and backend services.',
-      "Where I lead the team's AI adoption: a shared usage standard, guardrails for running agents, and a context library the whole team works from.",
     ],
     skills: [
       'react',
