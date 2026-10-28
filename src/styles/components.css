@@ -817,16 +817,17 @@
   /* About. Like the hero, a phone below sm stacks the photograph above the
      copy, and from sm the two sit side by side, so the stacked layout never
      has to fill a tablet-width window. Beside the copy the photograph has one
-     place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
-     and xl, so it only ever grows. It holds at 2xl, where the page is already
-     at its cap and a larger photograph only crowded the copy. md stops at 264:
-     at 768 the row is full, so each pixel more narrows the copy. As in the
-     hero, the copy column is as wide as its copy and the grid packs to the
-     start, so the photograph keeps one gap from the copy and the slack falls
-     to its right. The gap steps with the photograph from lg, 56 and 64px. The
-     last row is 1fr so a photograph taller than the copy pools its slack
-     under the credentials rather than spreading the copy apart. Every size
-     steps; nothing is fluid. */
+     place, top right, and one shape, 4:5; only its size steps, at sm, md and
+     lg. It holds from lg, where 320 wide is about as tall as the copy beside
+     it; a larger one overshadowed the copy. md stops at 264: at 768 the row is
+     full, so each pixel more narrows the copy. Below lg the copy column is as
+     wide as its copy and the grid packs to the start. From lg the row splits
+     in half, though the copy's half never narrows below the copy, which
+     would wrap the highlights at 1024. The photograph centres in its half,
+     so the slack sits either side of it rather than pooling at the right. The last row is
+     1fr so a photograph taller than the copy pools its slack under the
+     credentials rather than spreading the copy apart. Every size steps;
+     nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
@@ -853,14 +854,7 @@
     .about-grid {
       @apply gap-x-14;
 
-      grid-template-columns: minmax(0, max-content) 320px;
-    }
-  }
-  @media (width >= 77rem) {
-    .about-grid {
-      @apply gap-x-16;
-
-      grid-template-columns: minmax(0, max-content) 380px;
+      grid-template-columns: minmax(max-content, 1fr) minmax(0, 1fr);
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
@@ -873,7 +867,7 @@
      sticker 6px off the text. The frame does not clip, so the stickers can
      overhang it; the image carries the rounding instead. */
   .about-visual {
-    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none lg:w-80 lg:justify-self-center;
 
     grid-area: visual;
 
@@ -901,10 +895,9 @@
       @apply border-brand-400 -bottom-3 left-5 -rotate-3 border-2 bg-neutral-900 py-1 text-neutral-50 lg:-bottom-4 lg:left-9 lg:py-1.5;
     }
   }
-  /* 52ch from lg, where the photograph takes the most of the row; from xl the
-     row has room again, and the copy takes some of the slack beside it. */
+  /* 52ch from lg, which keeps the copy about as tall as the photograph. */
   .about-narrative {
-    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] xl:max-w-[60ch] dark:text-neutral-300;
+    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
 
     grid-area: narrative;
   }
