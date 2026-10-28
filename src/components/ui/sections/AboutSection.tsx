@@ -31,7 +31,7 @@ export default function AboutSection() {
             alt={en.aboutSection.photoAlt}
             placeholder="blur"
             fill
-            sizes="(min-width: 77rem) 760px, (min-width: 64rem) 640px, (min-width: 48rem) 528px, (min-width: 40rem) 400px, 704px"
+            sizes="(min-width: 48rem) 640px, 704px"
           />
           <ul className="about-stickers">
             {en.aboutSection.stickers.map((sticker) => (

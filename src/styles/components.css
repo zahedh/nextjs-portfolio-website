@@ -3,16 +3,16 @@
    ========================= */
 @layer utilities {
   .experience-rail {
-    @apply flex w-full max-w-[900px] flex-col gap-9 xl:max-w-none;
+    @apply flex w-full flex-col gap-9;
   }
   .experience-group {
     @apply relative flex flex-col gap-2.5;
   }
   .experience-group-header {
-    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] xl:pl-[128px];
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] lg:pl-[128px];
   }
   .experience-group-company {
-    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-group-meta {
     @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
@@ -28,10 +28,10 @@
     @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
   }
   .experience-rail-row {
-    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch xl:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] xl:items-start xl:gap-x-8;
+    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch lg:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] lg:items-start lg:gap-x-8;
   }
   .experience-stack {
-    @apply hidden xl:flex xl:flex-col xl:pt-5;
+    @apply hidden lg:flex lg:flex-col lg:pt-5;
   }
   /* Matches .experience-details so the stack and the card open at one pace. */
   .experience-stack-reveal {
@@ -75,6 +75,11 @@
   .experience-stack-pill {
     @apply text-meta inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono text-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
   }
+  /* The overflow count in the same pill as the labels it stands for, set
+     apart by colour alone rather than by a taller shape in another face. */
+  .experience-stack-more {
+    @apply border-brand-500/50 text-brand-700 dark:border-brand-400/50 dark:text-brand-400;
+  }
   .experience-year {
     @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
   }
@@ -108,16 +113,16 @@
     @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
   }
   .experience-card-title {
-    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
   }
   .experience-current {
     @apply text-brand-700 dark:text-brand-400 text-meta font-mono;
   }
-  .experience-meta {
-    @apply text-caption truncate font-mono text-neutral-500 dark:text-neutral-400;
-  }
+  /* Below lg the card fills the rail, so the summary fills the card, as the
+     details beneath it already do; a measure there would leave the card empty
+     past the text. From lg the stack's column keeps the card near 62ch. */
   .experience-summary {
-    @apply text-body max-w-[62ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-body text-neutral-700 lg:max-w-[62ch] dark:text-neutral-300;
   }
   .experience-expand-button {
     @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
@@ -809,29 +814,29 @@
   .meta-list-value {
     @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
-  /* About. Like the hero, a phone below sm stacks the photograph above the
-     copy, and from sm the two sit side by side, so the stacked layout never
-     has to fill a tablet-width window. Beside the copy the photograph has one
-     place, top right, and one shape, 4:5; only its size steps, at sm, md, lg
-     and xl, so it only ever grows. It holds at 2xl, where the page is already
-     at its cap and a larger photograph only crowded the copy. md stops at 264:
-     at 768 the row is full, so each pixel more narrows the copy. As in the
-     hero, the copy column is as wide as its copy and the grid packs to the
-     start, so the photograph keeps one gap from the copy and the slack falls
-     to its right. The gap steps with the photograph from lg, 56 and 64px. The
-     last row is 1fr so a photograph taller than the copy pools its slack
-     under the credentials rather than spreading the copy apart. Every size
-     steps; nothing is fluid. */
+  /* About. Below md the photograph stacks above the copy, as on a phone:
+     beside the copy at sm it could be no wider than 200, since the copy
+     column was already at its narrowest. From md the two sit side by side.
+     Beside the copy the photograph has one place, top right, one shape, 4:5,
+     and one size, 320 wide, about as tall as the copy beside it; a larger
+     one overshadowed the copy. Below lg the copy column is as wide as its
+     copy and the grid packs to the start. From lg the row splits in half,
+     though the copy's half never narrows below the copy, which would wrap
+     the highlights at 1024. The photograph centres in its half, so the slack
+     sits either side of it rather than pooling at the right. The last row is
+     1fr so a photograph taller than the copy pools its slack under the
+     credentials rather than spreading the copy apart. Every size steps;
+     nothing is fluid. */
   .about-grid {
     @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
 
     grid-template-areas: 'visual' 'narrative' 'credentials';
   }
-  @media (width >= 40rem) {
+  @media (width >= 48rem) {
     .about-grid {
       @apply gap-x-11;
 
-      grid-template-columns: minmax(0, max-content) 200px;
+      grid-template-columns: minmax(0, max-content) 320px;
       justify-content: start;
       grid-template-rows: auto 1fr;
       grid-template-areas:
@@ -839,23 +844,11 @@
         'credentials visual';
     }
   }
-  @media (width >= 48rem) {
-    .about-grid {
-      grid-template-columns: minmax(0, max-content) 264px;
-    }
-  }
   @media (width >= 64rem) {
     .about-grid {
       @apply gap-x-14;
 
-      grid-template-columns: minmax(0, max-content) 320px;
-    }
-  }
-  @media (width >= 77rem) {
-    .about-grid {
-      @apply gap-x-16;
-
-      grid-template-columns: minmax(0, max-content) 380px;
+      grid-template-columns: minmax(max-content, 1fr) minmax(0, 1fr);
     }
   }
   /* Stacked, the frame is capped so it stays a plate rather than a banner on a
@@ -868,7 +861,7 @@
      sticker 6px off the text. The frame does not clip, so the stickers can
      overhang it; the image carries the rounding instead. */
   .about-visual {
-    @apply relative mb-8.5 h-[300px] w-full max-w-88 sm:mt-2 sm:mb-0 sm:aspect-[4/5] sm:h-auto sm:max-w-none;
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 md:mt-2 md:mb-0 md:aspect-[4/5] md:h-auto md:max-w-none lg:w-80 lg:justify-self-center;
 
     grid-area: visual;
 
@@ -877,8 +870,8 @@
     }
   }
   /* Three stickers slapped on the photograph's edges, the section's one
-     playful note. They overhang by no more than the page gutter at sm and md,
-     where the photograph meets the gutter, and further from lg, where the
+     playful note. They overhang by no more than the page gutter at md, where
+     the photograph meets the gutter, and further from lg, where the
      row has slack beside it. */
   .about-stickers {
     @apply pointer-events-none absolute inset-0;
@@ -896,10 +889,9 @@
       @apply border-brand-400 -bottom-3 left-5 -rotate-3 border-2 bg-neutral-900 py-1 text-neutral-50 lg:-bottom-4 lg:left-9 lg:py-1.5;
     }
   }
-  /* 52ch from lg, where the photograph takes the most of the row; from xl the
-     row has room again, and the copy takes some of the slack beside it. */
+  /* 52ch from lg, which keeps the copy about as tall as the photograph. */
   .about-narrative {
-    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] xl:max-w-[60ch] dark:text-neutral-300;
+    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
 
     grid-area: narrative;
   }

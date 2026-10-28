@@ -34,7 +34,7 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
       )}
     >
       <div className="experience-card-heading">
-        <h3 className="experience-card-title">{job.title}</h3>
+        <h4 className="experience-card-title">{job.title}</h4>
         {active && (
           <span className="experience-current">
             {en.jobDisplay.statusCurrent}
@@ -42,9 +42,6 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
         )}
       </div>
 
-      <p className="experience-meta">
-        {job.company} <span aria-hidden="true">·</span> {job.location}
-      </p>
       <p className="experience-summary">{job.summary}</p>
 
       <button
@@ -88,7 +85,7 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
           </div>
           <TechStack
             skills={jobSkills}
-            className="xl:hidden"
+            className="lg:hidden"
             variant="labels"
           />
         </div>

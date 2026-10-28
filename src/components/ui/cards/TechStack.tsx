@@ -60,7 +60,14 @@ export function TechStack({
             {moreLabel}
           </button>
         ) : (
-          <span className="more-pill" aria-label={moreLabel}>
+          <span
+            className={
+              variant === 'labels'
+                ? 'experience-stack-pill experience-stack-more'
+                : 'more-pill'
+            }
+            aria-label={moreLabel}
+          >
             {moreLabel}
           </span>
         ))}
