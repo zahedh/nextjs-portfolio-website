@@ -46,7 +46,6 @@ import {
 import { FaWindows } from 'react-icons/fa';
 import {
   Braces,
-  Code2,
   Drama,
   Film,
   FolderTree,
@@ -177,12 +176,6 @@ export const skillsData: Skill[] = [
   },
 
   // Legacy/Additional Languages
-  {
-    id: 'objective-c',
-    label: en.skillsCollageSection.objectiveC,
-    icon: Code2,
-    category: 'legacy',
-  },
   {
     id: 'xslt',
     label: en.skillsCollageSection.xslt,

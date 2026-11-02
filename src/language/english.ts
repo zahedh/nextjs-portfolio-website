@@ -83,7 +83,6 @@ export const en = {
     dotNet: '.NET',
 
     // Legacy/Additional Languages
-    objectiveC: 'Objective-C',
     xslt: 'XSLT',
 
     // Web Fundamentals
