@@ -37,11 +37,9 @@ export const en = {
 
   aboutSection: {
     stickers: ['tech nerd', 'gym rat', 'wannabe vocalist'],
-    introParagraph:
-      'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
     narrativeParagraphs: [
-      "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
-      'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
+      "I build web and mobile apps that people rely on every day, so I care about getting them right, not just getting them out. Building with AI agents hasn't changed that; if anything, it's made the standards matter more.",
+      "I like getting better at things, whether that's code, lifting or singing. Most of it comes down to turning up consistently.",
     ],
     credentialsHeading: 'A few highlights',
     photoAlt: 'Zahed Heidari, smiling in sunglasses at a café table',
