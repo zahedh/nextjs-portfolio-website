@@ -15,7 +15,7 @@ export const projects: Project[] = [
     repoUrl: 'https://github.com/zahedh/nextjs-portfolio-website',
     description: [
       'Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
-      'A responsive portfolio built with Next.js 15, React 19 and TypeScript, showing my work and skills.',
+      'A responsive portfolio built with Next.js 15, React 19 and TypeScript, showing work and skills.',
       'Implements server-side rendering and static site generation for optimal performance and SEO.',
       "Projects filter by category and each open onto a page of their own, with the card's title carrying through into the page heading.",
       'Draws its own GitHub contribution calendar from the GitHub API, with every year a tap away.',
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     url: 'https://smarty.co.uk/app',
     description: [
       "SMARTY's app for managing mobile accounts and plans, used by over a million people.",
-      'Rewritten from the ground up during my time on the team, and still growing: the project in hand now is the largest yet.',
+      'Rewritten from the ground up while on the team, and still growing: the project in hand now is the largest yet.',
       "Lead the team's AI adoption: a shared usage standard, guardrails for running agents, and a context library the whole team works from.",
       'Built using React Native to support both iOS and Android platforms under a shared codebase.',
       'Codebase actively maintained with modern development practices, including automated testing, code review, and refactoring for long-term stability.',
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     endDate: 'May 2022',
     repoUrl: 'https://github.com/zahedh/BeAware',
     description: [
-      'Developed a React Native mobile application as my final year project at Staffordshire University, awarded a first.',
+      'Developed a React Native mobile application as a final year project at Staffordshire University, awarded a first.',
       "Built on the UK Police API's street-level crime data and police force records.",
       'Enables users to explore crime statistics across England using an interactive Google Maps interface.',
       'Provides detailed information for all police forces in England.',

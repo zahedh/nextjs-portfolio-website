@@ -43,7 +43,6 @@ export const jobExperiences: JobExperience[] = [
       'gemini',
       'chatgpt',
       'notebooklm',
-      'agentic-ai',
     ],
   },
   {
