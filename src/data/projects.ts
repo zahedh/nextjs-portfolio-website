@@ -14,7 +14,7 @@ export const projects: Project[] = [
     endDate: 'Mar 2026',
     repoUrl: 'https://github.com/zahedh/nextjs-portfolio-website',
     description: [
-      'Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable components library — all created from scratch before implementation.',
+      'Designed entirely in Figma: wireframes, interactive prototypes, brand colours, typography, and a reusable component library, all before a line of code was written.',
       'A responsive portfolio built with Next.js 15, React 19 and TypeScript, showing work and skills.',
       'Implements server-side rendering and static site generation for optimal performance and SEO.',
       "Projects filter by category and each open onto a page of their own, with the card's title carrying through into the page heading.",
