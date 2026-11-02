@@ -1,7 +1,6 @@
-import { stripDescriptionLine } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 
-/** Bulleted list of project features / description lines. */
+/** Bulleted list of description lines, for projects and the job rail. */
 export function FeatureList({
   lines,
   className,
@@ -16,8 +15,8 @@ export function FeatureList({
         className
       )}
     >
-      {lines.map((raw, index) => (
-        <li key={index}>{stripDescriptionLine(raw)}</li>
+      {lines.map((line, index) => (
+        <li key={index}>{line}</li>
       ))}
     </ul>
   );

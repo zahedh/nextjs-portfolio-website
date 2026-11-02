@@ -604,7 +604,7 @@
     @apply font-display text-heading lg:text-heading-lg 2xl:text-display font-bold text-balance;
   }
   .footer-copy {
-    @apply text-lead mt-5 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-lead mt-8 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
   }
   .footer-actions {
     @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
@@ -756,7 +756,7 @@
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;
   }
-  /* The same treatment .experience-stack-label gives "Technologies & tools":
+  /* The same treatment .experience-stack-label gives "Built with":
      mono at caption size, neutral, no case change. The uppercase tracked label
      came from the dialog and appears nowhere else on the site. */
   .project-page-label {
@@ -895,8 +895,11 @@
 
     grid-area: narrative;
   }
+  /* Tops the grid's rhythm gap up to a block, so the highlights read as their
+     own group rather than a third paragraph. */
   .about-credentials {
     grid-area: credentials;
+    margin-top: calc(var(--spacing-block) - var(--spacing-rhythm));
   }
   /* Leads the narrative into the list, so the six lines read as a set rather
      than a third paragraph. */

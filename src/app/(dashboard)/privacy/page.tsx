@@ -5,14 +5,14 @@ import { en } from '@/language';
 export const metadata: Metadata = {
   title: 'Privacy Policy | Zahed Heidari',
   description:
-    'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+    'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
   alternates: {
     canonical: '/privacy',
   },
   openGraph: {
     title: 'Privacy Policy | Zahed Heidari',
     description:
-      'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
     url: '/privacy',
     type: 'website',
     images: [socialShareImageMeta],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Privacy Policy | Zahed Heidari',
     description:
-      'Privacy policy for zahedheidari.co.uk. How we handle your data when you use this portfolio website.',
+      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
     images: [socialShareImageMeta],
   },
 };
@@ -64,7 +64,7 @@ export default function PrivacyPage() {
                 <h2 className="page-heading">{p.sectionThirdParty}</h2>
                 <p className="page-prose">{p.thirdPartyIntro}</p>
                 <p className="page-prose">
-                  {p.thirdPartyFuture}
+                  {p.thirdPartyAnalytics}
                   <a
                     href={p.thirdPartyVercelLinkUrl}
                     target="_blank"

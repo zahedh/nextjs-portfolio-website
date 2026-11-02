@@ -37,11 +37,15 @@ import {
   SiReacttable,
   SiReacthookform,
   SiTestinglibrary,
+  SiOracle,
+  SiXml,
+  SiPhp,
+  SiWordpress,
+  SiJquery,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
   Braces,
-  Code2,
   Drama,
   Film,
   FolderTree,
@@ -144,6 +148,24 @@ export const skillsData: Skill[] = [
     icon: SiJavascript,
     category: 'languages',
   },
+  {
+    id: 'php',
+    label: en.skillsCollageSection.php,
+    icon: SiPhp,
+    category: 'languages',
+  },
+  {
+    id: 'wordpress',
+    label: en.skillsCollageSection.wordPress,
+    icon: SiWordpress,
+    category: 'frameworks',
+  },
+  {
+    id: 'jquery',
+    label: en.skillsCollageSection.jQuery,
+    icon: SiJquery,
+    category: 'frameworks',
+  },
 
   // Microsoft Stack
   {
@@ -155,9 +177,9 @@ export const skillsData: Skill[] = [
 
   // Legacy/Additional Languages
   {
-    id: 'objective-c',
-    label: en.skillsCollageSection.objectiveC,
-    icon: Code2,
+    id: 'xslt',
+    label: en.skillsCollageSection.xslt,
+    icon: SiXml,
     category: 'legacy',
   },
 
@@ -302,6 +324,12 @@ export const skillsData: Skill[] = [
     id: 'postman',
     label: en.skillsCollageSection.postman,
     icon: SiPostman,
+    category: 'api',
+  },
+  {
+    id: 'netsuite',
+    label: en.skillsCollageSection.netSuite,
+    icon: SiOracle,
     category: 'api',
   },
 

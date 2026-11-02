@@ -5,5 +5,5 @@ export const aboutCredentialLines = [
   "Leads my team's AI adoption",
   'Apps shipped on iOS & Android',
   'Web and mobile from one codebase',
-  'Figma to production',
+  'Designs what I build',
 ];

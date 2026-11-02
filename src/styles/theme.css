@@ -45,6 +45,9 @@
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
+  /* Preflight's html font: without it, unstyled text falls through to the
+     visitor's system face rather than the body face. */
+  --default-font-family: var(--font-body);
   --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
   /* Reserved for the hero headline and standalone figures, as the artboards
      draw them. Section headings stay on the heading face. */
