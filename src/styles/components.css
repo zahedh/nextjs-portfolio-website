@@ -756,7 +756,7 @@
   .project-page-rail {
     @apply flex min-w-0 flex-col gap-3;
   }
-  /* The same treatment .experience-stack-label gives "Technologies & tools":
+  /* The same treatment .experience-stack-label gives "Built with":
      mono at caption size, neutral, no case change. The uppercase tracked label
      came from the dialog and appears nowhere else on the site. */
   .project-page-label {

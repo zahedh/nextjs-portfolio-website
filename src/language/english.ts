@@ -148,7 +148,7 @@ export const en = {
   footerSection: {
     heading: 'Building something ambitious?',
     supportingText:
-      "I blend design, development and AI into systems that hold together. If that's the kind of problem you have, I'd like to hear about it.",
+      "I design and build web and mobile apps, and help teams work well with AI. Tell me what you're working on.",
     copyLabel: 'Copy email address',
     copiedLabel: 'Copied',
     downloadCVLabel: 'Download CV',
@@ -164,7 +164,7 @@ export const en = {
   themeToggle: 'Toggle light or dark mode',
 
   contributionsSection: {
-    loading: 'Loading contributions...',
+    loading: 'Loading contributions…',
     error: 'Unable to load contribution data. Please try again later.',
   },
 
@@ -188,9 +188,7 @@ export const en = {
   },
 
   projectCard: {
-    fullCaseStudy: 'Full Story',
     viewProject: 'View project',
-    viewProjectArrow: '→',
     seeAllProjects: 'See all {{count}} projects',
     showFewerProjects: 'Show fewer',
     noProjectsInCategory: 'Nothing to show here yet.',
@@ -204,7 +202,6 @@ export const en = {
     timelineLabel: 'Timeline',
     platformLabel: 'Platform',
     contextLabel: 'Context',
-    personalTag: 'Personal',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
     accessLabel: 'Access',
@@ -226,8 +223,7 @@ export const en = {
 
   jobDisplay: {
     statusCurrent: 'Current',
-    statusPast: 'Past',
-    stackLabel: 'Technologies & tools',
+    stackLabel: 'Built with',
     showDetails: 'Show details',
     hideDetails: 'Hide details',
   },
@@ -238,7 +234,7 @@ export const en = {
 
   notFound: {
     heading: 'Page not found',
-    description: "Oops! The page you're looking for doesn't exist.",
+    description: "This page doesn't exist.",
     returnHome: 'Return home',
     code: '404',
   },
