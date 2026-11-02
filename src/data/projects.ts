@@ -177,7 +177,7 @@ export const projects: Project[] = [
       "Migrated Michelin's internal mobile apps from the legacy Alloy framework to React Native: a truck auditing tool and a tyre costing tool.",
       'Led the truck audit app, which auditors use to inspect trucks in the field, and built it largely solo.',
       "Supported the developer leading the costings app, which works out the costs involved in Michelin's tyres.",
-      'Delivered over a summer while studying for a computing degree at Staffordshire University.',
+      'Delivered over a summer while studying for a computer science degree at Staffordshire University.',
     ],
     skills: [
       'react',
@@ -209,7 +209,7 @@ export const projects: Project[] = [
       'Replaced a manual process: each PDF was designed by hand, then tailored to every event, hundreds in all, over a few weeks.',
       'A small web interface lets staff upload event data, see what is already held, and generate PDFs or queue them.',
       "A database holds the uploaded data and the generation queue, and each PDF's content and layout is built from that data.",
-      'Built during a computing degree at Staffordshire University.',
+      'Built during a computer science degree at Staffordshire University.',
     ],
     skills: [
       'php',
