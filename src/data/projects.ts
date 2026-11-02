@@ -283,7 +283,7 @@ export const projects: Project[] = [
   },
   {
     id: 'project-context-hub',
-    categories: ['AI', 'Web'],
+    categories: ['AI'],
     access: 'Private',
     slug: 'context-hub',
     title: 'Context Hub',
@@ -293,9 +293,9 @@ export const projects: Project[] = [
     startDate: 'May 2026',
     endDate: 'Present',
     description: [
-      'A structured context repository consumed by AI coding tools through standard entry points, so every agent works to the same standards in every project rather than to whatever it was last told.',
-      'Every fact has exactly one home and is referenced by name from everywhere else, which stops a rule drifting into three contradictory copies.',
-      'Engineering tiers, per-project standards, architectural decision records and tool guidance are separate topic directories, mounted into consuming repositories instead of copied into them.',
+      'Every AI coding tool reads it through the entry files it already looks for, so each one starts a task from the same standards rather than whatever it was last told.',
+      'Every fact has exactly one home and is referenced by name everywhere else, which stops a rule drifting into contradictory copies.',
+      'Changes through use: friction that keeps coming up in any project is raised as a change to the standard, and a monthly sweep catches rules that have quietly gone stale.',
       'The rules in it govern this site: the tier it is held to, the validation gate it passes, and the division of work between the agents that built it.',
     ],
     skills: [
@@ -303,7 +303,6 @@ export const projects: Project[] = [
       'prompt-engineering',
       'claude-code',
       'codex',
-      'cursor',
       'github',
       'notion',
       'github-copilot',
