@@ -229,17 +229,15 @@ export const projects: Project[] = [
     slug: 'warmshowers',
     title: 'Warmshowers',
     summary:
-      'Hospitality network app connecting touring cyclists with 150,000+ hosts worldwide.',
+      'Hospitality network app connecting touring cyclists with hosts, for a community of 150,000+ members.',
     company: 'Interlockdigital',
     startDate: 'May 2020',
     endDate: 'Sep 2020',
     url: 'https://www.warmshowers.org/',
     description: [
-      'Mobile app for Warmshowers (warmshowers.org) — a hospitality network connecting touring cyclists with hosts worldwide.',
-      'Co-developed with React Native at Interlockdigital; published on Google Play and the App Store.',
-      'The Warmshowers community includes 150,000+ members worldwide.',
-      'The app contributes over £50,000 in annual revenue to the organisation.',
-      'Built during my computing degree at Staffordshire University, alongside study.',
+      'Co-developed the React Native app at Interlockdigital, published on Google Play and the App Store.',
+      'Brings in over £50,000 a year for the organisation.',
+      'Built during a computer science degree at Staffordshire University.',
     ],
     skills: [
       'React Native',
