@@ -245,29 +245,29 @@ export const en = {
     // Revise only when the policy's substance changes, never on a redesign.
     lastUpdated: '24 October 2026',
     intro:
-      'This site (zahedheidari.co.uk) is a personal portfolio. Below is how we handle information when you visit.',
-    sectionInfoWeCollect: 'Information we collect',
+      'This site (zahedheidari.co.uk) is a personal portfolio. Below is how I handle information when you visit.',
+    sectionInfoWeCollect: 'Information I collect',
     infoWeCollectIntro:
-      'We do not collect personal data through forms or accounts. The only data stored in your browser is:',
+      'I do not collect personal data through forms or accounts. The only data stored in your browser is:',
     themePreferenceLabel: 'Theme preference',
     themePreferenceDetail:
       'The site opens in dark mode. If you switch themes, your choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
-    sectionHowWeUse: 'How we use it',
+    sectionHowWeUse: 'How I use it',
     howWeUseText:
-      'Theme preference is used only to display the site in your preferred appearance. We do not use it for analytics or advertising.',
+      'Theme preference is used only to display the site in your preferred appearance. I do not use it for analytics or advertising.',
     sectionThirdParty: 'Third-party services',
     thirdPartyIntro:
-      "This site is hosted on Vercel. When you load a page, Vercel may process requests (e.g. IP address, basic request data) as part of providing the service. We use Vercel Analytics and Speed Insights to measure site usage and performance. Contribution data shown on the site is fetched from GitHub's API; that request is made server-side and does not send your personal data to GitHub.",
-    thirdPartyFuture:
-      'Vercel Analytics and Speed Insights collect anonymised, aggregated data such as page views, URLs, country, device type, and Web Vitals (e.g. load times). No cookies are used and data is not tied to individual visitors. For more details, see ',
+      "This site is hosted on Vercel. When you load a page, Vercel may process requests (e.g. IP address, basic request data) as part of providing the service. Contribution data shown on the site is fetched from GitHub's API; that request is made server-side and does not send your personal data to GitHub.",
+    thirdPartyAnalytics:
+      'I use Vercel Analytics and Speed Insights to measure site usage and performance. They collect anonymised, aggregated data such as page views, URLs, country, device type, and Web Vitals (e.g. load times). No cookies are used and data is not tied to individual visitors. For more details, see ',
     thirdPartyVercelLinkLabel: "Vercel's privacy policy",
     thirdPartyVercelLinkUrl: 'https://vercel.com/legal/privacy-policy',
     sectionYourRights: 'Your rights',
     yourRightsText:
-      "You can clear the theme preference at any time by clearing your browser's local storage for this site. If you are in the UK or EU, you have rights under applicable data protection laws (e.g. access, correction, deletion). To exercise them, contact us using the email in the footer.",
+      "You can clear the theme preference at any time by clearing your browser's local storage for this site. If you are in the UK or EU, you have rights under applicable data protection laws (e.g. access, correction, deletion). To exercise them, contact me using the email below.",
     sectionChanges: 'Changes',
     changesText:
-      'We may update this page occasionally. The "Last updated" date at the top will be revised when we do.',
+      'I may update this page occasionally. The "Last updated" date at the top will be revised when I do.',
     contactIntro:
       'If you have questions about this privacy policy, you can reach out at',
     contactEmail: 'zahed.heidari2@gmail.com',
