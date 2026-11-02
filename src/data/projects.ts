@@ -262,10 +262,10 @@ export const projects: Project[] = [
     startDate: 'Jul 2026',
     endDate: 'Present',
     description: [
-      'Measures how reliably language models extract structured specifications from real AI model-release announcements, and how often they return a confident value the document never contained.',
-      'A Zod-typed extraction contract, a hand-written answer key over frozen source documents, and a deterministic scorer that runs as a pure function over stored output — so changing the rubric re-scores the whole run history instead of re-paying for it.',
-      'Prompts are versioned files hashed into every run record, so an edited prompt cannot masquerade as the version that produced a number.',
-      'An invalid response is recorded as a failure rather than coerced into a value, which keeps a crashed call distinguishable from correct abstention.',
+      'Tests how reliably language models pull structured specifications out of real AI model-release announcements, scored against a hand-written answer key.',
+      'Running a model and scoring it are kept apart, so a change to the scoring rules re-scores every past run without paying for new calls.',
+      'Every prompt is versioned and recorded with each run, so a score can always be traced to the exact prompt that produced it.',
+      "A response that fails validation is recorded as a failure, never quietly turned into an empty answer, so a crash can't pass for the model rightly declining to guess.",
     ],
     skills: [
       'nextjs',
