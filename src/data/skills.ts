@@ -39,6 +39,9 @@ import {
   SiTestinglibrary,
   SiOracle,
   SiXml,
+  SiPhp,
+  SiWordpress,
+  SiJquery,
 } from 'react-icons/si';
 import { FaWindows } from 'react-icons/fa';
 import {
@@ -145,6 +148,24 @@ export const skillsData: Skill[] = [
     label: en.skillsCollageSection.javaScript,
     icon: SiJavascript,
     category: 'languages',
+  },
+  {
+    id: 'php',
+    label: en.skillsCollageSection.php,
+    icon: SiPhp,
+    category: 'languages',
+  },
+  {
+    id: 'wordpress',
+    label: en.skillsCollageSection.wordPress,
+    icon: SiWordpress,
+    category: 'frameworks',
+  },
+  {
+    id: 'jquery',
+    label: en.skillsCollageSection.jQuery,
+    icon: SiJquery,
+    category: 'frameworks',
   },
 
   // Microsoft Stack

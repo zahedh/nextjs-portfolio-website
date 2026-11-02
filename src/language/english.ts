@@ -75,6 +75,9 @@ export const en = {
     // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
+    php: 'PHP',
+    wordPress: 'WordPress',
+    jQuery: 'jQuery',
 
     // Microsoft Stack
     dotNet: '.NET',
