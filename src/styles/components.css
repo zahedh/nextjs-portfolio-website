@@ -895,8 +895,11 @@
 
     grid-area: narrative;
   }
+  /* Tops the grid's rhythm gap up to a block, so the highlights read as their
+     own group rather than a third paragraph. */
   .about-credentials {
     grid-area: credentials;
+    margin-top: calc(var(--spacing-block) - var(--spacing-rhythm));
   }
   /* Leads the narrative into the list, so the six lines read as a set rather
      than a third paragraph. */
