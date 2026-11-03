@@ -6,7 +6,7 @@ import { en } from '@/language';
 import { skillsData } from '@/data';
 import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
-/** Animated collage of skills and tools. */
+/** Skills and tools as a ruled list, one row per practice area. */
 export default function SkillsSection() {
   const skillGroups = groupSkills(skillsData);
 
