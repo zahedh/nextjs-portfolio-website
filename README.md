@@ -30,7 +30,6 @@ maintainable architecture.
   - Swiper 12.1 (Project carousel)
   - React Activity Calendar 3.0 (GitHub contributions)
   - React Icons 5.5 & Lucide React 0.556 (Icon libraries)
-- **State Management:** Zustand 5.0
 - **API Integration:** GitHub GraphQL API
 - **Testing:** Jest 29, React Testing Library 16
 - **Linting & Formatting:** ESLint 9, Prettier 3.5
@@ -70,8 +69,6 @@ High-level overview of the main folders:
 - `src/hooks` – Custom React hooks for UI and interaction logic
 - `src/language` – Centralized UI copy and translations (e.g. `english.ts`)
 - `src/lib` – Shared logic and small modules (see below)
-- `src/providers` – React context providers (e.g. global store)
-- `src/stores` – Zustand global store definitions
 - `src/styles` – Global styles (Tailwind entry point, theme, components CSS)
 - `src/types` – TypeScript type definitions (e.g. GitHub API types)
 - `public` – Static assets (images, icons, CV, etc.)

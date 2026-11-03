@@ -41,21 +41,19 @@ The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fi
 - `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
 - `src/data/` — Site content as typed TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
 - `src/language/english.ts` — All user-facing copy (translation-ready)
-- `src/stores/global-store.ts` — Zustand store: `isDark`
-- `src/providers/` — Zustand + React context wrapper used in the root layout
 - `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
 - `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
 - `src/lib/ui-logic/` — Motion variants and viewport configs
 - `src/hooks/` — `useScrolled`, `utilityHooks`, `skillTilePortalTooltip`, `overlayHooks`, `contributionsCalendarHooks`
 - `.claude/skills/` — project-level skills bespoke to this repo
 
-This layout predates `.context/engineering/nextjs-react.md` and diverges from it (top-level `hooks/`, `stores/`, `providers/`, `data/`, and `src/language/` rather than `src/lib/language/`). The divergence is a declared exception in `.context/projects/portfolio-site.md`, not licence to add more top-level folders. Do not migrate it as a drive-by; that is its own dispatch.
+This layout predates `.context/engineering/nextjs-react.md` and diverges from it (top-level `hooks/`, `data/`, and `src/language/` rather than `src/lib/language/`). The divergence is a declared exception in `.context/projects/portfolio-site.md`, not licence to add more top-level folders. Do not migrate it as a drive-by; that is its own dispatch.
 
 ### Key patterns
 
 **Content updates** — edit `src/data/` for projects, skills, and experience; `src/language/english.ts` for UI text.
 
-**State** — the Zustand store is the single source of truth for theme state. It holds nothing else; a section that needs local state keeps it local.
+**State** — the theme is the `dark` class on `<html>`, read through `useTheme`. There is no global store; a section that needs state keeps it local.
 
 **Client vs server** — most components are server components. `'use client'` goes at the smallest interactive leaf, and only for the reasons listed under [Repo-local conventions](#repo-local-conventions).
 
@@ -88,7 +86,7 @@ This layout predates `.context/engineering/nextjs-react.md` and diverges from it
 
 ### Client components
 
-Add `'use client'` only when the component itself uses browser APIs, client-context React hooks, event handlers that cannot be passed down from a server parent, or the Zustand store. Do not create a client wrapper to avoid prop drilling — solve that with composition.
+Add `'use client'` only when the component itself uses browser APIs, client-context React hooks, or event handlers that cannot be passed down from a server parent. Do not create a client wrapper to avoid prop drilling — solve that with composition.
 
 ### Animation
 

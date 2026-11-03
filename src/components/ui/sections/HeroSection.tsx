@@ -9,7 +9,7 @@ import {
 } from '@/components';
 import { HeroFloatingOrbs, Rocket } from '@/components/ui/animations';
 import { en } from '@/language';
-import { useGlobalStore } from '@/providers/global-store-provider';
+import { useTheme } from '@/hooks/utilityHooks';
 import { Download } from 'lucide-react';
 
 // Snaps to Projects like every nav link; the section's entrance does the arriving.
@@ -27,10 +27,8 @@ function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
  */
 export default function HeroSection() {
   // The rocket takes the resolved theme rather than reading it itself; it
-  // relights the running scene on a change instead of remounting. Before
-  // hydration settles the theme this is the store's light default, which is
-  // also what the canvas fades in from.
-  const isDark = useGlobalStore((state) => state.isDark);
+  // relights the running scene on a change instead of remounting.
+  const { isDark } = useTheme();
 
   return (
     <Section anchor="home" showDivider={false} className="-mt-18">
