@@ -37,10 +37,20 @@ interface ProjectGridProps {
   projects: Project[];
   showAll: boolean;
   onToggleShowAll: () => void;
+  /** Names the set on show; a new name mounts a fresh grid. */
+  setKey: string;
+  /** Whether a new set settles in, which only a filter press asks for. */
+  settle: boolean;
 }
 
 /** Presents the filtered projects as one feature card followed by compact cards. */
-function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
+function ProjectGrid({
+  projects,
+  showAll,
+  onToggleShowAll,
+  setKey,
+  settle,
+}: ProjectGridProps) {
   const [featureProject, ...compactProjects] = projects;
   const hasOverflow = compactProjects.length > INITIAL_COMPACT_COUNT;
 
@@ -135,7 +145,14 @@ function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
       >
         {/* Every card is a cell in this one grid, revealed ones included, so rows
             always align. A lone card has nothing to span and keeps its own height. */}
-        <div ref={gridRef} className="projects-grid">
+        {/* Keyed by the set, so a filter press mounts every card afresh and
+            a card common to both sets settles in with the rest rather than
+            standing still among them. */}
+        <div
+          ref={gridRef}
+          key={setKey}
+          className={cn('projects-grid', settle && 'projects-grid-settle')}
+        >
           <ProjectCard
             project={featureProject}
             variant="feature"
@@ -192,6 +209,9 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [showAll, setShowAll] = useState(false);
+  // Only a press settles the cards in: the first paint and a filter restored
+  // from the URL on a back navigation show the set as it already was.
+  const [filterPressed, setFilterPressed] = useState(false);
 
   // Both the filter and the expansion live in the URL, so returning from a
   // project page lands the reader on the set of cards they left. The expansion
@@ -226,6 +246,7 @@ export default function ProjectsSection() {
   const chooseFilter = (value: ProjectFilter) => {
     setSelectedType(value);
     setShowAll(false);
+    setFilterPressed(true);
     writeUrl(value, false);
   };
 
@@ -273,6 +294,8 @@ export default function ProjectsSection() {
         projects={filteredProjects}
         showAll={showAll}
         onToggleShowAll={toggleShowAll}
+        setKey={selectedType}
+        settle={filterPressed}
       />
     </Section>
   );
