@@ -177,10 +177,7 @@ function ProjectGrid({
           >
             {showAll
               ? en.projectCard.showFewerProjects
-              : en.projectCard.seeAllProjects.replace(
-                  '{{count}}',
-                  String(projects.length)
-                )}
+              : en.projectCard.seeAllProjects}
             {/* Same disclosure affordance as the experience rail's expander:
                 trailing chevron, flipped while open. */}
             <ChevronDown

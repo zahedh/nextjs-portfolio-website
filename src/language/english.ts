@@ -189,7 +189,7 @@ export const en = {
 
   projectCard: {
     viewProject: 'View project',
-    seeAllProjects: 'See all {{count}} projects',
+    seeAllProjects: 'See all',
     showFewerProjects: 'Show fewer',
     noProjectsInCategory: 'Nothing to show here yet.',
   },
