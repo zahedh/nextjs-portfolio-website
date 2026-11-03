@@ -62,8 +62,9 @@ export function SkillTile({
             ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
             : 'relative inline-flex h-12 w-12 items-center justify-center lg:h-14 lg:w-14',
           'rounded-full',
+          // Dark mirrors light's weight: a tint at rest, the solid fill on hover.
           'border-brand-500 border',
-          'bg-brand-200 dark:bg-brand-400',
+          'bg-brand-200 dark:bg-brand-500/15',
           'text-neutral-900 dark:text-neutral-200',
           'hover:bg-brand-400 dark:hover:bg-brand-600',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',

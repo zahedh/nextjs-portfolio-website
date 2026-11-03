@@ -1,6 +1,6 @@
 import { Skill, SkillCategory, SkillGroup } from '@/types/skill';
 
-// AI tooling leads: it is the section's one accent and the specialism the page argues for.
+// AI tooling leads: the specialism the page argues for. Position carries it; the label stays neutral.
 export const skillGroupOrder: SkillGroup[] = [
   'aiTooling',
   'languages',

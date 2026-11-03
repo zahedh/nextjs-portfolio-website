@@ -4,10 +4,9 @@ import { Section } from '@/components';
 import { SkillTile } from '@/components/ui/tiles';
 import { en } from '@/language';
 import { skillsData } from '@/data';
-import { cn } from '@/lib/utils';
 import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
-/** Animated collage of skills and tools. */
+/** Skills and tools as a ruled list, one row per practice area. */
 export default function SkillsSection() {
   const skillGroups = groupSkills(skillsData);
 
@@ -16,17 +15,9 @@ export default function SkillsSection() {
       <div className="skills-groups">
         {skillGroupOrder.map((group) => (
           <div className="skills-group" key={group}>
-            <h3
-              className={cn(
-                'skills-group-label',
-                group === 'aiTooling' && 'skills-group-label--accent'
-              )}
-            >
+            <h3 className="skills-group-label">
               {en.skillsSection.groups[group]}
             </h3>
-            <span className="skills-group-count">
-              {String(skillGroups[group].length).padStart(2, '0')}
-            </span>
             <div className="skills-group-tiles">
               {skillGroups[group].map((skill) => (
                 <div key={skill.id} className="relative hover:z-[100]">
