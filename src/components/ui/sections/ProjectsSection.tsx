@@ -11,7 +11,10 @@ import { Project, ProjectFilter } from '@/types/project';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { measureContentHeight } from '@/hooks/utilityHooks';
-import { consumeProjectReturn } from '@/components/ui/cards/ProjectStep';
+import {
+  consumeProjectReturn,
+  rememberProjectsQuery,
+} from '@/components/ui/cards/ProjectStep';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -228,6 +231,7 @@ export default function ProjectsSection() {
     const filter = params.get(FILTER_PARAM);
     if (isProjectFilter(filter)) setSelectedType(filter);
     setShowAll(params.get(EXPANDED_PARAM) === '1');
+    rememberProjectsQuery(window.location.search);
     // Same commit as the restore, so the cards settle in before first paint
     // rather than appearing and then moving.
     if (consumeProjectReturn()) setSettle(true);
@@ -240,6 +244,7 @@ export default function ProjectsSection() {
     if (expanded) url.searchParams.set(EXPANDED_PARAM, '1');
     else url.searchParams.delete(EXPANDED_PARAM);
     window.history.replaceState(null, '', url);
+    rememberProjectsQuery(url.search);
   };
 
   // A new filter shows a different set, so the old set's expansion does not

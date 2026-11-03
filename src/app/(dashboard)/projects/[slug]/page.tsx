@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
 import {
+  ProjectBackLink,
   ProjectPageStack,
   ProjectStepLink,
 } from '@/components/ui/cards/ProjectStep';
@@ -105,10 +105,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="section-inner">
           <ProjectPageStack key={project.slug}>
             <div className="page-head">
-              <Link href="/#projects" className="project-back-link">
+              <ProjectBackLink className="project-back-link">
                 <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
                 {en.projectDisplay.backToProjects}
-              </Link>
+              </ProjectBackLink>
 
               <h1 className="page-title project-page-title">{project.title}</h1>
 

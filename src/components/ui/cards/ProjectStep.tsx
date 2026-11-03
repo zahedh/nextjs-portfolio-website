@@ -28,6 +28,33 @@ export function consumeProjectReturn(): boolean {
   return returned;
 }
 
+/**
+ * The Projects section's filter and expansion as a query string, kept by the
+ * section whenever it settles them, so the way back from a project returns the
+ * reader to the set they left, as the browser's Back already does. Empty on a
+ * fresh load of a project page, where there is no set to return to.
+ */
+let projectsQuery = '';
+
+export function rememberProjectsQuery(query: string): void {
+  projectsQuery = query;
+}
+
+/** The project page's way back to the Projects section and its last set. */
+export function ProjectBackLink({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link href={`/${projectsQuery}#projects`} className={className}>
+      {children}
+    </Link>
+  );
+}
+
 interface ProjectStepLinkProps {
   href: string;
   className?: string;
