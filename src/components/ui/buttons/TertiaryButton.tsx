@@ -19,7 +19,7 @@ const tertiaryStyles = (className: string | undefined, iconOnly: boolean) =>
     iconOnly ? 'p-2' : 'px-3 py-1.5',
     'rounded-full',
     'border border-brand-600 dark:border-brand-500',
-    'bg-ground',
+    'bg-page',
     'text-fg',
     'font-heading text-base leading-normal font-bold tracking-tight',
     'shadow-sm transition-colors duration-150',

@@ -109,7 +109,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="bg-ground overflow-x-clip antialiased"
+        className="bg-page overflow-x-clip antialiased"
         suppressHydrationWarning
       >
         {children}

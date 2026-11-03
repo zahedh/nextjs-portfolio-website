@@ -78,13 +78,13 @@
   /* The overflow count in the same pill as the labels it stands for, set
      apart by colour alone rather than by a taller shape in another face. */
   .experience-stack-more {
-    @apply border-brand-500/50 text-accent-fg dark:border-brand-400/50;
+    @apply border-brand-500/50 text-fg-accent dark:border-brand-400/50;
   }
   .experience-year {
     @apply text-caption text-fg-muted relative pt-5 pl-[28px] font-mono tabular-nums;
   }
   .experience-year-active {
-    @apply text-accent-fg text-title-sm font-medium;
+    @apply text-fg-accent text-title-sm font-medium;
   }
   .experience-duration {
     @apply text-micro mt-0.5 block font-mono text-neutral-400 dark:text-neutral-500;
@@ -94,14 +94,14 @@
     @apply text-caption mt-1;
   }
   .experience-dot {
-    @apply border-line bg-ground absolute top-[25px] left-[2px] size-[11px] rounded-full border-2;
+    @apply border-line bg-page absolute top-[25px] left-[2px] size-[11px] rounded-full border-2;
   }
   /* Declared after .experience-dot so the current role's colours win on source order. */
   .experience-dot-active {
     @apply border-accent bg-accent ring-brand-500/25 dark:ring-brand-400/25 top-[23px] left-0 size-[15px] ring-4;
   }
   .experience-card {
-    @apply p-surface bg-surface flex min-w-0 flex-col gap-[7px] border-l-2;
+    @apply p-surface bg-raised flex min-w-0 flex-col gap-[7px] border-l-2;
   }
   .experience-card-active {
     @apply border-accent;
@@ -116,7 +116,7 @@
     @apply text-title-sm text-fg-strong font-bold tracking-tight;
   }
   .experience-current {
-    @apply text-accent-fg text-meta font-mono;
+    @apply text-fg-accent text-meta font-mono;
   }
   /* Below lg the card fills the rail, so the summary fills the card, as the
      details beneath it already do; a measure there would leave the card empty
@@ -125,7 +125,7 @@
     @apply text-body text-fg-secondary lg:max-w-[62ch];
   }
   .experience-expand-button {
-    @apply text-meta text-fg-secondary hover:border-line-strong hover:bg-wash mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
+    @apply text-meta text-fg-secondary hover:border-line-strong hover:bg-tint mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
   }
   .experience-details {
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
@@ -185,7 +185,7 @@
     @apply animate-pulse motion-reduce:animate-none;
   }
   .contrib-figure.is-pending {
-    @apply bg-ground rounded-lg text-transparent;
+    @apply bg-page rounded-lg text-transparent;
   }
   .contrib-label {
     @apply text-meta lg:text-body-sm text-fg-muted font-mono;
@@ -240,7 +240,7 @@
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-600 border-line bg-surface absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-600 border-line bg-raised absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:text-neutral-200 dark:hover:bg-neutral-700;
 
     /* Centred on the days, not on the days and the month row above them. */
     bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
@@ -302,7 +302,7 @@
   /* The dark ramp runs the other way round, so each level is named per theme
      rather than reused: more activity must read brighter in both. */
   .contrib-cell-0 {
-    @apply bg-ground;
+    @apply bg-page;
   }
   .contrib-cell-1 {
     @apply bg-brand-300 dark:bg-brand-800;
@@ -385,7 +385,7 @@
      theme row. Fades in and out; the display and overlay transitions keep
      the closing fade from being cut off. */
   .mobile-sheet {
-    @apply bg-ground text-fg-strong fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain p-0 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden starting:open:opacity-0;
+    @apply bg-page text-fg-strong fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain p-0 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden starting:open:opacity-0;
 
     &::backdrop {
       @apply bg-transparent;
@@ -434,7 +434,7 @@
     @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
-    @apply focus-visible:ring-brand-600 bg-surface relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 bg-raised relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:focus-visible:ring-offset-neutral-900;
   }
   /* The hover border is its own layer above the card's content: drawn on the
      card itself, the feature card's cover sat over it and the border stopped
@@ -503,7 +503,7 @@
     @apply text-body-sm text-fg-secondary line-clamp-2 leading-[1.55];
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-600 bg-surface relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 bg-raised relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:focus-visible:ring-offset-neutral-900;
   }
   /* Out of flow, so a card carrying it is no taller than one that does not —
      in the flow it added a line to whichever row held it and the section moved
@@ -575,7 +575,7 @@
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-wash inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta text-fg-muted tracking-wide;
@@ -584,13 +584,13 @@
     @apply text-title text-fg-strong mb-2 font-semibold tracking-tight;
   }
   .card-title-link {
-    @apply text-accent-fg hover:text-brand-800 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
+    @apply text-fg-accent hover:text-brand-800 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
   }
   .card-fade-gradient {
-    @apply from-ground pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t to-transparent;
+    @apply from-page pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t to-transparent;
   }
   .link-accent {
-    @apply text-accent-fg decoration-brand-500 hover:text-brand-800 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
+    @apply text-fg-accent decoration-brand-500 hover:text-brand-800 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
 
   /** JobCard date range pill — base + active/current vs inactive/past */
@@ -679,7 +679,7 @@
      halves of a pair leaves neither leading. Named for the role, not the section,
      because the hero and the footer draw the same pairing. */
   .btn-outline {
-    @apply border-line text-fg hover:border-line-strong hover:bg-wash bg-transparent shadow-none dark:bg-transparent;
+    @apply border-line text-fg hover:border-line-strong hover:bg-tint bg-transparent shadow-none dark:bg-transparent;
   }
   .footer-social-links {
     @apply flex flex-wrap items-center gap-x-[18px];
@@ -1135,7 +1135,7 @@
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply hover:border-line-strong hover:bg-wash gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none dark:border-neutral-600 dark:text-neutral-200;
+    @apply hover:border-line-strong hover:bg-tint gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none dark:border-neutral-600 dark:text-neutral-200;
   }
   .filter-pill-mark {
     @apply shrink-0;
