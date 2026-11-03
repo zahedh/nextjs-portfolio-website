@@ -62,7 +62,7 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/** Shared distance cap for “short enough to smooth” (mobile section links + desktop scroll-to-top). */
+/** Distance cap for “short enough to smooth” on narrow viewports. */
 function scrollBehaviorForDistance(distancePx: number): ScrollBehavior {
   if (prefersReducedMotion()) return 'auto';
   const maxDistance = window.innerHeight * SMOOTH_SCROLL_MAX_DISTANCE_RATIO;
@@ -78,19 +78,6 @@ function scrollBehaviorForAnchor(distancePx: number): ScrollBehavior {
     return 'smooth';
   }
   return scrollBehaviorForDistance(distancePx);
-}
-
-/**
- * Home / scroll-to-top: stricter on mobile (smooth only when already near the top); desktop uses distance cap.
- */
-function scrollToTopBehavior(): ScrollBehavior {
-  if (prefersReducedMotion()) return 'auto';
-  const distance = window.scrollY;
-  if (isNarrowViewport()) {
-    const maxSmooth = window.innerHeight * 0.4;
-    return distance <= maxSmooth ? 'smooth' : 'auto';
-  }
-  return scrollBehaviorForDistance(distance);
 }
 
 /** Scrolls an element into view (section anchors). */
@@ -124,15 +111,6 @@ export function handleSmoothScroll(
   const element = document.querySelector(selector);
   if (!element) return;
   scrollElementIntoViewAdaptive(element);
-}
-
-/**
- * Scrolls to the top of the page. On mobile, smooth only when already near the top.
- * @param mouseEvent - Optional React mouse event to prevent default behavior
- */
-export function scrollToTop(mouseEvent?: React.MouseEvent<HTMLAnchorElement>) {
-  mouseEvent?.preventDefault();
-  window.scrollTo({ top: 0, behavior: scrollToTopBehavior() });
 }
 
 /** Normalises skill IDs for loose matching (e.g. `next.js` ↔ `nextjs`). */
