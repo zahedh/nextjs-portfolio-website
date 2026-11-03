@@ -23,8 +23,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   // Before the first section reaches the line the reader is in the hero.
-  const activeSection = useActiveSection(SECTION_IDS, isHome) ?? 'home';
-  const currentSection = isHome ? activeSection : null;
+  const [active, pinSection] = useActiveSection(SECTION_IDS, isHome);
+  const currentSection = isHome ? (active ?? 'home') : null;
   const links = SECTIONS.map(({ id, label }) => ({
     id,
     label,
@@ -41,6 +41,7 @@ export default function Navbar() {
     mouseEvent.preventDefault();
     if (id === 'home') window.scrollTo({ top: 0, behavior: 'instant' });
     else document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
+    pinSection(id);
   };
 
   return (
