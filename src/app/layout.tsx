@@ -47,12 +47,12 @@ const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.var
 export const metadata: Metadata = {
   title: 'Zahed Heidari',
   description:
-    'Web and mobile developer specialising in Next.js, React Native, and TypeScript. Exploring how AI tools are reshaping how developers build and ship.',
+    'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
   authors: [{ name: 'Zahed Heidari' }],
   keywords: [
     'Zahed Heidari',
     'Next.js Portfolio',
-    'Frontend Developer',
+    'Senior Software Engineer',
     'React',
     'TypeScript',
     'Tailwind CSS',
@@ -76,16 +76,16 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: 'https://zahedheidari.co.uk',
     siteName: 'Zahed Heidari',
-    title: 'Zahed Heidari - Web & Mobile Developer',
+    title: 'Zahed Heidari · Senior Software Engineer',
     description:
-      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
     images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zahed Heidari - Web & Mobile Developer',
+    title: 'Zahed Heidari · Senior Software Engineer',
     description:
-      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
     images: [socialShareImageMeta],
   },
   icons: {
