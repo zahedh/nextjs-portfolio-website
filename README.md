@@ -148,7 +148,6 @@ npm run test                  # Run Jest test suite
 
 npm run prettier-check        # Check formatting with Prettier
 npm run prettier-format       # Format code with Prettier
-npm run prettier-check-format # Check, or format if needed
 
 npm run validate              # Type-check + lint + format check + test (full sanity check)
 ```
