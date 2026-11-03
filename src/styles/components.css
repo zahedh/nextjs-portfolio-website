@@ -867,28 +867,25 @@
   .skill-tile-tooltip {
     @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
   }
+  /* From md the groups share one grid, so the label column takes the longest
+     label's width and every group's tiles start on the same edge. */
   .skills-groups {
-    @apply flex w-full flex-col;
+    @apply flex w-full flex-col md:grid md:grid-cols-[max-content_minmax(0,1fr)] md:gap-x-6;
   }
   .skills-group {
-    @apply grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3 py-4 md:grid-cols-[150px_minmax(0,1fr)_auto] md:gap-x-6;
+    @apply grid gap-y-3 py-6 first:pt-0 last:pb-0 md:col-span-2 md:grid-cols-subgrid;
   }
   /* Separators only between groups: no rule under the heading, none after the last. */
   .skills-group + .skills-group {
     @apply border-t border-neutral-300 dark:border-neutral-700;
   }
+  /* From md the label's first line centres on the first tile row (48px, 56px
+     from lg) rather than floating mid-group. */
   .skills-group-label {
-    @apply text-body-sm col-start-1 row-start-1 font-mono text-neutral-500 dark:text-neutral-400;
-  }
-  /* Declared after .skills-group-label so its colour wins on source order. */
-  .skills-group-label--accent {
-    @apply text-brand-700 dark:text-brand-400;
-  }
-  .skills-group-count {
-    @apply text-caption col-start-2 row-start-1 text-right font-mono text-neutral-500 tabular-nums md:col-start-3 dark:text-neutral-400;
+    @apply text-body-sm font-mono text-neutral-500 md:pt-[calc((3rem-1lh)/2)] lg:pt-[calc((3.5rem-1lh)/2)] dark:text-neutral-400;
   }
   .skills-group-tiles {
-    @apply col-span-2 row-start-2 flex min-w-0 flex-wrap gap-2 sm:gap-3 md:col-span-1 md:col-start-2 md:row-start-1;
+    @apply flex min-w-0 flex-wrap gap-2 sm:gap-3;
   }
   .more-pill {
     @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
