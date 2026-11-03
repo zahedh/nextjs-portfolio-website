@@ -76,7 +76,7 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
         <div ref={contentRef} className="experience-details-content">
           <FeatureList
             lines={job.description}
-            className="leading-relaxed text-neutral-600 dark:text-neutral-400"
+            className="text-fg-muted leading-relaxed"
           />
           <TechStack
             skills={jobSkills}

@@ -87,7 +87,7 @@
     @apply text-fg-accent text-title-sm font-medium;
   }
   .experience-duration {
-    @apply text-micro mt-0.5 block font-mono text-neutral-400 dark:text-neutral-500;
+    @apply text-micro text-fg-muted mt-0.5 block font-mono;
   }
   /* Declared after .experience-duration so the current role's size wins on source order. */
   .experience-duration-active {
@@ -188,7 +188,7 @@
     @apply bg-page rounded-lg text-transparent;
   }
   .contrib-label {
-    @apply text-meta lg:text-body-sm text-fg-muted font-mono;
+    @apply text-meta lg:text-body-sm text-fg-secondary font-mono;
   }
   .contrib-years {
     @apply flex gap-3;
@@ -240,7 +240,7 @@
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-600 border-line bg-raised absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-600 border-line bg-raised text-fg-secondary absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-neutral-700;
 
     /* Centred on the days, not on the days and the month row above them. */
     bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
@@ -284,7 +284,7 @@
     gap: var(--contrib-gap);
   }
   .contrib-months {
-    @apply text-micro lg:text-caption text-fg-muted font-mono;
+    @apply text-micro lg:text-caption text-fg-secondary font-mono;
   }
   .contrib-grid {
     grid-template-rows: repeat(7, auto);
@@ -294,7 +294,7 @@
     @apply block aspect-square rounded-full;
   }
   .contrib-legend {
-    @apply text-micro lg:text-caption text-fg-muted flex items-center gap-1.5 pt-1 font-mono lg:gap-2;
+    @apply text-micro lg:text-caption text-fg-secondary flex items-center gap-1.5 pt-1 font-mono lg:gap-2;
   }
   .contrib-legend-dot {
     @apply block h-2 w-2 rounded-full lg:h-2.5 lg:w-2.5;
@@ -341,7 +341,7 @@
     @apply flex items-center gap-[22px];
   }
   .nav-link {
-    @apply text-caption hover:text-fg-strong relative inline-flex min-h-11 items-center font-mono text-neutral-600 transition-colors duration-150 dark:text-neutral-400;
+    @apply text-caption hover:text-fg-strong text-fg-muted relative inline-flex min-h-11 items-center font-mono transition-colors duration-150;
 
     &::after {
       content: '';
@@ -355,7 +355,8 @@
     &[aria-current='location'] {
       @apply text-fg-strong;
     }
-    &[aria-current='location']::after {
+    &[aria-current='location']::after,
+    &:hover::after {
       @apply scale-x-100;
     }
   }
@@ -363,10 +364,10 @@
     @apply focus-visible:ring-brand-600 border-line flex cursor-pointer items-center gap-0.5 rounded-full border p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
   }
   .theme-switch-option {
-    @apply group-hover:text-fg-strong flex size-6 items-center justify-center rounded-full text-neutral-600 transition-colors duration-150 dark:text-neutral-400;
+    @apply group-hover:text-fg-strong text-fg-muted flex size-6 items-center justify-center rounded-full transition-colors duration-150;
 
-    /* Keyed off the root class rather than store state, which only settles
-       once the store has read the stored theme after hydration. */
+    /* Keyed off the root class, which the pre-paint script sets, so the
+       current theme is filled from first paint rather than after hydration. */
     :root:not(.dark) &[data-theme-option='light'] {
       @apply bg-brand-500 text-neutral-900;
     }
@@ -411,7 +412,7 @@
     }
   }
   .mobile-sheet-theme {
-    @apply text-caption mt-[18px] flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-neutral-600 dark:border-neutral-800 dark:text-neutral-400;
+    @apply text-caption border-line text-fg-muted mt-[18px] flex items-center justify-between border-t pt-5 font-mono;
   }
 
   /* =========================
@@ -494,7 +495,7 @@
     @apply flex min-h-[177px] flex-col gap-2 p-5;
   }
   .project-card-feature-meta {
-    @apply text-brand-700 dark:text-brand-300 text-meta font-mono;
+    @apply text-fg-accent text-meta font-mono;
   }
   .project-card-feature-title {
     @apply font-heading text-heading text-fg-strong font-bold tracking-[-0.02em];
@@ -524,7 +525,7 @@
   /* A compact card is roughly a third of the content width now rather than a
      300px rail, so it has room for two lines and no longer needs truncating. */
   .project-card-compact-excerpt {
-    @apply text-body-sm line-clamp-2 text-neutral-600 dark:text-neutral-300;
+    @apply text-body-sm text-fg-secondary line-clamp-2;
   }
   .projects-empty {
     @apply text-body-sm text-fg-muted py-8 text-center;
@@ -575,7 +576,7 @@
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint text-fg-strong inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta text-fg-muted tracking-wide;
@@ -584,13 +585,13 @@
     @apply text-title text-fg-strong mb-2 font-semibold tracking-tight;
   }
   .card-title-link {
-    @apply text-fg-accent hover:text-brand-800 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
+    @apply text-fg-accent hover:text-brand-900 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
   }
   .card-fade-gradient {
     @apply from-page pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t to-transparent;
   }
   .link-accent {
-    @apply text-fg-accent decoration-brand-500 hover:text-brand-800 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
+    @apply text-fg-accent decoration-brand-500 hover:text-brand-900 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
 
   /** JobCard date range pill — base + active/current vs inactive/past */
@@ -598,10 +599,10 @@
     @apply text-body-sm inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 font-semibold;
   }
   .job-date-pill-inactive {
-    @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
+    @apply text-fg-strong border-neutral-300/85 bg-neutral-100/90 dark:border-neutral-500/70 dark:bg-neutral-800/90;
   }
   .job-date-pill-active {
-    @apply border-brand-500/55 bg-brand-400/25 dark:border-brand-400/60 dark:bg-brand-500/35 text-neutral-900 shadow-sm dark:text-neutral-50;
+    @apply border-brand-500/55 bg-brand-400/25 dark:border-brand-400/60 dark:bg-brand-500/35 text-fg-strong shadow-sm;
   }
 
   /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
@@ -685,10 +686,10 @@
     @apply flex flex-wrap items-center gap-x-[18px];
   }
   .footer-social-link {
-    @apply text-body-sm hover:text-fg-strong py-2.5 font-mono text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-colors dark:text-neutral-400 dark:decoration-neutral-700;
+    @apply text-body-sm hover:text-fg-strong hover:decoration-brand-500 dark:hover:decoration-brand-400 text-fg-secondary py-2.5 font-mono underline decoration-neutral-300 underline-offset-4 transition-colors dark:decoration-neutral-700;
   }
   .footer-meta {
-    @apply text-meta flex w-full items-center justify-between border-t border-neutral-300 pt-6 font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
+    @apply text-meta border-line text-fg-secondary flex w-full items-center justify-between border-t pt-6 font-mono;
   }
   .btn-callout-ping-anchor {
     @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
@@ -710,7 +711,7 @@
     @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-fg shadow-sm;
   }
   .brand-pill-inactive {
-    @apply border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100;
+    @apply text-fg-strong border-neutral-400/50 bg-neutral-200/90 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45;
   }
   .brand-icon-btn {
     @apply border-brand-500 bg-brand-300 hover:bg-brand-500 text-fg flex shrink-0 items-center justify-center rounded-full border transition-colors duration-200;
@@ -753,7 +754,7 @@
   }
   /* The one fact that is a state rather than a label takes the accent. */
   .project-page-meta-active {
-    @apply text-brand-700 dark:text-brand-300;
+    @apply text-fg-accent;
   }
   /* The hero's pairing at the footer's size: the first link is the page's
      primary call and the rest sit beside it. */
@@ -862,7 +863,7 @@
     }
   }
   .project-back-link {
-    @apply text-body-sm text-fg-muted inline-flex w-fit items-center gap-2 transition-colors hover:text-neutral-800 dark:hover:text-neutral-100;
+    @apply text-body-sm text-fg-muted hover:text-fg-strong inline-flex w-fit items-center gap-2 transition-colors;
   }
   .skill-tile-tooltip {
     @apply text-caption bg-inverse pointer-events-none fixed z-[9999] rounded-md px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:text-neutral-900;
@@ -888,10 +889,10 @@
     @apply flex min-w-0 flex-wrap gap-2 sm:gap-3;
   }
   .more-pill {
-    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption text-fg inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight;
   }
   .body-text-muted {
-    @apply text-body-sm text-neutral-600 dark:text-neutral-400;
+    @apply text-body-sm text-fg-muted;
   }
   /* Meta rows on a project. A flat ruled list, not a card nested in a card. */
   .meta-list {
@@ -904,7 +905,7 @@
     @apply text-micro text-fg-muted font-semibold tracking-widest uppercase;
   }
   .meta-list-value {
-    @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
+    @apply text-body-sm text-fg font-medium sm:text-right;
   }
   /* About. Below md the photograph stacks above the copy, as on a phone:
      beside the copy at sm it could be no wider than 200, since the copy
@@ -1004,7 +1005,7 @@
     @apply grid grid-cols-1 gap-x-6 gap-y-[11px] lg:grid-cols-2;
   }
   .about-credential {
-    @apply border-accent text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
+    @apply border-accent text-body text-fg border-l-2 py-[3px] pl-3.5;
   }
   .hero-composition {
     /* The copy column is as wide as its copy and the grid packs to the start,
@@ -1068,11 +1069,11 @@
      so it belongs to the headline, but a third of its size and a normal weight
      so it introduces the page rather than competing with the claim. */
   .hero-name {
-    @apply font-display text-title-sm xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+    @apply font-display text-title-sm xl:text-title text-fg font-semibold tracking-tight;
   }
   .hero-eyebrow {
     /* Pretty, so if the line wraps it does not leave "Beck" on its own. */
-    @apply text-brand-700 dark:text-brand-300 text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
+    @apply text-fg-accent text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
   }
   .hero-headline {
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
@@ -1123,7 +1124,7 @@
     @apply border-brand-300 p-surface relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
   }
   .stat-card-value {
-    @apply font-heading text-brand-600 dark:text-brand-400 text-numeral lg:text-numeral-lg font-bold;
+    @apply font-heading text-fg-accent text-numeral lg:text-numeral-lg font-bold;
   }
   .stat-card-label {
     @apply text-meta text-fg-secondary font-semibold;
@@ -1135,7 +1136,7 @@
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply hover:border-line-strong hover:bg-tint gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none dark:border-neutral-600 dark:text-neutral-200;
+    @apply hover:border-line-strong hover:bg-tint text-fg gap-1.5 border-neutral-400 bg-transparent shadow-none dark:border-neutral-600;
   }
   .filter-pill-mark {
     @apply shrink-0;

@@ -109,9 +109,7 @@ export function ProjectMetaSummary({
         )}
         role="status"
       >
-        <span className="font-medium text-neutral-600 dark:text-neutral-300">
-          {timeline}
-        </span>
+        <span className="text-fg-secondary font-medium">{timeline}</span>
         <span className="text-neutral-300 dark:text-neutral-600" aria-hidden>
           ·
         </span>
@@ -133,11 +131,11 @@ export function ProjectMetaSummary({
         )}
       >
         <span>{timeline}</span>
-        <span className="text-neutral-400 dark:text-neutral-500" aria-hidden>
+        <span className="text-fg-muted" aria-hidden>
           ·
         </span>
         <ProjectPlatformTag project={project} />
-        <span className="text-neutral-400 dark:text-neutral-500" aria-hidden>
+        <span className="text-fg-muted" aria-hidden>
           ·
         </span>
         <ProjectStatusBadge project={project} />

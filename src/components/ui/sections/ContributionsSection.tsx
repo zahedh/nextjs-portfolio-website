@@ -138,7 +138,7 @@ export default function ContributionsSection() {
         </div>
 
         {failed ? (
-          <BodyText className="text-neutral-600 dark:text-neutral-400">
+          <BodyText className="text-fg-secondary">
             {en.contributionsSection.error}
           </BodyText>
         ) : (

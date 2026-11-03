@@ -47,8 +47,9 @@
   --color-fg: var(--color-neutral-900);
   --color-fg-strong: var(--color-neutral-900);
   --color-fg-secondary: var(--color-neutral-700);
-  --color-fg-muted: var(--color-neutral-500);
-  --color-fg-accent: var(--color-brand-700);
+  /* 600 and brand-800 are the lightest steps that hold 4.5:1 on the page. */
+  --color-fg-muted: var(--color-neutral-600);
+  --color-fg-accent: var(--color-brand-800);
   --color-page: var(--color-neutral-100);
   --color-raised: var(--color-neutral-50);
   --color-inverse: var(--color-neutral-900);
