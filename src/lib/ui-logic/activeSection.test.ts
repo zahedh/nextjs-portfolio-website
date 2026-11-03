@@ -22,4 +22,13 @@ describe('pickActiveSection', () => {
   it('picks the last section on the page once the page bottoms out', () => {
     expect(pickActiveSection(sections, 200, true)).toBe('about');
   });
+
+  it('lets a pinned section win, even at the bottom of the page', () => {
+    expect(pickActiveSection(sections, 200, true, 'projects')).toBe('projects');
+    expect(pickActiveSection(sections, 200, false, 'home')).toBe('home');
+  });
+
+  it('ignores a pinned id that is not on the page', () => {
+    expect(pickActiveSection(sections, 200, true, 'contact')).toBe('about');
+  });
 });

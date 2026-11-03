@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { FeatureList } from '@/components/ui/cards/FeatureList';
 import { ProjectLinks } from '@/components/ui/cards/ProjectLinks';
+import {
+  ProjectBackLink,
+  ProjectPageStack,
+  ProjectStepLink,
+} from '@/components/ui/cards/ProjectStep';
 import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
 import { projects } from '@/data/projects';
 import { getFilteredProjectsForSection } from '@/lib/project';
@@ -99,12 +103,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           opens at the same height as the front page rather than 72px lower. */}
       <section className="screen-section -mt-18">
         <div className="section-inner">
-          <div className="page-stack">
+          <ProjectPageStack key={project.slug}>
             <div className="page-head">
-              <Link href="/#projects" className="project-back-link">
+              <ProjectBackLink className="project-back-link">
                 <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden />
                 {en.projectDisplay.backToProjects}
-              </Link>
+              </ProjectBackLink>
 
               <h1 className="page-title project-page-title">{project.title}</h1>
 
@@ -167,7 +171,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             <div className="project-page-onward">
               {previousProject ? (
-                <Link
+                <ProjectStepLink
                   href={`/projects/${previousProject.slug}`}
                   className="project-page-onward-link group"
                 >
@@ -177,12 +181,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <span className="project-page-onward-title">
                     {previousProject.title}
                   </span>
-                </Link>
+                </ProjectStepLink>
               ) : (
                 <span />
               )}
               {nextProject ? (
-                <Link
+                <ProjectStepLink
                   href={`/projects/${nextProject.slug}`}
                   className="project-page-onward-link group sm:items-end sm:text-right"
                 >
@@ -192,12 +196,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <span className="project-page-onward-title">
                     {nextProject.title}
                   </span>
-                </Link>
+                </ProjectStepLink>
               ) : (
                 <span />
               )}
             </div>
-          </div>
+          </ProjectPageStack>
         </div>
       </section>
     </div>

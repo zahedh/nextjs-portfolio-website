@@ -5,22 +5,10 @@ import { SkillTile } from '@/components/ui/tiles';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { cn } from '@/lib/utils';
-import { motion, useReducedMotion } from 'motion/react';
-import {
-  getSkillsCollageContainerVariants,
-  getSkillsCollageGridViewport,
-  getSkillsCollageItemVariants,
-  groupSkills,
-  skillGroupOrder,
-} from '@/lib/ui-logic';
+import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
-  const prefersReducedMotion = useReducedMotion();
-  const containerVariants =
-    getSkillsCollageContainerVariants(prefersReducedMotion);
-  const itemVariants = getSkillsCollageItemVariants(prefersReducedMotion);
-  const gridViewport = getSkillsCollageGridViewport();
   const skillGroups = groupSkills(skillsData);
 
   return (
@@ -39,23 +27,13 @@ export default function SkillsSection() {
             <span className="skills-group-count">
               {String(skillGroups[group].length).padStart(2, '0')}
             </span>
-            <motion.div
-              className="skills-group-tiles"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={gridViewport}
-            >
+            <div className="skills-group-tiles">
               {skillGroups[group].map((skill) => (
-                <motion.div
-                  key={skill.id}
-                  className="relative hover:z-[100]"
-                  variants={itemVariants}
-                >
+                <div key={skill.id} className="relative hover:z-[100]">
                   <SkillTile icon={skill.icon} label={skill.label} />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>

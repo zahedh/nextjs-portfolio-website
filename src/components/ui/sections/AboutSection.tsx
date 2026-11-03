@@ -3,11 +3,8 @@
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion } from 'motion/react';
 import Image from 'next/image';
 import { aboutPhoto } from '@/images';
-
-const viewMotion = { once: true, margin: '-80px' as const };
 
 /** About: photograph with its stickers, narrative and credential rail, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
@@ -16,13 +13,7 @@ export default function AboutSection() {
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
       <div className="about-grid">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-          className="about-visual"
-        >
+        <div className="about-visual">
           {/* sizes asks for twice each frame width: a source at the frame's own
               width rendered visibly soft, while one twice as wide, scaled down
               by the browser, renders sharp. */}
@@ -40,25 +31,15 @@ export default function AboutSection() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
-          className="about-narrative"
-        >
+        <div className="about-narrative">
           <p>{narrativeFirst}</p>
           <p>{narrativeSecond}</p>
-        </motion.div>
+        </div>
 
-        <motion.aside
+        <aside
           aria-labelledby="about-credentials-heading"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
           className="about-credentials"
         >
           <h3
@@ -74,7 +55,7 @@ export default function AboutSection() {
               </li>
             ))}
           </ul>
-        </motion.aside>
+        </aside>
       </div>
     </Section>
   );

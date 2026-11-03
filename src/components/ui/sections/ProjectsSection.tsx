@@ -11,6 +11,10 @@ import { Project, ProjectFilter } from '@/types/project';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { measureContentHeight } from '@/hooks/utilityHooks';
+import {
+  consumeProjectReturn,
+  rememberProjectsQuery,
+} from '@/components/ui/cards/ProjectStep';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -37,10 +41,20 @@ interface ProjectGridProps {
   projects: Project[];
   showAll: boolean;
   onToggleShowAll: () => void;
+  /** Names the set on show; a new name mounts a fresh grid. */
+  setKey: string;
+  /** Whether a new set settles in: after a filter press or a return from a project. */
+  settle: boolean;
 }
 
 /** Presents the filtered projects as one feature card followed by compact cards. */
-function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
+function ProjectGrid({
+  projects,
+  showAll,
+  onToggleShowAll,
+  setKey,
+  settle,
+}: ProjectGridProps) {
   const [featureProject, ...compactProjects] = projects;
   const hasOverflow = compactProjects.length > INITIAL_COMPACT_COUNT;
 
@@ -135,7 +149,14 @@ function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
       >
         {/* Every card is a cell in this one grid, revealed ones included, so rows
             always align. A lone card has nothing to span and keeps its own height. */}
-        <div ref={gridRef} className="projects-grid">
+        {/* Keyed by the set, so a filter press mounts every card afresh and
+            a card common to both sets settles in with the rest rather than
+            standing still among them. */}
+        <div
+          ref={gridRef}
+          key={setKey}
+          className={cn('projects-grid', settle && 'projects-grid-settle')}
+        >
           <ProjectCard
             project={featureProject}
             variant="feature"
@@ -160,10 +181,7 @@ function ProjectGrid({ projects, showAll, onToggleShowAll }: ProjectGridProps) {
           >
             {showAll
               ? en.projectCard.showFewerProjects
-              : en.projectCard.seeAllProjects.replace(
-                  '{{count}}',
-                  String(projects.length)
-                )}
+              : en.projectCard.seeAllProjects}
             {/* Same disclosure affordance as the experience rail's expander:
                 trailing chevron, flipped while open. */}
             <ChevronDown
@@ -192,6 +210,9 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [showAll, setShowAll] = useState(false);
+  // A filter press or a return from a project page settles the cards in; the
+  // first paint of a fresh load shows the set as it already was.
+  const [settle, setSettle] = useState(false);
 
   // Both the filter and the expansion live in the URL, so returning from a
   // project page lands the reader on the set of cards they left. The expansion
@@ -210,6 +231,10 @@ export default function ProjectsSection() {
     const filter = params.get(FILTER_PARAM);
     if (isProjectFilter(filter)) setSelectedType(filter);
     setShowAll(params.get(EXPANDED_PARAM) === '1');
+    rememberProjectsQuery(window.location.search);
+    // Same commit as the restore, so the cards settle in before first paint
+    // rather than appearing and then moving.
+    if (consumeProjectReturn()) setSettle(true);
   }, []);
 
   const writeUrl = (filter: ProjectFilter, expanded: boolean) => {
@@ -219,6 +244,7 @@ export default function ProjectsSection() {
     if (expanded) url.searchParams.set(EXPANDED_PARAM, '1');
     else url.searchParams.delete(EXPANDED_PARAM);
     window.history.replaceState(null, '', url);
+    rememberProjectsQuery(url.search);
   };
 
   // A new filter shows a different set, so the old set's expansion does not
@@ -226,6 +252,7 @@ export default function ProjectsSection() {
   const chooseFilter = (value: ProjectFilter) => {
     setSelectedType(value);
     setShowAll(false);
+    setSettle(true);
     writeUrl(value, false);
   };
 
@@ -273,6 +300,8 @@ export default function ProjectsSection() {
         projects={filteredProjects}
         showAll={showAll}
         onToggleShowAll={toggleShowAll}
+        setKey={selectedType}
+        settle={settle}
       />
     </Section>
   );

@@ -1,11 +1,10 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
 import { Section, PrimaryButton, BodyText } from '@/components';
 import { en } from '@/language';
 import { cn, sumContributions } from '@/lib/utils';
-import { buildEmptyYear, getContributionsBandVariants } from '@/lib/ui-logic';
+import { buildEmptyYear } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
 import ContributionsCalendar from './ContributionsCalendar';
 
@@ -17,7 +16,6 @@ export default function ContributionsSection() {
   const [activities, setActivities] = useState<ActivityCalendarData[]>([]);
   const [failed, setFailed] = useState(false);
   const [loading, setLoading] = useState(true);
-  const prefersReducedMotion = useReducedMotion();
 
   const cache = useRef<Record<number, ActivityCalendarData[]>>({});
   const inFlight = useRef<Record<number, Promise<ActivityCalendarData[]>>>({});
@@ -107,11 +105,8 @@ export default function ContributionsSection() {
 
   return (
     <Section anchor="contributions" banded>
-      <motion.div
+      <div
         className={cn('contrib-band', updating && 'contrib-band--updating')}
-        variants={getContributionsBandVariants(Boolean(prefersReducedMotion))}
-        initial="hidden"
-        animate="visible"
         aria-busy={loading}
       >
         <div className="contrib-figure-group">
@@ -153,7 +148,7 @@ export default function ContributionsSection() {
             pending={pending}
           />
         )}
-      </motion.div>
+      </div>
     </Section>
   );
 }

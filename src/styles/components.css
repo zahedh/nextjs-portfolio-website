@@ -125,7 +125,7 @@
     @apply text-body text-neutral-700 lg:max-w-[62ch] dark:text-neutral-300;
   }
   .experience-expand-button {
-    @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
+    @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:border-neutral-700 hover:bg-neutral-900/12 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
   }
   .experience-details {
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
@@ -434,7 +434,27 @@
     @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
-    @apply focus-visible:ring-brand-600 flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* The hover border is its own layer above the card's content: drawn on the
+     card itself, the feature card's cover sat over it and the border stopped
+     at the gradient. */
+  .project-card-feature::after,
+  .project-card-compact::after {
+    @apply border-brand-500/70 pointer-events-none absolute inset-0 z-10 rounded-[inherit] border opacity-0 transition-opacity duration-200 ease-[cubic-bezier(0.22,1,0.36,1)];
+
+    content: '';
+  }
+  /* Written out rather than as dark:, whose variant lands after the
+     pseudo-element and makes the selector invalid. Dark's brightest amber is
+     brand-100, as on the selected pill. */
+  .dark .project-card-feature::after,
+  .dark .project-card-compact::after {
+    border-color: color-mix(in oklab, var(--color-brand-100) 60%, transparent);
+  }
+  .project-card-feature:hover::after,
+  .project-card-compact:hover::after {
+    @apply opacity-100;
   }
   /* The feature card earns its emphasis by spanning two rows, not by sitting in
      a wider track — so the compact cards beside it form a clean rectangle. Set
@@ -483,7 +503,7 @@
     @apply text-body-sm line-clamp-2 leading-[1.55] text-neutral-700 dark:text-neutral-300;
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-600 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
   }
   /* Out of flow, so a card carrying it is no taller than one that does not —
      in the flow it added a line to whichever row held it and the section moved
@@ -527,11 +547,35 @@
   }
   /* The row is always present, so the page below the section does not jump by
      the button's height when a filter has nothing left to expand. */
+  /* A filter press settles the new set in card by card, on the same settle
+     and keyframes as a project page arriving from previous or next. Only the
+     cards on show at the press take part; rows the see-all control adds later
+     are wiped in by the height, as before. */
+  .projects-grid-settle > :nth-child(-n + 5) {
+    animation: project-settle-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .projects-grid-settle > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  .projects-grid-settle > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .projects-grid-settle > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+  .projects-grid-settle > :nth-child(5) {
+    animation-delay: 240ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .projects-grid-settle > :nth-child(-n + 5) {
+      animation: project-settle-fade 150ms linear both;
+    }
+  }
   .projects-see-all-row {
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-600 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:border-neutral-700 hover:bg-neutral-900/12 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14 dark:focus-visible:ring-offset-neutral-900;
   }
   .meta-row-subtle {
     @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
@@ -562,9 +606,8 @@
 
   /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
    * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
-   * 2. Primary: PrimaryButton base without btn-toggle-idle; optional btn-primary-sm for compact actions
-   * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
-   * 4. Tertiary: TertiaryButton
+   * 2. Primary: PrimaryButton; optional btn-primary-sm for compact actions
+   * 3. Tertiary: TertiaryButton
    */
   /* Dark's brand ramp runs the other way — brand-100 is its brightest amber and
      brand-500 its dimmest — so the light theme's fill left every primary button
@@ -628,12 +671,15 @@
      surfaces: hover:bg-neutral-200 was exactly the footer's and the activity
      band's own background, so on those two the hover was invisible while
      working fine on the page. An overlay darkens or lightens whatever is
-     behind it, so one rule holds on every surface. Neutral outline rather than TertiaryButton's brand border and amber
+     behind it, so one rule holds on every surface; at 12% and 14% it is also
+     strong enough to see, which 8% and 10% were not, and every outline-style
+     control (filter pills, see-all, the job expander) takes the same one.
+     Neutral outline rather than TertiaryButton's brand border and amber
      hover: the accent marks the one action worth taking, and spending it on both
      halves of a pair leaves neither leading. Named for the role, not the section,
      because the hero and the footer draw the same pairing. */
   .btn-outline {
-    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:bg-neutral-900/8 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:bg-neutral-100/10;
+    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:border-neutral-700 hover:bg-neutral-900/12 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14;
   }
   .footer-social-links {
     @apply flex flex-wrap items-center gap-x-[18px];
@@ -725,7 +771,7 @@
   /* .card-title's job on a page that has no cards, and without the bottom
      margin a card needs under its own title. */
   .project-page-onward-title {
-    @apply font-display text-title-sm lg:text-title font-bold tracking-tight text-neutral-900 transition-colors group-hover:text-neutral-600 dark:text-neutral-100 dark:group-hover:text-neutral-300;
+    @apply font-display text-title-sm lg:text-title group-hover:text-brand-700 dark:group-hover:text-brand-100 font-bold tracking-tight text-neutral-900 transition-colors dark:text-neutral-100;
   }
   /* Stands where a cover will go. Every image the site holds today is a client
      logo or an avatar, and centring one in a page-wide plate reads as a picture
@@ -766,6 +812,55 @@
     @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
   }
   /* Return to the projects section from a project's own page. */
+  /*
+   * Arriving from the previous or next link, the page settles in piece by
+   * piece rather than swapping as one picture: the head first, then the
+   * summary, the facts, the body and the way onward, 60ms apart. Each piece
+   * moves only within its own place, so projects whose titles and summaries
+   * run to different lengths never overlap. These are the site's settle
+   * values (a 12px rise over 320ms on the project-title morph's curve), which
+   * the Projects filter reuses; under reduced motion the rise goes and a short
+   * fade stays.
+   */
+  .project-settle :is(.project-back-link, .project-page-title),
+  .project-settle .page-summary,
+  .project-settle .page-meta,
+  .project-settle .project-page-body,
+  .project-settle .project-page-onward {
+    animation: project-settle-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .project-settle .page-summary {
+    animation-delay: 60ms;
+  }
+  .project-settle .page-meta {
+    animation-delay: 120ms;
+  }
+  .project-settle .project-page-body {
+    animation-delay: 180ms;
+  }
+  .project-settle .project-page-onward {
+    animation-delay: 240ms;
+  }
+  @keyframes project-settle-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-settle :is(.project-back-link, .project-page-title),
+    .project-settle .page-summary,
+    .project-settle .page-meta,
+    .project-settle .project-page-body,
+    .project-settle .project-page-onward {
+      animation: project-settle-fade 150ms linear both;
+    }
+  }
+  @keyframes project-settle-fade {
+    from {
+      opacity: 0;
+    }
+  }
   .project-back-link {
     @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;
   }
@@ -1037,18 +1132,13 @@
     @apply text-meta font-semibold text-neutral-700 dark:text-neutral-300;
   }
 
-  /* Legacy alias - prefer btn-toggle-idle in new markup */
-  .btn-toggle-idle,
-  .filter-inactive {
-    @apply opacity-50;
-  }
   /* Category is carried by the glyph and the label, so colour here is brand and
      neutral only. State is a change of fill, never opacity: dimming the pill
      dimmed its label and glyph too, and halved the hover shift into invisibility.
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:bg-neutral-900/8 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-100/10;
+    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:border-neutral-700 hover:bg-neutral-900/12 dark:border-neutral-600 dark:text-neutral-200 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14;
   }
   .filter-pill-mark {
     @apply shrink-0;
@@ -1064,7 +1154,7 @@
      so both themes get a bright fill under dark text: 7.15:1 light, 6.60:1
      dark. Using brand-500 in dark gave 3.50:1, which is why it looked washed. */
   .filter-pill-selected {
-    @apply bg-brand-500 border-brand-500 hover:bg-brand-500 dark:bg-brand-100 dark:border-brand-100 dark:hover:bg-brand-100 text-neutral-900 dark:text-neutral-900;
+    @apply bg-brand-500 border-brand-500 hover:border-brand-500 hover:bg-brand-500 dark:bg-brand-100 dark:border-brand-100 dark:hover:border-brand-100 dark:hover:bg-brand-100 text-neutral-900 dark:text-neutral-900;
   }
   /* Category glyphs. The card's own label carries the categories for a reader
      who cannot see them, so the marks themselves are hidden from the tree. */
@@ -1087,5 +1177,31 @@
   }
   .contributions-tooltip-arrow {
     @apply absolute -bottom-1 left-1/2 z-[-1] h-2 w-2 -translate-x-1/2 rotate-45 bg-neutral-900 dark:bg-neutral-100;
+  }
+
+  /* Every button and pill gives a little under the press and springs back, so
+     a click is felt before the page answers it. Declared after the controls so
+     this transition list, which adds scale to their colour change, wins on
+     source order. Reduced motion keeps the colour change and drops the give. */
+  .btn-primary,
+  .btn-outline,
+  .projects-see-all,
+  .experience-expand-button {
+    transition-property:
+      color, background-color, border-color, text-decoration-color, scale;
+  }
+  .btn-primary:active,
+  .btn-outline:active,
+  .projects-see-all:active,
+  .experience-expand-button:active {
+    scale: 0.97;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:active,
+    .btn-outline:active,
+    .projects-see-all:active,
+    .experience-expand-button:active {
+      scale: none;
+    }
   }
 }
