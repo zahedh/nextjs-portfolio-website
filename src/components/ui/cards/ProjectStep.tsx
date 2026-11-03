@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
@@ -11,6 +11,22 @@ import { cn } from '@/lib/utils';
  * the server and the client rendering the same markup.
  */
 let arrivingByStep = false;
+
+/**
+ * Set as a project page unmounts and cleared as one mounts, so it is true only
+ * when the reader has left the projects for somewhere else, which is nearly
+ * always back to them. Layout effects, because the page being left unmounts in
+ * the same commit as the one arriving lays out, and a passive cleanup would
+ * run after the arriving page had already looked.
+ */
+let leftProjectPage = false;
+
+/** Whether the reader has just come back from a project page; reads once. */
+export function consumeProjectReturn(): boolean {
+  const returned = leftProjectPage;
+  leftProjectPage = false;
+  return returned;
+}
 
 interface ProjectStepLinkProps {
   href: string;
@@ -53,6 +69,13 @@ export function ProjectPageStack({ children }: { children: React.ReactNode }) {
     arrivingByStep = false;
     return requested;
   });
+
+  useLayoutEffect(() => {
+    leftProjectPage = false;
+    return () => {
+      leftProjectPage = true;
+    };
+  }, []);
 
   return (
     <div className={cn('page-stack', settling && 'project-settle')}>

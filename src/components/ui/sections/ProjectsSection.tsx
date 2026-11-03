@@ -11,6 +11,7 @@ import { Project, ProjectFilter } from '@/types/project';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { measureContentHeight } from '@/hooks/utilityHooks';
+import { consumeProjectReturn } from '@/components/ui/cards/ProjectStep';
 
 /**
  * The filter controls, each carrying its category's glyph. Ordered by depth of
@@ -39,7 +40,7 @@ interface ProjectGridProps {
   onToggleShowAll: () => void;
   /** Names the set on show; a new name mounts a fresh grid. */
   setKey: string;
-  /** Whether a new set settles in, which only a filter press asks for. */
+  /** Whether a new set settles in: after a filter press or a return from a project. */
   settle: boolean;
 }
 
@@ -206,9 +207,9 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 export default function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [showAll, setShowAll] = useState(false);
-  // Only a press settles the cards in: the first paint and a filter restored
-  // from the URL on a back navigation show the set as it already was.
-  const [filterPressed, setFilterPressed] = useState(false);
+  // A filter press or a return from a project page settles the cards in; the
+  // first paint of a fresh load shows the set as it already was.
+  const [settle, setSettle] = useState(false);
 
   // Both the filter and the expansion live in the URL, so returning from a
   // project page lands the reader on the set of cards they left. The expansion
@@ -227,6 +228,9 @@ export default function ProjectsSection() {
     const filter = params.get(FILTER_PARAM);
     if (isProjectFilter(filter)) setSelectedType(filter);
     setShowAll(params.get(EXPANDED_PARAM) === '1');
+    // Same commit as the restore, so the cards settle in before first paint
+    // rather than appearing and then moving.
+    if (consumeProjectReturn()) setSettle(true);
   }, []);
 
   const writeUrl = (filter: ProjectFilter, expanded: boolean) => {
@@ -243,7 +247,7 @@ export default function ProjectsSection() {
   const chooseFilter = (value: ProjectFilter) => {
     setSelectedType(value);
     setShowAll(false);
-    setFilterPressed(true);
+    setSettle(true);
     writeUrl(value, false);
   };
 
@@ -292,7 +296,7 @@ export default function ProjectsSection() {
         showAll={showAll}
         onToggleShowAll={toggleShowAll}
         setKey={selectedType}
-        settle={filterPressed}
+        settle={settle}
       />
     </Section>
   );
