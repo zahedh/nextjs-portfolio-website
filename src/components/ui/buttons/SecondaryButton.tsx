@@ -34,7 +34,7 @@ export function SecondaryButton({
         'rounded-full',
         'border-brand-500 border',
         'bg-brand-300 dark:bg-brand-500',
-        'text-neutral-900 dark:text-neutral-200',
+        'text-fg',
         'font-heading text-base leading-normal font-bold tracking-tight',
         'shadow-sm transition-colors duration-150',
         'hover:bg-brand-500 dark:hover:bg-brand-700',

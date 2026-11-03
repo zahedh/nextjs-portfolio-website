@@ -42,6 +42,21 @@
   --color-brand-800: #774a04;
   --color-brand-900: #543202;
 
+  /* Semantic roles. Components use these rather than a scale step, and the
+     dark block below points each at its dark step. */
+  --color-fg: var(--color-neutral-900);
+  --color-fg-strong: var(--color-neutral-900);
+  --color-fg-secondary: var(--color-neutral-700);
+  --color-fg-muted: var(--color-neutral-500);
+  --color-accent-fg: var(--color-brand-700);
+  --color-ground: var(--color-neutral-100);
+  --color-surface: var(--color-neutral-50);
+  --color-inverse: var(--color-neutral-900);
+  --color-wash: color-mix(in oklab, var(--color-neutral-900) 12%, transparent);
+  --color-line: var(--color-neutral-300);
+  --color-line-strong: var(--color-neutral-700);
+  --color-accent: var(--color-brand-500);
+
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
@@ -147,6 +162,20 @@
   --color-brand-700: #7e541b;
   --color-brand-800: #623f13;
   --color-brand-900: #472c0c;
+
+  --color-fg: var(--color-neutral-200);
+  --color-fg-strong: var(--color-neutral-100);
+  --color-fg-secondary: var(--color-neutral-300);
+  --color-fg-muted: var(--color-neutral-400);
+  --color-accent-fg: var(--color-brand-400);
+  --color-ground: var(--color-neutral-900);
+  --color-surface: var(--color-neutral-800);
+  --color-inverse: var(--color-neutral-100);
+  --color-wash: color-mix(in oklab, var(--color-neutral-100) 14%, transparent);
+  --color-line: var(--color-neutral-700);
+  --color-line-strong: var(--color-neutral-300);
+  --color-accent: var(--color-brand-400);
+
   --cover-brand: #4a3117;
   --cover-end: #1f2226;
 }

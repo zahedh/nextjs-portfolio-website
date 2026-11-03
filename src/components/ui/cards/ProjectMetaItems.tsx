@@ -128,7 +128,7 @@ export function ProjectMetaSummary({
     return (
       <p
         className={cn(
-          'text-caption flex flex-wrap items-center gap-x-2 gap-y-1.5 text-neutral-500 dark:text-neutral-400',
+          'text-caption text-fg-muted flex flex-wrap items-center gap-x-2 gap-y-1.5',
           className
         )}
       >

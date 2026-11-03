@@ -8,12 +8,7 @@ type BodyTextProps = {
 
 export default function BodyText({ children, className }: BodyTextProps) {
   return (
-    <p
-      className={cn(
-        'font-body text-body tracking-tight text-neutral-900 dark:text-neutral-200',
-        className
-      )}
-    >
+    <p className={cn('font-body text-body text-fg tracking-tight', className)}>
       {children}
     </p>
   );

@@ -16,7 +16,7 @@ export default function SubHeading({
   return (
     <Comp
       className={cn(
-        'font-heading text-title-sm font-semibold tracking-tight text-neutral-900 dark:text-neutral-200',
+        'font-heading text-title-sm text-fg font-semibold tracking-tight',
         className
       )}
     >
