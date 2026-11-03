@@ -22,5 +22,5 @@ export const socialShareImageMeta = {
   url: socialShareImageUrl,
   width: 1536,
   height: 1024,
-  alt: 'Zahed Heidari - Web & Mobile Developer',
+  alt: 'Zahed Heidari, Senior Software Engineer',
 } as const;
