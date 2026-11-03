@@ -18,7 +18,7 @@ npm run validate      # Full checkpoint: type-check + lint + prettier-check + te
 
 `npm run validate` is the per-task checkpoint. Focused checks during development, full validation once before a task is considered finished.
 
-`GITHUB_TOKEN` is optional; without it the contributions API is rate-limited.
+`GITHUB_TOKEN` is required for the Contributions section; without it the section shows its error state.
 
 ## Repo rules shared with Codex
 

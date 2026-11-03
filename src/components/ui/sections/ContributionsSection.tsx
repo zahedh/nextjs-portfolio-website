@@ -32,20 +32,20 @@ export default function ContributionsSection() {
     const existing = inFlight.current[year];
     if (existing) return existing;
 
-    const request = fetch(`/api/contributions?year=${year}`)
-      .then((response) => response.json())
-      .then((data) => {
-        // The route answers 200 with `success: false` when GitHub refuses it.
-        if (data.success === false)
-          throw new Error('Contributions unavailable');
-        const loaded: ActivityCalendarData[] = data.activities || [];
-        cache.current[year] = loaded;
-        return loaded;
-      })
-      .finally(() => {
+    const load = async (): Promise<ActivityCalendarData[]> => {
+      try {
+        const response = await fetch(`/api/contributions?year=${year}`);
+        if (!response.ok) throw new Error(`Contributions ${response.status}`);
+        const data: { activities: ActivityCalendarData[] } =
+          await response.json();
+        cache.current[year] = data.activities;
+        return data.activities;
+      } finally {
         delete inFlight.current[year];
-      });
+      }
+    };
 
+    const request = load();
     inFlight.current[year] = request;
     return request;
   }, []);
@@ -61,22 +61,22 @@ export default function ContributionsSection() {
       return;
     }
 
-    setLoading(true);
-    fetchYear(selectedYear)
-      .then((loaded) => {
+    const show = async () => {
+      setLoading(true);
+      try {
+        const loaded = await fetchYear(selectedYear);
         if (!live) return;
         // Deliberately no `setActivities([])` on the way in: the year already on
         // screen stays until the next one is ready, so the band never collapses.
         setActivities(loaded);
         setFailed(false);
-      })
-      .catch((error) => {
-        console.error('Failed to load contributions:', error);
+      } catch {
         if (live) setFailed(true);
-      })
-      .finally(() => {
+      } finally {
         if (live) setLoading(false);
-      });
+      }
+    };
+    void show();
 
     return () => {
       live = false;

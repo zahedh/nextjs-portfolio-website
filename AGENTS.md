@@ -16,7 +16,7 @@ npm run build         # Production build
 npm run validate      # Full checkpoint: type-check + lint + prettier-check + test
 ```
 
-`npm run validate` is the per-task checkpoint, not `git diff --check`. `GITHUB_TOKEN` is optional; without it the contributions API is rate-limited.
+`npm run validate` is the per-task checkpoint, not `git diff --check`. `GITHUB_TOKEN` is required for the Contributions section; without it the section shows its error state.
 
 ## Role division
 
