@@ -89,4 +89,8 @@ export function morphInto(
     .finally(() => {
       element.style.viewTransitionName = '';
     });
+
+  // A skipped morph rejects `ready`, and unhandled that reaches the console as
+  // an error although the navigation went through as a plain one.
+  void transition.ready.catch(() => undefined);
 }
