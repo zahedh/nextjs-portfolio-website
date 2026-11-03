@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { Section, PrimaryButton, BodyText } from '@/components';
 import { en } from '@/language';
 import { cn, sumContributions } from '@/lib/utils';
-import { buildEmptyYear, getContributionsBandVariants } from '@/lib/ui-logic';
+import { buildEmptyYear, getSettleVariants } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
 import ContributionsCalendar from './ContributionsCalendar';
 
@@ -109,7 +109,7 @@ export default function ContributionsSection() {
     <Section anchor="contributions" banded>
       <motion.div
         className={cn('contrib-band', updating && 'contrib-band--updating')}
-        variants={getContributionsBandVariants(Boolean(prefersReducedMotion))}
+        variants={getSettleVariants(Boolean(prefersReducedMotion))}
         initial="hidden"
         animate="visible"
         aria-busy={loading}

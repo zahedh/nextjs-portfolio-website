@@ -7,20 +7,19 @@ import { skillsData } from '@/data';
 import { cn } from '@/lib/utils';
 import { motion, useReducedMotion } from 'motion/react';
 import {
-  getSkillsCollageContainerVariants,
-  getSkillsCollageGridViewport,
-  getSkillsCollageItemVariants,
+  getSettleVariants,
+  getStaggerVariants,
   groupSkills,
+  IN_VIEW_ONCE,
   skillGroupOrder,
 } from '@/lib/ui-logic';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
-  const prefersReducedMotion = useReducedMotion();
-  const containerVariants =
-    getSkillsCollageContainerVariants(prefersReducedMotion);
-  const itemVariants = getSkillsCollageItemVariants(prefersReducedMotion);
-  const gridViewport = getSkillsCollageGridViewport();
+  const noMotion = Boolean(useReducedMotion());
+  // A tile grid is denser than a column of text, so its stagger runs tighter.
+  const containerVariants = getStaggerVariants(noMotion, 0.04);
+  const itemVariants = getSettleVariants(noMotion);
   const skillGroups = groupSkills(skillsData);
 
   return (
@@ -44,7 +43,7 @@ export default function SkillsSection() {
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={gridViewport}
+              viewport={IN_VIEW_ONCE}
             >
               {skillGroups[group].map((skill) => (
                 <motion.div

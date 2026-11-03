@@ -3,24 +3,27 @@
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
 import { aboutPhoto } from '@/images';
-
-const viewMotion = { once: true, margin: '-80px' as const };
+import { getSettleVariants, IN_VIEW_ONCE, SETTLE } from '@/lib/ui-logic';
 
 /** About: photograph with its stickers, narrative and credential rail, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
+  const noMotion = Boolean(useReducedMotion());
+  // The photograph, then the narrative, then the highlights.
+  const settleAt = (step: number) =>
+    getSettleVariants(noMotion, step * SETTLE.stagger);
 
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
       <div className="about-grid">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+          variants={settleAt(0)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={IN_VIEW_ONCE}
           className="about-visual"
         >
           {/* sizes asks for twice each frame width: a source at the frame's own
@@ -43,10 +46,10 @@ export default function AboutSection() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.06 }}
+          variants={settleAt(1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={IN_VIEW_ONCE}
           className="about-narrative"
         >
           <p>{narrativeFirst}</p>
@@ -55,10 +58,10 @@ export default function AboutSection() {
 
         <motion.aside
           aria-labelledby="about-credentials-heading"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewMotion}
-          transition={{ duration: 0.45, ease: 'easeOut', delay: 0.1 }}
+          variants={settleAt(2)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={IN_VIEW_ONCE}
           className="about-credentials"
         >
           <h3
