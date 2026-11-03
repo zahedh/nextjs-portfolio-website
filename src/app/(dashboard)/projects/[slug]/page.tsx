@@ -36,7 +36,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug, projects);
   if (!project) return {};
 
-  const title = `${project.title} | Zahed Heidari`;
+  const title = en.siteMetadata.pageTitle.replace('{{page}}', project.title);
   const description = project.summary ?? getProjectExcerptLine(project);
   const url = `/projects/${project.slug}`;
 

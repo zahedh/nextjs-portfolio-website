@@ -11,6 +11,11 @@
  * **File size:** very large images can also hurt WhatsApp; if previews fail only there,
  * consider a smaller export while keeping this path or bump `SOCIAL_SHARE_IMAGE_CACHE_BUST`.
  */
+import { en } from '@/language';
+
+/** The canonical origin, for metadata and the sitemap. */
+export const SITE_URL = 'https://zahedheidari.co.uk';
+
 export const SOCIAL_SHARE_IMAGE_PATH = '/images/social-share-card.jpg';
 
 /** Increment when replacing the share image file so `og:image` URLs change and caches refresh. */
@@ -22,5 +27,5 @@ export const socialShareImageMeta = {
   url: socialShareImageUrl,
   width: 1536,
   height: 1024,
-  alt: 'Zahed Heidari, Senior Software Engineer',
+  alt: en.siteMetadata.shareImageAlt,
 } as const;

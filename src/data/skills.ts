@@ -64,73 +64,73 @@ export const skillsData: Skill[] = [
   // Modern Web & Mobile Frameworks
   {
     id: 'react',
-    label: en.skillsCollageSection.react,
+    label: en.skillLabels.react,
     icon: SiReact,
     category: 'frameworks',
   },
   {
     id: 'nextjs',
-    label: en.skillsCollageSection.nextJS,
+    label: en.skillLabels.nextJS,
     icon: SiNextdotjs,
     category: 'frameworks',
   },
   {
     id: 'react-native',
-    label: en.skillsCollageSection.reactNative,
+    label: en.skillLabels.reactNative,
     icon: SiReact,
     category: 'frameworks',
   },
   {
     id: 'nativewind',
-    label: en.skillsCollageSection.nativeWind,
+    label: en.skillLabels.nativeWind,
     icon: SiTailwindcss,
     category: 'frameworks',
   },
   {
     id: 'shadcn-ui',
-    label: en.skillsCollageSection.shadcnUI,
+    label: en.skillLabels.shadcnUI,
     icon: SiShadcnui,
     category: 'frameworks',
   },
   {
     id: 'zustand',
-    label: en.skillsCollageSection.zustand,
+    label: en.skillLabels.zustand,
     icon: Layers,
     category: 'frameworks',
   },
   {
     id: 'tanstack-query',
-    label: en.skillsCollageSection.tanStackQuery,
+    label: en.skillLabels.tanStackQuery,
     icon: SiReactquery,
     category: 'frameworks',
   },
   {
     id: 'tanstack-table',
-    label: en.skillsCollageSection.tanStackTable,
+    label: en.skillLabels.tanStackTable,
     icon: SiReacttable,
     category: 'frameworks',
   },
   {
     id: 'react-hook-form',
-    label: en.skillsCollageSection.reactHookForm,
+    label: en.skillLabels.reactHookForm,
     icon: SiReacthookform,
     category: 'frameworks',
   },
   {
     id: 'lottie',
-    label: en.skillsCollageSection.lottie,
+    label: en.skillLabels.lottie,
     icon: Film,
     category: 'frameworks',
   },
   {
     id: 'nodejs',
-    label: en.skillsCollageSection.nodeJS,
+    label: en.skillLabels.nodeJS,
     icon: SiNodedotjs,
     category: 'frameworks',
   },
   {
     id: 'zod',
-    label: en.skillsCollageSection.zod,
+    label: en.skillLabels.zod,
     icon: SiZod,
     category: 'frameworks',
   },
@@ -138,31 +138,31 @@ export const skillsData: Skill[] = [
   // Core Languages
   {
     id: 'typescript',
-    label: en.skillsCollageSection.typeScript,
+    label: en.skillLabels.typeScript,
     icon: SiTypescript,
     category: 'languages',
   },
   {
     id: 'javascript',
-    label: en.skillsCollageSection.javaScript,
+    label: en.skillLabels.javaScript,
     icon: SiJavascript,
     category: 'languages',
   },
   {
     id: 'php',
-    label: en.skillsCollageSection.php,
+    label: en.skillLabels.php,
     icon: SiPhp,
     category: 'languages',
   },
   {
     id: 'wordpress',
-    label: en.skillsCollageSection.wordPress,
+    label: en.skillLabels.wordPress,
     icon: SiWordpress,
     category: 'frameworks',
   },
   {
     id: 'jquery',
-    label: en.skillsCollageSection.jQuery,
+    label: en.skillLabels.jQuery,
     icon: SiJquery,
     category: 'frameworks',
   },
@@ -170,7 +170,7 @@ export const skillsData: Skill[] = [
   // Microsoft Stack
   {
     id: 'dotnet',
-    label: en.skillsCollageSection.dotNet,
+    label: en.skillLabels.dotNet,
     icon: SiDotnet,
     category: 'microsoft',
   },
@@ -178,7 +178,7 @@ export const skillsData: Skill[] = [
   // Legacy/Additional Languages
   {
     id: 'xslt',
-    label: en.skillsCollageSection.xslt,
+    label: en.skillLabels.xslt,
     icon: SiXml,
     category: 'legacy',
   },
@@ -186,13 +186,13 @@ export const skillsData: Skill[] = [
   // Web Fundamentals
   {
     id: 'html',
-    label: en.skillsCollageSection.html,
+    label: en.skillLabels.html,
     icon: SiHtml5,
     category: 'web-fundamentals',
   },
   {
     id: 'css',
-    label: en.skillsCollageSection.css,
+    label: en.skillLabels.css,
     icon: SiCss3,
     category: 'web-fundamentals',
   },
@@ -200,19 +200,19 @@ export const skillsData: Skill[] = [
   // Styling & Design
   {
     id: 'tailwind',
-    label: en.skillsCollageSection.tailwind,
+    label: en.skillLabels.tailwind,
     icon: SiTailwindcss,
     category: 'design',
   },
   {
     id: 'figma',
-    label: en.skillsCollageSection.figma,
+    label: en.skillLabels.figma,
     icon: SiFigma,
     category: 'design',
   },
   {
     id: 'framer',
-    label: en.skillsCollageSection.framer,
+    label: en.skillLabels.framer,
     icon: SiFramer,
     category: 'design',
   },
@@ -220,7 +220,7 @@ export const skillsData: Skill[] = [
   // Database
   {
     id: 'mysql',
-    label: en.skillsCollageSection.mySQL,
+    label: en.skillLabels.mySQL,
     icon: SiMysql,
     category: 'database',
   },
@@ -228,55 +228,55 @@ export const skillsData: Skill[] = [
   // Development Tools & IDEs
   {
     id: 'github',
-    label: en.skillsCollageSection.github,
+    label: en.skillLabels.github,
     icon: SiGithub,
     category: 'dev-tools',
   },
   {
     id: 'cursor',
-    label: en.skillsCollageSection.cursor,
+    label: en.skillLabels.cursor,
     icon: MousePointer2,
     category: 'ai',
   },
   {
     id: 'vite',
-    label: en.skillsCollageSection.vite,
+    label: en.skillLabels.vite,
     icon: SiVite,
     category: 'dev-tools',
   },
   {
     id: 'vercel',
-    label: en.skillsCollageSection.vercel,
+    label: en.skillLabels.vercel,
     icon: SiVercel,
     category: 'dev-tools',
   },
   {
     id: 'firebase',
-    label: en.skillsCollageSection.firebase,
+    label: en.skillLabels.firebase,
     icon: SiFirebase,
     category: 'dev-tools',
   },
   {
     id: 'android-studio',
-    label: en.skillsCollageSection.androidStudio,
+    label: en.skillLabels.androidStudio,
     icon: SiAndroidstudio,
     category: 'dev-tools',
   },
   {
     id: 'xcode',
-    label: en.skillsCollageSection.xcode,
+    label: en.skillLabels.xcode,
     icon: SiXcode,
     category: 'dev-tools',
   },
   {
     id: 'nx',
-    label: en.skillsCollageSection.nx,
+    label: en.skillLabels.nx,
     icon: SiNx,
     category: 'dev-tools',
   },
   {
     id: 'storybook',
-    label: en.skillsCollageSection.storybook,
+    label: en.skillLabels.storybook,
     icon: SiStorybook,
     category: 'dev-tools',
   },
@@ -284,31 +284,31 @@ export const skillsData: Skill[] = [
   // Testing & Code Quality
   {
     id: 'jest',
-    label: en.skillsCollageSection.jest,
+    label: en.skillLabels.jest,
     icon: SiJest,
     category: 'testing',
   },
   {
     id: 'testing-library',
-    label: en.skillsCollageSection.testingLibrary,
+    label: en.skillLabels.testingLibrary,
     icon: SiTestinglibrary,
     category: 'testing',
   },
   {
     id: 'playwright',
-    label: en.skillsCollageSection.playwright,
+    label: en.skillLabels.playwright,
     icon: Drama,
     category: 'testing',
   },
   {
     id: 'eslint',
-    label: en.skillsCollageSection.eSLint,
+    label: en.skillLabels.eSLint,
     icon: SiEslint,
     category: 'testing',
   },
   {
     id: 'prettier',
-    label: en.skillsCollageSection.prettier,
+    label: en.skillLabels.prettier,
     icon: SiPrettier,
     category: 'testing',
   },
@@ -316,19 +316,19 @@ export const skillsData: Skill[] = [
   // API & Development
   {
     id: 'rest-api',
-    label: en.skillsCollageSection.restAPI,
+    label: en.skillLabels.restAPI,
     icon: Network,
     category: 'api',
   },
   {
     id: 'postman',
-    label: en.skillsCollageSection.postman,
+    label: en.skillLabels.postman,
     icon: SiPostman,
     category: 'api',
   },
   {
     id: 'netsuite',
-    label: en.skillsCollageSection.netSuite,
+    label: en.skillLabels.netSuite,
     icon: SiOracle,
     category: 'api',
   },
@@ -336,25 +336,25 @@ export const skillsData: Skill[] = [
   // Project Management & Collaboration
   {
     id: 'jira',
-    label: en.skillsCollageSection.jira,
+    label: en.skillLabels.jira,
     icon: SiJira,
     category: 'collaboration',
   },
   {
     id: 'slack',
-    label: en.skillsCollageSection.slack,
+    label: en.skillLabels.slack,
     icon: SiSlack,
     category: 'collaboration',
   },
   {
     id: 'discord',
-    label: en.skillsCollageSection.discord,
+    label: en.skillLabels.discord,
     icon: SiDiscord,
     category: 'collaboration',
   },
   {
     id: 'notion',
-    label: en.skillsCollageSection.notion,
+    label: en.skillLabels.notion,
     icon: SiNotion,
     category: 'collaboration',
   },
@@ -364,55 +364,55 @@ export const skillsData: Skill[] = [
   // AI Tools
   {
     id: 'github-copilot',
-    label: en.skillsCollageSection.gitHubCopilot,
+    label: en.skillLabels.gitHubCopilot,
     icon: SiGithub,
     category: 'ai',
   },
   {
     id: 'claude',
-    label: en.skillsCollageSection.claude,
+    label: en.skillLabels.claude,
     icon: SiClaude,
     category: 'ai',
   },
   {
     id: 'claude-code',
-    label: en.skillsCollageSection.claudeCode,
+    label: en.skillLabels.claudeCode,
     icon: Terminal,
     category: 'ai',
   },
   {
     id: 'codex',
-    label: en.skillsCollageSection.codex,
+    label: en.skillLabels.codex,
     icon: Braces,
     category: 'ai',
   },
   {
     id: 'prompt-engineering',
-    label: en.skillsCollageSection.promptEngineering,
+    label: en.skillLabels.promptEngineering,
     icon: MessageSquareCode,
     category: 'ai',
   },
   {
     id: 'context-engineering',
-    label: en.skillsCollageSection.contextEngineering,
+    label: en.skillLabels.contextEngineering,
     icon: FolderTree,
     category: 'ai',
   },
   {
     id: 'chatgpt',
-    label: en.skillsCollageSection.chatGPT,
+    label: en.skillLabels.chatGPT,
     icon: SiOpenai,
     category: 'ai',
   },
   {
     id: 'gemini',
-    label: en.skillsCollageSection.gemini,
+    label: en.skillLabels.gemini,
     icon: SiGooglegemini,
     category: 'ai',
   },
   {
     id: 'notebooklm',
-    label: en.skillsCollageSection.noteBookLM,
+    label: en.skillLabels.noteBookLM,
     icon: NotebookPen,
     category: 'ai',
   },
@@ -420,13 +420,13 @@ export const skillsData: Skill[] = [
   // Operating Systems
   {
     id: 'macos',
-    label: en.skillsCollageSection.macOS,
+    label: en.skillLabels.macOS,
     icon: SiMacos,
     category: 'os',
   },
   {
     id: 'windows',
-    label: en.skillsCollageSection.windows,
+    label: en.skillLabels.windows,
     icon: FaWindows,
     category: 'os',
   },
@@ -434,7 +434,7 @@ export const skillsData: Skill[] = [
   // Methodologies
   {
     id: 'agile',
-    label: en.skillsCollageSection.agile,
+    label: en.skillLabels.agile,
     icon: Sparkles,
     category: 'methodologies',
   },

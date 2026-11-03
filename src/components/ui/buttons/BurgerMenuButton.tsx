@@ -1,6 +1,7 @@
 'use client';
 
 import { forwardRef } from 'react';
+import { en } from '@/language';
 
 export type BurgerMenuButtonProps = {
   onClick: () => void;
@@ -24,7 +25,7 @@ const BurgerMenuButton = forwardRef<HTMLButtonElement, BurgerMenuButtonProps>(
         type="button"
         onClick={onClick}
         className="nav-burger"
-        aria-label="Toggle menu"
+        aria-label={en.menu}
         aria-expanded={ariaExpanded}
         aria-controls={ariaControls}
       >

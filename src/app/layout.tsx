@@ -8,7 +8,8 @@ import {
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { socialShareImageMeta } from '@/lib/meta';
+import { en } from '@/language';
+import { SITE_URL, socialShareImageMeta } from '@/lib/meta';
 import '../styles/index.css';
 
 const inter = Inter({
@@ -44,25 +45,11 @@ const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.var
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {
-  title: 'Zahed Heidari',
-  description:
-    'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
-  authors: [{ name: 'Zahed Heidari' }],
-  keywords: [
-    'Zahed Heidari',
-    'Next.js Portfolio',
-    'Senior Software Engineer',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Web Development',
-    'Projects',
-    'Skills',
-    'Resume',
-    'Contact',
-    'AI',
-  ],
-  metadataBase: new URL('https://zahedheidari.co.uk'),
+  title: en.siteMetadata.name,
+  description: en.siteMetadata.description,
+  authors: [{ name: en.siteMetadata.name }],
+  keywords: en.siteMetadata.keywords,
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
   },
@@ -73,18 +60,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://zahedheidari.co.uk',
-    siteName: 'Zahed Heidari',
-    title: 'Zahed Heidari · Senior Software Engineer',
-    description:
-      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    url: SITE_URL,
+    siteName: en.siteMetadata.name,
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zahed Heidari · Senior Software Engineer',
-    description:
-      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   icons: {

@@ -11,4 +11,3 @@ export { default as ProjectCard } from './ProjectCard';
 export { TechStack } from './TechStack';
 export { JobStack } from './JobStack';
 export { default as ExperienceRow } from './ExperienceRow';
-export { default as StatCard } from './StatCard';

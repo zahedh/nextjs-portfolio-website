@@ -16,9 +16,32 @@ export const en = {
   theme: 'Theme',
   initials: 'ZH',
 
+  siteMetadata: {
+    name: 'Zahed Heidari',
+    title: 'Zahed Heidari · Senior Software Engineer',
+    pageTitle: '{{page}} | Zahed Heidari',
+    description:
+      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    keywords: [
+      'Zahed Heidari',
+      'Next.js Portfolio',
+      'Senior Software Engineer',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Web Development',
+      'Projects',
+      'Skills',
+      'Resume',
+      'Contact',
+      'AI',
+    ],
+    shareImageAlt: 'Zahed Heidari, Senior Software Engineer',
+  },
+
   // Static Home Content
   sectionHeaders: {
-    skillsCollage: 'What I Work Best With',
+    skills: 'What I Work Best With',
     projects: "What I've Worked On",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
@@ -55,7 +78,7 @@ export const en = {
     },
   },
 
-  skillsCollageSection: {
+  skillLabels: {
     // Modern Web & Mobile Frameworks
     react: 'React',
     nextJS: 'Next.js',
@@ -228,10 +251,6 @@ export const en = {
     hideDetails: 'Hide details',
   },
 
-  projectDetailPanel: {
-    closeLabel: 'Close project details',
-  },
-
   notFound: {
     heading: 'Page not found',
     description: "This page doesn't exist.",
@@ -241,6 +260,8 @@ export const en = {
 
   privacyPage: {
     title: 'Privacy Policy',
+    metaDescription:
+      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
     lastUpdatedLabel: 'Last updated:',
     // Revise only when the policy's substance changes, never on a redesign.
     lastUpdated: '24 October 2026',

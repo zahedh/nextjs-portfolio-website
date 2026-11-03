@@ -27,7 +27,6 @@ maintainable architecture.
 - **Styling:** Tailwind CSS v4, with **clsx** + **tailwind-merge** for conditional / merged class names
 - **Animations:** Motion (Framer Motion) 12.16
 - **UI Libraries:**
-  - Swiper 12.1 (Project carousel)
   - React Activity Calendar 3.0 (GitHub contributions)
   - React Icons 5.5 & Lucide React 0.556 (Icon libraries)
 - **API Integration:** GitHub GraphQL API
@@ -79,7 +78,6 @@ High-level overview of the main folders:
 | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`utils.ts`](src/lib/utils.ts)                       | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
 | [`dateUtils.ts`](src/lib/dateUtils.ts)               | Years-of-experience style date helpers                                                                                                                                                                                      |
-| [`env.ts`](src/lib/env.ts)                           | Typed access to env (e.g. `GITHUB_TOKEN`)                                                                                                                                                                                   |
 | [`social-metadata.ts`](src/lib/social-metadata.ts)   | Open Graph / Twitter Card defaults for `layout` metadata                                                                                                                                                                    |
 | [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips                                                                                                                                                                                 |
 | [`api/githubApi.ts`](src/lib/api/githubApi.ts)       | GitHub GraphQL client for the contributions API route                                                                                                                                                                       |

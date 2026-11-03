@@ -1,4 +1,3 @@
-export * from './config';
 export * from './utils';
 export * from './project';
 export * from './date';

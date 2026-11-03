@@ -11,7 +11,7 @@ export default function SkillsSection() {
   const skillGroups = groupSkills(skillsData);
 
   return (
-    <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
+    <Section anchor="skills" title={en.sectionHeaders.skills}>
       <div className="skills-groups">
         {skillGroupOrder.map((group) => (
           <div className="skills-group" key={group}>

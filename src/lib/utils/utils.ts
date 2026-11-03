@@ -36,19 +36,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/**
- * Creates a keyboard event handler that executes a callback when the Escape key is pressed
- * @param callback - Function to execute when Escape is pressed
- * @returns KeyboardEvent handler function
- */
-export function createEscapeHandler(callback: () => void) {
-  return (keyboardEvent: KeyboardEvent) => {
-    if (keyboardEvent.key === 'Escape') {
-      callback();
-    }
-  };
-}
-
 /** Normalises skill IDs for loose matching (e.g. `next.js` ↔ `nextjs`). */
 export function normalizeSkillId(rawId: string): string {
   return rawId
