@@ -795,9 +795,10 @@
    * piece rather than swapping as one picture: the head first, then the
    * summary, the facts, the body and the way onward, 60ms apart. Each piece
    * moves only within its own place, so projects whose titles and summaries
-   * run to different lengths never overlap. The values are the settle in
-   * src/lib/ui-logic/motion.ts; under reduced motion the rise goes and a
-   * short fade stays.
+   * run to different lengths never overlap. These are the site's settle
+   * values (a 12px rise over 320ms on the project-title morph's curve), which
+   * the Projects filter reuses; under reduced motion the rise goes and a short
+   * fade stays.
    */
   .project-settle :is(.project-back-link, .project-page-title),
   .project-settle .page-summary,

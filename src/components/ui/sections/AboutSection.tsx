@@ -3,29 +3,17 @@
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
-import { motion, useReducedMotion } from 'motion/react';
 import Image from 'next/image';
 import { aboutPhoto } from '@/images';
-import { getSettleVariants, IN_VIEW_ONCE, SETTLE } from '@/lib/ui-logic';
 
 /** About: photograph with its stickers, narrative and credential rail, arranged per breakpoint by `.about-grid`. */
 export default function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
-  const noMotion = Boolean(useReducedMotion());
-  // The photograph, then the narrative, then the highlights.
-  const settleAt = (step: number) =>
-    getSettleVariants(noMotion, step * SETTLE.stagger);
 
   return (
     <Section anchor="about" title={en.sectionHeaders.about}>
       <div className="about-grid">
-        <motion.div
-          variants={settleAt(0)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={IN_VIEW_ONCE}
-          className="about-visual"
-        >
+        <div className="about-visual">
           {/* sizes asks for twice each frame width: a source at the frame's own
               width rendered visibly soft, while one twice as wide, scaled down
               by the browser, renders sharp. */}
@@ -43,25 +31,15 @@ export default function AboutSection() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={settleAt(1)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={IN_VIEW_ONCE}
-          className="about-narrative"
-        >
+        <div className="about-narrative">
           <p>{narrativeFirst}</p>
           <p>{narrativeSecond}</p>
-        </motion.div>
+        </div>
 
-        <motion.aside
+        <aside
           aria-labelledby="about-credentials-heading"
-          variants={settleAt(2)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={IN_VIEW_ONCE}
           className="about-credentials"
         >
           <h3
@@ -77,7 +55,7 @@ export default function AboutSection() {
               </li>
             ))}
           </ul>
-        </motion.aside>
+        </aside>
       </div>
     </Section>
   );

@@ -5,21 +5,10 @@ import { SkillTile } from '@/components/ui/tiles';
 import { en } from '@/language';
 import { skillsData } from '@/data';
 import { cn } from '@/lib/utils';
-import { motion, useReducedMotion } from 'motion/react';
-import {
-  getSettleVariants,
-  getStaggerVariants,
-  groupSkills,
-  IN_VIEW_ONCE,
-  skillGroupOrder,
-} from '@/lib/ui-logic';
+import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
 /** Animated collage of skills and tools. */
 export default function SkillsSection() {
-  const noMotion = Boolean(useReducedMotion());
-  // A tile grid is denser than a column of text, so its stagger runs tighter.
-  const containerVariants = getStaggerVariants(noMotion, 0.04);
-  const itemVariants = getSettleVariants(noMotion);
   const skillGroups = groupSkills(skillsData);
 
   return (
@@ -38,23 +27,13 @@ export default function SkillsSection() {
             <span className="skills-group-count">
               {String(skillGroups[group].length).padStart(2, '0')}
             </span>
-            <motion.div
-              className="skills-group-tiles"
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={IN_VIEW_ONCE}
-            >
+            <div className="skills-group-tiles">
               {skillGroups[group].map((skill) => (
-                <motion.div
-                  key={skill.id}
-                  className="relative hover:z-[100]"
-                  variants={itemVariants}
-                >
+                <div key={skill.id} className="relative hover:z-[100]">
                   <SkillTile icon={skill.icon} label={skill.label} />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         ))}
       </div>
