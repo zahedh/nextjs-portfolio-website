@@ -9,20 +9,13 @@ import {
 } from '@/components';
 import { HeroFloatingOrbs, Rocket } from '@/components/ui/animations';
 import { en } from '@/language';
-import { handleSmoothScroll } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global-store-provider';
 import { Download } from 'lucide-react';
 
-function isAnchorMouseEvent(
-  mouseEvent: React.MouseEvent<HTMLElement>
-): mouseEvent is React.MouseEvent<HTMLAnchorElement> {
-  return mouseEvent.currentTarget instanceof HTMLAnchorElement;
-}
-
+// Snaps to Projects like every nav link; the section's entrance does the arriving.
 function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
-  if (mouseEvent && isAnchorMouseEvent(mouseEvent)) {
-    handleSmoothScroll(mouseEvent);
-  }
+  mouseEvent?.preventDefault();
+  document.getElementById('projects')?.scrollIntoView({ behavior: 'instant' });
 }
 
 /**
