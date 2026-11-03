@@ -766,6 +766,54 @@
     @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
   }
   /* Return to the projects section from a project's own page. */
+  /*
+   * Arriving from the previous or next link, the page settles in piece by
+   * piece rather than swapping as one picture: the head first, then the
+   * summary, the facts, the body and the way onward, 60ms apart. Each piece
+   * moves only within its own place, so projects whose titles and summaries
+   * run to different lengths never overlap. The values are the settle in
+   * src/lib/ui-logic/motion.ts; under reduced motion the rise goes and a
+   * short fade stays.
+   */
+  .project-settle :is(.project-back-link, .project-page-title),
+  .project-settle .page-summary,
+  .project-settle .page-meta,
+  .project-settle .project-page-body,
+  .project-settle .project-page-onward {
+    animation: project-settle-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .project-settle .page-summary {
+    animation-delay: 60ms;
+  }
+  .project-settle .page-meta {
+    animation-delay: 120ms;
+  }
+  .project-settle .project-page-body {
+    animation-delay: 180ms;
+  }
+  .project-settle .project-page-onward {
+    animation-delay: 240ms;
+  }
+  @keyframes project-settle-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-settle :is(.project-back-link, .project-page-title),
+    .project-settle .page-summary,
+    .project-settle .page-meta,
+    .project-settle .project-page-body,
+    .project-settle .project-page-onward {
+      animation: project-settle-fade 150ms linear both;
+    }
+  }
+  @keyframes project-settle-fade {
+    from {
+      opacity: 0;
+    }
+  }
   .project-back-link {
     @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;
   }
