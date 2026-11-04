@@ -322,7 +322,10 @@
      ========================= */
   /* The text mark and the burger share the accent, so the bar is bookended in
      one colour. Its left edge is the glyph's, so it sits on the content edge;
-     min-h-11 keeps a full touch target without moving that edge. */
+     min-h-11 keeps a full touch target without moving that edge.
+     Known exception: in light, brand-600 here and on the burger is 2.8:1
+     against the bar, under AA. Kept by choice for the brand colour; brand-800
+     is the passing step if that changes. */
   .nav-mark {
     @apply font-display text-title-sm text-brand-600 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
   }
