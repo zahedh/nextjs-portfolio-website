@@ -1,5 +1,6 @@
 import { Project, ProjectCategory, ProjectLinkItem } from '@/types/project';
 import { en } from '@/language';
+import { isOngoing } from '@/lib/date';
 
 /** Human-readable timeline from project dates. */
 export function formatProjectTimeline(project: Project): string {
@@ -8,7 +9,7 @@ export function formatProjectTimeline(project: Project): string {
 
 /** Whether the project is still ongoing (end date is “Present”). */
 export function isProjectActive(project: Project): boolean {
-  return project.endDate.trim().toLowerCase() === 'present';
+  return isOngoing(project.endDate);
 }
 
 /** The platform a project ships on, for the fallback media icon. AI is not a platform. */

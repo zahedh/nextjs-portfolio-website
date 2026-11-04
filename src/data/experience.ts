@@ -1,8 +1,9 @@
 import { JobExperience } from '@/types/experience';
+import { isOngoing } from '@/lib/date';
 
 /** Current role — `endDate` is typically `"Present"`. */
 export function isJobActive(job: JobExperience): boolean {
-  return job.endDate.trim().toLowerCase() === 'present';
+  return isOngoing(job.endDate);
 }
 
 export const jobExperiences: JobExperience[] = [

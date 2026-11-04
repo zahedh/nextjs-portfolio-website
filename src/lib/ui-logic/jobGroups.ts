@@ -1,5 +1,5 @@
 import { JobExperience } from '@/types/experience';
-import { isOngoing } from '@/lib/date';
+import { isOngoing, startYear } from '@/lib/date';
 
 export type JobGroup = {
   company: string;
@@ -34,10 +34,8 @@ export function groupJobsByCompany(jobs: JobExperience[]): JobGroup[] {
   for (const group of groups) {
     const first = group.jobs[group.jobs.length - 1];
     const last = group.jobs[0];
-    const from = first.startDate.trim().split(/\s+/).pop() ?? '';
-    const to = isOngoing(last.endDate)
-      ? 'Present'
-      : (last.endDate.trim().split(/\s+/).pop() ?? '');
+    const from = startYear(first.startDate);
+    const to = isOngoing(last.endDate) ? 'Present' : startYear(last.endDate);
     group.span = from === to ? from : `${from} — ${to}`;
   }
 
