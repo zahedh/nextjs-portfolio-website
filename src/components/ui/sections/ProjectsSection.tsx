@@ -34,7 +34,7 @@ const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
     rectangle at every width without counting columns at runtime. */
 const INITIAL_COMPACT_COUNT = 4;
 
-/** Matches .projects-grid-reveal's duration, plus a frame to land on. */
+/** Matches .projects-grid-reveal's duration, plus a margin. */
 const REVEAL_MS = 560;
 
 interface ProjectGridProps {

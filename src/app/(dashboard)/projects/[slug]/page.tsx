@@ -91,10 +91,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const project = getProjectBySlug(slug, projects);
   if (!project) notFound();
 
-  // Every line, not the panel's set: that one dropped the first line because the
-  // dialog printed it above as an overview. Here the summary does that job, and
-  // it is its own sentence, so dropping a line would simply lose it.
-  const featureLines = project.description;
   const projectLinks = getProjectLinkItems(project);
   const { previous: previousProject, next: nextProject } =
     getNeighbours(project);
@@ -149,12 +145,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             <div className="project-page-body">
               <div className="page-column">
-                {featureLines.length > 0 ? (
+                {project.description.length > 0 ? (
                   <section className="page-block">
                     <h2 className="page-heading">
                       {en.projectDisplay.sectionOverview}
                     </h2>
-                    <FeatureList lines={featureLines} />
+                    <FeatureList lines={project.description} />
                   </section>
                 ) : null}
 

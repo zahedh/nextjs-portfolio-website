@@ -95,12 +95,8 @@ export function ContributionsSection() {
 
   const updating = loading && activities.length > 0;
 
-  /**
-   * Nothing has arrived yet. The figure would read a confident `0` and the
-   * calendar's slot would hold a line of body copy, so a cold load looked
-   * unstyled rather than pending. Both stand in at their finished size instead:
-   * an empty year under the calendar, and the figure painted over its own text.
-   */
+  // Nothing loaded yet: an empty year and a placeholder figure stand in at
+  // their finished size, rather than a confident 0.
   const pending = !failed && activities.length === 0;
 
   return (

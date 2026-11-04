@@ -7,11 +7,7 @@ import { getSkillsByIds } from '@/lib/utils';
 import { en } from '@/language';
 import { measureContentHeight } from '@/hooks/utilityHooks';
 
-/**
- * The stack a role used, shown beside its card where the rail has room.
- * Resolves the icons itself: they are component functions, so they cannot be
- * passed across the boundary from a server-rendered section.
- */
+/** The stack a role used, shown beside its card where the rail has room. */
 export function JobStack({
   skillIds,
   expanded = false,

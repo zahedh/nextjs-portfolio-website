@@ -1,5 +1,5 @@
 /* =========================
-   ðŸ“ LAYOUT COMPONENTS (experience, footer, contributions)
+   LAYOUT COMPONENTS (experience, footer, contributions)
    ========================= */
 @layer utilities {
   .experience-rail {
@@ -17,12 +17,12 @@
   .experience-group-meta {
     @apply text-caption text-fg-muted font-mono;
   }
-  /* The spine: one line down the year column, broken by a dot per role. It
-     runs 8px past the company name's capitals, which sit 5px into the group,
-     and 8px past the last card, so it overhangs both ends equally. */
   .experience-group-roles {
     @apply flex flex-col gap-5;
   }
+  /* The spine: one line down the year column, broken by a dot per role. It
+     runs 8px past the company name's capitals, which sit 5px into the group,
+     and 8px past the last card, so it overhangs both ends equally. */
   .experience-group::before {
     content: '';
     @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
@@ -135,8 +135,6 @@
   }
 
   /* The activity band: figure and pills on the left, the year on the right.
-     Both grids share one column template so a month label sits over its weeks. */
-  /* The activity band: figure and pills on the left, the year on the right.
      Cell size is a fixed step per breakpoint, not a fraction of the viewport —
      the year is allowed to overflow and scroll rather than shrink to fit. */
   .contrib-band {
@@ -206,8 +204,7 @@
     @apply flex w-full min-w-0 flex-col gap-2;
   }
   /* The one place the page is allowed to scroll sideways. Focusable so the
-     overflow is reachable by keyboard, and the scrollbar is left visible —
-     hiding it is what made the old calendar's missing months unreachable. */
+     overflow is reachable by keyboard. */
   .contrib-scroll {
     /* A day is a fixed size, stepped twice: 16px, 18px from lg, and 19px from
        the 80rem page cap. It used to be a track between a 16px floor and a
@@ -318,7 +315,7 @@
   }
 
   /* =========================
-     ðŸ”— NAVIGATION
+     NAVIGATION
      ========================= */
   /* The text mark and the burger share the accent, so the bar is bookended in
      one colour. Its left edge is the glyph's, so it sits on the content edge;
@@ -419,7 +416,7 @@
   }
 
   /* =========================
-     ðŸƒ CARD UTILITIES
+     CARD UTILITIES
      ========================= */
   /* Holds the grid, the overflow grid and the control on one rhythm, so the
      cards revealed by "See all" do not inherit the wider .section-inner gap. */
@@ -487,7 +484,6 @@
       var(--cover-end) 100%
     );
   }
-  /* Declared after .project-card-cover so both custom properties win on source order. */
   /* Reserves the space a two-line title and two-line summary would need, so the
      card is the same height whichever project is featured and the grid cannot
      move when the filter changes. Reserved on the body rather than on the title
@@ -549,8 +545,6 @@
   .projects-grid-reveal-active {
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
-  /* The row is always present, so the page below the section does not jump by
-     the button's height when a filter has nothing left to expand. */
   /* A filter press settles the new set in card by card, on the same settle
      and keyframes as a project page arriving from previous or next. Only the
      cards on show at the press take part; rows the see-all control adds later
@@ -575,6 +569,8 @@
       animation: project-settle-fade 150ms linear both;
     }
   }
+  /* The row is always present, so the page below the section does not jump by
+     the button's height when a filter has nothing left to expand. */
   .projects-see-all-row {
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
@@ -661,8 +657,7 @@
   }
   /* ---- A page of its own: a project, the privacy policy ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
-  /* The page measure, like every block on the site, so a project page ends
-     where the hero and the footer end. The prose keeps its own 72ch measure. */
+  /* The prose inside keeps its own 72ch measure. */
   .page-stack {
     @apply gap-block lg:gap-block-lg flex w-full flex-col;
   }
@@ -670,7 +665,7 @@
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
   }
   /* One step under the hero and one above a section heading: the hero runs
-     display through display-xl, a section heading heading through display. */
+     display through display-2xl, a section heading heading through display. */
   .page-title {
     @apply font-display text-heading-lg lg:text-display text-fg-strong font-extrabold tracking-[-0.03em] text-balance;
   }
@@ -690,7 +685,7 @@
   .page-meta {
     @apply text-meta text-fg-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide;
   }
-  /* A heading on the heading face at the page's own step. Not the accent: the
+  /* A heading on the display face at the page's own step. Not the accent: the
      refresh reserves brand for emphasis, and a section label is not emphasis. */
   .page-heading {
     @apply font-display text-title lg:text-heading text-fg-strong font-bold tracking-tight;
@@ -712,8 +707,6 @@
   .project-page-onward-link {
     @apply flex min-w-0 flex-col gap-1;
   }
-  /* .card-title's job on a page that has no cards, and without the bottom
-     margin a card needs under its own title. */
   .project-page-onward-title {
     @apply font-display text-title-sm lg:text-title group-hover:text-brand-700 dark:group-hover:text-brand-100 text-fg-strong font-bold tracking-tight transition-colors;
   }
@@ -727,8 +720,8 @@
   .project-page-body {
     @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11 2xl:grid-cols-[minmax(0,1fr)_320px] 2xl:gap-14;
   }
-  /* Belt to the cap's braces: even inside the narrower page the prose keeps a
-     measure of its own, so a long line never runs the full column. */
+  /* The prose keeps a measure of its own, so a long line never runs the full
+     column. */
   .page-column {
     @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
   }
@@ -755,7 +748,6 @@
   .project-page-onward {
     @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
   }
-  /* Return to the projects section from a project's own page. */
   /*
    * Arriving from the previous or next link, the page settles in piece by
    * piece rather than swapping as one picture: the head first, then the
@@ -805,6 +797,7 @@
       opacity: 0;
     }
   }
+  /* Return to the projects section from a project's own page. */
   .project-back-link {
     @apply text-body-sm text-fg-muted hover:text-fg-strong inline-flex w-fit items-center gap-2 transition-colors;
   }
@@ -990,8 +983,8 @@
     @apply flex flex-col gap-1;
   }
   /* Between the mono rail and the headline in every respect: the display face
-     so it belongs to the headline, but a third of its size and a normal weight
-     so it introduces the page rather than competing with the claim. */
+     so it belongs to the headline, but far smaller so it introduces the page
+     rather than competing with the claim. */
   .hero-name {
     @apply font-display text-title-sm xl:text-title text-fg font-semibold tracking-tight;
   }
@@ -1020,7 +1013,7 @@
        break inside a pill. */
     @apply mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
   }
-  /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
+  /* Drawn at 10px/22px padding: a hero call to action, not the compact filter
      pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
      matches the footer's, which is what takes these over the 48px touch target
      the drawn padding alone missed by two pixels. */
