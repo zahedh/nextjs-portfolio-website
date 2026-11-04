@@ -20,13 +20,16 @@ npm run validate      # Full checkpoint: type-check + lint + prettier-check + te
 
 ## Role division
 
-Full rule and rationale live in `.context/tool-guidance/agent-roles.md` — read that file; this section is only the repo-local mechanics.
+`.context/tool-guidance/agent-roles.md` owns who plans, executes and reviews; read it rather than relying on a summary here. Claude executes by default. Codex executes only when the owner opts in for a task, and then these mechanics apply:
 
-- Claude Code plans, researches, and reviews. Codex executes numbered tasks.
-- Execution tasks are briefed under `docs/briefs/`; each brief names its source task, files, constraints, and verification commands. The brief and ledger shapes, and the handoff procedure, come from the `claude-codex-handoff` skill.
-- `docs/README.md` is the documentation standard pointer — read it before creating any document under `docs/`. `docs/` is gitignored at this tier, so archive rather than delete and date brief filenames.
+- Codex works from a brief under `docs/briefs/` naming its source task, files, constraints and verification commands. The brief and ledger shapes, and the handoff procedure, come from the `claude-codex-handoff` skill.
 - After each dispatch, append to `docs/progress.md`: status, files changed, and the validation result.
-- British English throughout. Never stage, commit, push, or run destructive git commands.
+
+`docs/README.md` is the documentation standard pointer; read it before creating any document under `docs/`. `docs/` is gitignored at the Showcase tier, so archive rather than delete, and date brief filenames.
+
+## Git
+
+Git authority is declared in `.context/projects/portfolio-site.md`: an agent may branch, commit, push and open the pull request. It never merges, never commits to `master`, and never rewrites history. Branches and pull requests follow `.context/engineering/tickets.md` and `.context/engineering/pr-template.md`; commit messages follow `.context/engineering/commits.md`.
 
 ## Small fixes
 
