@@ -8,7 +8,9 @@ import {
   ProjectPageStack,
   ProjectStepLink,
 } from '@/components/ui/cards/ProjectStep';
-import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
+import { TechStack } from '@/components/ui/cards/TechStack';
+import { skillsData } from '@/data/skills';
+import { getSkillsByIds } from '@/lib/utils';
 import { projects } from '@/data/projects';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { en } from '@/language';
@@ -165,7 +167,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <p className="project-page-label">
                   {en.projectDisplay.sectionBuiltWith}
                 </p>
-                <ProjectTechStack skillIds={project.skills} variant="labels" />
+                <TechStack
+                  skills={getSkillsByIds(project.skills, skillsData)}
+                />
               </div>
             </div>
 

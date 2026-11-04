@@ -1,25 +1,20 @@
 import { render, screen } from '@testing-library/react';
+import { en } from '@/language';
 import { TechStack } from '@/components/ui/cards/TechStack';
 import { skillsData } from '@/data/skills';
 
-const skills = skillsData.slice(0, 1);
-
 describe('TechStack', () => {
-  it('GIVEN no variant WHEN rendered THEN each skill is a named tile', () => {
-    render(<TechStack skills={skills} />);
+  it('GIVEN skills WHEN rendered THEN each reads as its label', () => {
+    render(<TechStack skills={skillsData.slice(0, 1)} />);
 
-    expect(screen.getByRole('img', { name: skills[0].label })).toBeVisible();
+    expect(screen.getByText(skillsData[0].label)).toBeVisible();
   });
 
-  it('GIVEN the labels variant WHEN rendered THEN each skill reads as text', () => {
-    render(<TechStack skills={skills} variant="labels" />);
+  it('GIVEN more skills than the cap WHEN rendered THEN the rest are counted', () => {
+    render(<TechStack skills={skillsData.slice(0, 3)} maxItems={1} />);
 
-    expect(screen.getByText(skills[0].label)).toBeVisible();
-  });
-
-  it('GIVEN the labels variant WHEN rendered THEN no tiles are drawn', () => {
-    render(<TechStack skills={skills} variant="labels" />);
-
-    expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    expect(
+      screen.getByText(en.projectDisplay.moreSkills.replace('{{count}}', '2'))
+    ).toBeVisible();
   });
 });

@@ -359,8 +359,6 @@ export const skillsData: Skill[] = [
     category: 'collaboration',
   },
 
-  // Productivity Tools
-
   // AI Tools
   {
     id: 'github-copilot',

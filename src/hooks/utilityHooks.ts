@@ -3,22 +3,10 @@ import {
   useEffect,
   useState,
   useRef,
-  useLayoutEffect,
   useCallback,
   useSyncExternalStore,
 } from 'react';
 import { flushSync } from 'react-dom';
-
-/** Tailwind CSS breakpoint values (in pixels) */
-export const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1232,
-  '2xl': 1536,
-} as const;
-
-export type Breakpoint = keyof typeof BREAKPOINTS;
 
 function subscribeToThemeClass(onChange: () => void): () => void {
   const observer = new MutationObserver(onChange);
@@ -121,34 +109,4 @@ export function useExpandableContent(maxHeight: number = 300) {
     contentRef,
     handleToggle,
   };
-}
-
-/**
- * Detects if the viewport matches or exceeds a given Tailwind breakpoint.
- * Initial state is always `false` so SSR and first client render match (avoids hydration mismatch).
- * Sync runs in `useLayoutEffect` so the correct mode applies before paint.
- */
-export function useBreakpoint(breakpoint: Breakpoint) {
-  const [matches, setMatches] = useState(false);
-
-  useLayoutEffect(() => {
-    const minWidthQuery = `(min-width: ${BREAKPOINTS[breakpoint]}px)`;
-    const mediaQueryList = window.matchMedia(minWidthQuery);
-    const syncMatchesFromViewport = () => setMatches(mediaQueryList.matches);
-    syncMatchesFromViewport();
-    mediaQueryList.addEventListener('change', syncMatchesFromViewport);
-    return () =>
-      mediaQueryList.removeEventListener('change', syncMatchesFromViewport);
-  }, [breakpoint]);
-
-  return matches;
-}
-
-/** True after mount — use for portals and other browser-only APIs that must not run during SSR. */
-export function useClientMounted(): boolean {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return mounted;
 }

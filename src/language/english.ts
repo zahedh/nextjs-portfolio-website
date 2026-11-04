@@ -10,7 +10,6 @@ export const en = {
   projects: 'Projects',
   experience: 'Experience',
   contact: 'Contact',
-  cV: 'CV',
   closeMenu: 'Close menu',
   menu: 'Menu',
   theme: 'Theme',
@@ -146,8 +145,6 @@ export const en = {
     slack: 'Slack',
     discord: 'Discord',
     notion: 'Notion',
-
-    // Productivity Tools
 
     // AI Tools
     gitHubCopilot: 'GH Copilot',

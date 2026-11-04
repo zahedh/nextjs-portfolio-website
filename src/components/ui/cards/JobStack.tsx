@@ -48,7 +48,6 @@ export function JobStack({
             className="experience-stack-items"
             skills={getSkillsByIds(skillIds, skillsData)}
             maxItems={expanded ? undefined : 10}
-            variant="labels"
           />
         </div>
       </div>

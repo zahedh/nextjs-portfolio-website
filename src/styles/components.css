@@ -581,9 +581,6 @@
   .projects-see-all {
     @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint text-fg-strong inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:focus-visible:ring-offset-neutral-900;
   }
-  .meta-row-subtle {
-    @apply text-meta text-fg-muted tracking-wide;
-  }
   .link-accent {
     @apply text-fg-accent decoration-brand-500 hover:text-brand-900 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
@@ -661,18 +658,6 @@
   }
   .footer-meta {
     @apply text-meta border-line text-fg-secondary flex w-full items-center justify-between border-t pt-6 font-mono;
-  }
-  .brand-pill {
-    @apply text-meta inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold tracking-wide whitespace-nowrap;
-  }
-  .brand-pill-active {
-    @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-fg shadow-sm;
-  }
-  .brand-pill-inactive {
-    @apply text-fg-strong border-neutral-400/50 bg-neutral-200/90 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45;
-  }
-  .brand-icon-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 text-fg flex shrink-0 items-center justify-center rounded-full border transition-colors duration-200;
   }
   /* ---- A page of its own: a project, the privacy policy ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
@@ -845,22 +830,6 @@
   }
   .skills-group-tiles {
     @apply flex min-w-0 flex-wrap gap-2 sm:gap-3;
-  }
-  .more-pill {
-    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption text-fg inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight;
-  }
-  /* Meta rows on a project. A flat ruled list, not a card nested in a card. */
-  .meta-list {
-    @apply divide-y divide-neutral-200/70 rounded-lg border border-neutral-200/80 dark:divide-neutral-700/70 dark:border-neutral-700/60;
-  }
-  .meta-list-row {
-    @apply flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4;
-  }
-  .meta-list-label {
-    @apply text-micro text-fg-muted font-semibold tracking-widest uppercase;
-  }
-  .meta-list-value {
-    @apply text-body-sm text-fg font-medium sm:text-right;
   }
   /* About. Below md the photograph stacks above the copy, as on a phone:
      beside the copy at sm it could be no wider than 200, since the copy

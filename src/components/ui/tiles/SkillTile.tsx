@@ -9,16 +9,10 @@ type SkillTileProps = {
   icon: IconType;
   label: string;
   className?: string;
-  compact?: boolean;
 };
 
 /** Circular icon tile representing a single skill with tooltip. */
-export function SkillTile({
-  icon: Icon,
-  label,
-  className,
-  compact = false,
-}: SkillTileProps) {
+export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
   const {
     tileRef,
     mounted,
@@ -59,9 +53,7 @@ export function SkillTile({
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
         className={cn(
-          compact
-            ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
-            : 'relative inline-flex h-12 w-12 items-center justify-center lg:h-14 lg:w-14',
+          'relative inline-flex h-12 w-12 items-center justify-center lg:h-14 lg:w-14',
           'rounded-full',
           // Dark mirrors light's weight: a tint at rest, the solid fill on hover.
           'border-brand-500 border',
@@ -73,12 +65,7 @@ export function SkillTile({
           className
         )}
       >
-        <Icon
-          aria-hidden
-          className={
-            compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-6 w-6 lg:h-7 lg:w-7'
-          }
-        />
+        <Icon aria-hidden className="h-6 w-6 lg:h-7 lg:w-7" />
       </div>
       {tooltipNode}
     </>

@@ -20,7 +20,6 @@ export type SkillCategory =
   | 'testing'
   | 'api'
   | 'collaboration'
-  | 'productivity'
   | 'ai'
   | 'os'
   | 'methodologies';

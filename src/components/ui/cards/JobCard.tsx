@@ -78,11 +78,7 @@ export function JobCard({ job, onToggle }: JobCardProps) {
             lines={job.description}
             className="text-fg-muted leading-relaxed"
           />
-          <TechStack
-            skills={jobSkills}
-            className="lg:hidden"
-            variant="labels"
-          />
+          <TechStack skills={jobSkills} className="lg:hidden" />
         </div>
       </div>
     </article>
