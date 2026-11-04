@@ -13,7 +13,7 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 bg-neutral-100/95 transition-shadow duration-150 dark:bg-neutral-900/95',
+        'bg-page/95 sticky top-0 z-50 transition-shadow duration-150',
         isScrolled
           ? 'shadow-[0_1px_0_var(--color-neutral-200)] dark:shadow-[0_1px_0_var(--color-neutral-800)]'
           : 'shadow-none'

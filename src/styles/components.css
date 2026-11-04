@@ -164,7 +164,7 @@
     /* A row that wraps, not a column. The figure, its label and the year pills
        come to roughly 350px, so from the first width that can hold them they
        belong on one line; only 390 is narrow enough to genuinely need two.
-       The band never puts this group beside the calendar: within the 90rem
+       The band never puts this group beside the calendar: within the 80rem
        page that would take ~230px from a year that needs all of it. */
     @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
   }
