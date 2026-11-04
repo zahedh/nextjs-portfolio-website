@@ -20,41 +20,60 @@ function slimPart(): {
 
 const RECT = { left: 0, top: 0, width: 346, height: 346 };
 const CENTRE = RECT.width / 2;
+// Eight pixels beside a sliver about 7px wide: a cursor there missed, a thumb
+// there meant to hit it.
+const NEAR_MISS = CENTRE + 8;
 
 describe('rocket hit test', () => {
-  it('is exact for a mouse and forgiving for a touch', () => {
+  it('GIVEN a mouse dead on the part WHEN tested THEN it hits', () => {
     const { camera, targets } = slimPart();
     const hit = createHitTest(camera, targets);
 
-    // Dead on hits either way.
     expect(hit(CENTRE, CENTRE, RECT, hitRadiusFor('mouse'))).toBe(true);
-    expect(hit(CENTRE, CENTRE, RECT, hitRadiusFor('touch'))).toBe(true);
-
-    // Eight pixels to the side of a sliver ~7px wide: a cursor misses, and
-    // that is correct. A thumb landing there meant to hit it.
-    const nearMiss = CENTRE + 8;
-    expect(hit(nearMiss, CENTRE, RECT, hitRadiusFor('mouse'))).toBe(false);
-    expect(hit(nearMiss, CENTRE, RECT, hitRadiusFor('touch'))).toBe(true);
   });
 
-  it('does not forgive a pointer nowhere near the part', () => {
+  it('GIVEN a touch dead on the part WHEN tested THEN it hits', () => {
     const { camera, targets } = slimPart();
     const hit = createHitTest(camera, targets);
+
+    expect(hit(CENTRE, CENTRE, RECT, hitRadiusFor('touch'))).toBe(true);
+  });
+
+  it('GIVEN a mouse just beside the part WHEN tested THEN it misses', () => {
+    const { camera, targets } = slimPart();
+    const hit = createHitTest(camera, targets);
+
+    expect(hit(NEAR_MISS, CENTRE, RECT, hitRadiusFor('mouse'))).toBe(false);
+  });
+
+  it('GIVEN a touch just beside the part WHEN tested THEN it is forgiven', () => {
+    const { camera, targets } = slimPart();
+    const hit = createHitTest(camera, targets);
+
+    expect(hit(NEAR_MISS, CENTRE, RECT, hitRadiusFor('touch'))).toBe(true);
+  });
+
+  it('GIVEN a touch nowhere near the part WHEN tested THEN it misses', () => {
+    const { camera, targets } = slimPart();
+    const hit = createHitTest(camera, targets);
+
     expect(hit(CENTRE + 120, CENTRE, RECT, hitRadiusFor('touch'))).toBe(false);
   });
 
-  it('keeps the radius in screen pixels as the canvas scales', () => {
+  it('GIVEN a larger canvas WHEN a touch lands just beside the part THEN the radius holds in screen pixels', () => {
     const { camera, targets } = slimPart();
     const hit = createHitTest(camera, targets);
-    // The same 8px offset on the 2xl canvas is a smaller slice of the viewport,
-    // so it must still land. A radius normalised by only one axis fails here.
+    // The same 8px is a smaller slice of the 2xl canvas; a radius normalised
+    // by only one axis fails here.
     const wide = { left: 0, top: 0, width: 520, height: 520 };
+
     expect(hit(260 + 8, 260, wide, hitRadiusFor('touch'))).toBe(true);
   });
 
-  it('rejects a pointer outside the canvas', () => {
+  it('GIVEN a pointer outside the canvas WHEN tested THEN it misses', () => {
     const { camera, targets } = slimPart();
     const hit = createHitTest(camera, targets);
+
     expect(hit(-5, CENTRE, RECT, hitRadiusFor('touch'))).toBe(false);
   });
 });
