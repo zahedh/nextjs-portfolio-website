@@ -19,7 +19,7 @@ interface JobCardProps {
 }
 
 /** Compact experience row with expandable role details. */
-export default function JobCard({ job, onToggle }: JobCardProps) {
+export function JobCard({ job, onToggle }: JobCardProps) {
   const { isExpanded, contentHeight, contentRef, handleToggle } =
     useExpandableContent(0);
 

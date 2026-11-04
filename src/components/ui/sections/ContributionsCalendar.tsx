@@ -28,7 +28,7 @@ type ContributionsCalendarProps = {
   pending?: boolean;
 };
 
-export default function ContributionsCalendar({
+export function ContributionsCalendar({
   activities,
   summary,
   pending = false,

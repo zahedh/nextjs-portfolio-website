@@ -13,7 +13,7 @@ export type DismissButtonProps = {
 };
 
 /** Icon-only control for closing dialogs, drawers, and overlays. */
-const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
+export const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
   function DismissButton(
     {
       onClick,
@@ -47,5 +47,3 @@ const DismissButton = forwardRef<HTMLButtonElement, DismissButtonProps>(
     );
   }
 );
-
-export default DismissButton;

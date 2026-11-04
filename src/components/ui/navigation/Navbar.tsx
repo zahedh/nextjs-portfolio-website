@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { en } from '@/language';
 import { ThemeSwitch } from '@/components/ui/buttons';
 import { useActiveSection } from '@/hooks/useActiveSection';
-import MobileMenu from './MobileMenu';
+import { MobileMenu } from './MobileMenu';
 
 const SECTIONS = [
   { id: 'home', label: en.home },
@@ -19,7 +19,7 @@ const SECTIONS = [
 const SECTION_IDS = SECTIONS.map((section) => section.id);
 
 /** Responsive top navigation bar for primary site links. */
-export default function Navbar() {
+export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   // Before the first section reaches the line the reader is in the hero.

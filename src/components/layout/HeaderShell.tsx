@@ -7,11 +7,7 @@ import { cn } from '@/lib/utils';
  * Client wrapper for the sticky header. A hairline appears once the page has
  * scrolled, so content passing under the bar has an edge to pass under.
  */
-export default function HeaderShell({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function HeaderShell({ children }: { children: React.ReactNode }) {
   const isScrolled = useScrolled(0);
 
   return (

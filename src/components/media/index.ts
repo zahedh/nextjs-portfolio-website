@@ -1,1 +1,1 @@
-export { default as CloseGraphic } from './CloseGraphic';
+export { CloseGraphic } from './CloseGraphic';

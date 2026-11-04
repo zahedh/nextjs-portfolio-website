@@ -5,7 +5,7 @@ import { CopyEmailButton, TertiaryButton } from '@/components/ui';
 import { Download } from 'lucide-react';
 
 /** Site footer: closing pitch and contact actions, with secondary navigation alongside. */
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="footer" id="contact">
       <div className="footer-container">

@@ -48,5 +48,3 @@ export function PrimaryButton({
     </button>
   );
 }
-
-export default PrimaryButton;

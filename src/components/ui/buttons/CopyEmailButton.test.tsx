@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { en } from '@/language';
-import CopyEmailButton from './CopyEmailButton';
+import { CopyEmailButton } from './CopyEmailButton';
 
 async function clickCopy(): Promise<jest.Mock> {
   const writeText = jest.fn().mockResolvedValue(undefined);

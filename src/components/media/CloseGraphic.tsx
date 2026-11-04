@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export default function CloseGraphic(props: SVGProps<SVGSVGElement>) {
+export function CloseGraphic(props: SVGProps<SVGSVGElement>) {
   return (
     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
       <path

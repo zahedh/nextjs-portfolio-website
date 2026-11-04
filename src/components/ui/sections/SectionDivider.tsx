@@ -10,7 +10,7 @@ type SectionDividerProps = {
 };
 
 /** Decorative divider bar displayed under section headings. */
-export default function SectionDivider({
+export function SectionDivider({
   width = 'full',
   align = 'left',
   color = 'bg-brand-600 dark:bg-brand-400',

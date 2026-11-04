@@ -1,7 +1,7 @@
-export { default as PrimaryButton } from './PrimaryButton';
-export { default as SecondaryButton } from './SecondaryButton';
-export { default as TertiaryButton } from './TertiaryButton';
-export { default as BurgerMenuButton } from './BurgerMenuButton';
-export { default as DismissButton } from './DismissButton';
-export { default as ThemeSwitch } from './ThemeSwitch';
-export { default as CopyEmailButton } from './CopyEmailButton';
+export { PrimaryButton } from './PrimaryButton';
+export { SecondaryButton } from './SecondaryButton';
+export { TertiaryButton } from './TertiaryButton';
+export { BurgerMenuButton } from './BurgerMenuButton';
+export { DismissButton } from './DismissButton';
+export { ThemeSwitch } from './ThemeSwitch';
+export { CopyEmailButton } from './CopyEmailButton';

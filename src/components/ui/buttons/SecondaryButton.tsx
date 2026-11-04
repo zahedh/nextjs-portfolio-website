@@ -60,5 +60,3 @@ export function SecondaryButton({
   }
   return button;
 }
-
-export default SecondaryButton;

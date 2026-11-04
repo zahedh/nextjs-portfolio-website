@@ -207,7 +207,7 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 }
 
 /** Filterable projects section. Each card links to the project's own page. */
-export default function ProjectsSection() {
+export function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [showAll, setShowAll] = useState(false);
   // A filter press or a return from a project page settles the cards in; the

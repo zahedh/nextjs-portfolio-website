@@ -7,7 +7,7 @@ type SubHeadingProps = {
   as?: 'h1' | 'h2' | 'h3';
 };
 
-export default function SubHeading({
+export function SubHeading({
   children,
   className,
   as = 'h3',

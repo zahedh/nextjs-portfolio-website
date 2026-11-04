@@ -7,7 +7,7 @@ import { skillsData } from '@/data';
 import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
 /** Skills and tools as a ruled list, one row per practice area. */
-export default function SkillsSection() {
+export function SkillsSection() {
   const skillGroups = groupSkills(skillsData);
 
   return (

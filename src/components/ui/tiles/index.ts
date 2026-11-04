@@ -1,1 +1,1 @@
-export { default as SkillTile } from './SkillTile';
+export { SkillTile } from './SkillTile';

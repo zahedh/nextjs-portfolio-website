@@ -84,5 +84,3 @@ export function SkillTile({
     </>
   );
 }
-
-export default SkillTile;

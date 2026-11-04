@@ -1,2 +1,2 @@
-export { default as Navbar } from './Navbar';
-export { default as MobileMenu } from './MobileMenu';
+export { Navbar } from './Navbar';
+export { MobileMenu } from './MobileMenu';

@@ -55,5 +55,3 @@ export function JobStack({
     </div>
   );
 }
-
-export default JobStack;

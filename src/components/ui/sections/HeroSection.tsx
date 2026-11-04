@@ -25,7 +25,7 @@ function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
  * clearance so it is not carried on top of the section's own padding, which
  * would leave the composition sitting low in its band.
  */
-export default function HeroSection() {
+export function HeroSection() {
   // The rocket takes the resolved theme rather than reading it itself; it
   // relights the running scene on a change instead of remounting.
   const { isDark } = useTheme();

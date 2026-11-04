@@ -6,7 +6,7 @@ type BodyTextProps = {
   className?: string;
 };
 
-export default function BodyText({ children, className }: BodyTextProps) {
+export function BodyText({ children, className }: BodyTextProps) {
   return (
     <p className={cn('font-body text-body text-fg tracking-tight', className)}>
       {children}

@@ -72,7 +72,7 @@ const orbs: OrbConfig[] = [
 ];
 
 /** Floating orbs that drift behind hero content. Works in both vertical (mobile) and horizontal (desktop) layout. */
-export default function HeroFloatingOrbs() {
+export function HeroFloatingOrbs() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0">
       {orbs.map((orb, i) => (

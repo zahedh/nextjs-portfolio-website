@@ -6,10 +6,10 @@ import { en } from '@/language';
 import { cn, sumContributions } from '@/lib/utils';
 import { buildEmptyYear } from '@/lib/ui-logic';
 import { ActivityCalendarData } from '@/types/github';
-import ContributionsCalendar from './ContributionsCalendar';
+import { ContributionsCalendar } from './ContributionsCalendar';
 
 /** The activity band under the hero: a year's total, its pills, and the year. */
-export default function ContributionsSection() {
+export function ContributionsSection() {
   const currentYear = new Date().getFullYear();
   const previousYear = currentYear - 1;
   const [selectedYear, setSelectedYear] = useState(currentYear);

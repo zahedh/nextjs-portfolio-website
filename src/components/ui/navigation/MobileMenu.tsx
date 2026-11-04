@@ -26,7 +26,7 @@ type MobileMenuProps = {
  * makes the page inert, closes on Escape and returns focus to the burger.
  * Its top row repeats the bar's, so the mark does not move when it opens.
  */
-export default function MobileMenu({
+export function MobileMenu({
   links,
   activeSection,
   onNavigate,

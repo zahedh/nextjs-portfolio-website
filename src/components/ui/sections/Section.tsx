@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Heading, SubHeading, BodyText } from '@/components/text';
-import SectionDivider from './SectionDivider';
+import { SectionDivider } from './SectionDivider';
 
 type SectionProps = {
   title?: string;
@@ -24,7 +24,7 @@ type SectionProps = {
 };
 
 /** Generic layout section used to structure page content. */
-export default function Section({
+export function Section({
   title,
   titleAs = 'h2',
   subheading,
