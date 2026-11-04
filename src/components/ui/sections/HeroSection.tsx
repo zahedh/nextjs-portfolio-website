@@ -31,7 +31,7 @@ export function HeroSection() {
   const { isDark } = useTheme();
 
   return (
-    <Section anchor="home" showDivider={false} className="-mt-18">
+    <Section anchor="home" className="-mt-18">
       <div className="hero-composition">
         <HeroFloatingOrbs />
 
@@ -64,7 +64,7 @@ export function HeroSection() {
               aria-label={en.heroSection.downloadCvAriaLabel}
               icon={<Download aria-hidden className="size-4" />}
               className="hero-action btn-outline"
-              {...{ download: true }}
+              target="_blank"
             >
               {en.heroSection.secondaryButton}
             </TertiaryButton>
