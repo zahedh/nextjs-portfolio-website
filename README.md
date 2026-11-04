@@ -36,7 +36,7 @@ A personal portfolio built with Next.js and TypeScript, showcasing projects, exp
 
 - 3D rocket in the hero, assembled and launched on a tap
 - GitHub contributions calendar, by year
-- Skills grouped by kind
+- Skills grouped by category
 - Projects filtered by category, each with its own page
 - Experience rail, grouped by employer
 - Light and dark themes
