@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file provides guidance to Codex and other agents when working with code in this repository.
+This file provides guidance to Codex and other agents when working with code in this repository. `CLAUDE.md` carries the same rules for Claude Code; change both together.
 
 ## Project Overview
 
@@ -34,20 +34,7 @@ The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fi
 
 ## Architecture
 
-### Structure
-
-- `src/app/(dashboard)/` — Route group containing the home page (`/`) and `/privacy`
-- `src/app/api/contributions/` — Route handler for the GitHub contributions calendar
-- `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
-- `src/data/` — Site content as typed TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
-- `src/language/english.ts` — All user-facing copy (translation-ready)
-- `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
-- `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
-- `src/lib/ui-logic/` — pure logic behind what a section shows (grouping, grids, display helpers) and any Motion configuration
-- `src/hooks/` — `useScrolled`, `utilityHooks`, `skillTilePortalTooltip`, `overlayHooks`, `contributionsCalendarHooks`
-- `.claude/skills/` — project-level skills bespoke to this repo
-
-This layout predates `.context/engineering/nextjs-react.md` and diverges from it (top-level `hooks/`, `data/`, and `src/language/` rather than `src/lib/language/`). The divergence is a declared exception in `.context/projects/portfolio-site.md`, not licence to add more top-level folders. Do not migrate it as a drive-by; that is its own dispatch.
+The folder map, a traced page request and what lint enforces are in `ARCHITECTURE.md`. `.claude/skills/` holds project-level skills bespoke to this repo.
 
 ### Key patterns
 
@@ -88,15 +75,6 @@ Add `'use client'` only when the component itself uses browser APIs, client-cont
 
 Motion variants and viewport configs live in `src/lib/ui-logic/`, and components import them.
 
-```ts
-export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-};
-
-export const sectionViewport = { once: true, amount: 0.2 };
-```
-
 - Never define a `Variants` object inside a component file.
 - No inline `animate`, `initial`, or `transition` objects in JSX unless the value is a single dynamic prop.
 - Keep the JSX side to two or three Motion props.
@@ -111,7 +89,7 @@ Keep UI files thin. Beyond simple conditional rendering or a single derived valu
 
 Which side an icon sits on is decided by what the icon _means_, not by a house preference for one side:
 
-- **Leading** — the icon says what the control **is**. `Download`, `Mail`, a category glyph. This is the `icon` prop on `SecondaryButton` and `TertiaryButton`, which render it before their children.
+- **Leading** — the icon says what the control **is**. `Download`, `Mail`, a category glyph. This is the `icon` prop on `TertiaryButton`, which renders it before its children.
 - **Trailing** — the icon says where the control **takes you**, or what happens next. `ChevronDown` for disclosure, `ExternalLink` for a link that leaves the page, an arrow for "continue". Write these inline after the label rather than through the `icon` prop.
 
 ```tsx
@@ -127,7 +105,7 @@ Which side an icon sits on is decided by what the icon _means_, not by a house p
 </a>
 ```
 
-A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`, `DismissButton`) are outside this rule and need an `aria-label`.
+A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`) are outside this rule and need an `aria-label`.
 
 ### Control state
 
