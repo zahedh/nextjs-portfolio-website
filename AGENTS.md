@@ -77,12 +77,9 @@ This layout predates `.context/engineering/nextjs-react.md` and diverges from it
 
 - Compose conditional classes with `cn()` from `@/lib/utils`.
 - Colours come from the CSS variables in `src/styles/theme.css`. Never hardcode a colour value.
-- When a class combination repeats across components, or exceeds roughly five utilities for one visual purpose, extract it to `src/styles/components.css` or `src/styles/utilities.css`.
-
-```tsx
-// Avoid: className="flex items-center justify-between px-4 py-2 rounded-lg border border-border bg-surface text-sm font-medium"
-// Prefer: className={cn('card-row', isActive && 'card-row--active')}
-```
+- Styling used by one component stays in that component as utilities, however long the list. Use the semantic colour roles (`text-fg-muted`, `bg-raised`, `border-line`) rather than a `dark:` pair.
+- Extract a named class to `src/styles/components.css` only when the same combination is used by more than one component, or when it needs CSS that utilities cannot express readably (nested or sibling selectors, keyframes, grid areas). A CSS module next to the component is the fallback for the second case when the rule belongs to one component.
+- `components.css` still holds single-use classes from before this rule; move them into their components when you touch them, rather than adding to them.
 
 ### Client components
 
