@@ -2,9 +2,7 @@
 
 **v1.1.0**
 
-A modern, minimal, and performant portfolio built with Next.js and TypeScript, designed to showcase
-projects, experience, and skills with a strong focus on responsive design, accessibility, and
-maintainable architecture.
+A personal portfolio built with Next.js and TypeScript, showcasing projects, experience and skills. Live at [zahedheidari.co.uk](https://zahedheidari.co.uk).
 
 ## 📚 Contents
 
@@ -24,153 +22,97 @@ maintainable architecture.
 - **Framework:** Next.js 15 (App Router)
 - **UI:** React 19
 - **Language:** TypeScript 5
-- **Styling:** Tailwind CSS v4, with **clsx** + **tailwind-merge** for conditional / merged class names
-- **Animations:** Motion (Framer Motion) 12.16
-- **UI Libraries:**
-  - React Activity Calendar 3.0 (GitHub contributions)
-  - React Icons 5.5 & Lucide React 0.556 (Icon libraries)
-- **API Integration:** GitHub GraphQL API
-- **Testing:** Jest 29, React Testing Library 16
-- **Linting & Formatting:** ESLint 9, Prettier 3.5
+- **Styling:** Tailwind CSS v4
+- **3D and animation:** Three.js, Motion
+- **Icons:** React Icons, Lucide React
+- **API:** GitHub GraphQL API
+- **Testing:** Jest, React Testing Library
+- **Linting and formatting:** ESLint, Prettier
 - **Hosting:** Vercel
 
 <a id="features"></a>
 
 ## ✨ Features
 
-- ⚡ Static & server rendering for SEO and performance
-- 🎨 Fully responsive design (mobile, tablet, desktop)
-- 🌗 Light / dark mode theme toggle
-- 💼 **Projects:** Swiper carousel (card-style slides on large viewports), **All / Web / Mobile**
-  filters, and **expandable in-card details** (full write-up and tech stack). Skills used on at
-  least one project can be clicked in the skills section to **scroll to projects and filter** the
-  carousel (global state)
-- 📊 GitHub contributions calendar with year filtering
-- 📅 Timeline-based experience section
-- 🎭 Smooth animations and transitions
-- 🏆 Skill collage sourced from `src/data/skills.ts` with icon tiles and tooltips
-- 📲 Mobile hamburger menu
-- ♿ Accessibility-first components
-- 📜 Privacy policy page (`/privacy`)
-- 🔗 Custom 404 (not-found) page
-- 📝 Centralized UI copy via `src/language`
+- 3D rocket in the hero, assembled and launched on a tap
+- GitHub contributions calendar, by year
+- Skills grouped by kind
+- Projects filtered by category, each with its own page
+- Experience rail, grouped by employer
+- Light and dark themes
+- Keyboard navigable, with visible focus throughout
+- Privacy page and custom 404
 
 <a id="project-structure"></a>
 
 ## 🗂️ Project Structure
 
-High-level overview of the main folders:
+- `src/app`: routes, layouts and the contributions API route
+- `src/components`: page sections and UI components
+- `src/data`: projects, skills, experience and About content
+- `src/language`: all site copy
+- `src/lib`: logic with no React
+- `src/hooks`: React hooks
+- `src/styles`: theme tokens and shared styles
+- `src/types`: shared types
+- `public`: images, icons and the CV
 
-- `src/app` – Next.js routes, layouts, and pages (App Router); includes `(dashboard)` route group (home, `/privacy`)
-- `src/app/api` – Route Handlers (e.g. `/api/contributions` for GitHub contributions JSON)
-- `src/components` – Reusable UI components (buttons, cards, navigation, sections, text, media, etc.)
-- `src/data` – Static data (skills, projects, experience, about content)
-- `src/hooks` – Custom React hooks for UI and interaction logic
-- `src/language` – Centralized UI copy and translations (e.g. `english.ts`)
-- `src/lib` – Shared logic and small modules (see below)
-- `src/styles` – Global styles (Tailwind entry point, theme, components CSS)
-- `src/types` – TypeScript type definitions (e.g. GitHub API types)
-- `public` – Static assets (images, icons, CV, etc.)
-
-**`src/lib` modules** (import from `@/lib/…` or the barrel [`src/lib/index.ts`](src/lib/index.ts) where re-exported):
-
-| File                                                 | Purpose                                                                                                                                                                                                                     |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`utils.ts`](src/lib/utils.ts)                       | `cn` (Tailwind class merge), scroll / anchor navigation helpers, escape-key handler, skill ID resolution (`getSkillsByIds`), project–skill matching (`projectMatchesSkill`, `hasAnyProjectForSkill`), scroll to `#projects` |
-| [`dateUtils.ts`](src/lib/dateUtils.ts)               | Years-of-experience style date helpers                                                                                                                                                                                      |
-| [`social-metadata.ts`](src/lib/social-metadata.ts)   | Open Graph / Twitter Card defaults for `layout` metadata                                                                                                                                                                    |
-| [`skillTileTooltip.ts`](src/lib/skillTileTooltip.ts) | Positioning helpers for skill tile tooltips                                                                                                                                                                                 |
-| [`api/githubApi.ts`](src/lib/api/githubApi.ts)       | GitHub GraphQL client for the contributions API route                                                                                                                                                                       |
-
-Tests colocated with logic: [`utils.test.ts`](src/lib/utils.test.ts), [`dateUtils.test.ts`](src/lib/dateUtils.test.ts).
+More detail in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 <a id="getting-started"></a>
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Node.js **18.18+** (or 20 LTS; match your deployment target, e.g. Vercel)
-- npm (or another Node.js package manager)
-- GitHub Personal Access Token (for contributions calendar feature)
-
-### Installation
-
-1. Clone the repository:
+Requires Node.js 22.
 
 ```bash
 git clone https://github.com/zahedh/nextjs-portfolio-website.git
 cd nextjs-portfolio-website
-```
-
-2. Install dependencies:
-
-```bash
 npm install
-```
-
-3. Set up environment variables (see [Environment Variables](#environment-variables) section below)
-
-4. Run the development server:
-
-```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+Then open [http://localhost:3000](http://localhost:3000).
 
 <a id="environment-variables"></a>
 
 ## 🔐 Environment Variables
 
-Create a `.env.local` file in the project root:
+Create `.env.local` in the project root:
 
 ```bash
-# GitHub Personal Access Token for contributions calendar
-# Create at: https://github.com/settings/tokens (requires read:user scope)
+# GitHub personal access token with the read:user scope
 GITHUB_TOKEN=your_github_personal_access_token
 ```
+
+Without it, the contributions calendar shows its error state.
 
 <a id="scripts"></a>
 
 ## 🧪 Scripts
 
-Commonly used scripts defined in `package.json`:
-
 ```bash
-npm run dev                   # Start development server
-npm run build                 # Create production build
-npm run start                 # Run the production server
+npm run dev               # Development server
+npm run build             # Production build
+npm run start             # Serve the production build
 
-npm run type-check            # Run TypeScript type checking
-npm run lint                  # Run ESLint
-npm run test                  # Run Jest test suite
+npm run type-check        # TypeScript
+npm run lint              # ESLint
+npm run test              # Jest
+npm run prettier-check    # Check formatting
+npm run prettier-format   # Format code
 
-npm run prettier-check        # Check formatting with Prettier
-npm run prettier-format       # Format code with Prettier
-
-npm run validate              # Type-check + lint + format check + test (full sanity check)
+npm run validate          # Type-check, lint, format check and tests
 ```
-
-Run `npm run validate` before committing or deploying to ensure everything passes.
 
 <a id="deployment"></a>
 
 ## 🌍 Deployment
 
-This project is hosted on **Vercel** and is optimised for similar platforms (e.g. Vercel, Netlify). To deploy:
-
-### Vercel Analytics & Speed Insights
-
-The app includes **`@vercel/analytics`** and **`@vercel/speed-insights`** in the
-[root layout](src/app/layout.tsx). They render only when **`VERCEL=1`** (production deployments
-on Vercel), so **local `npm run dev`** does not request `/_vercel/...` scripts that would 404 on
-localhost. No extra env vars are required for the defaults.
-
-After deployment, open your project in the [Vercel dashboard](https://vercel.com/dashboard) and enable **Analytics** and **Speed Insights** for the project so data is collected and shown in Vercel.
+Hosted on Vercel, which builds a preview for every push. CI runs `npm run validate` on every push and pull request. Vercel Analytics and Speed Insights load only on Vercel deployments.
 
 <a id="license"></a>
 
 ## 📄 License
 
-This project is open source and licensed under the [MIT License](LICENSE).
+[MIT](LICENSE)
