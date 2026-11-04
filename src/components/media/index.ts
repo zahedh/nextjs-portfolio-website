@@ -1,1 +1,0 @@
-export { CloseGraphic } from './CloseGraphic';

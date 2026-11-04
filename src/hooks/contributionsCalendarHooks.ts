@@ -8,10 +8,11 @@ export type TooltipData = {
   y: number;
 };
 
-/** Format date for tooltip display */
+/** A calendar day reads as UTC midnight, so it is printed in UTC to stay that day. */
 export function formatTooltipDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-GB', {
+    timeZone: 'UTC',
     weekday: 'short',
     year: 'numeric',
     month: 'short',

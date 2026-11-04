@@ -71,6 +71,11 @@ export async function fetchGitHubContributions(
   }
 
   const body: unknown = await response.json();
+  const errors = (body as { errors?: unknown })?.errors;
+  if (errors) {
+    // GraphQL reports failures with a 200 and an errors array.
+    throw new Error(`GitHub answered with errors: ${JSON.stringify(errors)}`);
+  }
   const calendar = (
     body as {
       data?: {
