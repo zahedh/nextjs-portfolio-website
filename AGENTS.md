@@ -43,7 +43,7 @@ The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fi
 - `src/language/english.ts` — All user-facing copy (translation-ready)
 - `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
 - `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
-- `src/lib/ui-logic/` — Motion variants and viewport configs
+- `src/lib/ui-logic/` — pure logic behind what a section shows (grouping, grids, display helpers) and any Motion configuration
 - `src/hooks/` — `useScrolled`, `utilityHooks`, `skillTilePortalTooltip`, `overlayHooks`, `contributionsCalendarHooks`
 - `.claude/skills/` — project-level skills bespoke to this repo
 
@@ -70,8 +70,7 @@ This layout predates `.context/engineering/nextjs-react.md` and diverges from it
 ### Imports
 
 - Use the `@/*` alias for anything under `src/`. Never a relative path traversing more than one level.
-- Never use `import type` — import types the same way as values: `import { MyType } from '...'`.
-- Types live in `src/types/`. Import them from there, not re-exported through data files.
+- Domain types shared across layers (`Project`, `JobExperience`, `Skill`) live in `src/types/`; import them from there, not re-exported through data files. Any other type lives with the module that owns it.
 
 ### Styling
 
@@ -87,7 +86,7 @@ Add `'use client'` only when the component itself uses browser APIs, client-cont
 
 ### Animation
 
-All Motion variants and viewport configs live in `src/lib/ui-logic/` (`heroVariants.ts`, `skillsVariants.ts`, and siblings). Components import them.
+Motion variants and viewport configs live in `src/lib/ui-logic/`, and components import them.
 
 ```ts
 export const fadeInUp: Variants = {
@@ -118,7 +117,7 @@ Which side an icon sits on is decided by what the icon _means_, not by a house p
 ```tsx
 // Leading: the glyph names the action
 <TertiaryButton icon={<Download aria-hidden className="size-4" />}>
-  {en.footerSection.cvLabel}
+  {en.footerSection.downloadCVLabel}
 </TertiaryButton>
 
 // Trailing: the glyph names the destination or the consequence
