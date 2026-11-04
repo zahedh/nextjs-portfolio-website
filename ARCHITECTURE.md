@@ -4,17 +4,55 @@
 
 ## Folders
 
-| Folder        | Owns                                                                                                                                                                                                                                                                                                                  |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `app/`        | Routes. The root layout loads the fonts, metadata and the pre-paint theme script. The `(dashboard)` group wraps the home page, `/privacy` and `/projects/[slug]` in the header and footer. `api/contributions` serves GitHub activity to the browser. Also the sitemap and 404.                                       |
-| `components/` | React. `ui/` holds the page sections, cards, buttons, navigation, skill tiles and animations, including the 3D rocket, which is self-contained and imports nothing from the rest of the site. `layout/` is the header and footer, `text/` the type components, `dev/` the breakpoint badge shown only in development. |
-| `lib/`        | Functions with no React. `ui-logic/` is the logic behind what a section shows (role grouping, the contributions grid, project display); `date/`, `project/` (filtering), `api/` (the GitHub fetch), `meta/` (share metadata), `utils/` (`cn()`, skill lookup) and `viewTransition.ts` (the card-to-page morph).       |
-| `data/`       | The site's content as typed TypeScript: projects, skills, experience and the About facts.                                                                                                                                                                                                                             |
-| `language/`   | Every human-readable string, in `english.ts`, keyed by the surface that shows it.                                                                                                                                                                                                                                     |
-| `hooks/`      | React hooks shared by components, or pulled out of one to keep it thin.                                                                                                                                                                                                                                               |
-| `types/`      | Domain types shared across layers: a project, a skill, a role, a GitHub response. Any other type lives with the module that owns it.                                                                                                                                                                                  |
-| `styles/`     | `theme.css` holds the colour, type and spacing tokens and the semantic colour roles; `utilities.css` and `components.css` hold shared classes. All are imported through `index.css`.                                                                                                                                  |
-| `images/`     | Static imports of `public/images`, so `next/image` knows each file's dimensions.                                                                                                                                                                                                                                      |
+```text
+src/
+├── app/                      routes
+│   ├── layout.tsx            fonts, metadata, pre-paint theme script
+│   ├── not-found.tsx         404
+│   ├── sitemap.ts
+│   ├── (dashboard)/          pages wrapped in the header and footer
+│   │   ├── page.tsx          home
+│   │   ├── privacy/
+│   │   └── projects/[slug]/  one page per project
+│   └── api/contributions/    GitHub activity for the browser
+├── components/               React
+│   ├── ui/
+│   │   ├── sections/         the six home sections
+│   │   ├── cards/            project cards, job cards, stacks, links
+│   │   ├── buttons/
+│   │   ├── navigation/       nav bar and phone menu
+│   │   ├── tiles/            skill tiles
+│   │   └── animations/       hero orbs, and rocket/ (the 3D rocket)
+│   ├── layout/               header and footer
+│   ├── text/                 heading and body type components
+│   └── dev/                  breakpoint badge, development only
+├── lib/                      functions with no React
+│   ├── ui-logic/             what a section shows: role groups, contributions grid, project display
+│   ├── date/                 role durations and years
+│   ├── project/              project filtering
+│   ├── api/                  the GitHub fetch
+│   ├── meta/                 share metadata
+│   ├── utils/                cn(), skill lookup
+│   └── viewTransition.ts     the card-to-page morph
+├── data/                     site content
+├── language/                 site copy
+├── hooks/                    React hooks
+├── types/                    shared domain types
+├── styles/                   tokens and shared classes
+└── images/                   static image imports
+```
+
+| Folder        | Owns                                                                                                                                                                                 |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `app/`        | Routes. The `(dashboard)` group wraps the home page, `/privacy` and `/projects/[slug]` in the header and footer; `api/contributions` serves GitHub activity to the browser.          |
+| `components/` | React. The 3D rocket is self-contained and imports nothing from the rest of the site.                                                                                                |
+| `lib/`        | Functions with no React.                                                                                                                                                             |
+| `data/`       | The site's content as typed TypeScript: projects, skills, experience and the About facts.                                                                                            |
+| `language/`   | Every human-readable string, in `english.ts`, keyed by the surface that shows it.                                                                                                    |
+| `hooks/`      | React hooks shared by components, or pulled out of one to keep it thin.                                                                                                              |
+| `types/`      | Domain types shared across layers: a project, a skill, a role, a GitHub response. Any other type lives with the module that owns it.                                                 |
+| `styles/`     | `theme.css` holds the colour, type and spacing tokens and the semantic colour roles; `utilities.css` and `components.css` hold shared classes. All are imported through `index.css`. |
+| `images/`     | Static imports of `public/images`, so `next/image` knows each file's dimensions.                                                                                                     |
 
 Top-level `hooks/`, `types/` and `data/`, and copy in `language/` rather than `lib/language/`, predate the hub's Next.js standard. They are a declared exception, not a pattern to extend.
 
