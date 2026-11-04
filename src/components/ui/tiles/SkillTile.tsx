@@ -32,8 +32,9 @@ export function SkillTile({
     mounted &&
     typeof document !== 'undefined' &&
     createPortal(
+      // Visual echo of the tile's own aria-label, so hidden from the tree.
       <div
-        role="tooltip"
+        aria-hidden
         className={cn(
           'skill-tile-tooltip',
           tooltipVisible ? 'opacity-100' : 'opacity-0'
@@ -73,6 +74,7 @@ export function SkillTile({
         )}
       >
         <Icon
+          aria-hidden
           className={
             compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-6 w-6 lg:h-7 lg:w-7'
           }
