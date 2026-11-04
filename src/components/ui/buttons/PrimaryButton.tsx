@@ -1,5 +1,3 @@
-'use client';
-
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 

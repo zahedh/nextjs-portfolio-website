@@ -1,5 +1,3 @@
-'use client';
-
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';

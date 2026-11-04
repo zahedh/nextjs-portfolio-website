@@ -1,5 +1,3 @@
-'use client';
-
 import { ExternalLink } from 'lucide-react';
 import { PrimaryButton, TertiaryButton } from '@/components/ui/buttons';
 import { en } from '@/language';
