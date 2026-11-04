@@ -1,6 +1,4 @@
-/**
- * GitHub API utilities for fetching contribution data.
- */
+import 'server-only';
 
 import {
   GitHubContributionCalendar,
@@ -10,119 +8,101 @@ import {
 const GITHUB_API = 'https://api.github.com/graphql';
 const GITHUB_USERNAME = 'zahedh';
 
-/**
- * Fetches GitHub contribution data using GraphQL API.
- * Requires GITHUB_TOKEN in environment variables.
- * @param year - Optional year to fetch contributions for (defaults to current year)
- */
-export async function fetchGitHubContributions(year?: number) {
-  const token = process.env.GITHUB_TOKEN;
-
-  if (!token) {
-    console.warn(
-      'GITHUB_TOKEN not found. GitHub contributions cannot be displayed without authentication.'
-    );
-    console.warn('Create a token at: https://github.com/settings/tokens');
-    console.warn('Add it to .env.local as: GITHUB_TOKEN=your_token_here');
-    return null;
-  }
-
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  };
-
-  const fromDate = year
-    ? `${year}-01-01T00:00:00Z`
-    : `${new Date().getFullYear()}-01-01T00:00:00Z`;
-  const toDate = year
-    ? `${year}-12-31T23:59:59Z`
-    : `${new Date().getFullYear()}-12-31T23:59:59Z`;
-
-  const query = `
-    query($userName:String!, $from:DateTime!, $to:DateTime!) {
-      user(login: $userName) {
-        contributionsCollection(from: $from, to: $to) {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                contributionCount
-                date
-              }
+const CONTRIBUTIONS_QUERY = `
+  query($userName:String!, $from:DateTime!, $to:DateTime!) {
+    user(login: $userName) {
+      contributionsCollection(from: $from, to: $to) {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              contributionCount
+              date
             }
           }
         }
       }
     }
-  `;
-
-  try {
-    const response = await fetch(GITHUB_API, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        query,
-        variables: {
-          userName: GITHUB_USERNAME,
-          from: fromDate,
-          to: toDate,
-        },
-      }),
-      next: { revalidate: 86400 },
-    });
-
-    if (!response.ok) {
-      console.error(
-        `GitHub API error: ${response.status} ${response.statusText}`
-      );
-      return null;
-    }
-
-    const data = await response.json();
-
-    if (data.errors) {
-      console.error('GraphQL errors:', data.errors);
-      return null;
-    }
-
-    if (!data.data?.user?.contributionsCollection?.contributionCalendar) {
-      console.error('Unexpected API response structure:', data);
-      return null;
-    }
-
-    return data.data.user.contributionsCollection.contributionCalendar;
-  } catch (error) {
-    console.error('Failed to fetch GitHub contributions:', error);
-    return null;
   }
+`;
+
+function isContributionCalendar(
+  value: unknown
+): value is GitHubContributionCalendar {
+  if (typeof value !== 'object' || value === null) return false;
+  const { weeks } = value as { weeks?: unknown };
+  return (
+    Array.isArray(weeks) &&
+    weeks.every((week) => Array.isArray(week?.contributionDays))
+  );
 }
 
 /**
- * Transforms GitHub contribution data to react-activity-calendar format.
+ * Fetches one calendar year of contributions from GitHub's GraphQL API, cached
+ * for a day. GraphQL refuses anonymous requests, so `GITHUB_TOKEN` is required.
+ * Throws when the token is missing, GitHub refuses, or the answer has an
+ * unexpected shape.
  */
-export function transformContributionsData(
-  calendar: GitHubContributionCalendar | null
-): ActivityCalendarData[] {
-  if (!calendar?.weeks) return [];
+export async function fetchGitHubContributions(
+  year: number
+): Promise<GitHubContributionCalendar> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) throw new Error('GITHUB_TOKEN is not set');
 
-  const activities: Array<{ date: string; count: number; level: number }> = [];
+  const response = await fetch(GITHUB_API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      query: CONTRIBUTIONS_QUERY,
+      variables: {
+        userName: GITHUB_USERNAME,
+        from: `${year}-01-01T00:00:00Z`,
+        to: `${year}-12-31T23:59:59Z`,
+      },
+    }),
+    next: { revalidate: 86400 },
+  });
 
-  for (const week of calendar.weeks) {
-    for (const day of week.contributionDays) {
-      let level = 0;
-      if (day.contributionCount > 0) level = 1;
-      if (day.contributionCount >= 3) level = 2;
-      if (day.contributionCount >= 6) level = 3;
-      if (day.contributionCount >= 9) level = 4;
-
-      activities.push({
-        date: day.date,
-        count: day.contributionCount,
-        level,
-      });
-    }
+  if (!response.ok) {
+    throw new Error(`GitHub answered ${response.status}`);
   }
 
-  return activities;
+  const body: unknown = await response.json();
+  const errors = (body as { errors?: unknown })?.errors;
+  if (errors) {
+    // GraphQL reports failures with a 200 and an errors array.
+    throw new Error(`GitHub answered with errors: ${JSON.stringify(errors)}`);
+  }
+  const calendar = (
+    body as {
+      data?: {
+        user?: { contributionsCollection?: { contributionCalendar?: unknown } };
+      };
+    }
+  )?.data?.user?.contributionsCollection?.contributionCalendar;
+
+  if (!isContributionCalendar(calendar)) {
+    throw new Error('GitHub returned no contribution calendar');
+  }
+  return calendar;
+}
+
+/** Grades each day 0–4 by count, in the shape the contributions grid draws. */
+export function transformContributionsData(
+  calendar: GitHubContributionCalendar
+): ActivityCalendarData[] {
+  return calendar.weeks.flatMap((week) =>
+    week.contributionDays.map((day) => {
+      const count = day.contributionCount;
+      let level = 0;
+      if (count > 0) level = 1;
+      if (count >= 3) level = 2;
+      if (count >= 6) level = 3;
+      if (count >= 9) level = 4;
+      return { date: day.date, count, level };
+    })
+  );
 }

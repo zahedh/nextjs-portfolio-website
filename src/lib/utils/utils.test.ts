@@ -1,7 +1,6 @@
 import {
   capitalise,
   cn,
-  createEscapeHandler,
   getSkillsByIds,
   spellNumber,
   sumContributions,
@@ -85,49 +84,6 @@ describe('utils', () => {
 
       // Then
       expect(result).toBe('text-lead');
-    });
-  });
-
-  describe('createEscapeHandler', () => {
-    it('GIVEN callback function WHEN Escape key pressed THEN executes callback', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-      const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-
-      // When
-      handler(escapeEvent);
-
-      // Then
-      expect(mockCallback).toHaveBeenCalledTimes(1);
-    });
-
-    it('GIVEN callback function WHEN non-Escape key pressed THEN does not execute callback', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-      const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-
-      // When
-      handler(enterEvent);
-
-      // Then
-      expect(mockCallback).not.toHaveBeenCalled();
-    });
-
-    it('GIVEN callback function WHEN multiple different keys pressed THEN only executes on Escape', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-
-      // When
-      handler(new KeyboardEvent('keydown', { key: 'Tab' }));
-      handler(new KeyboardEvent('keydown', { key: 'Enter' }));
-      handler(new KeyboardEvent('keydown', { key: 'Escape' }));
-      handler(new KeyboardEvent('keydown', { key: 'Space' }));
-
-      // Then
-      expect(mockCallback).toHaveBeenCalledTimes(1);
     });
   });
 

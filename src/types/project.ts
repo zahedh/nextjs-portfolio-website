@@ -32,12 +32,10 @@ export interface Project {
   description: string[];
   skills: string[];
   url?: string;
-  urlLabel?: string;
   repoUrl?: string;
-  repoLabel?: string;
 }
 
 export interface ProjectLinkItem {
   url: string;
-  label?: string;
+  label: string;
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import { Section } from '@/components';
 import { aboutCredentialLines } from '@/data/about';
 import { en } from '@/language';
@@ -7,7 +5,7 @@ import Image from 'next/image';
 import { aboutPhoto } from '@/images';
 
 /** About: photograph with its stickers, narrative and credential rail, arranged per breakpoint by `.about-grid`. */
-export default function AboutSection() {
+export function AboutSection() {
   const [narrativeFirst, narrativeSecond] = en.aboutSection.narrativeParagraphs;
 
   return (

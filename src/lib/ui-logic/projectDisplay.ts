@@ -1,5 +1,6 @@
 import { Project, ProjectCategory, ProjectLinkItem } from '@/types/project';
 import { en } from '@/language';
+import { isOngoing } from '@/lib/date';
 
 /** Human-readable timeline from project dates. */
 export function formatProjectTimeline(project: Project): string {
@@ -8,7 +9,7 @@ export function formatProjectTimeline(project: Project): string {
 
 /** Whether the project is still ongoing (end date is “Present”). */
 export function isProjectActive(project: Project): boolean {
-  return project.endDate.trim().toLowerCase() === 'present';
+  return isOngoing(project.endDate);
 }
 
 /** The platform a project ships on, for the fallback media icon. AI is not a platform. */
@@ -42,31 +43,13 @@ export function getProjectCardSummary(project: Project): string {
   return project.summary?.trim() || getProjectExcerptLine(project);
 }
 
-/**
- * Lines to show under “Features” in the detail panel: same as `description` but skips the first
- * paragraph when it duplicates the overview (first line).
- */
-export function getProjectDetailFeatureLines(project: Project): string[] {
-  const overview = getProjectExcerptLine(project);
-  if (overview && project.description.length > 1) {
-    return project.description.slice(1);
-  }
-  if (overview && project.description.length === 1) {
-    return [];
-  }
-  return project.description;
-}
-
 /** Live-site and repo links for a project, trimmed and defaulted, in display order. */
 export function getProjectLinkItems(project: Project): ProjectLinkItem[] {
-  const candidates: [string | undefined, string | undefined, string][] = [
-    [project.url, project.urlLabel, en.projectDisplay.visitLive],
-    [project.repoUrl, project.repoLabel, en.projectDisplay.viewRepo],
+  const candidates: [string | undefined, string][] = [
+    [project.url, en.projectDisplay.visitLive],
+    [project.repoUrl, en.projectDisplay.viewRepo],
   ];
   return candidates
     .filter(([url]) => Boolean(url?.trim()))
-    .map(([url, label, fallback]) => ({
-      url: url!.trim(),
-      label: label?.trim() || fallback,
-    }));
+    .map(([url, label]) => ({ url: url!.trim(), label }));
 }

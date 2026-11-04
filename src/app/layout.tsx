@@ -8,8 +8,8 @@ import {
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { socialShareImageMeta } from '@/lib/meta';
-import { GlobalStoreProvider } from '@/providers/global-store-provider';
+import { en } from '@/language';
+import { SITE_URL, socialShareImageMeta } from '@/lib/meta';
 import '../styles/index.css';
 
 const inter = Inter({
@@ -45,25 +45,11 @@ const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.var
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {
-  title: 'Zahed Heidari',
-  description:
-    'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
-  authors: [{ name: 'Zahed Heidari' }],
-  keywords: [
-    'Zahed Heidari',
-    'Next.js Portfolio',
-    'Senior Software Engineer',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Web Development',
-    'Projects',
-    'Skills',
-    'Resume',
-    'Contact',
-    'AI',
-  ],
-  metadataBase: new URL('https://zahedheidari.co.uk'),
+  title: en.siteMetadata.name,
+  description: en.siteMetadata.description,
+  authors: [{ name: en.siteMetadata.name }],
+  keywords: en.siteMetadata.keywords,
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
   },
@@ -74,18 +60,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://zahedheidari.co.uk',
-    siteName: 'Zahed Heidari',
-    title: 'Zahed Heidari · Senior Software Engineer',
-    description:
-      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    url: SITE_URL,
+    siteName: en.siteMetadata.name,
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zahed Heidari · Senior Software Engineer',
-    description:
-      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   icons: {
@@ -97,26 +81,22 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Root layout for the app.
- * Wraps children with global store provider and font variables.
- */
+/** Root layout: the document shell, font variables, and pre-paint theme. */
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <GlobalStoreProvider>
-      <html
-        lang="en"
-        className={`${fontClasses} overflow-x-clip`}
-        suppressHydrationWarning
-      >
-        <head>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+    <html
+      lang="en"
+      className={`${fontClasses} overflow-x-clip`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
                 (function() {
                   // Dark unless the visitor chose light. Storage can throw in a
                   // private window, which still means dark.
@@ -125,23 +105,22 @@ export default function RootLayout({
                   if (theme !== 'light') document.documentElement.classList.add('dark');
                 })();
               `,
-            }}
-          />
-        </head>
-        <body
-          className="overflow-x-clip bg-neutral-100 antialiased dark:bg-neutral-900"
-          suppressHydrationWarning
-        >
-          {children}
-          {/* Only on Vercel: script URLs 404 on localhost and break the console */}
-          {process.env.VERCEL === '1' ? (
-            <>
-              <Analytics />
-              <SpeedInsights />
-            </>
-          ) : null}
-        </body>
-      </html>
-    </GlobalStoreProvider>
+          }}
+        />
+      </head>
+      <body
+        className="bg-page overflow-x-clip antialiased"
+        suppressHydrationWarning
+      >
+        {children}
+        {/* Only on Vercel: script URLs 404 on localhost and break the console */}
+        {process.env.VERCEL === '1' ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
+      </body>
+    </html>
   );
 }

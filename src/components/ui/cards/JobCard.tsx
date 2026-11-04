@@ -19,7 +19,7 @@ interface JobCardProps {
 }
 
 /** Compact experience row with expandable role details. */
-export default function JobCard({ job, onToggle }: JobCardProps) {
+export function JobCard({ job, onToggle }: JobCardProps) {
   const { isExpanded, contentHeight, contentRef, handleToggle } =
     useExpandableContent(0);
 
@@ -76,13 +76,9 @@ export default function JobCard({ job, onToggle }: JobCardProps) {
         <div ref={contentRef} className="experience-details-content">
           <FeatureList
             lines={job.description}
-            className="leading-relaxed text-neutral-600 dark:text-neutral-400"
+            className="text-fg-muted leading-relaxed"
           />
-          <TechStack
-            skills={jobSkills}
-            className="lg:hidden"
-            variant="labels"
-          />
+          <TechStack skills={jobSkills} className="lg:hidden" />
         </div>
       </div>
     </article>

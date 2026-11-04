@@ -10,7 +10,7 @@ import type {
 import styles from './Rocket.module.css';
 
 export interface RocketProps {
-  /** Resolved by the website. No Zustand, localStorage or document theme dependencies. */
+  /** Resolved by the website. No localStorage or document theme dependencies. */
   theme: RocketTheme;
   className?: string;
   /** Use the website's animation preference or a nearby pause control. */

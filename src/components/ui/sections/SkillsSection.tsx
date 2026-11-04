@@ -7,11 +7,11 @@ import { skillsData } from '@/data';
 import { groupSkills, skillGroupOrder } from '@/lib/ui-logic';
 
 /** Skills and tools as a ruled list, one row per practice area. */
-export default function SkillsSection() {
+export function SkillsSection() {
   const skillGroups = groupSkills(skillsData);
 
   return (
-    <Section anchor="skills" title={en.sectionHeaders.skillsCollage}>
+    <Section anchor="skills" title={en.sectionHeaders.skills}>
       <div className="skills-groups">
         {skillGroupOrder.map((group) => (
           <div className="skills-group" key={group}>

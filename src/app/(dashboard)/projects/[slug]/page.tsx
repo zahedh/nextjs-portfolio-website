@@ -8,7 +8,9 @@ import {
   ProjectPageStack,
   ProjectStepLink,
 } from '@/components/ui/cards/ProjectStep';
-import { ProjectTechStack } from '@/components/ui/cards/ProjectTechStack';
+import { TechStack } from '@/components/ui/cards/TechStack';
+import { skillsData } from '@/data/skills';
+import { getSkillsByIds } from '@/lib/utils';
 import { projects } from '@/data/projects';
 import { getFilteredProjectsForSection } from '@/lib/project';
 import { en } from '@/language';
@@ -36,7 +38,7 @@ export async function generateMetadata({
   const project = getProjectBySlug(slug, projects);
   if (!project) return {};
 
-  const title = `${project.title} | Zahed Heidari`;
+  const title = en.siteMetadata.pageTitle.replace('{{page}}', project.title);
   const description = project.summary ?? getProjectExcerptLine(project);
   const url = `/projects/${project.slug}`;
 
@@ -89,10 +91,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const project = getProjectBySlug(slug, projects);
   if (!project) notFound();
 
-  // Every line, not the panel's set: that one dropped the first line because the
-  // dialog printed it above as an overview. Here the summary does that job, and
-  // it is its own sentence, so dropping a line would simply lose it.
-  const featureLines = project.description;
   const projectLinks = getProjectLinkItems(project);
   const { previous: previousProject, next: nextProject } =
     getNeighbours(project);
@@ -147,12 +145,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             <div className="project-page-body">
               <div className="page-column">
-                {featureLines.length > 0 ? (
+                {project.description.length > 0 ? (
                   <section className="page-block">
                     <h2 className="page-heading">
                       {en.projectDisplay.sectionOverview}
                     </h2>
-                    <FeatureList lines={featureLines} />
+                    <FeatureList lines={project.description} />
                   </section>
                 ) : null}
 
@@ -165,7 +163,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <p className="project-page-label">
                   {en.projectDisplay.sectionBuiltWith}
                 </p>
-                <ProjectTechStack skillIds={project.skills} variant="labels" />
+                <TechStack
+                  skills={getSkillsByIds(project.skills, skillsData)}
+                />
               </div>
             </div>
 

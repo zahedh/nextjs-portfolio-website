@@ -9,7 +9,7 @@ import {
 } from '@/components';
 import { HeroFloatingOrbs, Rocket } from '@/components/ui/animations';
 import { en } from '@/language';
-import { useGlobalStore } from '@/providers/global-store-provider';
+import { useTheme } from '@/hooks/utilityHooks';
 import { Download } from 'lucide-react';
 
 // Snaps to Projects like every nav link; the section's entrance does the arriving.
@@ -25,15 +25,13 @@ function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
  * clearance so it is not carried on top of the section's own padding, which
  * would leave the composition sitting low in its band.
  */
-export default function HeroSection() {
+export function HeroSection() {
   // The rocket takes the resolved theme rather than reading it itself; it
-  // relights the running scene on a change instead of remounting. Before
-  // hydration settles the theme this is the store's light default, which is
-  // also what the canvas fades in from.
-  const isDark = useGlobalStore((state) => state.isDark);
+  // relights the running scene on a change instead of remounting.
+  const { isDark } = useTheme();
 
   return (
-    <Section anchor="home" showDivider={false} className="-mt-18">
+    <Section anchor="home" className="-mt-18">
       <div className="hero-composition">
         <HeroFloatingOrbs />
 
@@ -66,7 +64,7 @@ export default function HeroSection() {
               aria-label={en.heroSection.downloadCvAriaLabel}
               icon={<Download aria-hidden className="size-4" />}
               className="hero-action btn-outline"
-              {...{ download: true }}
+              target="_blank"
             >
               {en.heroSection.secondaryButton}
             </TertiaryButton>

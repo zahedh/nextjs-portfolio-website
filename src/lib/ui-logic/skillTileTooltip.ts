@@ -1,4 +1,4 @@
-/** Vertical gap (px) between tooltip bottom edge and tile top — matches translate calc. */
+/** Vertical gap (px) between the tooltip's bottom edge and the tile's top. */
 export const SKILL_TILE_TOOLTIP_GAP_PX = 4;
 
 /**

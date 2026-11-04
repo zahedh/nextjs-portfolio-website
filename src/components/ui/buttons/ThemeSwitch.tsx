@@ -15,7 +15,7 @@ const OPTIONS = [
  * theme. The current theme carries the accent fill, styled from the `dark`
  * class on the root so it is right on first paint.
  */
-export default function ThemeSwitch({ className }: { className?: string }) {
+export function ThemeSwitch({ className }: { className?: string }) {
   const { toggleTheme } = useTheme();
 
   return (

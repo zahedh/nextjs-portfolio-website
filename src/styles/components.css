@@ -1,5 +1,5 @@
 /* =========================
-   ðŸ“ LAYOUT COMPONENTS (experience, footer, contributions)
+   LAYOUT COMPONENTS (experience, footer, contributions)
    ========================= */
 @layer utilities {
   .experience-rail {
@@ -12,20 +12,20 @@
     @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] lg:pl-[128px];
   }
   .experience-group-company {
-    @apply text-title font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title text-fg-strong font-bold tracking-tight;
   }
   .experience-group-meta {
-    @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-caption text-fg-muted font-mono;
+  }
+  .experience-group-roles {
+    @apply flex flex-col gap-5;
   }
   /* The spine: one line down the year column, broken by a dot per role. It
      runs 8px past the company name's capitals, which sit 5px into the group,
      and 8px past the last card, so it overhangs both ends equally. */
-  .experience-group-roles {
-    @apply flex flex-col gap-5;
-  }
   .experience-group::before {
     content: '';
-    @apply absolute -top-[3px] -bottom-2 left-[7px] w-px bg-neutral-300 dark:bg-neutral-700;
+    @apply bg-line absolute -top-[3px] -bottom-2 left-[7px] w-px;
   }
   .experience-rail-row {
     @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch lg:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] lg:items-start lg:gap-x-8;
@@ -70,62 +70,62 @@
     }
   }
   .experience-stack-label {
-    @apply text-caption mb-2.5 font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-caption text-fg-muted mb-2.5 font-mono;
   }
   .experience-stack-pill {
-    @apply text-meta inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono text-neutral-700 dark:border-neutral-600 dark:text-neutral-300;
+    @apply text-meta text-fg-secondary inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono dark:border-neutral-600;
   }
   /* The overflow count in the same pill as the labels it stands for, set
      apart by colour alone rather than by a taller shape in another face. */
   .experience-stack-more {
-    @apply border-brand-500/50 text-brand-700 dark:border-brand-400/50 dark:text-brand-400;
+    @apply border-accent/50 text-fg-accent;
   }
   .experience-year {
-    @apply text-caption relative pt-5 pl-[28px] font-mono text-neutral-500 tabular-nums dark:text-neutral-400;
+    @apply text-caption text-fg-muted relative pt-5 pl-[28px] font-mono tabular-nums;
   }
   .experience-year-active {
-    @apply text-brand-700 text-title-sm dark:text-brand-400 font-medium;
+    @apply text-fg-accent text-title-sm font-medium;
   }
   .experience-duration {
-    @apply text-micro mt-0.5 block font-mono text-neutral-400 dark:text-neutral-500;
+    @apply text-micro text-fg-muted mt-0.5 block font-mono;
   }
   /* Declared after .experience-duration so the current role's size wins on source order. */
   .experience-duration-active {
     @apply text-caption mt-1;
   }
   .experience-dot {
-    @apply absolute top-[25px] left-[2px] size-[11px] rounded-full border-2 border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900;
+    @apply border-line bg-page absolute top-[25px] left-[2px] size-[11px] rounded-full border-2;
   }
   /* Declared after .experience-dot so the current role's colours win on source order. */
   .experience-dot-active {
-    @apply border-brand-500 bg-brand-500 ring-brand-500/25 dark:border-brand-400 dark:bg-brand-400 dark:ring-brand-400/25 top-[23px] left-0 size-[15px] ring-4;
+    @apply border-accent bg-accent ring-accent/25 top-[23px] left-0 size-[15px] ring-4;
   }
   .experience-card {
-    @apply p-surface flex min-w-0 flex-col gap-[7px] border-l-2 bg-neutral-50 dark:bg-neutral-800;
+    @apply p-surface bg-raised flex min-w-0 flex-col gap-[7px] border-l-2;
   }
   .experience-card-active {
-    @apply border-brand-500 dark:border-brand-400;
+    @apply border-accent;
   }
   .experience-card-past {
-    @apply border-neutral-300 dark:border-neutral-700;
+    @apply border-line;
   }
   .experience-card-heading {
     @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
   }
   .experience-card-title {
-    @apply text-title-sm font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply text-title-sm text-fg-strong font-bold tracking-tight;
   }
   .experience-current {
-    @apply text-brand-700 dark:text-brand-400 text-meta font-mono;
+    @apply text-fg-accent text-meta font-mono;
   }
   /* Below lg the card fills the rail, so the summary fills the card, as the
      details beneath it already do; a measure there would leave the card empty
      past the text. From lg the stack's column keeps the card near 62ch. */
   .experience-summary {
-    @apply text-body text-neutral-700 lg:max-w-[62ch] dark:text-neutral-300;
+    @apply text-body text-fg-secondary lg:max-w-[62ch];
   }
   .experience-expand-button {
-    @apply text-meta mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono text-neutral-700 transition-colors hover:border-neutral-700 hover:bg-neutral-900/12 focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:text-neutral-300 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
+    @apply text-meta text-fg-secondary hover:border-line-strong hover:bg-tint mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
   }
   .experience-details {
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
@@ -134,8 +134,6 @@
     @apply space-y-5 pt-3;
   }
 
-  /* The activity band: figure and pills on the left, the year on the right.
-     Both grids share one column template so a month label sits over its weeks. */
   /* The activity band: figure and pills on the left, the year on the right.
      Cell size is a fixed step per breakpoint, not a fraction of the viewport —
      the year is allowed to overflow and scroll rather than shrink to fit. */
@@ -164,7 +162,7 @@
     /* A row that wraps, not a column. The figure, its label and the year pills
        come to roughly 350px, so from the first width that can hold them they
        belong on one line; only 390 is narrow enough to genuinely need two.
-       The band never puts this group beside the calendar: within the 90rem
+       The band never puts this group beside the calendar: within the 80rem
        page that would take ~230px from a year that needs all of it. */
     @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
   }
@@ -172,7 +170,7 @@
     @apply flex flex-wrap items-baseline gap-x-3.5 gap-y-1.5;
   }
   .contrib-figure {
-    @apply font-display text-numeral lg:text-numeral-lg font-extrabold tracking-tight text-neutral-900 tabular-nums dark:text-neutral-100;
+    @apply font-display text-numeral lg:text-numeral-lg text-fg-strong font-extrabold tracking-tight tabular-nums;
   }
   /* A year still in flight. The figure keeps its own text — three tabular
      zeroes — and paints over it, so the block is exactly the size the number
@@ -185,10 +183,10 @@
     @apply animate-pulse motion-reduce:animate-none;
   }
   .contrib-figure.is-pending {
-    @apply rounded-lg bg-neutral-100 text-transparent dark:bg-neutral-900;
+    @apply bg-page rounded-lg text-transparent;
   }
   .contrib-label {
-    @apply text-meta lg:text-body-sm font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-meta lg:text-body-sm text-fg-secondary font-mono;
   }
   .contrib-years {
     @apply flex gap-3;
@@ -206,8 +204,7 @@
     @apply flex w-full min-w-0 flex-col gap-2;
   }
   /* The one place the page is allowed to scroll sideways. Focusable so the
-     overflow is reachable by keyboard, and the scrollbar is left visible —
-     hiding it is what made the old calendar's missing months unreachable. */
+     overflow is reachable by keyboard. */
   .contrib-scroll {
     /* A day is a fixed size, stepped twice: 16px, 18px from lg, and 19px from
        the 80rem page cap. It used to be a track between a 16px floor and a
@@ -240,7 +237,7 @@
   /* Only where the pointer can hover, so a mouse; touch swipes the year. The
      hidden attribute, set while a side has nothing behind it, still wins. */
   .contrib-scroll-button {
-    @apply focus-visible:ring-brand-600 absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border border-neutral-300 bg-neutral-50 text-neutral-700 shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700;
+    @apply focus-visible:ring-brand-600 border-line bg-raised text-fg-secondary absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-neutral-700;
 
     /* Centred on the days, not on the days and the month row above them. */
     bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
@@ -284,7 +281,7 @@
     gap: var(--contrib-gap);
   }
   .contrib-months {
-    @apply text-micro lg:text-caption font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-micro lg:text-caption text-fg-secondary font-mono;
   }
   .contrib-grid {
     grid-template-rows: repeat(7, auto);
@@ -294,7 +291,7 @@
     @apply block aspect-square rounded-full;
   }
   .contrib-legend {
-    @apply text-micro lg:text-caption flex items-center gap-1.5 pt-1 font-mono text-neutral-500 lg:gap-2 dark:text-neutral-400;
+    @apply text-micro lg:text-caption text-fg-secondary flex items-center gap-1.5 pt-1 font-mono lg:gap-2;
   }
   .contrib-legend-dot {
     @apply block h-2 w-2 rounded-full lg:h-2.5 lg:w-2.5;
@@ -302,7 +299,7 @@
   /* The dark ramp runs the other way round, so each level is named per theme
      rather than reused: more activity must read brighter in both. */
   .contrib-cell-0 {
-    @apply bg-neutral-100 dark:bg-neutral-900;
+    @apply bg-page;
   }
   .contrib-cell-1 {
     @apply bg-brand-300 dark:bg-brand-800;
@@ -311,18 +308,21 @@
     @apply bg-brand-400 dark:bg-brand-600;
   }
   .contrib-cell-3 {
-    @apply bg-brand-500 dark:bg-brand-400;
+    @apply bg-accent;
   }
   .contrib-cell-4 {
     @apply bg-brand-600 dark:bg-brand-100;
   }
 
   /* =========================
-     ðŸ”— NAVIGATION
+     NAVIGATION
      ========================= */
   /* The text mark and the burger share the accent, so the bar is bookended in
      one colour. Its left edge is the glyph's, so it sits on the content edge;
-     min-h-11 keeps a full touch target without moving that edge. */
+     min-h-11 keeps a full touch target without moving that edge.
+     Known exception: in light, brand-600 here and on the burger is 2.8:1
+     against the bar, under AA. Kept by choice for the brand colour; brand-800
+     is the passing step if that changes. */
   .nav-mark {
     @apply font-display text-title-sm text-brand-600 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
   }
@@ -341,7 +341,7 @@
     @apply flex items-center gap-[22px];
   }
   .nav-link {
-    @apply text-caption relative inline-flex min-h-11 items-center font-mono text-neutral-600 transition-colors duration-150 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100;
+    @apply text-caption hover:text-fg-strong text-fg-muted relative inline-flex min-h-11 items-center font-mono transition-colors duration-150;
 
     &::after {
       content: '';
@@ -353,20 +353,21 @@
       @apply bg-brand-100;
     }
     &[aria-current='location'] {
-      @apply text-neutral-900 dark:text-neutral-100;
+      @apply text-fg-strong;
     }
-    &[aria-current='location']::after {
+    &[aria-current='location']::after,
+    &:hover::after {
       @apply scale-x-100;
     }
   }
   .theme-switch {
-    @apply focus-visible:ring-brand-600 flex cursor-pointer items-center gap-0.5 rounded-full border border-neutral-300 p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:border-neutral-700 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 border-line flex cursor-pointer items-center gap-0.5 rounded-full border p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
   }
   .theme-switch-option {
-    @apply flex size-6 items-center justify-center rounded-full text-neutral-600 transition-colors duration-150 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-100;
+    @apply group-hover:text-fg-strong text-fg-muted flex size-6 items-center justify-center rounded-full transition-colors duration-150;
 
-    /* Keyed off the root class rather than store state, which only settles
-       once the store has read the stored theme after hydration. */
+    /* Keyed off the root class, which the pre-paint script sets, so the
+       current theme is filled from first paint rather than after hydration. */
     :root:not(.dark) &[data-theme-option='light'] {
       @apply bg-brand-500 text-neutral-900;
     }
@@ -377,7 +378,7 @@
   /* The close control takes the burger's 44px box, so it sits where the
      burger was. */
   .nav-close {
-    @apply focus-visible:ring-brand-600 flex size-11 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800;
+    @apply focus-visible:ring-brand-600 border-line text-fg-strong flex size-11 items-center justify-center rounded-full border transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-neutral-800;
   }
 
   /* Phone menu: a modal <dialog> over the whole viewport on the page ground.
@@ -385,7 +386,7 @@
      theme row. Fades in and out; the display and overlay transitions keep
      the closing fade from being cut off. */
   .mobile-sheet {
-    @apply fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain bg-neutral-100 p-0 text-neutral-900 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden dark:bg-neutral-900 dark:text-neutral-100 starting:open:opacity-0;
+    @apply bg-page text-fg-strong fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain p-0 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden starting:open:opacity-0;
 
     &::backdrop {
       @apply bg-transparent;
@@ -411,11 +412,11 @@
     }
   }
   .mobile-sheet-theme {
-    @apply text-caption mt-[18px] flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-neutral-600 dark:border-neutral-800 dark:text-neutral-400;
+    @apply text-caption border-line text-fg-muted mt-[18px] flex items-center justify-between border-t pt-5 font-mono;
   }
 
   /* =========================
-     ðŸƒ CARD UTILITIES
+     CARD UTILITIES
      ========================= */
   /* Holds the grid, the overflow grid and the control on one rhythm, so the
      cards revealed by "See all" do not inherit the wider .section-inner gap. */
@@ -434,7 +435,7 @@
     @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
   }
   .project-card-feature {
-    @apply focus-visible:ring-brand-600 relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg bg-neutral-50 text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 bg-raised relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:focus-visible:ring-offset-neutral-900;
   }
   /* The hover border is its own layer above the card's content: drawn on the
      card itself, the feature card's cover sat over it and the border stopped
@@ -483,7 +484,6 @@
       var(--cover-end) 100%
     );
   }
-  /* Declared after .project-card-cover so both custom properties win on source order. */
   /* Reserves the space a two-line title and two-line summary would need, so the
      card is the same height whichever project is featured and the grid cannot
      move when the filter changes. Reserved on the body rather than on the title
@@ -494,23 +494,23 @@
     @apply flex min-h-[177px] flex-col gap-2 p-5;
   }
   .project-card-feature-meta {
-    @apply text-brand-700 dark:text-brand-300 text-meta font-mono;
+    @apply text-fg-accent text-meta font-mono;
   }
   .project-card-feature-title {
-    @apply font-heading text-heading font-bold tracking-[-0.02em] text-neutral-900 dark:text-neutral-100;
+    @apply font-heading text-heading text-fg-strong font-bold tracking-[-0.02em];
   }
   .project-card-feature-excerpt {
-    @apply text-body-sm line-clamp-2 leading-[1.55] text-neutral-700 dark:text-neutral-300;
+    @apply text-body-sm text-fg-secondary line-clamp-2 leading-[1.55];
   }
   .project-card-compact {
-    @apply focus-visible:ring-brand-600 relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg bg-neutral-50 px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:bg-neutral-800 dark:focus-visible:ring-offset-neutral-900;
+    @apply focus-visible:ring-brand-600 bg-raised relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:focus-visible:ring-offset-neutral-900;
   }
   /* Out of flow, so a card carrying it is no taller than one that does not —
      in the flow it added a line to whichever row held it and the section moved
      when the filter changed. The summary on those cards is inset by
      .project-card-compact-excerpt-inset instead, so the two cannot collide. */
   .project-card-compact-access {
-    @apply text-meta absolute right-[15px] bottom-[13px] font-mono text-neutral-500 xl:right-5 xl:bottom-4 dark:text-neutral-400;
+    @apply text-meta text-fg-muted absolute right-[15px] bottom-[13px] font-mono xl:right-5 xl:bottom-4;
   }
   .project-card-compact-excerpt-inset {
     @apply pr-24;
@@ -519,15 +519,15 @@
     @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
   }
   .project-card-compact-title {
-    @apply font-heading text-title-sm truncate font-bold text-neutral-900 dark:text-neutral-100;
+    @apply font-heading text-title-sm text-fg-strong truncate font-bold;
   }
   /* A compact card is roughly a third of the content width now rather than a
      300px rail, so it has room for two lines and no longer needs truncating. */
   .project-card-compact-excerpt {
-    @apply text-body-sm line-clamp-2 text-neutral-600 dark:text-neutral-300;
+    @apply text-body-sm text-fg-secondary line-clamp-2;
   }
   .projects-empty {
-    @apply text-body-sm py-8 text-center text-neutral-500 dark:text-neutral-400;
+    @apply text-body-sm text-fg-muted py-8 text-center;
   }
   /* Carries the measured height of the grid inside it, so the section can open
      to a real height rather than a guessed one. It holds no transition of its
@@ -545,8 +545,6 @@
   .projects-grid-reveal-active {
     @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
-  /* The row is always present, so the page below the section does not jump by
-     the button's height when a filter has nothing left to expand. */
   /* A filter press settles the new set in card by card, on the same settle
      and keyframes as a project page arriving from previous or next. Only the
      cards on show at the press take part; rows the see-all control adds later
@@ -571,44 +569,18 @@
       animation: project-settle-fade 150ms linear both;
     }
   }
+  /* The row is always present, so the page below the section does not jump by
+     the button's height when a filter has nothing left to expand. */
   .projects-see-all-row {
     @apply mt-3.5 flex min-h-12 w-full justify-center;
   }
   .projects-see-all {
-    @apply focus-visible:ring-brand-600 text-body-sm inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono text-neutral-800 transition-colors hover:border-neutral-700 hover:bg-neutral-900/12 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:text-neutral-100 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14 dark:focus-visible:ring-offset-neutral-900;
-  }
-  .meta-row-subtle {
-    @apply text-meta tracking-wide text-neutral-500 dark:text-neutral-400;
-  }
-  .card-title {
-    @apply text-title mb-2 font-semibold tracking-tight text-neutral-900 dark:text-neutral-100;
-  }
-  .card-title-link {
-    @apply text-brand-700 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
-  }
-  .card-fade-gradient {
-    @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
+    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint text-fg-strong inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:focus-visible:ring-offset-neutral-900;
   }
   .link-accent {
-    @apply text-brand-700 decoration-brand-500 hover:text-brand-800 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
+    @apply text-fg-accent decoration-brand-500 hover:text-brand-900 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
   }
 
-  /** JobCard date range pill — base + active/current vs inactive/past */
-  .job-date-pill {
-    @apply text-body-sm inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 font-semibold;
-  }
-  .job-date-pill-inactive {
-    @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
-  }
-  .job-date-pill-active {
-    @apply border-brand-500/55 bg-brand-400/25 dark:border-brand-400/60 dark:bg-brand-500/35 text-neutral-900 shadow-sm dark:text-neutral-50;
-  }
-
-  /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
-   * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
-   * 2. Primary: PrimaryButton; optional btn-primary-sm for compact actions
-   * 3. Tertiary: TertiaryButton
-   */
   /* Dark's brand ramp runs the other way — brand-100 is its brightest amber and
      brand-500 its dimmest — so the light theme's fill left every primary button
      at 3.42:1 in dark, the site's two calls to action included. Dark takes the
@@ -616,13 +588,6 @@
      locally; this is that fix at the source rather than a third copy of it. */
   .btn-primary {
     @apply font-heading bg-brand-500 hover:bg-brand-600 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
-  }
-  .btn-callout {
-    @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
-  }
-  /** Compact primary - smaller type than default pills; roomier padding than initial sm token */
-  .btn-primary-sm {
-    @apply text-body-sm px-4 py-2.5 font-bold;
   }
   /* Emphasis, not rhythm: a band is a step deeper than the page and marks a
      section with no heading of its own, the activity band and the footer.
@@ -647,7 +612,7 @@
     @apply font-display text-heading lg:text-heading-lg 2xl:text-display font-bold text-balance;
   }
   .footer-copy {
-    @apply text-lead mt-8 max-w-[44ch] text-neutral-700 dark:text-neutral-300;
+    @apply text-lead text-fg-secondary mt-8 max-w-[44ch];
   }
   .footer-actions {
     @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
@@ -658,7 +623,7 @@
   }
   /* Floats above its button so confirming a copy never reflows the row. */
   .copy-confirm {
-    @apply text-meta pointer-events-none absolute right-0 bottom-full mb-2 rounded-full bg-neutral-900 px-2.5 py-1 font-mono whitespace-nowrap text-neutral-100 empty:hidden dark:bg-neutral-100 dark:text-neutral-900;
+    @apply text-meta bg-inverse text-page pointer-events-none absolute right-0 bottom-full mb-2 rounded-full px-2.5 py-1 font-mono whitespace-nowrap empty:hidden;
   }
   .footer-action {
     /* Same type as the hero's actions: mono is reserved for the weakest
@@ -679,46 +644,20 @@
      halves of a pair leaves neither leading. Named for the role, not the section,
      because the hero and the footer draw the same pairing. */
   .btn-outline {
-    @apply border-neutral-300 bg-transparent text-neutral-900 shadow-none hover:border-neutral-700 hover:bg-neutral-900/12 dark:border-neutral-700 dark:bg-transparent dark:text-neutral-200 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14;
+    @apply border-line text-fg hover:border-line-strong hover:bg-tint bg-transparent shadow-none dark:bg-transparent;
   }
   .footer-social-links {
     @apply flex flex-wrap items-center gap-x-[18px];
   }
   .footer-social-link {
-    @apply text-body-sm py-2.5 font-mono text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-100;
+    @apply text-body-sm hover:text-fg-strong hover:decoration-accent text-fg-secondary decoration-line py-2.5 font-mono underline underline-offset-4 transition-colors;
   }
   .footer-meta {
-    @apply text-meta flex w-full items-center justify-between border-t border-neutral-300 pt-6 font-mono text-neutral-500 dark:border-neutral-800 dark:text-neutral-500;
-  }
-  .btn-callout-ping-anchor {
-    @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
-  }
-  .btn-callout-ping-ring {
-    @apply bg-brand-400 dark:bg-brand-300 absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none;
-  }
-  .btn-callout-ping-core {
-    @apply bg-brand-500 relative inline-flex h-3 w-3 rounded-full ring-2 ring-white dark:ring-neutral-900;
-  }
-  .btn-card-expand,
-  .card-expand-btn {
-    @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 text-body mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
-  }
-  .brand-pill {
-    @apply text-meta inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold tracking-wide whitespace-nowrap;
-  }
-  .brand-pill-active {
-    @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-neutral-900 shadow-sm dark:text-neutral-200;
-  }
-  .brand-pill-inactive {
-    @apply border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100;
-  }
-  .brand-icon-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
+    @apply text-meta border-line text-fg-secondary flex w-full items-center justify-between border-t pt-6 font-mono;
   }
   /* ---- A page of its own: a project, the privacy policy ---- */
   /* Blocks down the page carry the same rhythm a section uses internally. */
-  /* The page measure, like every block on the site, so a project page ends
-     where the hero and the footer end. The prose keeps its own 72ch measure. */
+  /* The prose inside keeps its own 72ch measure. */
   .page-stack {
     @apply gap-block lg:gap-block-lg flex w-full flex-col;
   }
@@ -726,9 +665,9 @@
     @apply flex w-full flex-col items-start gap-4 lg:gap-5;
   }
   /* One step under the hero and one above a section heading: the hero runs
-     display through display-xl, a section heading heading through display. */
+     display through display-2xl, a section heading heading through display. */
   .page-title {
-    @apply font-display text-heading-lg lg:text-display font-extrabold tracking-[-0.03em] text-balance text-neutral-900 dark:text-neutral-100;
+    @apply font-display text-heading-lg lg:text-display text-fg-strong font-extrabold tracking-[-0.03em] text-balance;
   }
   /* The receiving half of the morph from a project card. Only one element on
      a page may carry a name, and a project page has exactly one heading; the
@@ -739,21 +678,21 @@
   }
   /* Lead work, not caption work: it is the first sentence a reader gets. */
   .page-summary {
-    @apply text-lead lg:text-title-sm max-w-[54ch] leading-relaxed text-neutral-700 dark:text-neutral-300;
+    @apply text-lead lg:text-title-sm text-fg-secondary max-w-[54ch] leading-relaxed;
   }
   /* The facts as one mono rail. A ruled list belonged to the dialog, where it
      had an aside to sit in; at page width it reads as a stray box. */
   .page-meta {
-    @apply text-meta flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide text-neutral-500 dark:text-neutral-400;
+    @apply text-meta text-fg-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide;
   }
-  /* A heading on the heading face at the page's own step. Not the accent: the
+  /* A heading on the display face at the page's own step. Not the accent: the
      refresh reserves brand for emphasis, and a section label is not emphasis. */
   .page-heading {
-    @apply font-display text-title lg:text-heading font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply font-display text-title lg:text-heading text-fg-strong font-bold tracking-tight;
   }
   /* The one fact that is a state rather than a label takes the accent. */
   .project-page-meta-active {
-    @apply text-brand-700 dark:text-brand-300;
+    @apply text-fg-accent;
   }
   /* The hero's pairing at the footer's size: the first link is the page's
      primary call and the rest sit beside it. */
@@ -768,10 +707,8 @@
   .project-page-onward-link {
     @apply flex min-w-0 flex-col gap-1;
   }
-  /* .card-title's job on a page that has no cards, and without the bottom
-     margin a card needs under its own title. */
   .project-page-onward-title {
-    @apply font-display text-title-sm lg:text-title group-hover:text-brand-700 dark:group-hover:text-brand-100 font-bold tracking-tight text-neutral-900 transition-colors dark:text-neutral-100;
+    @apply font-display text-title-sm lg:text-title group-hover:text-brand-700 dark:group-hover:text-brand-100 text-fg-strong font-bold tracking-tight transition-colors;
   }
   /* Stands where a cover will go. Every image the site holds today is a client
      logo or an avatar, and centring one in a page-wide plate reads as a picture
@@ -783,8 +720,8 @@
   .project-page-body {
     @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11 2xl:grid-cols-[minmax(0,1fr)_320px] 2xl:gap-14;
   }
-  /* Belt to the cap's braces: even inside the narrower page the prose keeps a
-     measure of its own, so a long line never runs the full column. */
+  /* The prose keeps a measure of its own, so a long line never runs the full
+     column. */
   .page-column {
     @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
   }
@@ -794,7 +731,7 @@
   }
   /* Reading text on a page of its own: the project overview's size and ink. */
   .page-prose {
-    @apply text-body text-neutral-700 dark:text-neutral-300;
+    @apply text-body text-fg-secondary;
   }
   .page-list {
     @apply list-disc space-y-3 pl-5 marker:text-neutral-400 dark:marker:text-neutral-600;
@@ -806,12 +743,11 @@
      mono at caption size, neutral, no case change. The uppercase tracked label
      came from the dialog and appears nowhere else on the site. */
   .project-page-label {
-    @apply text-caption font-mono text-neutral-500 dark:text-neutral-400;
+    @apply text-caption text-fg-muted font-mono;
   }
   .project-page-onward {
     @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
   }
-  /* Return to the projects section from a project's own page. */
   /*
    * Arriving from the previous or next link, the page settles in piece by
    * piece rather than swapping as one picture: the head first, then the
@@ -861,11 +797,12 @@
       opacity: 0;
     }
   }
+  /* Return to the projects section from a project's own page. */
   .project-back-link {
-    @apply text-body-sm inline-flex w-fit items-center gap-2 text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100;
+    @apply text-body-sm text-fg-muted hover:text-fg-strong inline-flex w-fit items-center gap-2 transition-colors;
   }
   .skill-tile-tooltip {
-    @apply text-caption pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
+    @apply text-caption bg-inverse pointer-events-none fixed z-[9999] rounded-md px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:text-neutral-900;
   }
   /* From md the groups share one grid, so the label column takes the longest
      label's width and every group's tiles start on the same edge. */
@@ -877,34 +814,15 @@
   }
   /* Separators only between groups: no rule under the heading, none after the last. */
   .skills-group + .skills-group {
-    @apply border-t border-neutral-300 dark:border-neutral-700;
+    @apply border-line border-t;
   }
   /* From md the label's first line centres on the first tile row (48px, 56px
      from lg) rather than floating mid-group. */
   .skills-group-label {
-    @apply text-body-sm font-mono text-neutral-500 md:pt-[calc((3rem-1lh)/2)] lg:pt-[calc((3.5rem-1lh)/2)] dark:text-neutral-400;
+    @apply text-body-sm text-fg-muted font-mono md:pt-[calc((3rem-1lh)/2)] lg:pt-[calc((3.5rem-1lh)/2)];
   }
   .skills-group-tiles {
     @apply flex min-w-0 flex-wrap gap-2 sm:gap-3;
-  }
-  .more-pill {
-    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 text-caption inline-flex h-10 items-center rounded-full border px-3 font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
-  }
-  .body-text-muted {
-    @apply text-body-sm text-neutral-600 dark:text-neutral-400;
-  }
-  /* Meta rows on a project. A flat ruled list, not a card nested in a card. */
-  .meta-list {
-    @apply divide-y divide-neutral-200/70 rounded-lg border border-neutral-200/80 dark:divide-neutral-700/70 dark:border-neutral-700/60;
-  }
-  .meta-list-row {
-    @apply flex flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4;
-  }
-  .meta-list-label {
-    @apply text-micro font-semibold tracking-widest text-neutral-500 uppercase dark:text-neutral-400;
-  }
-  .meta-list-value {
-    @apply text-body-sm font-medium text-neutral-800 sm:text-right dark:text-neutral-200;
   }
   /* About. Below md the photograph stacks above the copy, as on a phone:
      beside the copy at sm it could be no wider than 200, since the copy
@@ -983,7 +901,7 @@
   }
   /* 52ch from lg, which keeps the copy about as tall as the photograph. */
   .about-narrative {
-    @apply text-lead max-w-[56ch] space-y-4 text-neutral-700 lg:max-w-[52ch] dark:text-neutral-300;
+    @apply text-lead text-fg-secondary max-w-[56ch] space-y-4 lg:max-w-[52ch];
 
     grid-area: narrative;
   }
@@ -996,7 +914,7 @@
   /* Leads the narrative into the list, so the six lines read as a set rather
      than a third paragraph. */
   .about-credentials-heading {
-    @apply font-display text-title-sm mb-4 font-bold tracking-tight text-neutral-900 dark:text-neutral-100;
+    @apply font-display text-title-sm text-fg-strong mb-4 font-bold tracking-tight;
   }
   /* One column until lg, where the copy is wide enough for two; six lines
      stacked made a tall, narrow strip that ran the copy past the photograph. */
@@ -1004,7 +922,7 @@
     @apply grid grid-cols-1 gap-x-6 gap-y-[11px] lg:grid-cols-2;
   }
   .about-credential {
-    @apply border-brand-500 dark:border-brand-400 text-body border-l-2 py-[3px] pl-3.5 text-neutral-800 dark:text-neutral-200;
+    @apply border-accent text-body text-fg border-l-2 py-[3px] pl-3.5;
   }
   .hero-composition {
     /* The copy column is as wide as its copy and the grid packs to the start,
@@ -1065,14 +983,14 @@
     @apply flex flex-col gap-1;
   }
   /* Between the mono rail and the headline in every respect: the display face
-     so it belongs to the headline, but a third of its size and a normal weight
-     so it introduces the page rather than competing with the claim. */
+     so it belongs to the headline, but far smaller so it introduces the page
+     rather than competing with the claim. */
   .hero-name {
-    @apply font-display text-title-sm xl:text-title font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+    @apply font-display text-title-sm xl:text-title text-fg font-semibold tracking-tight;
   }
   .hero-eyebrow {
     /* Pretty, so if the line wraps it does not leave "Beck" on its own. */
-    @apply text-brand-700 dark:text-brand-300 text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
+    @apply text-fg-accent text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
   }
   .hero-headline {
     /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
@@ -1095,7 +1013,7 @@
        break inside a pill. */
     @apply mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
   }
-  /* Drawn at 12px/22px padding: a hero call to action, not the compact filter
+  /* Drawn at 10px/22px padding: a hero call to action, not the compact filter
      pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
      matches the footer's, which is what takes these over the 48px touch target
      the drawn padding alone missed by two pixels. */
@@ -1118,24 +1036,13 @@
     grid-area: visual;
   }
 
-  /* Stat card (metric tiles) */
-  .stat-card {
-    @apply border-brand-300 p-surface relative rounded-3xl border-2 bg-neutral-50/90 shadow-lg backdrop-blur-sm dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
-  }
-  .stat-card-value {
-    @apply font-heading text-brand-600 dark:text-brand-400 text-numeral lg:text-numeral-lg font-bold;
-  }
-  .stat-card-label {
-    @apply text-meta font-semibold text-neutral-700 dark:text-neutral-300;
-  }
-
   /* Category is carried by the glyph and the label, so colour here is brand and
      neutral only. State is a change of fill, never opacity: dimming the pill
      dimmed its label and glyph too, and halved the hover shift into invisibility.
      Declared after .btn-primary so the resting and hover backgrounds win on
      source order rather than specificity. */
   .filter-pill {
-    @apply gap-1.5 border-neutral-400 bg-transparent text-neutral-800 shadow-none hover:border-neutral-700 hover:bg-neutral-900/12 dark:border-neutral-600 dark:text-neutral-200 dark:hover:border-neutral-300 dark:hover:bg-neutral-100/14;
+    @apply hover:border-line-strong hover:bg-tint text-fg gap-1.5 border-neutral-400 bg-transparent shadow-none dark:border-neutral-600;
   }
   .filter-pill-mark {
     @apply shrink-0;
@@ -1159,21 +1066,21 @@
     @apply pointer-events-none inline-flex items-center gap-1.5;
   }
   .category-mark {
-    @apply h-3.5 w-3.5 text-neutral-500 dark:text-neutral-400;
+    @apply text-fg-muted h-3.5 w-3.5;
   }
   .category-marks-on-cover {
     @apply absolute top-3 right-3;
   }
   .category-mark-on-cover {
-    @apply h-4 w-4 text-neutral-700/70 dark:text-neutral-300/70;
+    @apply text-fg-secondary/70 h-4 w-4;
   }
 
   /* Contributions calendar tooltip */
   .contributions-tooltip-box {
-    @apply rounded-lg bg-neutral-900 px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:bg-neutral-100 dark:text-neutral-900;
+    @apply bg-inverse rounded-lg px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:text-neutral-900;
   }
   .contributions-tooltip-arrow {
-    @apply absolute -bottom-1 left-1/2 z-[-1] h-2 w-2 -translate-x-1/2 rotate-45 bg-neutral-900 dark:bg-neutral-100;
+    @apply bg-inverse absolute -bottom-1 left-1/2 z-[-1] h-2 w-2 -translate-x-1/2 rotate-45;
   }
 
   /* Every button and pill gives a little under the press and springs back, so

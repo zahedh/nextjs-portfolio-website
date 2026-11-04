@@ -22,7 +22,6 @@ const skillGroupByCategory: Record<SkillCategory, SkillGroup> = {
   ai: 'aiTooling',
   'dev-tools': 'toolingAndPractice',
   collaboration: 'toolingAndPractice',
-  productivity: 'toolingAndPractice',
   os: 'toolingAndPractice',
   methodologies: 'toolingAndPractice',
 };

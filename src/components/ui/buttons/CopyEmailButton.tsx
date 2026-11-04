@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import { Check, Mail } from 'lucide-react';
 import { en } from '@/language';
-import PrimaryButton from './PrimaryButton';
+import { PrimaryButton } from './PrimaryButton';
 
 const CONFIRM_MS = 2000;
 
 /** The contact address as a button that copies it, since a mailto opens
     nothing for visitors without a mail app. The confirmation floats above,
     so the parent must be positioned, and the row never reflows. */
-export default function CopyEmailButton({ className }: { className?: string }) {
+export function CopyEmailButton({ className }: { className?: string }) {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {

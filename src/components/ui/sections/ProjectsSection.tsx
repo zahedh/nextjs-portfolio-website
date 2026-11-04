@@ -34,7 +34,7 @@ const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
     rectangle at every width without counting columns at runtime. */
 const INITIAL_COMPACT_COUNT = 4;
 
-/** Matches .projects-grid-reveal's duration, plus a frame to land on. */
+/** Matches .projects-grid-reveal's duration, plus a margin. */
 const REVEAL_MS = 560;
 
 interface ProjectGridProps {
@@ -207,7 +207,7 @@ function isProjectFilter(value: string | null): value is ProjectFilter {
 }
 
 /** Filterable projects section. Each card links to the project's own page. */
-export default function ProjectsSection() {
+export function ProjectsSection() {
   const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
   const [showAll, setShowAll] = useState(false);
   // A filter press or a return from a project page settles the cards in; the

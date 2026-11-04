@@ -1,1 +1,1 @@
-export { default as BreakpointIndicator } from './BreakpointIndicator';
+export { BreakpointIndicator } from './BreakpointIndicator';

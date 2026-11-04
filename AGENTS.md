@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file provides guidance to Codex and other agents when working with code in this repository.
+This file provides guidance to Codex and other agents when working with code in this repository. `CLAUDE.md` carries the same rules for Claude Code; change both together.
 
 ## Project Overview
 
@@ -16,17 +16,20 @@ npm run build         # Production build
 npm run validate      # Full checkpoint: type-check + lint + prettier-check + test
 ```
 
-`npm run validate` is the per-task checkpoint, not `git diff --check`. `GITHUB_TOKEN` is optional; without it the contributions API is rate-limited.
+`npm run validate` is the per-task checkpoint, not `git diff --check`. `GITHUB_TOKEN` is required for the Contributions section; without it the section shows its error state.
 
 ## Role division
 
-Full rule and rationale live in `.context/tool-guidance/agent-roles.md` — read that file; this section is only the repo-local mechanics.
+`.context/tool-guidance/agent-roles.md` owns who plans, executes and reviews; read it rather than relying on a summary here. Claude executes by default. Codex executes only when the owner opts in for a task, and then these mechanics apply:
 
-- Claude Code plans, researches, and reviews. Codex executes numbered tasks.
-- Execution tasks are briefed under `docs/briefs/`; each brief names its source task, files, constraints, and verification commands. The brief and ledger shapes, and the handoff procedure, come from the `claude-codex-handoff` skill.
-- `docs/README.md` is the documentation standard pointer — read it before creating any document under `docs/`. `docs/` is gitignored at this tier, so archive rather than delete and date brief filenames.
+- Codex works from a brief under `docs/briefs/` naming its source task, files, constraints and verification commands. The brief and ledger shapes, and the handoff procedure, come from the `claude-codex-handoff` skill.
 - After each dispatch, append to `docs/progress.md`: status, files changed, and the validation result.
-- British English throughout. Never stage, commit, push, or run destructive git commands.
+
+`docs/README.md` is the documentation standard pointer; read it before creating any document under `docs/`. `docs/` is gitignored at the Showcase tier, so archive rather than delete, and date brief filenames.
+
+## Git
+
+Git authority is declared in `.context/projects/portfolio-site.md`: an agent may branch, commit, push and open the pull request. It never merges, never commits to `master`, and never rewrites history. Branches and pull requests follow `.context/engineering/tickets.md` and `.context/engineering/pr-template.md`; commit messages follow `.context/engineering/commits.md`.
 
 ## Small fixes
 
@@ -34,28 +37,13 @@ The small-fix workflow override in `.context/AGENTS.md` applies to scoped bug fi
 
 ## Architecture
 
-### Structure
-
-- `src/app/(dashboard)/` — Route group containing the home page (`/`) and `/privacy`
-- `src/app/api/contributions/` — Route handler for the GitHub contributions calendar
-- `src/components/ui/sections/` — Top-level page sections: Hero, Skills, Projects, About, Experience, Contributions
-- `src/data/` — Site content as typed TypeScript: `projects.ts`, `skills.ts`, `experience.ts`, `about.ts`
-- `src/language/english.ts` — All user-facing copy (translation-ready)
-- `src/stores/global-store.ts` — Zustand store: `isDark`
-- `src/providers/` — Zustand + React context wrapper used in the root layout
-- `src/styles/` — `theme.css` (colour CSS variables), `utilities.css`, `components.css`, imported via `index.css`
-- `src/lib/utils/utils.ts` — `cn()`, scroll helpers, skill-project matching
-- `src/lib/ui-logic/` — Motion variants and viewport configs
-- `src/hooks/` — `useScrolled`, `utilityHooks`, `skillTilePortalTooltip`, `overlayHooks`, `contributionsCalendarHooks`
-- `.claude/skills/` — project-level skills bespoke to this repo
-
-This layout predates `.context/engineering/nextjs-react.md` and diverges from it (top-level `hooks/`, `stores/`, `providers/`, `data/`, and `src/language/` rather than `src/lib/language/`). The divergence is a declared exception in `.context/projects/portfolio-site.md`, not licence to add more top-level folders. Do not migrate it as a drive-by; that is its own dispatch.
+The folder map, a traced page request and what lint enforces are in `ARCHITECTURE.md`. `.claude/skills/` holds project-level skills bespoke to this repo.
 
 ### Key patterns
 
 **Content updates** — edit `src/data/` for projects, skills, and experience; `src/language/english.ts` for UI text.
 
-**State** — the Zustand store is the single source of truth for theme state. It holds nothing else; a section that needs local state keeps it local.
+**State** — the theme is the `dark` class on `<html>`, read through `useTheme`. There is no global store; a section that needs state keeps it local.
 
 **Client vs server** — most components are server components. `'use client'` goes at the smallest interactive leaf, and only for the reasons listed under [Repo-local conventions](#repo-local-conventions).
 
@@ -72,36 +60,23 @@ This layout predates `.context/engineering/nextjs-react.md` and diverges from it
 ### Imports
 
 - Use the `@/*` alias for anything under `src/`. Never a relative path traversing more than one level.
-- Never use `import type` — import types the same way as values: `import { MyType } from '...'`.
-- Types live in `src/types/`. Import them from there, not re-exported through data files.
+- Domain types shared across layers (`Project`, `JobExperience`, `Skill`) live in `src/types/`; import them from there, not re-exported through data files. Any other type lives with the module that owns it.
 
 ### Styling
 
 - Compose conditional classes with `cn()` from `@/lib/utils`.
 - Colours come from the CSS variables in `src/styles/theme.css`. Never hardcode a colour value.
-- When a class combination repeats across components, or exceeds roughly five utilities for one visual purpose, extract it to `src/styles/components.css` or `src/styles/utilities.css`.
-
-```tsx
-// Avoid: className="flex items-center justify-between px-4 py-2 rounded-lg border border-border bg-surface text-sm font-medium"
-// Prefer: className={cn('card-row', isActive && 'card-row--active')}
-```
+- Styling used by one component stays in that component as utilities, however long the list. Use the semantic colour roles (`text-fg-muted`, `bg-raised`, `border-line`) rather than a `dark:` pair.
+- Extract a named class to `src/styles/components.css` only when the same combination is used by more than one component, or when it needs CSS that utilities cannot express readably (nested or sibling selectors, keyframes, grid areas). A CSS module next to the component is the fallback for the second case when the rule belongs to one component.
+- `components.css` still holds single-use classes from before this rule; move them into their components when you touch them, rather than adding to them.
 
 ### Client components
 
-Add `'use client'` only when the component itself uses browser APIs, client-context React hooks, event handlers that cannot be passed down from a server parent, or the Zustand store. Do not create a client wrapper to avoid prop drilling — solve that with composition.
+Add `'use client'` only when the component itself uses browser APIs, client-context React hooks, or event handlers that cannot be passed down from a server parent. Do not create a client wrapper to avoid prop drilling — solve that with composition.
 
 ### Animation
 
-All Motion variants and viewport configs live in `src/lib/ui-logic/` (`heroVariants.ts`, `skillsVariants.ts`, and siblings). Components import them.
-
-```ts
-export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-};
-
-export const sectionViewport = { once: true, amount: 0.2 };
-```
+Motion variants and viewport configs live in `src/lib/ui-logic/`, and components import them.
 
 - Never define a `Variants` object inside a component file.
 - No inline `animate`, `initial`, or `transition` objects in JSX unless the value is a single dynamic prop.
@@ -117,13 +92,13 @@ Keep UI files thin. Beyond simple conditional rendering or a single derived valu
 
 Which side an icon sits on is decided by what the icon _means_, not by a house preference for one side:
 
-- **Leading** — the icon says what the control **is**. `Download`, `Mail`, a category glyph. This is the `icon` prop on `SecondaryButton` and `TertiaryButton`, which render it before their children.
+- **Leading** — the icon says what the control **is**. `Download`, `Mail`, a category glyph. This is the `icon` prop on `TertiaryButton`, which renders it before its children.
 - **Trailing** — the icon says where the control **takes you**, or what happens next. `ChevronDown` for disclosure, `ExternalLink` for a link that leaves the page, an arrow for "continue". Write these inline after the label rather than through the `icon` prop.
 
 ```tsx
 // Leading: the glyph names the action
 <TertiaryButton icon={<Download aria-hidden className="size-4" />}>
-  {en.footerSection.cvLabel}
+  {en.footerSection.downloadCVLabel}
 </TertiaryButton>
 
 // Trailing: the glyph names the destination or the consequence
@@ -133,7 +108,7 @@ Which side an icon sits on is decided by what the icon _means_, not by a house p
 </a>
 ```
 
-A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`, `DismissButton`) are outside this rule and need an `aria-label`.
+A blanket "always left" or "always right" is the thing to avoid: trailing position is itself a signal, and spending it on icons that merely identify the action leaves nothing to mark the ones that change where you end up. Icon-only controls (`BurgerMenuButton`) are outside this rule and need an `aria-label`.
 
 ### Control state
 

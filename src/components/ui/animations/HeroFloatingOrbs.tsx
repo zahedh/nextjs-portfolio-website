@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
 interface OrbConfig {
   size: number;
@@ -71,8 +71,9 @@ const orbs: OrbConfig[] = [
   },
 ];
 
-/** Floating orbs that drift behind hero content. Works in both vertical (mobile) and horizontal (desktop) layout. */
-export default function HeroFloatingOrbs() {
+/** Floating orbs that drift behind hero content, held still under reduced motion. */
+export function HeroFloatingOrbs() {
+  const reduceMotion = useReducedMotion();
   return (
     <div className="pointer-events-none absolute inset-0 z-0">
       {orbs.map((orb, i) => (
@@ -87,7 +88,7 @@ export default function HeroFloatingOrbs() {
             top: orb.top,
             bottom: orb.bottom,
           }}
-          animate={{ x: orb.x, y: orb.y }}
+          animate={reduceMotion ? undefined : { x: orb.x, y: orb.y }}
           transition={{
             duration: orb.duration,
             repeat: Infinity,

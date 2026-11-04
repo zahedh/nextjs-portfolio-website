@@ -10,7 +10,7 @@ import { useBodyScrollLock } from '@/hooks/overlayHooks';
 // Tailwind's `md`, where the bar shows its own links and the sheet is hidden.
 const WIDE_QUERY = '(min-width: 48rem)';
 
-export type MobileMenuLink = { id: string; label: string; href: string };
+type MobileMenuLink = { id: string; label: string; href: string };
 
 type MobileMenuProps = {
   links: readonly MobileMenuLink[];
@@ -26,7 +26,7 @@ type MobileMenuProps = {
  * makes the page inert, closes on Escape and returns focus to the burger.
  * Its top row repeats the bar's, so the mark does not move when it opens.
  */
-export default function MobileMenu({
+export function MobileMenu({
   links,
   activeSection,
   onNavigate,

@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { projects } from '@/data/projects';
-
-const SITE_URL = 'https://zahedheidari.co.uk';
+import { SITE_URL } from '@/lib/meta';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

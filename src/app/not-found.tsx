@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import HeaderFooter from '@/components/layout/HeaderFooter';
+import { HeaderFooter } from '@/components/layout/HeaderFooter';
 import { PrimaryButton } from '@/components';
 import { en } from '@/language/english';
 

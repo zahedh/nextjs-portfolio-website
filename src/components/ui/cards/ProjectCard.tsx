@@ -21,11 +21,7 @@ interface ProjectCardProps {
 }
 
 /** Links to a project's own page from either a feature or compact card. */
-export default function ProjectCard({
-  project,
-  variant,
-  className,
-}: ProjectCardProps) {
+export function ProjectCard({ project, variant, className }: ProjectCardProps) {
   const href = `/projects/${project.slug}`;
   const excerpt = getProjectCardSummary(project);
   const router = useRouter();

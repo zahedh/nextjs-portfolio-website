@@ -9,16 +9,10 @@ type SkillTileProps = {
   icon: IconType;
   label: string;
   className?: string;
-  compact?: boolean;
 };
 
 /** Circular icon tile representing a single skill with tooltip. */
-export function SkillTile({
-  icon: Icon,
-  label,
-  className,
-  compact = false,
-}: SkillTileProps) {
+export function SkillTile({ icon: Icon, label, className }: SkillTileProps) {
   const {
     tileRef,
     mounted,
@@ -32,8 +26,9 @@ export function SkillTile({
     mounted &&
     typeof document !== 'undefined' &&
     createPortal(
+      // Visual echo of the tile's own aria-label, so hidden from the tree.
       <div
-        role="tooltip"
+        aria-hidden
         className={cn(
           'skill-tile-tooltip',
           tooltipVisible ? 'opacity-100' : 'opacity-0'
@@ -58,29 +53,21 @@ export function SkillTile({
         onMouseEnter={onTileMouseEnter}
         onMouseLeave={onTileMouseLeave}
         className={cn(
-          compact
-            ? 'relative inline-flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12'
-            : 'relative inline-flex h-12 w-12 items-center justify-center lg:h-14 lg:w-14',
+          'relative inline-flex h-12 w-12 items-center justify-center lg:h-14 lg:w-14',
           'rounded-full',
           // Dark mirrors light's weight: a tint at rest, the solid fill on hover.
           'border-brand-500 border',
           'bg-brand-200 dark:bg-brand-500/15',
-          'text-neutral-900 dark:text-neutral-200',
+          'text-fg',
           'hover:bg-brand-400 dark:hover:bg-brand-600',
           'shadow-sm transition-transform duration-150 hover:scale-110 active:scale-90',
           'cursor-default',
           className
         )}
       >
-        <Icon
-          className={
-            compact ? 'h-5 w-5 sm:h-6 sm:w-6' : 'h-6 w-6 lg:h-7 lg:w-7'
-          }
-        />
+        <Icon aria-hidden className="h-6 w-6 lg:h-7 lg:w-7" />
       </div>
       {tooltipNode}
     </>
   );
 }
-
-export default SkillTile;

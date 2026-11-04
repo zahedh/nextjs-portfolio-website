@@ -42,6 +42,22 @@
   --color-brand-800: #774a04;
   --color-brand-900: #543202;
 
+  /* Semantic roles. Components use these rather than a scale step, and the
+     dark block below points each at its dark step. */
+  --color-fg: var(--color-neutral-900);
+  --color-fg-strong: var(--color-neutral-900);
+  --color-fg-secondary: var(--color-neutral-700);
+  /* 600 and brand-800 are the lightest steps that hold 4.5:1 on the page. */
+  --color-fg-muted: var(--color-neutral-600);
+  --color-fg-accent: var(--color-brand-800);
+  --color-page: var(--color-neutral-100);
+  --color-raised: var(--color-neutral-50);
+  --color-inverse: var(--color-neutral-900);
+  --color-tint: color-mix(in oklab, var(--color-neutral-900) 12%, transparent);
+  --color-line: var(--color-neutral-300);
+  --color-line-strong: var(--color-neutral-700);
+  --color-accent: var(--color-brand-500);
+
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
@@ -49,8 +65,8 @@
      visitor's system face rather than the body face. */
   --default-font-family: var(--font-body);
   --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
-  /* Reserved for the hero headline and standalone figures, as the artboards
-     draw them. Section headings stay on the heading face. */
+  /* The display face: the hero headline, headings, the nav mark and standalone
+     figures. Running text and labels stay on the heading and body faces. */
   --font-display: var(--font-bricolage-grotesque, sans-serif);
 
   /* Type scale */
@@ -80,8 +96,8 @@
   --text-display-lg--line-height: 0.98;
   /* The hero headline's own steps beyond the drawn scale. It changes size at
      every breakpoint the page measure does, because the rocket is sized
-     against it and the page measure is sized by both: 32px beside a phone
-     rocket, then 58, 72, 84 and 96 from md. */
+     against it and the page measure is sized by both: 38px beside a phone
+     rocket, then 46 from sm, 58 from md, 72 from lg and 96 from xl. */
   --text-display-md: 2.875rem;
   --text-display-md--line-height: 1;
   --text-display-xl: 4.5rem;
@@ -147,6 +163,20 @@
   --color-brand-700: #7e541b;
   --color-brand-800: #623f13;
   --color-brand-900: #472c0c;
+
+  --color-fg: var(--color-neutral-200);
+  --color-fg-strong: var(--color-neutral-100);
+  --color-fg-secondary: var(--color-neutral-300);
+  --color-fg-muted: var(--color-neutral-400);
+  --color-fg-accent: var(--color-brand-400);
+  --color-page: var(--color-neutral-900);
+  --color-raised: var(--color-neutral-800);
+  --color-inverse: var(--color-neutral-100);
+  --color-tint: color-mix(in oklab, var(--color-neutral-100) 14%, transparent);
+  --color-line: var(--color-neutral-700);
+  --color-line-strong: var(--color-neutral-300);
+  --color-accent: var(--color-brand-400);
+
   --cover-brand: #4a3117;
   --cover-end: #1f2226;
 }

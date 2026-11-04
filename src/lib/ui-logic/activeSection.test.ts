@@ -8,27 +8,33 @@ const sections = [
 ];
 
 describe('pickActiveSection', () => {
-  it('picks the section whose top most recently crossed the line, in any order', () => {
+  it('GIVEN sections out of page order WHEN the line is below several tops THEN the nearest one above it wins', () => {
     expect(pickActiveSection(sections, 200, false)).toBe('projects');
+  });
+
+  it('GIVEN the line moves up WHEN picking THEN the section above the new line wins', () => {
     expect(pickActiveSection(sections, 0, false)).toBe('skills');
   });
 
-  it('returns null when no section has reached the line', () => {
+  it('GIVEN no section has reached the line WHEN picking THEN there is no active section', () => {
     expect(pickActiveSection([{ id: 'skills', top: 500 }], 200, false)).toBe(
       null
     );
   });
 
-  it('picks the last section on the page once the page bottoms out', () => {
+  it('GIVEN the page has bottomed out WHEN picking THEN the last section wins', () => {
     expect(pickActiveSection(sections, 200, true)).toBe('about');
   });
 
-  it('lets a pinned section win, even at the bottom of the page', () => {
+  it('GIVEN a pinned section at the bottom of the page WHEN picking THEN the pin wins', () => {
     expect(pickActiveSection(sections, 200, true, 'projects')).toBe('projects');
+  });
+
+  it('GIVEN a pinned section mid-page WHEN picking THEN the pin wins', () => {
     expect(pickActiveSection(sections, 200, false, 'home')).toBe('home');
   });
 
-  it('ignores a pinned id that is not on the page', () => {
+  it('GIVEN a pinned id not on the page WHEN picking THEN it is ignored', () => {
     expect(pickActiveSection(sections, 200, true, 'contact')).toBe('about');
   });
 });

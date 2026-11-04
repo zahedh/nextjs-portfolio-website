@@ -2,33 +2,34 @@ import type { Metadata } from 'next';
 import { socialShareImageMeta } from '@/lib/meta';
 import { en } from '@/language';
 
+const title = en.siteMetadata.pageTitle.replace(
+  '{{page}}',
+  en.privacyPage.title
+);
+const description = en.privacyPage.metaDescription;
+
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Zahed Heidari',
-  description:
-    'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
+  title,
+  description,
   alternates: {
     canonical: '/privacy',
   },
   openGraph: {
-    title: 'Privacy Policy | Zahed Heidari',
-    description:
-      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
+    title,
+    description,
     url: '/privacy',
     type: 'website',
     images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Privacy Policy | Zahed Heidari',
-    description:
-      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
+    title,
+    description,
     images: [socialShareImageMeta],
   },
 };
 
 export default function PrivacyPage() {
-  const p = en.privacyPage;
-
   return (
     <div className="screen-parent">
       {/* Cancels the shell's header offset, as a project page does. */}
@@ -36,61 +37,76 @@ export default function PrivacyPage() {
         <div className="section-inner">
           <div className="page-stack">
             <div className="page-head">
-              <h1 className="page-title">{p.title}</h1>
-              <p className="page-summary">{p.intro}</p>
+              <h1 className="page-title">{en.privacyPage.title}</h1>
+              <p className="page-summary">{en.privacyPage.intro}</p>
               <p className="page-meta">
-                {p.lastUpdatedLabel} {p.lastUpdated}
+                {en.privacyPage.lastUpdatedLabel} {en.privacyPage.lastUpdated}
               </p>
             </div>
 
             <div className="page-column">
               <section className="page-block">
-                <h2 className="page-heading">{p.sectionInfoWeCollect}</h2>
-                <p className="page-prose">{p.infoWeCollectIntro}</p>
+                <h2 className="page-heading">
+                  {en.privacyPage.sectionInfoWeCollect}
+                </h2>
+                <p className="page-prose">
+                  {en.privacyPage.infoWeCollectIntro}
+                </p>
                 <ul className="page-prose page-list">
                   <li>
-                    <strong>{p.themePreferenceLabel}:</strong>{' '}
-                    {p.themePreferenceDetail}
+                    <strong>{en.privacyPage.themePreferenceLabel}:</strong>{' '}
+                    {en.privacyPage.themePreferenceDetail}
                   </li>
                 </ul>
               </section>
 
               <section className="page-block">
-                <h2 className="page-heading">{p.sectionHowWeUse}</h2>
-                <p className="page-prose">{p.howWeUseText}</p>
+                <h2 className="page-heading">
+                  {en.privacyPage.sectionHowWeUse}
+                </h2>
+                <p className="page-prose">{en.privacyPage.howWeUseText}</p>
               </section>
 
               <section className="page-block">
-                <h2 className="page-heading">{p.sectionThirdParty}</h2>
-                <p className="page-prose">{p.thirdPartyIntro}</p>
+                <h2 className="page-heading">
+                  {en.privacyPage.sectionThirdParty}
+                </h2>
+                <p className="page-prose">{en.privacyPage.thirdPartyIntro}</p>
                 <p className="page-prose">
-                  {p.thirdPartyAnalytics}
+                  {en.privacyPage.thirdPartyAnalytics}
                   <a
-                    href={p.thirdPartyVercelLinkUrl}
+                    href={en.privacyPage.thirdPartyVercelLinkUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link-accent"
                   >
-                    {p.thirdPartyVercelLinkLabel}
+                    {en.privacyPage.thirdPartyVercelLinkLabel}
                   </a>
                   .
                 </p>
               </section>
 
               <section className="page-block">
-                <h2 className="page-heading">{p.sectionYourRights}</h2>
-                <p className="page-prose">{p.yourRightsText}</p>
+                <h2 className="page-heading">
+                  {en.privacyPage.sectionYourRights}
+                </h2>
+                <p className="page-prose">{en.privacyPage.yourRightsText}</p>
               </section>
 
               <section className="page-block">
-                <h2 className="page-heading">{p.sectionChanges}</h2>
-                <p className="page-prose">{p.changesText}</p>
+                <h2 className="page-heading">
+                  {en.privacyPage.sectionChanges}
+                </h2>
+                <p className="page-prose">{en.privacyPage.changesText}</p>
               </section>
 
               <p className="page-prose">
-                {p.contactIntro}{' '}
-                <a href={`mailto:${p.contactEmail}`} className="link-accent">
-                  {p.contactEmail}
+                {en.privacyPage.contactIntro}{' '}
+                <a
+                  href={`mailto:${en.privacyPage.contactEmail}`}
+                  className="link-accent"
+                >
+                  {en.privacyPage.contactEmail}
                 </a>
                 .
               </p>

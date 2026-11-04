@@ -1,3 +1,3 @@
-export { default as Heading } from './Heading';
-export { default as SubHeading } from './SubHeading';
-export { default as BodyText } from './BodyText';
+export { Heading } from './Heading';
+export { SubHeading } from './SubHeading';
+export { BodyText } from './BodyText';

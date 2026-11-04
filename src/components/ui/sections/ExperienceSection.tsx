@@ -5,7 +5,7 @@ import { groupJobsByCompany } from '@/lib/ui-logic';
 import { en } from '@/language';
 
 /** Professional experience as a timeline, grouped by employer. */
-export default function ExperienceSection() {
+export function ExperienceSection() {
   const groups = groupJobsByCompany(jobExperiences);
 
   return (
