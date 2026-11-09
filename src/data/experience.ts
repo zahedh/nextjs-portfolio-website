@@ -15,7 +15,7 @@ export const jobExperiences: JobExperience[] = [
     startDate: 'Jul 2026',
     endDate: 'Present',
     summary:
-      "Leads the team's AI adoption: runs the Claude team subscription, wrote the AI usage standard, and set the guardrails that let developers run agents in auto mode.",
+      "Champions the team's AI adoption: runs the Claude team subscription, wrote the AI usage standard, and set the guardrails that let developers run agents in auto mode.",
     description: [
       "One of three core code maintainers on SMARTY's React Native app, owning code quality standards and architectural decisions across a 1M+ user ecosystem.",
       "Maintain the team's shared context library, so every developer's AI tools work from the same standards and project knowledge.",

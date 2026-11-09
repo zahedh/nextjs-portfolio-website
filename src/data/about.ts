@@ -2,7 +2,7 @@
 export const aboutCredentialLines = [
   'First-class degree in CS',
   'Conference speaker',
-  "Leads my team's AI adoption",
+  "Champions my team's AI adoption",
   'Apps shipped on iOS & Android',
   'Web and mobile from one codebase',
   'Designs what I build',
