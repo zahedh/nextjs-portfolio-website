@@ -1,117 +1,294 @@
 'use client';
-import {
-  ProjectCard,
-  ProjectDetailPanel,
-  Section,
-  PrimaryButton,
-  CalloutWrapper,
-} from '@/components';
-import { useGlobalStore } from '@/providers/global-store-provider';
-import { getFilteredProjectsForSection } from '@/lib/project';
-import { skillsData } from '@/data';
-import { Project } from '@/types/project';
-import { en } from '@/language';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/effect-cards';
-import { Pagination, Navigation, EffectCards } from 'swiper/modules';
+
+import { PrimaryButton, ProjectCard, Section } from '@/components';
+import { CategoryMark } from '@/components/ui/cards/ProjectCategoryMarks';
+import { ChevronDown } from 'lucide-react';
 import { projects } from '@/data/projects';
-import { useState, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { useSwiperActiveSlideResize } from '@/hooks/projectHooks';
-import { useBreakpoint } from '@/hooks/utilityHooks';
+import { en } from '@/language';
+import { getFilteredProjectsForSection } from '@/lib/project';
+import { cn } from '@/lib/utils';
+import { Project, ProjectFilter } from '@/types/project';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { measureContentHeight } from '@/hooks/utilityHooks';
+import {
+  consumeProjectReturn,
+  rememberProjectsQuery,
+} from '@/components/ui/cards/ProjectStep';
 
-export default function ProjectsSection() {
-  const isLargeScreen = useBreakpoint('lg');
-  const swiperRef = useRef<SwiperType | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [swiperReady, setSwiperReady] = useState(0);
-  const [selectedType, setSelectedType] = useState<'All' | 'Web' | 'Mobile'>(
-    'All'
-  );
-  const [panelProject, setPanelProject] = useState<Project | null>(null);
-  const [panelOpen, setPanelOpen] = useState(false);
-  const selectedSkillId = useGlobalStore((state) => state.selectedSkillId);
-  const setSelectedSkillId = useGlobalStore(
-    (state) => state.setSelectedSkillId
-  );
+/**
+ * The filter controls, each carrying its category's glyph. Ordered by depth of
+ * experience — mobile, then web, then AI — rather than alphabetically or by
+ * project count. The section's own order is chronological and independent of
+ * this; see getFilteredProjectsForSection.
+ */
+const PROJECT_FILTERS: { value: ProjectFilter; label: string }[] = [
+  { value: 'All', label: en.projectFilters.all },
+  { value: 'Mobile', label: en.projectFilters.mobile },
+  { value: 'Web', label: en.projectFilters.web },
+  { value: 'AI', label: en.projectFilters.ai },
+];
 
-  useSwiperActiveSlideResize({
-    isLargeScreen,
-    swiperRef,
-    activeIndex,
-    selectedType,
-    selectedSkillId,
-    swiperReady,
-  });
+/** Compact cards drawn before the overflow control. Four fills exactly two rows
+    beside the feature card at both md and xl, so the initial block is a clean
+    rectangle at every width without counting columns at runtime. */
+const INITIAL_COMPACT_COUNT = 4;
 
-  const filteredProjects = useMemo(
-    () =>
-      getFilteredProjectsForSection(projects, selectedType, selectedSkillId),
-    [selectedType, selectedSkillId]
-  );
+/** Matches .projects-grid-reveal's duration, plus a margin. */
+const REVEAL_MS = 560;
 
-  const selectedSkillLabel = selectedSkillId
-    ? (skillsData.find((skill) => skill.id === selectedSkillId)?.label ??
-      selectedSkillId)
-    : null;
+interface ProjectGridProps {
+  projects: Project[];
+  showAll: boolean;
+  onToggleShowAll: () => void;
+  /** Names the set on show; a new name mounts a fresh grid. */
+  setKey: string;
+  /** Whether a new set settles in: after a filter press or a return from a project. */
+  settle: boolean;
+}
 
-  const filterButtons = selectedSkillId ? (
-    <div className="flex flex-wrap items-center justify-end gap-3">
-      <span
-        className="text-brand-600 dark:text-brand-300 font-heading text-sm font-semibold tracking-tight sm:text-base"
-        aria-live="polite"
+/** Presents the filtered projects as one feature card followed by compact cards. */
+function ProjectGrid({
+  projects,
+  showAll,
+  onToggleShowAll,
+  setKey,
+  settle,
+}: ProjectGridProps) {
+  const [featureProject, ...compactProjects] = projects;
+  const hasOverflow = compactProjects.length > INITIAL_COMPACT_COUNT;
+
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [gridHeight, setGridHeight] = useState<number>();
+  const [revealing, setRevealing] = useState(false);
+  // Kept mounted through a collapse, after showAll has already gone false.
+  const [holdingRows, setHoldingRows] = useState(false);
+
+  const visibleProjects =
+    showAll || holdingRows
+      ? compactProjects
+      : compactProjects.slice(0, INITIAL_COMPACT_COUNT);
+
+  // The closed height, remembered from the last time it was genuinely on
+  // screen: through a collapse the extra rows are still mounted, so the grid
+  // cannot report it while it is the very thing being animated to.
+  const closedHeight = useRef<number>(undefined);
+
+  // Measured after every change, and on resize, so the wrapper opens to a real
+  // height rather than a guessed one — which is what lets the cards keep their
+  // own wrapping instead of being held to a number chosen at one width.
+  useLayoutEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const measure = () => {
+      const height = measureContentHeight(grid);
+      if (!showAll && !holdingRows) closedHeight.current = height;
+      setGridHeight(holdingRows ? closedHeight.current : height);
+    };
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, [showAll, holdingRows, projects]);
+
+  const revealRef = useRef<HTMLDivElement>(null);
+  const releaseTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  /**
+   * Opens the set with a press, and only with a press.
+   *
+   * The transition is armed here rather than left on the wrapper because the
+   * same height change happens on a back navigation, where the expansion is
+   * restored from the URL: animating there would leave the section short for
+   * half a second, which is exactly when the browser restores the reader's
+   * scroll position, and it would land them past the card they came from.
+   *
+   * The layout read between the two is doing work. It settles the height that
+   * is on screen now, with the transition already applied, so the change that
+   * follows has a value to move from; without it both land in one style pass
+   * and the browser has nothing to animate between.
+   *
+   * Opening needs nothing else: the rows mount, and the height follows them up.
+   * Closing is not its mirror. Dropping the rows on the press empties the grid
+   * before the height has moved, so what closes is a space with nothing in it.
+   * They are held until the height has arrived, and the clip takes them away on
+   * the way down.
+   */
+  const pressToggle = () => {
+    flushSync(() => setRevealing(true));
+    void revealRef.current?.offsetHeight;
+    if (showAll) setHoldingRows(true);
+    onToggleShowAll();
+
+    clearTimeout(releaseTimer.current);
+    releaseTimer.current = setTimeout(() => {
+      setRevealing(false);
+      setHoldingRows(false);
+    }, REVEAL_MS);
+  };
+
+  useLayoutEffect(() => () => clearTimeout(releaseTimer.current), []);
+
+  if (!featureProject) {
+    return (
+      <p className="projects-empty">{en.projectCard.noProjectsInCategory}</p>
+    );
+  }
+
+  return (
+    <div className="projects-stack">
+      <div
+        ref={revealRef}
+        className={cn(
+          'projects-grid-reveal',
+          revealing && 'projects-grid-reveal-active'
+        )}
+        style={gridHeight ? { maxHeight: `${gridHeight}px` } : undefined}
       >
-        {selectedSkillLabel}
-      </span>
-      <CalloutWrapper>
-        <PrimaryButton
-          onClick={() => setSelectedSkillId(null)}
-          aria-label={en.projectFilters.clearSkillFilterAriaLabel}
-          className="btn-callout"
+        {/* Every card is a cell in this one grid, revealed ones included, so rows
+            always align. A lone card has nothing to span and keeps its own height. */}
+        {/* Keyed by the set, so a filter press mounts every card afresh and
+            a card common to both sets settles in with the rest rather than
+            standing still among them. */}
+        <div
+          ref={gridRef}
+          key={setKey}
+          className={cn('projects-grid', settle && 'projects-grid-settle')}
         >
-          {en.projectFilters.clearSkillFilter}
-        </PrimaryButton>
-      </CalloutWrapper>
+          <ProjectCard
+            project={featureProject}
+            variant="feature"
+            className={cn(
+              compactProjects.length > 0 && 'project-card-feature-spanning'
+            )}
+          />
+          {visibleProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} variant="compact" />
+          ))}
+        </div>
+      </div>
+      {/* The row is kept whether or not it holds a control, so changing filter
+          does not shift everything below the section by the button's height. */}
+      <div className="projects-see-all-row">
+        {hasOverflow ? (
+          <button
+            type="button"
+            className="projects-see-all"
+            aria-expanded={showAll}
+            onClick={pressToggle}
+          >
+            {showAll
+              ? en.projectCard.showFewerProjects
+              : en.projectCard.seeAllProjects}
+            {/* Same disclosure affordance as the experience rail's expander:
+                trailing chevron, flipped while open. */}
+            <ChevronDown
+              size={15}
+              aria-hidden="true"
+              className={cn(
+                'transition-transform duration-300 motion-reduce:transition-none',
+                showAll && 'rotate-180'
+              )}
+            />
+          </button>
+        ) : null}
+      </div>
     </div>
-  ) : (
+  );
+}
+
+const FILTER_PARAM = 'filter';
+const EXPANDED_PARAM = 'all';
+
+function isProjectFilter(value: string | null): value is ProjectFilter {
+  return PROJECT_FILTERS.some((filter) => filter.value === value);
+}
+
+/** Filterable projects section. Each card links to the project's own page. */
+export function ProjectsSection() {
+  const [selectedType, setSelectedType] = useState<ProjectFilter>('All');
+  const [showAll, setShowAll] = useState(false);
+  // A filter press or a return from a project page settles the cards in; the
+  // first paint of a fresh load shows the set as it already was.
+  const [settle, setSettle] = useState(false);
+
+  // Both the filter and the expansion live in the URL, so returning from a
+  // project page lands the reader on the set of cards they left. The expansion
+  // matters as much as the filter: without it the section comes back two rows
+  // shorter than it was, and the position the browser restores on back lands
+  // past the card they came from.
+  //
+  // Read in a layout effect rather than during render, which would make the
+  // page dynamic, and rather than in an effect, which runs a frame too late:
+  // the browser restores scroll against whatever is already laid out, so a
+  // section that grows afterwards has already missed it. Written with
+  // replaceState rather than the router, which would add a history entry per
+  // click and bury the page the reader actually came from.
+  useLayoutEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const filter = params.get(FILTER_PARAM);
+    if (isProjectFilter(filter)) setSelectedType(filter);
+    setShowAll(params.get(EXPANDED_PARAM) === '1');
+    rememberProjectsQuery(window.location.search);
+    // Same commit as the restore, so the cards settle in before first paint
+    // rather than appearing and then moving.
+    if (consumeProjectReturn()) setSettle(true);
+  }, []);
+
+  const writeUrl = (filter: ProjectFilter, expanded: boolean) => {
+    const url = new URL(window.location.href);
+    if (filter === 'All') url.searchParams.delete(FILTER_PARAM);
+    else url.searchParams.set(FILTER_PARAM, filter);
+    if (expanded) url.searchParams.set(EXPANDED_PARAM, '1');
+    else url.searchParams.delete(EXPANDED_PARAM);
+    window.history.replaceState(null, '', url);
+    rememberProjectsQuery(url.search);
+  };
+
+  // A new filter shows a different set, so the old set's expansion does not
+  // carry across to it.
+  const chooseFilter = (value: ProjectFilter) => {
+    setSelectedType(value);
+    setShowAll(false);
+    setSettle(true);
+    writeUrl(value, false);
+  };
+
+  const toggleShowAll = () => {
+    const expanded = !showAll;
+    setShowAll(expanded);
+    writeUrl(selectedType, expanded);
+  };
+  const filteredProjects = useMemo(
+    () => getFilteredProjectsForSection(projects, selectedType),
+    [selectedType]
+  );
+
+  const filterButtons = (
     <>
-      <PrimaryButton
-        onClick={() => setSelectedType('All')}
-        className={selectedType !== 'All' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.all}
-      </PrimaryButton>
-      <PrimaryButton
-        onClick={() => setSelectedType('Web')}
-        className={selectedType !== 'Web' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.web}
-      </PrimaryButton>
-      <PrimaryButton
-        onClick={() => setSelectedType('Mobile')}
-        className={selectedType !== 'Mobile' ? 'btn-toggle-idle' : ''}
-      >
-        {en.projectFilters.mobile}
-      </PrimaryButton>
+      {PROJECT_FILTERS.map(({ value, label }) => (
+        <PrimaryButton
+          key={value}
+          onClick={() => chooseFilter(value)}
+          className={cn(
+            'filter-pill',
+            selectedType === value && 'filter-pill-selected'
+          )}
+          aria-pressed={selectedType === value}
+        >
+          {/* The row doubles as the legend for the marks on the cards, which
+              carry no label of their own. All has no glyph because it is the
+              absence of a category rather than one of them. */}
+          {value === 'All' ? null : (
+            <CategoryMark category={value} className="filter-pill-mark" />
+          )}
+          {label}
+        </PrimaryButton>
+      ))}
     </>
   );
-
-  const handleOpenFullDetails = (project: Project) => {
-    setPanelProject(project);
-    setPanelOpen(true);
-  };
-
-  const handleClosePanel = () => {
-    setPanelOpen(false);
-  };
-
-  const handlePanelExitComplete = () => {
-    setPanelProject(null);
-  };
 
   return (
     <Section
@@ -119,80 +296,13 @@ export default function ProjectsSection() {
       title={en.sectionHeaders.projects}
       rightChildren={filterButtons}
     >
-      <ProjectDetailPanel
-        project={panelProject}
-        open={panelOpen}
-        onClose={handleClosePanel}
-        onExitComplete={handlePanelExitComplete}
+      <ProjectGrid
+        projects={filteredProjects}
+        showAll={showAll}
+        onToggleShowAll={toggleShowAll}
+        setKey={selectedType}
+        settle={settle}
       />
-      <motion.div
-        className="relative isolate w-full max-w-full min-w-0 overflow-x-clip"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`${selectedType}-${selectedSkillId ?? 'all'}`}
-            initial={{ opacity: 0, scale: 0.98, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: -8 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="w-full"
-          >
-            <Swiper
-              key={`${isLargeScreen ? 'cards' : 'slide'}-${selectedType}-${selectedSkillId ?? 'all'}`}
-              className="projects-section-swiper w-full"
-              spaceBetween={50}
-              pagination={{
-                type: 'bullets',
-                clickable: true,
-                dynamicBullets: true,
-              }}
-              modules={
-                isLargeScreen
-                  ? [Pagination, Navigation, EffectCards]
-                  : [Pagination, Navigation]
-              }
-              effect={isLargeScreen ? 'cards' : 'slide'}
-              cardsEffect={
-                isLargeScreen
-                  ? {
-                      slideShadows: false,
-                      perSlideOffset: 8,
-                      perSlideRotate: 2,
-                    }
-                  : undefined
-              }
-              navigation={true}
-              slidesPerView={1}
-              autoHeight={!isLargeScreen}
-              onSwiper={(swiper) => {
-                swiperRef.current = swiper;
-                setActiveIndex(swiper.activeIndex);
-                setSwiperReady((count) => count + 1);
-              }}
-              onSlideChangeTransitionEnd={(swiper) => {
-                setActiveIndex(swiper.activeIndex);
-              }}
-            >
-              {filteredProjects.map((project, index) => (
-                <SwiperSlide
-                  key={project.id}
-                  className="mb-16 flex items-center justify-center"
-                >
-                  <ProjectCard
-                    project={project}
-                    imagePriority={index === activeIndex}
-                    onOpenFullDetails={handleOpenFullDetails}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
     </Section>
   );
 }

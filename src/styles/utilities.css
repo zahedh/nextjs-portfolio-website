@@ -4,7 +4,7 @@
 @layer utilities {
   /* max-width + horizontally centered in the viewport (mx-auto), gutters via padding */
   .prime-parent {
-    @apply mx-auto w-full max-w-[110rem] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-10 2xl:px-15;
+    @apply px-gutter max-w-page mx-auto w-full;
   }
 
   .screen-parent {
@@ -12,12 +12,59 @@
   }
 
   .screen-section {
-    @apply flex w-full flex-col items-start justify-center gap-4 pb-32;
-    /* Sticky header + a little extra so rings/glows on filter controls are not clipped */
-    scroll-margin-top: 5rem;
+    @apply py-section-end w-full;
+    /* The sticky header, less the section's own top padding, which lands
+       after the scroll margin. Leaves the heading 24px clear of the header,
+       with room for the focus rings on the filter controls. */
+    scroll-margin-top: calc(
+      var(--spacing-header) - var(--spacing-section-end) + 1.5rem
+    );
   }
+  /* Carries the page measure now that the section itself spans the viewport.
+     Repeats .prime-parent's utilities rather than applying it: a class declared
+     in @layer utilities is plain CSS and Tailwind cannot @apply it. */
+  .section-inner {
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col items-start justify-center gap-4;
+  }
+  /* Sits directly above a section's content in .section-inner's column, so the
+     1rem row gap above lands between the two. The margin is the token less
+     that gap, leaving the measured heading-to-content distance equal to
+     --spacing-heading-gap. Moving .section-inner's gap-4 moves this too. */
+  .section-heading-row {
+    @apply flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2;
+    margin-bottom: calc(var(--spacing-heading-gap) - 1rem);
+  }
+}
 
-  .section-content {
-    @apply px-2 sm:px-3 md:px-4 lg:px-5 xl:px-5 2xl:px-10;
+/* =========================
+   🎞️ VIEW TRANSITIONS
+   =========================
+   Unlayered on purpose: these address the browser's own transition
+   pseudo-elements, which sit outside the document tree that @layer orders. */
+
+/* The morph from a project card's title to the project page's heading. Slower
+   than the browser's 250ms default because the two sit far apart on the page
+   and a short travel over that distance reads as a jump. */
+::view-transition-group(project-title) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The card title is bold and small, the heading extrabold and large; cross-
+   fading the two through each other blurs the letters mid-travel. Showing only
+   the arriving text keeps it legible the whole way. */
+::view-transition-old(project-title) {
+  animation: none;
+  opacity: 0;
+}
+::view-transition-new(project-title) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

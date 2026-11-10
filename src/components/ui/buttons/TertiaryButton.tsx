@@ -1,5 +1,3 @@
-'use client';
-
 import { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -7,22 +5,21 @@ type TertiaryButtonProps = {
   children?: ReactNode;
   className?: string;
   icon?: ReactNode;
-  iconOnly?: boolean;
   onClick?: () => void;
   hyperlink?: string;
   target?: string;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const tertiaryStyles = (className: string | undefined, iconOnly: boolean) =>
+const tertiaryStyles = (className: string | undefined) =>
   cn(
     'inline-flex items-center justify-center gap-2',
-    iconOnly ? 'p-2' : 'px-3 py-1.5',
+    'px-3 py-1.5',
     'rounded-full',
-    'border border-brand-500',
-    'bg-neutral-100 dark:bg-neutral-900',
-    'text-neutral-900 dark:text-neutral-200',
+    'border border-brand-600 dark:border-brand-500',
+    'bg-page',
+    'text-fg',
     'font-heading text-base leading-normal font-bold tracking-tight',
-    'transition-colors duration-150',
+    'shadow-sm transition-colors duration-150',
     'hover:bg-brand-500 dark:hover:bg-brand-700',
     className
   );
@@ -32,7 +29,6 @@ export function TertiaryButton({
   children,
   className,
   icon,
-  iconOnly = false,
   onClick,
   hyperlink,
   target,
@@ -40,12 +36,12 @@ export function TertiaryButton({
   id,
   ...rest
 }: TertiaryButtonProps) {
-  const styles = tertiaryStyles(className, iconOnly);
+  const styles = tertiaryStyles(className);
 
   const inner = (
     <>
       {icon && <span className="flex-shrink-0">{icon}</span>}
-      {!iconOnly && children}
+      {children}
     </>
   );
 
@@ -79,5 +75,3 @@ export function TertiaryButton({
     </button>
   );
 }
-
-export default TertiaryButton;

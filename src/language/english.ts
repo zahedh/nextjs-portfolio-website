@@ -1,3 +1,6 @@
+import { getYearsOfExperience } from '@/lib/date';
+import { capitalise, spellNumber } from '@/lib/utils';
+
 /** English copy used throughout the UI. */
 export const en = {
   // Navigation Labels
@@ -6,68 +9,105 @@ export const en = {
   skills: 'Skills',
   projects: 'Projects',
   experience: 'Experience',
-  activity: 'Activity',
   contact: 'Contact',
-  cV: 'CV',
   closeMenu: 'Close menu',
+  menu: 'Menu',
+  theme: 'Theme',
+  initials: 'ZH',
+
+  siteMetadata: {
+    name: 'Zahed Heidari',
+    title: 'Zahed Heidari · Senior Software Engineer',
+    pageTitle: '{{page}} | Zahed Heidari',
+    description:
+      'Senior Software Engineer at Blue Beck. I build full stack web and mobile products, and the AI that runs inside them.',
+    keywords: [
+      'Zahed Heidari',
+      'Next.js Portfolio',
+      'Senior Software Engineer',
+      'React',
+      'TypeScript',
+      'Tailwind CSS',
+      'Web Development',
+      'Projects',
+      'Skills',
+      'Resume',
+      'Contact',
+      'AI',
+    ],
+    shareImageAlt: 'Zahed Heidari, Senior Software Engineer',
+  },
 
   // Static Home Content
   sectionHeaders: {
-    skillsCollage: 'What I Work Best With',
+    skills: 'What I Work Best With',
     projects: "What I've Worked On",
     about: 'A Bit About Me',
     experience: "Where I've Worked",
-    contributionsSection: 'My GitHub Activity',
   },
 
   heroSection: {
-    header: "Hi, I'm Zahed!",
-    subHeaderPartOne: "I'm a...",
-    subHeaderPartTwo: 'Senior Software Engineer',
+    name: 'Zahed Heidari',
+    eyebrow: 'Senior Software Engineer · Blue Beck',
+    headline: `Over a million users. ${capitalise(spellNumber(getYearsOfExperience()))} years shipping.`,
     supportingText:
-      'I design and build digital products across web and mobile, using robust engineering, thoughtful design, and modern AI integrations.',
+      'I build full stack web and mobile products, and the AI that runs inside them.',
+    primaryButton: 'See the work',
+    secondaryButton: 'Download CV',
+    downloadCvAriaLabel: 'Download CV (PDF)',
   },
 
   aboutSection: {
-    tagline: 'Tech loving, gym obsessed problem solver',
-    introParagraph:
-      'I care about building things properly — with clarity, longevity, and enough polish to feel intentional.',
+    stickers: ['tech nerd', 'gym rat', 'wannabe vocalist'],
     narrativeParagraphs: [
-      "I thrive on solving real-world problems and constantly learning. Whether it's full stack development or AI integrations, I enjoy staying at the edge of tech and using it to create meaningful impact.",
-      'For me, growth means pushing past comfort zones — whether through better products, tougher workouts, or bold new ideas. Progress comes from curiosity, consistency, and showing up.',
+      "I build web and mobile apps that people rely on every day, so I care about getting them right, not just getting them out. Building with AI agents hasn't changed that; if anything, it's made the standards matter more.",
+      "I like getting better at things, whether that's code, lifting or singing. Most of it comes down to turning up consistently.",
     ],
-    closingNote:
-      'Away from the keyboard: gym, music, design, games — recharging the same curiosity I bring to the work.',
-    credentialsAriaLabel: 'At a glance',
+    credentialsHeading: 'A few highlights',
+    photoAlt: 'Zahed Heidari, smiling in sunglasses at a café table',
   },
 
   skillsSection: {
-    doubleClickHint: 'Double Click To View Projects!',
+    groups: {
+      languages: 'Languages',
+      frameworks: 'Frameworks and libraries',
+      design: 'Design',
+      aiTooling: 'AI',
+      toolingAndPractice: 'Tooling and practice',
+    },
   },
 
-  skillsCollageSection: {
+  skillLabels: {
     // Modern Web & Mobile Frameworks
     react: 'React',
     nextJS: 'Next.js',
     reactNative: 'React Native',
+    nativeWind: 'NativeWind',
+    shadcnUI: 'shadcn/ui',
+    zustand: 'Zustand',
+    tanStackQuery: 'TanStack Query',
+    tanStackTable: 'TanStack Table',
+    reactHookForm: 'React Hook Form',
+    lottie: 'Lottie',
+    nodeJS: 'Node.js',
+    zod: 'Zod',
 
     // Core Languages
     typeScript: 'TypeScript',
     javaScript: 'JavaScript',
     php: 'PHP',
+    wordPress: 'WordPress',
+    jQuery: 'jQuery',
 
     // Microsoft Stack
     dotNet: '.NET',
 
     // Legacy/Additional Languages
-    objectiveC: 'Objective-C',
-    jquery: 'jQuery',
-    wordpress: 'WordPress',
+    xslt: 'XSLT',
 
     // Web Fundamentals
     html: 'HTML5',
     css: 'CSS3',
-    amp: 'AMP',
 
     // Styling & Design
     tailwind: 'Tailwind CSS',
@@ -81,8 +121,6 @@ export const en = {
     github: 'GitHub',
     cursor: 'Cursor',
     vercel: 'Vercel',
-    vercelAnalytics: 'Vercel Analytics',
-    speedInsights: 'Speed Insights',
     firebase: 'Firebase',
     androidStudio: 'Android Studio',
     xcode: 'Xcode',
@@ -91,6 +129,8 @@ export const en = {
 
     // Testing & Code Quality
     jest: 'Jest',
+    testingLibrary: 'React Testing Library',
+    playwright: 'Playwright',
     vite: 'Vite',
     eSLint: 'ESLint',
     prettier: 'Prettier',
@@ -98,6 +138,7 @@ export const en = {
     // API & Development
     restAPI: 'REST API',
     postman: 'Postman',
+    netSuite: 'Oracle NetSuite',
 
     // Project Management & Collaboration
     jira: 'Jira',
@@ -105,20 +146,16 @@ export const en = {
     discord: 'Discord',
     notion: 'Notion',
 
-    // Productivity Tools
-    microsoftOffice: 'Microsoft Office',
-    googleDocs: 'Google Docs',
-
     // AI Tools
     gitHubCopilot: 'GH Copilot',
     claude: 'Claude',
     claudeCode: 'Claude Code',
+    codex: 'Codex',
     chatGPT: 'ChatGPT',
     gemini: 'Gemini',
     noteBookLM: 'NotebookLM',
     promptEngineering: 'Prompt Engineering',
-    generativeAI: 'Generative AI',
-    agenticAI: 'Agentic AI',
+    contextEngineering: 'Context Engineering',
 
     // Operating Systems
     macOS: 'macOS',
@@ -129,48 +166,52 @@ export const en = {
   },
 
   footerSection: {
-    catchPhraseHeader: 'Zahed Heidari - Senior Software Engineer',
-    catchPhraseSubheader:
-      'Blending design, development, and AI into cohesive systems.',
-    catchPhraseSupportingTextPart1: 'Building something ambitious? ',
-    catchPhraseSupportingTextPart2: "Let's build it properly.",
-    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari. All rights reserved.`,
+    heading: 'Building something ambitious?',
+    supportingText:
+      "I design and build web and mobile apps, and help teams work well with AI. Tell me what you're working on.",
+    copyLabel: 'Copy email address',
+    copiedLabel: 'Copied',
+    downloadCVLabel: 'Download CV',
+    socialLinksAriaLabel: 'Social profiles',
+    linkedInLabel: 'LinkedIn',
+    gitHubLabel: 'GitHub',
+    sessionizeLabel: 'Sessionize',
+    copyrightText: `© ${new Date().getFullYear()} Zahed Heidari`,
     privacyLinkLabel: 'Privacy',
     email: 'zahed.heidari2@gmail.com',
-    ariaDownloadCV: 'Download CV',
-    ariaSendEmail: 'Send email to Zahed',
-    ariaLinkedIn: 'LinkedIn profile',
-    ariaGitHub: 'GitHub profile',
-    ariaSessionize: 'Sessionize profile',
   },
 
   themeToggle: 'Toggle light or dark mode',
 
   contributionsSection: {
-    loading: 'Loading contributions...',
+    loading: 'Loading contributions…',
     error: 'Unable to load contribution data. Please try again later.',
   },
 
   contributionsCalendar: {
-    totalCount: '{{count}} contributions in the last year',
+    label: 'Contributions',
+    less: 'Less',
+    more: 'More',
     totalCountYear: '{{count}} contributions in {{year}}',
     contributions: 'contributions',
     contributionsSingular: 'contribution',
     noContributions: 'No contributions',
+    scrollEarlier: 'Scroll to earlier weeks',
+    scrollLater: 'Scroll to later weeks',
   },
 
   projectFilters: {
     all: 'All',
     mobile: 'Mobile',
     web: 'Web',
-    clearSkillFilter: 'All skills',
-    clearSkillFilterAriaLabel: 'Clear skill filter and show all projects',
+    ai: 'AI',
   },
 
   projectCard: {
-    fullCaseStudy: 'Full Story',
     viewProject: 'View project',
-    viewProjectArrow: '→',
+    seeAllProjects: 'See all',
+    showFewerProjects: 'Show fewer',
+    noProjectsInCategory: 'Nothing to show here yet.',
   },
 
   projectDisplay: {
@@ -180,62 +221,71 @@ export const en = {
     platformMobile: 'Mobile',
     timelineLabel: 'Timeline',
     platformLabel: 'Platform',
-    contextLabel: 'Organisation',
-    personalTag: 'Personal',
+    contextLabel: 'Context',
     statusLabel: 'Status',
     sectionOverview: 'Overview',
-    sectionFeatures: 'Description',
-    sectionTechStack: 'Tech stack',
-    sectionLinks: 'Links',
-    sectionMetaItems: 'Project meta',
+    accessLabel: 'Access',
     visitLive: 'Visit site',
     viewRepo: 'View repo',
     moreSkills: '+{{count}} more',
+    backToProjects: 'All projects',
+    sectionBuiltWith: 'Built with',
+    nextProjectLabel: 'Next project',
+    previousProjectLabel: 'Previous project',
+  },
+
+  /** Keyed by ProjectAccess so a new state cannot be added without its copy. */
+  projectAccess: {
+    'Open source': 'Open source',
+    Public: 'Public',
+    Private: 'Private',
   },
 
   jobDisplay: {
     statusCurrent: 'Current',
-    statusPast: 'Past',
-  },
-
-  projectDetailPanel: {
-    closeLabel: 'Close project details',
+    stackLabel: 'Built with',
+    showDetails: 'Show details',
+    hideDetails: 'Hide details',
   },
 
   notFound: {
-    heading: 'Page Not Found',
-    description: "Oops! The page you're looking for doesn't exist.",
-    returnHome: 'Return Home',
+    heading: 'Page not found',
+    description: "This page doesn't exist.",
+    returnHome: 'Return home',
     code: '404',
   },
 
   privacyPage: {
     title: 'Privacy Policy',
+    metaDescription:
+      'Privacy policy for zahedheidari.co.uk. How I handle your data when you use this portfolio website.',
     lastUpdatedLabel: 'Last updated:',
+    // Revise only when the policy's substance changes, never on a redesign.
+    lastUpdated: '24 October 2026',
     intro:
-      'This site (zahedheidari.co.uk) is a personal portfolio. Below is how we handle information when you visit.',
-    sectionInfoWeCollect: 'Information we collect',
+      'This site (zahedheidari.co.uk) is a personal portfolio. Below is how I handle information when you visit.',
+    sectionInfoWeCollect: 'Information I collect',
     infoWeCollectIntro:
-      'We do not collect personal data through forms or accounts. The only data stored in your browser is:',
+      'I do not collect personal data through forms or accounts. The only data stored in your browser is:',
     themePreferenceLabel: 'Theme preference',
     themePreferenceDetail:
-      'On first visit we follow your operating system preference (light or dark). Your manual choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
-    sectionHowWeUse: 'How we use it',
+      'The site opens in dark mode. If you switch themes, your choice is saved in your browser (localStorage) so it persists between visits. This is not sent to any server.',
+    sectionHowWeUse: 'How I use it',
     howWeUseText:
-      'Theme preference is used only to display the site in your preferred appearance. We do not use it for analytics or advertising.',
+      'Theme preference is used only to display the site in your preferred appearance. I do not use it for analytics or advertising.',
     sectionThirdParty: 'Third-party services',
     thirdPartyIntro:
-      "This site is hosted on Vercel. When you load a page, Vercel may process requests (e.g. IP address, basic request data) as part of providing the service. We use Vercel Analytics and Speed Insights to measure site usage and performance. Contribution data shown on the site is fetched from GitHub's API; that request is made server-side and does not send your personal data to GitHub.",
-    thirdPartyFuture:
-      'Vercel Analytics and Speed Insights collect anonymised, aggregated data such as page views, URLs, country, device type, and Web Vitals (e.g. load times). No cookies are used and data is not tied to individual visitors. For more details, see ',
+      "This site is hosted on Vercel. When you load a page, Vercel may process requests (e.g. IP address, basic request data) as part of providing the service. Contribution data shown on the site is fetched from GitHub's API; that request is made server-side and does not send your personal data to GitHub.",
+    thirdPartyAnalytics:
+      'I use Vercel Analytics and Speed Insights to measure site usage and performance. They collect anonymised, aggregated data such as page views, URLs, country, device type, and Web Vitals (e.g. load times). No cookies are used and data is not tied to individual visitors. For more details, see ',
     thirdPartyVercelLinkLabel: "Vercel's privacy policy",
     thirdPartyVercelLinkUrl: 'https://vercel.com/legal/privacy-policy',
     sectionYourRights: 'Your rights',
     yourRightsText:
-      "You can clear the theme preference at any time by clearing your browser's local storage for this site. If you are in the UK or EU, you have rights under applicable data protection laws (e.g. access, correction, deletion). To exercise them, contact us using the email in the footer.",
+      "You can clear the theme preference at any time by clearing your browser's local storage for this site. If you are in the UK or EU, you have rights under applicable data protection laws (e.g. access, correction, deletion). To exercise them, contact me using the email below.",
     sectionChanges: 'Changes',
     changesText:
-      'We may update this page occasionally. The "Last updated" date at the top will be revised when we do.',
+      'I may update this page occasionally. The "Last updated" date at the top will be revised when I do.',
     contactIntro:
       'If you have questions about this privacy policy, you can reach out at',
     contactEmail: 'zahed.heidari2@gmail.com',

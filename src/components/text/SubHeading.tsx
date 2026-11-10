@@ -7,7 +7,7 @@ type SubHeadingProps = {
   as?: 'h1' | 'h2' | 'h3';
 };
 
-export default function SubHeading({
+export function SubHeading({
   children,
   className,
   as = 'h3',
@@ -16,7 +16,7 @@ export default function SubHeading({
   return (
     <Comp
       className={cn(
-        'font-heading text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-200',
+        'font-heading text-title-sm text-fg font-semibold tracking-tight',
         className
       )}
     >

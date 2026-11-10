@@ -1,53 +1,61 @@
 'use client';
 import {
   useEffect,
-  useContext,
   useState,
   useRef,
-  useLayoutEffect,
   useCallback,
+  useSyncExternalStore,
 } from 'react';
 import { flushSync } from 'react-dom';
-import { useShallow } from 'zustand/react/shallow';
-import {
-  useGlobalStore,
-  GlobalStoreContext,
-} from '@/providers/global-store-provider';
 
-/** Tailwind CSS breakpoint values (in pixels) */
-export const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  '2xl': 1536,
-} as const;
+function subscribeToThemeClass(onChange: () => void): () => void {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  return () => observer.disconnect();
+}
 
-export type Breakpoint = keyof typeof BREAKPOINTS;
+const readIsDark = (): boolean =>
+  document.documentElement.classList.contains('dark');
 
-/** Handles light/dark theme switching and persistence. */
-export function useTheme() {
-  const { isDark, toggleTheme } = useGlobalStore(
-    useShallow((state) => ({
-      isDark: state.isDark,
-      toggleTheme: state.toggleTheme,
-    }))
+/**
+ * The theme is the `dark` class on the root, which the pre-paint script in the
+ * root layout sets from the stored choice. This reads that class and follows it;
+ * the server renders dark, the default, and hydration corrects it.
+ */
+export function useTheme(): { isDark: boolean; toggleTheme: () => void } {
+  const isDark = useSyncExternalStore(
+    subscribeToThemeClass,
+    readIsDark,
+    () => true
   );
-  const store = useContext(GlobalStoreContext);
 
-  useEffect(() => {
-    if (!store) return;
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-    const shouldBeDark =
-      storedTheme === 'dark' || (storedTheme !== 'light' && prefersDark);
-    document.documentElement.classList.toggle('dark', shouldBeDark);
-    store.setState({ isDark: shouldBeDark });
-  }, [store]);
+  const toggleTheme = useCallback(() => {
+    const nextIsDark = !readIsDark();
+    document.documentElement.classList.toggle('dark', nextIsDark);
+    // Storage can throw in a private window; the switch still applies.
+    try {
+      localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
+    } catch {}
+  }, []);
 
   return { isDark, toggleTheme };
+}
+
+/**
+ * Height to open a collapsed panel to. `scrollHeight` is an integer, so content
+ * measuring 75.25px reports 75 and the last row loses a quarter pixel behind
+ * `overflow: hidden` — enough to shave the descenders off a wrapped row. The
+ * rect keeps the fraction; the max of the two also covers the case where the
+ * element scrolls its own content and the rect is the shorter of the two.
+ */
+export function measureContentHeight(element: HTMLElement): number {
+  return Math.max(
+    element.scrollHeight,
+    Math.ceil(element.getBoundingClientRect().height)
+  );
 }
 
 /** Manages expandable content with overflow detection and smooth transitions. */
@@ -62,7 +70,7 @@ export function useExpandableContent(maxHeight: number = 300) {
     if (!contentElement) return;
 
     const checkOverflow = () => {
-      const fullHeight = contentElement.scrollHeight;
+      const fullHeight = measureContentHeight(contentElement);
       setContentHeight(fullHeight);
       setShowExpandButton(fullHeight > maxHeight);
     };
@@ -86,7 +94,7 @@ export function useExpandableContent(maxHeight: number = 300) {
       setIsExpanded((prev) => !prev);
       return;
     }
-    flushSync(() => setContentHeight(content.scrollHeight));
+    flushSync(() => setContentHeight(measureContentHeight(content)));
     if (isExpanded) {
       requestAnimationFrame(() => setIsExpanded(false));
     } else {
@@ -101,34 +109,4 @@ export function useExpandableContent(maxHeight: number = 300) {
     contentRef,
     handleToggle,
   };
-}
-
-/**
- * Detects if the viewport matches or exceeds a given Tailwind breakpoint.
- * Initial state is always `false` so SSR and first client render match (avoids hydration mismatch).
- * Sync runs in `useLayoutEffect` so the correct mode applies before paint.
- */
-export function useBreakpoint(breakpoint: Breakpoint) {
-  const [matches, setMatches] = useState(false);
-
-  useLayoutEffect(() => {
-    const minWidthQuery = `(min-width: ${BREAKPOINTS[breakpoint]}px)`;
-    const mediaQueryList = window.matchMedia(minWidthQuery);
-    const syncMatchesFromViewport = () => setMatches(mediaQueryList.matches);
-    syncMatchesFromViewport();
-    mediaQueryList.addEventListener('change', syncMatchesFromViewport);
-    return () =>
-      mediaQueryList.removeEventListener('change', syncMatchesFromViewport);
-  }, [breakpoint]);
-
-  return matches;
-}
-
-/** True after mount — use for portals and other browser-only APIs that must not run during SSR. */
-export function useClientMounted(): boolean {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  return mounted;
 }

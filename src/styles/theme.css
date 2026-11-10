@@ -2,31 +2,139 @@
    🎨 THEME & COLOR TOKENS
    ========================= */
 @theme {
+  /* The page measure, shared by the header, every section and the footer:
+     content fills the window less a constant gutter, up to this. The hero's
+     type and rocket are fixed inside each breakpoint range while the page is
+     not, so the space between its copy and rocket grows with the window until
+     the next step or this cap. 80rem is where the xl hero fills it, so from
+     1280 up that space holds at about 100px; at 110rem it reached 450. It
+     also still fits a 54-week year above the calendar's 16px floor. */
+  --container-page: 80rem;
+
+  /* xl starts where the xl hero first fits beside its rocket rather than at
+     Tailwind's 1280: 708 + 56 + 396 and two gutters is 1204, plus a scrollbar.
+     Every section that changes at xl changes here with it, so the page still
+     rearranges at one width. A 54-week contributions year needs 1243 at the
+     xl cell and scrolls by up to 11px below that, behind its scroll buttons. */
+  --breakpoint-xl: 77rem;
+
   /* Neutral scale */
-  --color-neutral-100: #f2f2f2;
-  --color-neutral-200: #d9d9d9;
-  --color-neutral-300: #bfbfbf;
-  --color-neutral-400: #a6a6a6;
-  --color-neutral-500: #8c8c8c;
-  --color-neutral-600: #737373;
-  --color-neutral-700: #595959;
-  --color-neutral-800: #404040;
-  --color-neutral-900: #262626;
+  --color-neutral-50: #f7f6f3;
+  --color-neutral-100: #efece6;
+  --color-neutral-200: #e5e1d9;
+  --color-neutral-300: #c7c4bc;
+  --color-neutral-400: #aaa69f;
+  --color-neutral-500: #8c8982;
+  --color-neutral-600: #6e6b65;
+  --color-neutral-700: #52504d;
+  --color-neutral-800: #353635;
+  --color-neutral-900: #191b1d;
+  --color-neutral-950: #101214;
 
   /* Brand scale (Light Mode) */
-  --color-brand-100: #fbf4e9;
-  --color-brand-200: #f4ddbe;
-  --color-brand-300: #ecc693;
-  --color-brand-400: #e4af67;
-  --color-brand-500: #dd993c;
-  --color-brand-600: #c37f22;
-  --color-brand-700: #98631b;
-  --color-brand-800: #6c4713;
-  --color-brand-900: #412a0b;
+  --color-brand-100: #fdf4e7;
+  --color-brand-200: #f7e1c0;
+  --color-brand-300: #f6cd90;
+  --color-brand-400: #f2b960;
+  --color-brand-500: #eba52b;
+  --color-brand-600: #c18006;
+  --color-brand-700: #9b6404;
+  --color-brand-800: #774a04;
+  --color-brand-900: #543202;
+
+  /* Semantic roles. Components use these rather than a scale step, and the
+     dark block below points each at its dark step. */
+  --color-fg: var(--color-neutral-900);
+  --color-fg-strong: var(--color-neutral-900);
+  --color-fg-secondary: var(--color-neutral-700);
+  /* 600 and brand-800 are the lightest steps that hold 4.5:1 on the page. */
+  --color-fg-muted: var(--color-neutral-600);
+  --color-fg-accent: var(--color-brand-800);
+  --color-page: var(--color-neutral-100);
+  --color-raised: var(--color-neutral-50);
+  --color-inverse: var(--color-neutral-900);
+  --color-tint: color-mix(in oklab, var(--color-neutral-900) 12%, transparent);
+  --color-line: var(--color-neutral-300);
+  --color-line-strong: var(--color-neutral-700);
+  --color-accent: var(--color-brand-500);
 
   /* Font families */
   --font-heading: var(--font-inter, sans-serif);
   --font-body: var(--font-ibm-plex-sans, sans-serif);
+  /* Preflight's html font: without it, unstyled text falls through to the
+     visitor's system face rather than the body face. */
+  --default-font-family: var(--font-body);
+  --font-mono: var(--font-ibm-plex-mono, ui-monospace, monospace);
+  /* The display face: the hero headline, headings, the nav mark and standalone
+     figures. Running text and labels stay on the heading and body faces. */
+  --font-display: var(--font-bricolage-grotesque, sans-serif);
+
+  /* Type scale */
+  --text-micro: 0.625rem;
+  --text-micro--line-height: 1.5;
+  --text-meta: 0.71875rem;
+  --text-meta--line-height: 1.5;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.55;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1rem;
+  --text-lead--line-height: 1.6;
+  --text-title-sm: 1.125rem;
+  --text-title-sm--line-height: 1.25;
+  --text-title: 1.3125rem;
+  --text-title--line-height: 1.25;
+  --text-heading: 1.5rem;
+  --text-heading--line-height: 1.25;
+  --text-heading-lg: 1.875rem;
+  --text-heading-lg--line-height: 1.25;
+  --text-display: 2.375rem;
+  --text-display--line-height: 1;
+  --text-display-lg: 3.625rem;
+  --text-display-lg--line-height: 0.98;
+  /* The hero headline's own steps beyond the drawn scale. It changes size at
+     every breakpoint the page measure does, because the rocket is sized
+     against it and the page measure is sized by both: 38px beside a phone
+     rocket, then 46 from sm, 58 from md, 72 from lg and 96 from xl. */
+  --text-display-md: 2.875rem;
+  --text-display-md--line-height: 1;
+  --text-display-xl: 4.5rem;
+  --text-display-xl--line-height: 0.95;
+  --text-display-2xl: 6rem;
+  --text-display-2xl--line-height: 0.95;
+  --text-numeral: 1.75rem;
+  --text-numeral--line-height: 1;
+  --text-numeral-lg: 2.875rem;
+  --text-numeral-lg--line-height: 1;
+
+  /* Spacing scale */
+  /* One gutter at every width. It only keeps content off the window's edge;
+     the margins on a wide screen come from the page measure's cap, so a
+     larger desktop value would only make the page jump where it changed. */
+  --spacing-gutter: 1.375rem;
+  /* The sticky header's height at every width. .screen-section's scroll
+     margin is derived from it, so anchors keep clearing the bar. */
+  --spacing-header: 4.5rem;
+  --spacing-surface: 1.125rem;
+  --spacing-rhythm: 1.375rem;
+  /* The whole measured distance between a heading and its content. The
+     declaration in .section-heading-row subtracts .section-inner's row gap so
+     the rendered gap equals this value rather than exceeding it. */
+  --spacing-heading-gap: 3.5rem;
+  /* Closes a section by the same measure that opens it. Keep the two in step. */
+  --spacing-section-end: 3.5rem;
+  --spacing-block: 2rem;
+  --spacing-block-lg: 2.5rem;
+  --spacing-stack: 1.5rem;
+
+  /* Project covers. One brand ramp for every project, as the artboard draws it:
+     Main.dc.html gives an AI project a warm brown cover, so the cover was never
+     category-coded there. Category is carried by the card's glyph instead. */
+  --cover-brand: #e7c893;
+  /* Short of the card ground (#f7f6f3) so the plate stays a plate. */
+  --cover-end: #f2eee7;
 }
 
 /* =========================
@@ -34,18 +142,41 @@
    ========================= */
 @custom-variant dark (&:where(.dark, .dark *));
 .dark {
-  --color-brand-100: #d98d26;
-  --color-brand-200: #cc8524;
-  --color-brand-300: #bb7a21;
-  --color-brand-400: #a96e1e;
-  --color-brand-500: #98631b;
-  --color-brand-600: #825517;
-  --color-brand-700: #6d4713;
-  --color-brand-800: #57390f;
-  --color-brand-900: #412b0c;
-}
+  --color-neutral-50: #f8f8f7;
+  --color-neutral-100: #f0f0ef;
+  --color-neutral-200: #d3d4d4;
+  --color-neutral-300: #b7b9ba;
+  --color-neutral-400: #9a9d9f;
+  --color-neutral-500: #787b7e;
+  --color-neutral-600: #565a5e;
+  --color-neutral-700: #34383d;
+  --color-neutral-800: #24272b;
+  --color-neutral-900: #16181b;
+  --color-neutral-950: #0d0f11;
 
-/* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */
-html {
-  scrollbar-gutter: stable;
+  --color-brand-100: #f1b047;
+  --color-brand-200: #e2a440;
+  --color-brand-300: #d49739;
+  --color-brand-400: #c68b31;
+  --color-brand-500: #b07a2a;
+  --color-brand-600: #97661f;
+  --color-brand-700: #7e541b;
+  --color-brand-800: #623f13;
+  --color-brand-900: #472c0c;
+
+  --color-fg: var(--color-neutral-200);
+  --color-fg-strong: var(--color-neutral-100);
+  --color-fg-secondary: var(--color-neutral-300);
+  --color-fg-muted: var(--color-neutral-400);
+  --color-fg-accent: var(--color-brand-400);
+  --color-page: var(--color-neutral-900);
+  --color-raised: var(--color-neutral-800);
+  --color-inverse: var(--color-neutral-100);
+  --color-tint: color-mix(in oklab, var(--color-neutral-100) 14%, transparent);
+  --color-line: var(--color-neutral-700);
+  --color-line-strong: var(--color-neutral-300);
+  --color-accent: var(--color-brand-400);
+
+  --cover-brand: #4a3117;
+  --cover-end: #1f2226;
 }

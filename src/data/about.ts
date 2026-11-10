@@ -1,11 +1,9 @@
-import { getYearsOfExperience } from '@/lib';
-
 /** Single-line credential facts for the About section rail (quiet, text-led). */
 export const aboutCredentialLines = [
-  `${getYearsOfExperience()}+ years experience`,
-  '500K+ users reached',
-  '2+ enterprise clients',
+  'First-class degree in CS',
+  'Conference speaker',
+  "Champions my team's AI adoption",
   'Apps shipped on iOS & Android',
-  'AI-integrated workflows',
-  '1st Class degree',
+  'Web and mobile from one codebase',
+  'Designs what I build',
 ];

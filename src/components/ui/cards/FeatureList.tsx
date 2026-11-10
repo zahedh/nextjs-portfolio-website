@@ -1,7 +1,6 @@
-import { stripDescriptionLine } from '@/lib/ui-logic';
 import { cn } from '@/lib/utils';
 
-/** Bulleted list of project features / description lines. */
+/** Bulleted list of description lines, for projects and the job rail. */
 export function FeatureList({
   lines,
   className,
@@ -10,12 +9,14 @@ export function FeatureList({
   className?: string;
 }) {
   return (
-    <ul className={cn('list-none space-y-3', className)}>
-      {lines.map((raw, index) => (
-        <li key={index} className="feature-list-item">
-          <span className="feature-list-bullet" aria-hidden />
-          <span>{stripDescriptionLine(raw)}</span>
-        </li>
+    <ul
+      className={cn(
+        'text-body text-fg-secondary list-disc space-y-3 pl-5 marker:text-neutral-400 dark:marker:text-neutral-600',
+        className
+      )}
+    >
+      {lines.map((line, index) => (
+        <li key={index}>{line}</li>
       ))}
     </ul>
   );

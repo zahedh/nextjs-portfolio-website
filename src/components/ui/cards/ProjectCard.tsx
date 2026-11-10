@@ -1,83 +1,140 @@
 'use client';
 
-import { ProjectHeroMedia } from '@/components/ui/cards/ProjectHeroMedia';
-import { ProjectMetaSummary } from '@/components/ui/cards/ProjectMetaItems';
-import { TechStack } from '@/components/ui/cards/TechStack';
-import { skillsData } from '@/data/skills';
-import { Project } from '@/types/project';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
 import { en } from '@/language';
-import { getProjectExcerptLine } from '@/lib/ui-logic';
-import { cn, getSkillsByIds } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import { SecondaryButton } from '../buttons';
+import { getProjectCardSummary, isProjectActive } from '@/lib/ui-logic';
+import { ProjectCategoryMarks } from '@/components/ui/cards/ProjectCategoryMarks';
+import { cn } from '@/lib/utils';
+import {
+  canMorph,
+  morphInto,
+  PROJECT_TITLE_SELECTOR,
+} from '@/lib/viewTransition';
+import { Project } from '@/types/project';
 
 interface ProjectCardProps {
   project: Project;
-  imagePriority?: boolean;
-  onOpenFullDetails: (project: Project) => void;
+  variant: 'feature' | 'compact';
+  className?: string;
 }
 
-/** Carousel card summarising a single project. */
-export default function ProjectCard({
-  project,
-  imagePriority = false,
-  onOpenFullDetails,
-}: ProjectCardProps) {
-  const [mounted, setMounted] = useState(false);
-  const projectSkills = getSkillsByIds(project.skills, skillsData);
-  const excerpt = getProjectExcerptLine(project);
+/** Links to a project's own page from either a feature or compact card. */
+export function ProjectCard({ project, variant, className }: ProjectCardProps) {
+  const href = `/projects/${project.slug}`;
+  const excerpt = getProjectCardSummary(project);
+  const router = useRouter();
+  const titleRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => setMounted(true), []);
+  /**
+   * Carries the card's title into the page's heading. Every reason not to —
+   * a modified click that wants a new tab, a browser without the API, a reader
+   * who asked for less motion — falls through to the link's own navigation, so
+   * the card behaves as a link first and animates second.
+   */
+  const openProject = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      !titleRef.current ||
+      !canMorph()
+    ) {
+      return;
+    }
 
-  return (
-    <div
-      className={cn(
-        'project-card surface-card surface-card-interactive surface-card-flat group relative mx-auto mt-6 w-full max-w-xl overflow-hidden'
-      )}
-    >
-      <button
-        type="button"
-        onClick={() => onOpenFullDetails(project)}
-        className="hero-btn-area group/hero"
-        aria-label={`${en.projectCard.viewProject}: ${project.title}`}
+    event.preventDefault();
+    morphInto(titleRef.current, PROJECT_TITLE_SELECTOR, () =>
+      router.push(href)
+    );
+  };
+  const label = [`${en.projectCard.viewProject}: ${project.title}`]
+    .concat(project.categories.length ? project.categories.join(', ') : [])
+    .join('. ');
+
+  if (variant === 'compact') {
+    return (
+      <Link
+        href={href}
+        className={cn('project-card-compact', className)}
+        aria-label={label}
+        onClick={openProject}
       >
-        <ProjectHeroMedia
+        <ProjectCategoryMarks
           project={project}
-          imagePriority={imagePriority}
-          className="rounded-none border-0 shadow-none"
-          frameClassName="h-40 sm:h-44 md:h-48"
+          className="project-card-compact-marks"
         />
-        <div className="hero-fade-overlay" aria-hidden />
-        {mounted && (
-          <span className="hero-hover-label">
-            {en.projectCard.viewProject} {en.projectCard.viewProjectArrow}
+        <span
+          ref={titleRef}
+          className="project-card-compact-title"
+          role="heading"
+          aria-level={3}
+        >
+          {project.title}
+        </span>
+        {excerpt ? (
+          <p
+            className={cn(
+              'project-card-compact-excerpt',
+              project.access !== 'Private' &&
+                'project-card-compact-excerpt-inset'
+            )}
+          >
+            {excerpt}
+          </p>
+        ) : null}
+        {/* Only the reachable projects say so. Most are private, so a label on
+            every card would repeat the rule instead of marking the exception.
+            Positioned out of flow, like the glyph, so it adds no height. */}
+        {project.access === 'Private' ? null : (
+          <span className="project-card-compact-access">
+            {en.projectAccess[project.access]}
           </span>
         )}
-      </button>
+      </Link>
+    );
+  }
 
-      <div className="space-y-6 p-7 sm:p-9">
-        <ProjectMetaSummary project={project} variant="ribbon" />
+  const status = isProjectActive(project)
+    ? en.projectDisplay.statusActive
+    : en.projectDisplay.statusCompleted;
 
-        <h3 className="card-title line-clamp-2">{project.title}</h3>
-
-        {excerpt ? (
-          <p className="body-text-muted line-clamp-2">{excerpt}</p>
-        ) : null}
-
-        <TechStack
-          skills={projectSkills}
-          maxIcons={5}
-          onMoreClick={() => onOpenFullDetails(project)}
+  return (
+    <Link
+      href={href}
+      className={cn('project-card-feature', className)}
+      aria-label={label}
+      onClick={openProject}
+    >
+      <span className="project-card-cover" aria-hidden>
+        <ProjectCategoryMarks
+          project={project}
+          className="category-marks-on-cover"
+          markClassName="category-mark-on-cover"
         />
-
-        <SecondaryButton
-          type="button"
-          onClick={() => onOpenFullDetails(project)}
-          className="card-expand-btn"
+      </span>
+      <span className="project-card-feature-body">
+        {/* Year, status and access are one class of fact, so they share one
+            rail rather than splitting across two treatments on one card. */}
+        <span className="project-card-feature-meta">
+          {project.startDate.slice(-4)} <span aria-hidden>·</span> {status}{' '}
+          <span aria-hidden>·</span> {en.projectAccess[project.access]}
+        </span>
+        <span
+          ref={titleRef}
+          className="project-card-feature-title"
+          role="heading"
+          aria-level={3}
         >
-          {en.projectCard.fullCaseStudy}
-        </SecondaryButton>
-      </div>
-    </div>
+          {project.title}
+        </span>
+        {excerpt ? (
+          <span className="project-card-feature-excerpt">{excerpt}</span>
+        ) : null}
+      </span>
+    </Link>
   );
 }

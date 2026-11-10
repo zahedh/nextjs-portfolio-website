@@ -8,16 +8,12 @@ type HeadingProps = {
 };
 
 /** Semantic heading component wired to the heading type scale. */
-export default function Heading({
-  children,
-  className,
-  as = 'h2',
-}: HeadingProps) {
+export function Heading({ children, className, as = 'h2' }: HeadingProps) {
   const Comp = as;
   return (
     <Comp
       className={cn(
-        'font-heading text-xl leading-tight font-bold tracking-tight text-neutral-900 sm:text-2xl md:text-3xl dark:text-neutral-200',
+        'font-display text-heading lg:text-heading-lg 2xl:text-display text-fg font-bold tracking-tight',
         className
       )}
     >

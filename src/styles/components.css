@@ -1,400 +1,1113 @@
 /* =========================
-   ðŸ“ LAYOUT COMPONENTS (timeline, footer, contributions)
+   LAYOUT COMPONENTS (experience, footer, contributions)
    ========================= */
 @layer utilities {
-  .timeline-position {
-    @apply bg-brand-400 absolute top-0 left-8 h-full w-0.5 lg:left-1/2 lg:-translate-x-1/2;
+  .experience-rail {
+    @apply flex w-full flex-col gap-9;
   }
-
-  .timeline-dot-position {
-    @apply bg-brand-400 absolute top-1/2 left-[15px] z-10 h-5 w-5 -translate-y-1/2 rounded-full border-[5px] border-neutral-100 sm:left-[11px] md:left-[7px] lg:left-1/2 lg:-translate-x-1/2 dark:border-neutral-900;
+  .experience-group {
+    @apply relative flex flex-col gap-2.5;
   }
-
-  .contributions-calendar {
-    @apply flex justify-center overflow-hidden pb-12;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &,
-    & * {
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
-    & footer {
-      @apply mt-6 font-semibold text-neutral-900 dark:text-neutral-200;
-    }
-    & text {
-      @apply fill-neutral-900 dark:fill-neutral-200;
-    }
+  .experience-group-header {
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-[96px] lg:pl-[128px];
   }
-
-  .footer-container {
-    @apply border-brand-300 bg-brand-300/5 hover:bg-brand-600/10 dark:hover:bg-brand-600/20 flex w-full flex-col gap-8 overflow-hidden border-x-2 p-8 shadow-sm transition-colors duration-150;
+  .experience-group-company {
+    @apply text-title text-fg-strong font-bold tracking-tight;
   }
-
-  .footer-column {
-    @apply border-brand-300/60 flex flex-1 flex-col items-center justify-start gap-y-5;
+  .experience-group-meta {
+    @apply text-caption text-fg-muted font-mono;
   }
-
-  /* =========================
-     ðŸ”— NAVIGATION
-     ========================= */
-  .nav-link {
-    @apply font-heading hover:text-brand-600 dark:hover:text-brand-600 relative inline-block text-base leading-normal font-bold tracking-tight text-neutral-900 transition-colors duration-150 dark:text-neutral-200;
-
-    &::after {
-      content: '';
-      @apply bg-brand-500 dark:bg-brand-400 absolute bottom-0 left-0 h-[2px] w-0 rounded-full transition-[width] duration-200 ease-out;
-    }
-    &:hover::after,
-    &:focus-visible::after {
-      @apply w-full;
-    }
+  .experience-group-roles {
+    @apply flex flex-col gap-5;
   }
-
-  .mobile-menu-panel {
-    @apply border-brand-500 fixed top-0 z-50 w-56 rounded-bl-3xl border-b-2 border-l-2 bg-neutral-100 shadow-xl md:hidden dark:bg-neutral-800;
-    right: 0 !important;
+  /* The spine: one line down the year column, broken by a dot per role. It
+     runs 8px past the company name's capitals, which sit 5px into the group,
+     and 8px past the last card, so it overhangs both ends equally. */
+  .experience-group::before {
+    content: '';
+    @apply bg-line absolute -top-[3px] -bottom-2 left-[7px] w-px;
   }
-
-  /* =========================
-     ðŸƒ CARD UTILITIES
-     ========================= */
-  .surface-card {
-    @apply border-brand-500/95 dark:border-brand-400/75 rounded-3xl border-2 bg-neutral-50/92 shadow-sm dark:bg-neutral-900/96 dark:shadow-neutral-950/20;
+  .experience-rail-row {
+    @apply grid grid-cols-[96px_minmax(0,1fr)] items-stretch lg:grid-cols-[96px_minmax(0,8fr)_minmax(0,5fr)] lg:items-start lg:gap-x-8;
   }
-  .surface-card-interactive {
-    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:hover:shadow-neutral-950/28;
+  .experience-stack {
+    @apply hidden lg:flex lg:flex-col lg:pt-5;
   }
-  .surface-card-flat {
-    @apply md:hover:ring-brand-500/15 shadow-none hover:-translate-y-px hover:shadow-sm md:hover:ring-1 dark:shadow-none dark:hover:shadow-neutral-950/15;
+  /* Matches .experience-details so the stack and the card open at one pace. */
+  .experience-stack-reveal {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
-  .meta-row-subtle {
-    @apply text-[11px] leading-relaxed tracking-wide text-neutral-500 sm:text-xs dark:text-neutral-400;
-  }
-  .card-title {
-    @apply mb-2 text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:text-xl md:text-2xl dark:text-neutral-100;
-  }
-  .card-title-link {
-    @apply text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 decoration-brand-500/60 hover:decoration-brand-600 dark:decoration-brand-400/60 inline-flex max-w-full items-center gap-1.5 underline underline-offset-4 transition-colors;
-  }
-  .card-fade-gradient {
-    @apply pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-neutral-100 to-transparent dark:from-neutral-900;
-  }
-  .card-description {
-    @apply text-neutral-700 dark:text-neutral-300;
-  }
-  .card-section-heading {
-    @apply text-brand-600 dark:text-brand-400 mt-8 mb-3;
-  }
-  .card-meta {
-    @apply text-neutral-600 dark:text-neutral-400;
-  }
-  .card-footer-note {
-    @apply mt-10 border-t border-neutral-300 pt-6 text-sm text-neutral-600 dark:border-neutral-700 dark:text-neutral-400;
-  }
-  .card-list {
-    @apply font-body mb-6 list-disc pl-6 text-sm leading-relaxed text-neutral-700 sm:text-base md:text-lg dark:text-neutral-300;
-  }
-  .link-accent {
-    @apply text-brand-600 decoration-brand-500 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
-  }
-
-  /** JobCard date range pill — base + active/current vs inactive/past */
-  .job-date-pill {
-    @apply inline-flex max-w-full shrink-0 items-center rounded-full border px-4 py-1.5 text-sm leading-snug font-semibold;
-  }
-  .job-date-pill-inactive {
-    @apply border-neutral-300/85 bg-neutral-100/90 text-neutral-800 dark:border-neutral-500/70 dark:bg-neutral-800/90 dark:text-neutral-100;
-  }
-  .job-date-pill-active {
-    @apply border-brand-500/55 bg-brand-400/25 dark:border-brand-400/60 dark:bg-brand-500/35 text-neutral-900 shadow-sm dark:text-neutral-50;
-  }
-
-  /* Button hierarchy - shared surfaces use btn-* names in this file only; React components unchanged.
-   * 1. Callout: btn-callout (+ optional ping via btn-callout-ping-* / CalloutWrapper) - theme toggle + external links only
-   * 2. Primary: PrimaryButton base without btn-toggle-idle; optional btn-primary-sm for compact actions
-   * 3. Idle toggle: btn-toggle-idle (legacy alias: filter-inactive)
-   * 4. Tertiary: TertiaryButton
+  /*
+   * Labels past the tenth mount when a role opens, so they arrive on their own
+   * rather than being uncovered by the height change alone. Banded delays give
+   * the run a direction without a rule per label.
    */
-  .btn-primary {
-    @apply font-heading bg-brand-500 hover:bg-brand-700 inline-flex items-center justify-center gap-2 rounded-full px-3 py-1.5 text-base leading-normal font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-200;
+  .experience-stack-items > *:nth-child(n + 11) {
+    animation: stack-tile-in 260ms ease-out both;
   }
-  .btn-callout {
-    @apply ring-brand-400/80 dark:ring-brand-300/70 shadow-md ring-2 ring-offset-2 ring-offset-neutral-50 dark:ring-offset-neutral-950;
+  .experience-stack-items > *:nth-child(n + 15) {
+    animation-delay: 60ms;
   }
-  /** Compact primary - smaller type than default pills; roomier padding than initial sm token */
-  .btn-primary-sm {
-    @apply px-4 py-2.5 text-sm leading-snug font-bold;
+  .experience-stack-items > *:nth-child(n + 19) {
+    animation-delay: 120ms;
   }
-  .btn-callout-ping-anchor {
-    @apply pointer-events-none absolute -top-1 -right-1 z-10 flex h-3 w-3;
+  .experience-stack-items > *:nth-child(n + 23) {
+    animation-delay: 180ms;
   }
-  .btn-callout-ping-ring {
-    @apply bg-brand-400 dark:bg-brand-300 absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 motion-reduce:animate-none;
-  }
-  .btn-callout-ping-core {
-    @apply bg-brand-500 relative inline-flex h-3 w-3 rounded-full ring-2 ring-white dark:ring-neutral-900;
-  }
-  .btn-brand-link,
-  .brand-link-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 inline-flex items-center justify-center gap-2 rounded-full border text-sm font-semibold text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
-  }
-  .btn-card-expand,
-  .card-expand-btn {
-    @apply font-heading border-brand-500 hover:bg-brand-500 dark:hover:bg-brand-600 mt-3 flex w-full items-center justify-center gap-2 rounded-full border py-2.5 text-base font-semibold tracking-tight text-neutral-900 transition-colors dark:text-neutral-200;
-  }
-  .brand-pill {
-    @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold tracking-wide whitespace-nowrap sm:text-xs;
-  }
-  .brand-pill-active {
-    @apply border-brand-500/60 bg-brand-300/45 dark:border-brand-400/55 dark:bg-brand-500/25 text-neutral-900 shadow-sm dark:text-neutral-200;
-  }
-  .brand-pill-inactive {
-    @apply border-neutral-400/50 bg-neutral-200/90 text-neutral-800 shadow-sm dark:border-neutral-500/55 dark:bg-neutral-600/45 dark:text-neutral-100;
-  }
-  .brand-icon-btn {
-    @apply border-brand-500 bg-brand-300 hover:bg-brand-500 flex shrink-0 items-center justify-center rounded-full border text-neutral-900 transition-colors duration-200 dark:text-neutral-200;
-  }
-  .section-label {
-    @apply font-heading mb-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400;
-  }
-  .skill-tile-tooltip {
-    @apply pointer-events-none fixed z-[9999] rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:bg-neutral-100 dark:text-neutral-900;
-  }
-  .skill-tile-glow {
-    animation: skill-tile-glow-pulse 20s ease-in-out infinite;
-  }
-  @keyframes skill-tile-glow-pulse {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 transparent;
+  @keyframes stack-tile-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.9);
     }
-    25% {
-      box-shadow: 0 0 10px 2px rgb(228 175 103 / 0.22);
-    }
-    60% {
-      box-shadow: 0 0 6px 1px rgb(228 175 103 / 0.12);
+    to {
+      opacity: 1;
+      transform: none;
     }
   }
-  .dark .skill-tile-glow {
-    animation: skill-tile-glow-pulse-dark 20s ease-in-out infinite;
-  }
-  @keyframes skill-tile-glow-pulse-dark {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 transparent;
-    }
-    25% {
-      box-shadow: 0 0 10px 2px rgb(152 99 27 / 0.3);
-    }
-    60% {
-      box-shadow: 0 0 6px 1px rgb(152 99 27 / 0.15);
-    }
-  }
-  @media (prefers-reduced-motion: reduce), (max-width: 767px) {
-    .skill-tile-glow,
-    .dark .skill-tile-glow {
+  @media (prefers-reduced-motion: reduce) {
+    .experience-stack-items > *:nth-child(n + 11) {
       animation: none;
     }
   }
-  .more-pill {
-    @apply font-heading border-brand-500/40 bg-brand-300/25 dark:bg-brand-800/30 inline-flex h-10 items-center rounded-full border px-3 text-xs font-semibold tracking-tight text-neutral-800 dark:text-neutral-200;
+  .experience-stack-label {
+    @apply text-caption text-fg-muted mb-2.5 font-mono;
   }
-  .body-text-muted {
-    @apply text-sm leading-relaxed text-neutral-600 dark:text-neutral-400;
+  .experience-stack-pill {
+    @apply text-meta text-fg-secondary inline-flex items-center rounded-full border border-neutral-300 bg-transparent px-2.5 py-1 font-mono dark:border-neutral-600;
   }
-  .detail-accordion {
-    @apply rounded-xl border border-neutral-200/80 dark:border-neutral-700/60;
+  /* The overflow count in the same pill as the labels it stands for, set
+     apart by colour alone rather than by a taller shape in another face. */
+  .experience-stack-more {
+    @apply border-accent/50 text-fg-accent;
   }
-  .detail-accordion-trigger {
-    @apply font-heading flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm font-semibold tracking-[0.12em] text-neutral-600 uppercase dark:text-neutral-400 [&::-webkit-details-marker]:hidden;
+  .experience-year {
+    @apply text-caption text-fg-muted relative pt-5 pl-[28px] font-mono tabular-nums;
   }
-  .detail-accordion-body {
-    @apply border-t border-neutral-200/70 px-4 pt-3 pb-4 dark:border-neutral-700/60;
+  .experience-year-active {
+    @apply text-fg-accent text-title-sm font-medium;
   }
-  .dialog-backdrop {
-    @apply absolute inset-0 bg-neutral-900/55 backdrop-blur-md dark:bg-black/65;
+  .experience-duration {
+    @apply text-micro text-fg-muted mt-0.5 block font-mono;
   }
-  .dialog-header {
-    @apply border-brand-300/55 flex shrink-0 items-start justify-between gap-4 border-b px-4 py-4 sm:px-6 md:px-8 md:py-5;
+  /* Declared after .experience-duration so the current role's size wins on source order. */
+  .experience-duration-active {
+    @apply text-caption mt-1;
   }
-  .hero-btn-area {
-    @apply focus-visible:ring-brand-500 relative block w-full cursor-pointer border-0 bg-transparent p-0 text-left focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
+  .experience-dot {
+    @apply border-line bg-page absolute top-[25px] left-[2px] size-[11px] rounded-full border-2;
   }
-  .hero-fade-overlay {
-    @apply pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-neutral-900/25 to-transparent sm:h-20 dark:from-black/35;
+  /* Declared after .experience-dot so the current role's colours win on source order. */
+  .experience-dot-active {
+    @apply border-accent bg-accent ring-accent/25 top-[23px] left-0 size-[15px] ring-4;
   }
-  .hero-hover-label {
-    @apply pointer-events-none absolute right-3 bottom-3 text-sm font-semibold text-white opacity-100 drop-shadow-sm sm:opacity-0 sm:transition-opacity sm:duration-200 sm:group-hover/hero:opacity-100 md:right-4 md:bottom-4;
+  .experience-card {
+    @apply p-surface bg-raised flex min-w-0 flex-col gap-[7px] border-l-2;
   }
-  .feature-list-item {
-    @apply flex gap-3 text-sm leading-relaxed text-neutral-600 md:text-base dark:text-neutral-400;
+  .experience-card-active {
+    @apply border-accent;
   }
-  .feature-list-bullet {
-    @apply bg-brand-500 mt-2 h-1.5 w-1.5 shrink-0 rounded-full opacity-80;
+  .experience-card-past {
+    @apply border-line;
   }
-  /* Scrollable project description preview - thin brand scrollbars (Firefox + WebKit) */
-  .project-card-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(221 153 60 / 0.45) transparent;
-    overscroll-behavior-y: contain;
+  .experience-card-heading {
+    @apply flex flex-wrap items-baseline gap-x-3 gap-y-1;
   }
-  .dark .project-card-scroll {
-    scrollbar-color: rgb(152 99 27 / 0.42) transparent;
+  .experience-card-title {
+    @apply text-title-sm text-fg-strong font-bold tracking-tight;
   }
-  .project-card-scroll::-webkit-scrollbar {
-    width: 6px;
+  .experience-current {
+    @apply text-fg-accent text-meta font-mono;
   }
-  .project-card-scroll::-webkit-scrollbar-track {
-    background: transparent;
+  /* Below lg the card fills the rail, so the summary fills the card, as the
+     details beneath it already do; a measure there would leave the card empty
+     past the text. From lg the stack's column keeps the card near 62ch. */
+  .experience-summary {
+    @apply text-body text-fg-secondary lg:max-w-[62ch];
   }
-  .project-card-scroll::-webkit-scrollbar-thumb {
-    @apply bg-brand-400/55 rounded-full;
+  .experience-expand-button {
+    @apply text-meta text-fg-secondary hover:border-line-strong hover:bg-tint mt-1 inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 rounded-full border border-neutral-300 px-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-neutral-600 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-800;
   }
-  .project-card-scroll::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-500/70;
+  .experience-details {
+    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
-  .dark .project-card-scroll::-webkit-scrollbar-thumb {
-    @apply bg-brand-500/45;
-  }
-  .dark .project-card-scroll::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-400/60;
-  }
-
-  /* Stat card (metric tiles) */
-  .stat-card {
-    @apply border-brand-300 relative rounded-3xl border-2 bg-neutral-50/90 px-5 py-3 shadow-lg backdrop-blur-sm xl:px-4 xl:py-2.5 2xl:px-6 2xl:py-4 dark:bg-neutral-900/95 dark:shadow-neutral-950/20;
-  }
-  .stat-card-value {
-    @apply font-heading text-brand-500 dark:text-brand-400 text-3xl font-bold sm:text-3xl md:text-3xl lg:text-3xl xl:text-2xl 2xl:text-3xl;
-  }
-  .stat-card-label {
-    @apply text-xs font-semibold text-neutral-700 sm:text-xs md:text-xs lg:text-xs xl:text-[10px] 2xl:text-xs dark:text-neutral-300;
+  .experience-details-content {
+    @apply space-y-5 pt-3;
   }
 
-  /* Legacy alias - prefer btn-toggle-idle in new markup */
-  .btn-toggle-idle,
-  .filter-inactive {
-    @apply opacity-50;
+  /* The activity band: figure and pills on the left, the year on the right.
+     Cell size is a fixed step per breakpoint, not a fraction of the viewport —
+     the year is allowed to overflow and scroll rather than shrink to fit. */
+  .contrib-band {
+    @apply flex w-full flex-col gap-6;
+  }
+  /* A year already fetched swaps instantly; only a genuine wait dims, and it
+     dims the data rather than replacing it, so the band keeps its height and
+     the pills stay at full strength under the pointer. Declared after
+     .contrib-band so it wins on source order within the same layer. */
+  .contrib-band--updating .contrib-figure-row,
+  .contrib-band--updating .contrib-chart {
+    @apply opacity-60;
+  }
+  .contrib-figure-row,
+  .contrib-chart {
+    @apply transition-opacity duration-200;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contrib-figure-row,
+    .contrib-chart {
+      @apply transition-none;
+    }
+  }
+  .contrib-figure-group {
+    /* A row that wraps, not a column. The figure, its label and the year pills
+       come to roughly 350px, so from the first width that can hold them they
+       belong on one line; only 390 is narrow enough to genuinely need two.
+       The band never puts this group beside the calendar: within the 80rem
+       page that would take ~230px from a year that needs all of it. */
+    @apply flex flex-shrink-0 flex-row flex-wrap items-center gap-x-6 gap-y-4;
+  }
+  .contrib-figure-row {
+    @apply flex flex-wrap items-baseline gap-x-3.5 gap-y-1.5;
+  }
+  .contrib-figure {
+    @apply font-display text-numeral lg:text-numeral-lg text-fg-strong font-extrabold tracking-tight tabular-nums;
+  }
+  /* A year still in flight. The figure keeps its own text — three tabular
+     zeroes — and paints over it, so the block is exactly the size the number
+     will be and nothing shifts when it lands. It takes the empty cell's fill
+     rather than its own, so the figure and the stand-in calendar read as one
+     material; the band underneath is neutral-200, which is why the block cannot
+     be that. Declared after .contrib-figure to win on source order. */
+  .contrib-figure.is-pending,
+  .contrib-chart.is-pending {
+    @apply animate-pulse motion-reduce:animate-none;
+  }
+  .contrib-figure.is-pending {
+    @apply bg-page rounded-lg text-transparent;
+  }
+  .contrib-label {
+    @apply text-meta lg:text-body-sm text-fg-secondary font-mono;
+  }
+  .contrib-years {
+    @apply flex gap-3;
+  }
+  /* The year pills carry a bare four-digit label, so .btn-primary's px-3/py-1.5
+     wrapped the digits tightly enough to read as a chip rather than a control.
+     Scoped here so every other primary pill keeps its compact padding. Colour
+     and state come from .filter-pill, which the markup also applies: these are
+     the same affordance as the project filters, and the fill-over-opacity rule
+     and the dark ramp both belong in one place rather than two. */
+  .contrib-year-pill {
+    @apply px-5 py-2.5;
+  }
+  .contrib-chart {
+    @apply flex w-full min-w-0 flex-col gap-2;
+  }
+  /* The one place the page is allowed to scroll sideways. Focusable so the
+     overflow is reachable by keyboard. */
+  .contrib-scroll {
+    /* A day is a fixed size, stepped twice: 16px, 18px from lg, and 19px from
+       the 80rem page cap. It used to be a track between a 16px floor and a
+       22px ceiling that filled the width, which meant every dot grew with the
+       window between ~1060 and the page cap. Fixed, the year takes the width
+       it needs: where that is more than the column, this container scrolls
+       it, as it already did below ~1060; where it is less, the slack sits to
+       the right of the year.
+
+       At lg the year is 1162 wide at 18px, more than the column until 1221,
+       so across lg it scrolls rather than stopping short of the column's
+       edge, which at 16px left 116px empty by 1231. A 54-week year fits from
+       1243. At the cap the column stops growing at 1236, where 18px left 74px
+       of it empty; 19px brings a 53-week year to 1215 (53 × 23 − 4), and a
+       54-week one, the next is 2028, scrolls by 2px. Both are rem, so the calendar tracks the reader's text size rather
+       than a device pixel. */
+    @apply flex flex-col gap-1.5 overflow-x-auto motion-safe:scroll-smooth;
+    /* The native bar is replaced, not merely hidden: the edge fades below say
+       the same thing and are ours to style. Hiding it without them is what made
+       the old calendar's missing months unreachable. */
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  /* Holds the day size, so the scroll buttons beside the year can read it. */
+  .contrib-scroll-frame {
+    @apply relative [--contrib-cell:1rem] [--contrib-gap:0.25rem] lg:[--contrib-cell:1.125rem] min-[80rem]:[--contrib-cell:1.1875rem];
+  }
+  /* Only where the pointer can hover, so a mouse; touch swipes the year. The
+     hidden attribute, set while a side has nothing behind it, still wins. */
+  .contrib-scroll-button {
+    @apply focus-visible:ring-brand-600 border-line bg-raised text-fg-secondary absolute z-10 hidden size-8 translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition-colors hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-neutral-700;
+
+    /* Centred on the days, not on the days and the month row above them. */
+    bottom: calc((7 * var(--contrib-cell) + 6 * var(--contrib-gap)) / 2);
+
+    @media (hover: hover) and (pointer: fine) {
+      display: flex;
+    }
+  }
+  .contrib-scroll-button-start {
+    @apply left-0;
+  }
+  .contrib-scroll-button-end {
+    @apply right-0;
+  }
+  /* Fade whichever side still has weeks behind it, and neither once the whole
+     year is visible. Declared after .contrib-scroll to win on source order. */
+  .contrib-scroll[data-edges='start'] {
+    mask-image: linear-gradient(to right, #000 calc(100% - 3rem), transparent);
+  }
+  .contrib-scroll[data-edges='middle'] {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 3rem,
+      #000 calc(100% - 3rem),
+      transparent
+    );
+  }
+  .contrib-scroll[data-edges='end'] {
+    mask-image: linear-gradient(to right, transparent, #000 3rem);
+  }
+  /* The week count is the year's own, set on the chart by the component: a
+     padded year is 53 or 54 columns depending on the weekday it opens on, and a
+     hard-coded 53 silently drops a week. Months and days share one column
+     template, so a month label sits over its weeks at every size. */
+  .contrib-months,
+  .contrib-grid {
+    @apply grid w-max;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(var(--contrib-weeks), var(--contrib-cell));
+    gap: var(--contrib-gap);
+  }
+  .contrib-months {
+    @apply text-micro lg:text-caption text-fg-secondary font-mono;
+  }
+  .contrib-grid {
+    grid-template-rows: repeat(7, auto);
+  }
+  /* Squared by its ratio, so the rows need no size of their own. */
+  .contrib-cell {
+    @apply block aspect-square rounded-full;
+  }
+  .contrib-legend {
+    @apply text-micro lg:text-caption text-fg-secondary flex items-center gap-1.5 pt-1 font-mono lg:gap-2;
+  }
+  .contrib-legend-dot {
+    @apply block h-2 w-2 rounded-full lg:h-2.5 lg:w-2.5;
+  }
+  /* The dark ramp runs the other way round, so each level is named per theme
+     rather than reused: more activity must read brighter in both. */
+  .contrib-cell-0 {
+    @apply bg-page;
+  }
+  .contrib-cell-1 {
+    @apply bg-brand-300 dark:bg-brand-800;
+  }
+  .contrib-cell-2 {
+    @apply bg-brand-400 dark:bg-brand-600;
+  }
+  .contrib-cell-3 {
+    @apply bg-accent;
+  }
+  .contrib-cell-4 {
+    @apply bg-brand-600 dark:bg-brand-100;
+  }
+
+  /* =========================
+     NAVIGATION
+     ========================= */
+  /* The text mark and the burger share the accent, so the bar is bookended in
+     one colour. Its left edge is the glyph's, so it sits on the content edge;
+     min-h-11 keeps a full touch target without moving that edge.
+     Known exception: in light, brand-600 here and on the burger is 2.8:1
+     against the bar, under AA. Kept by choice for the brand colour; brand-800
+     is the passing step if that changes. */
+  .nav-mark {
+    @apply font-display text-title-sm text-brand-600 dark:text-brand-100 inline-flex min-h-11 items-center font-extrabold tracking-[-0.02em] transition-transform duration-150 active:scale-90;
+  }
+  .nav-burger {
+    @apply text-brand-600 dark:text-brand-100 flex size-11 flex-col items-end justify-center gap-[5px] transition-opacity duration-100 active:opacity-70 md:hidden;
+
+    & > span {
+      @apply h-0.5 rounded-full bg-current;
+    }
+  }
+  /* Mono at the drawn 12px, the bar's quiet register. Rest is neutral-600, not
+     the drawn mid grey, which falls under 4.5:1 on the light ground. The
+     current section takes full ink and an accent underline set below the
+     text, so marking it moves nothing. */
+  .nav-links {
+    @apply flex items-center gap-[22px];
+  }
+  .nav-link {
+    @apply text-caption hover:text-fg-strong text-fg-muted relative inline-flex min-h-11 items-center font-mono transition-colors duration-150;
+
+    &::after {
+      content: '';
+      @apply bg-brand-500 absolute inset-x-0 bottom-[9px] h-[2px] scale-x-0 rounded-full transition-transform duration-200 ease-out;
+    }
+    /* `dark:` would land after the pseudo-element, which is invalid, and the
+       whole rule would be dropped. */
+    .dark &::after {
+      @apply bg-brand-100;
+    }
+    &[aria-current='location'] {
+      @apply text-fg-strong;
+    }
+    &[aria-current='location']::after,
+    &:hover::after {
+      @apply scale-x-100;
+    }
+  }
+  .theme-switch {
+    @apply focus-visible:ring-brand-600 border-line flex cursor-pointer items-center gap-0.5 rounded-full border p-[3px] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 focus-visible:outline-none dark:focus-visible:ring-offset-neutral-900;
+  }
+  .theme-switch-option {
+    @apply group-hover:text-fg-strong text-fg-muted flex size-6 items-center justify-center rounded-full transition-colors duration-150;
+
+    /* Keyed off the root class, which the pre-paint script sets, so the
+       current theme is filled from first paint rather than after hydration. */
+    :root:not(.dark) &[data-theme-option='light'] {
+      @apply bg-brand-500 text-neutral-900;
+    }
+    .dark &[data-theme-option='dark'] {
+      @apply bg-brand-100 text-neutral-900;
+    }
+  }
+  /* The close control takes the burger's 44px box, so it sits where the
+     burger was. */
+  .nav-close {
+    @apply focus-visible:ring-brand-600 border-line text-fg-strong flex size-11 items-center justify-center rounded-full border transition-colors duration-150 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:outline-none dark:hover:bg-neutral-800;
+  }
+
+  /* Phone menu: a modal <dialog> over the whole viewport on the page ground.
+     It scrolls itself, so a short landscape viewport still reaches the
+     theme row. Fades in and out; the display and overlay transitions keep
+     the closing fade from being cut off. */
+  .mobile-sheet {
+    @apply bg-page text-fg-strong fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain p-0 opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 ease-out open:opacity-100 motion-reduce:transition-none md:hidden starting:open:opacity-0;
+
+    &::backdrop {
+      @apply bg-transparent;
+    }
+  }
+  .mobile-sheet-links {
+    @apply flex flex-col gap-0.5 pt-[30px] pb-2;
+  }
+  /* Display face at the drawn 27px. The current section takes an accent
+     marker; the marker's slot is always there, so marking it moves nothing. */
+  .mobile-sheet-link {
+    @apply font-display flex min-h-12 items-center gap-3.5 text-[1.6875rem] leading-tight font-bold tracking-[-0.025em];
+
+    &::before {
+      content: '';
+      @apply h-[22px] w-[3px] shrink-0 rounded-full bg-transparent;
+    }
+    &[aria-current='location']::before {
+      @apply bg-brand-500;
+    }
+    .dark &[aria-current='location']::before {
+      @apply bg-brand-100;
+    }
+  }
+  .mobile-sheet-theme {
+    @apply text-caption border-line text-fg-muted mt-[18px] flex items-center justify-between border-t pt-5 font-mono;
+  }
+
+  /* =========================
+     CARD UTILITIES
+     ========================= */
+  /* Holds the grid, the overflow grid and the control on one rhythm, so the
+     cards revealed by "See all" do not inherit the wider .section-inner gap. */
+  .projects-stack {
+    @apply flex w-full flex-col gap-2.5;
+  }
+  /* One track set for every card in the section, revealed ones included, so a
+     card always lines up with the card above it. Nothing else may introduce a
+     second grid here; that is what used to make the rows disagree. */
+  /* Equal rows from md, where the feature card starts spanning two of them.
+     Without this the rows size to their own content, so a filter showing one
+     compact card gives it the height of its own text — shorter than the same
+     card under every other filter, with the second row left empty beside the
+     feature. Equal rows make a lone card measure the same as a full set. */
+  .projects-grid {
+    @apply grid w-full max-w-[900px] grid-cols-1 items-stretch gap-5 md:max-w-none md:auto-rows-fr md:grid-cols-2 xl:grid-cols-3;
+  }
+  .project-card-feature {
+    @apply focus-visible:ring-brand-600 bg-raised relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-lg text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* The hover border is its own layer above the card's content: drawn on the
+     card itself, the feature card's cover sat over it and the border stopped
+     at the gradient. */
+  .project-card-feature::after,
+  .project-card-compact::after {
+    @apply border-brand-500/70 pointer-events-none absolute inset-0 z-10 rounded-[inherit] border opacity-0 transition-opacity duration-200 ease-[cubic-bezier(0.22,1,0.36,1)];
+
+    content: '';
+  }
+  /* Written out rather than as dark:, whose variant lands after the
+     pseudo-element and makes the selector invalid. Dark's brightest amber is
+     brand-100, as on the selected pill. */
+  .dark .project-card-feature::after,
+  .dark .project-card-compact::after {
+    border-color: color-mix(in oklab, var(--color-brand-100) 60%, transparent);
+  }
+  .project-card-feature:hover::after,
+  .project-card-compact:hover::after {
+    @apply opacity-100;
+  }
+  /* The feature card earns its emphasis by spanning two rows, not by sitting in
+     a wider track — so the compact cards beside it form a clean rectangle. Set
+     here rather than as a utility in JSX: this layer wins on source order and
+     would otherwise silently beat it. Applied only when there are compact cards
+     to align against; a lone card has nothing to span. */
+  .project-card-feature-spanning {
+    @apply md:row-span-2;
+  }
+  /* One warm ramp for every project. The artboard draws an AI project with this
+     cover, so it was never a category signal; the card's glyph carries that. */
+  /* Fixed at every width, 182px from lg as drawn in .design/Main.dc.html. The
+     cover does not absorb slack: the feature card is sized by its own content
+     and the compact cards stretch to meet it, so a card with no neighbours is
+     the same height as one with them. */
+  .project-card-cover {
+    @apply relative block h-[154px] shrink-0 lg:h-[182px];
+
+    --cover-a: var(--cover-brand);
+    --cover-b: color-mix(in oklab, var(--cover-a) 45%, var(--cover-end));
+
+    background-image: linear-gradient(
+      152deg,
+      var(--cover-a) 0%,
+      var(--cover-b) 52%,
+      var(--cover-end) 100%
+    );
+  }
+  /* Reserves the space a two-line title and two-line summary would need, so the
+     card is the same height whichever project is featured and the grid cannot
+     move when the filter changes. Reserved on the body rather than on the title
+     and summary themselves: that way a short title keeps its summary tight
+     beneath it and the slack pools once, at the foot of the card, where it
+     reads as padding instead of as a gap in the middle of the text. */
+  .project-card-feature-body {
+    @apply flex min-h-[177px] flex-col gap-2 p-5;
+  }
+  .project-card-feature-meta {
+    @apply text-fg-accent text-meta font-mono;
+  }
+  .project-card-feature-title {
+    @apply font-heading text-heading text-fg-strong font-bold tracking-[-0.02em];
+  }
+  .project-card-feature-excerpt {
+    @apply text-body-sm text-fg-secondary line-clamp-2 leading-[1.55];
+  }
+  .project-card-compact {
+    @apply focus-visible:ring-brand-600 bg-raised relative flex min-h-20 cursor-pointer flex-col justify-center gap-1.5 overflow-hidden rounded-lg px-[18px] py-[15px] text-left shadow-sm transition-[translate,box-shadow] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:translate-y-0 motion-reduce:hover:translate-y-0 xl:min-h-28 xl:px-6 xl:py-5 dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* Out of flow, so a card carrying it is no taller than one that does not —
+     in the flow it added a line to whichever row held it and the section moved
+     when the filter changed. The summary on those cards is inset by
+     .project-card-compact-excerpt-inset instead, so the two cannot collide. */
+  .project-card-compact-access {
+    @apply text-meta text-fg-muted absolute right-[15px] bottom-[13px] font-mono xl:right-5 xl:bottom-4;
+  }
+  .project-card-compact-excerpt-inset {
+    @apply pr-24;
+  }
+  .project-card-compact-marks {
+    @apply absolute top-[13px] right-[15px] xl:top-4 xl:right-5;
+  }
+  .project-card-compact-title {
+    @apply font-heading text-title-sm text-fg-strong truncate font-bold;
+  }
+  /* A compact card is roughly a third of the content width now rather than a
+     300px rail, so it has room for two lines and no longer needs truncating. */
+  .project-card-compact-excerpt {
+    @apply text-body-sm text-fg-secondary line-clamp-2;
+  }
+  .projects-empty {
+    @apply text-body-sm text-fg-muted py-8 text-center;
+  }
+  /* Carries the measured height of the grid inside it, so the section can open
+     to a real height rather than a guessed one. It holds no transition of its
+     own: the same height change happens when a back navigation restores the
+     expansion from the URL, and animating there would leave the section short
+     across the frames in which the browser restores the reader's position. */
+  .projects-grid-reveal {
+    @apply w-full;
+  }
+  /* Armed by the press, for the length of the reveal. The pace and easing are
+     .experience-details', so a project opening and a role opening read as the
+     same gesture. Clipping is what makes the extra rows wipe in rather than
+     appear whole, and it is dropped again with this class: a wrapper left
+     clipped cuts the focus ring off every card sitting on its edge. Only the
+     bottom edge clips, so a hovered card's lift and shadow survive the wipe. */
+  .projects-grid-reveal-active {
+    clip-path: inset(-1rem -1rem 0 -1rem);
+    @apply transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+  }
+  /* A filter press settles the new set in card by card, on the same settle
+     and keyframes as a project page arriving from previous or next. Only the
+     cards on show at the press take part; rows the see-all control adds later
+     are wiped in by the height, as before. */
+  .projects-grid-settle > :nth-child(-n + 5) {
+    animation: project-settle-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .projects-grid-settle > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+  .projects-grid-settle > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .projects-grid-settle > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+  .projects-grid-settle > :nth-child(5) {
+    animation-delay: 240ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .projects-grid-settle > :nth-child(-n + 5) {
+      animation: project-settle-fade 150ms linear both;
+    }
+  }
+  /* The row is always present, so the page below the section does not jump by
+     the button's height when a filter has nothing left to expand. */
+  .projects-see-all-row {
+    @apply mt-3.5 flex min-h-12 w-full justify-center;
+  }
+  .projects-see-all {
+    @apply focus-visible:ring-brand-600 text-body-sm hover:border-line-strong hover:bg-tint text-fg-strong inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-neutral-400 px-5 py-3 font-mono transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none sm:w-auto sm:min-w-56 dark:border-neutral-500 dark:focus-visible:ring-offset-neutral-900;
+  }
+  .link-accent {
+    @apply text-fg-accent decoration-brand-500 hover:text-brand-900 dark:hover:text-brand-300 font-semibold underline underline-offset-2;
+  }
+
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber and
+     brand-500 its dimmest — so the light theme's fill left every primary button
+     at 3.42:1 in dark, the site's two calls to action included. Dark takes the
+     bright fill under dark ink, which is what .filter-pill-selected already did
+     locally; this is that fix at the source rather than a third copy of it. */
+  .btn-primary {
+    @apply font-heading bg-brand-500 hover:bg-brand-600 dark:bg-brand-100 dark:hover:bg-brand-300 text-body inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-3 py-1.5 font-bold tracking-tight text-neutral-900 shadow-sm transition-colors duration-150 dark:text-neutral-900;
+  }
+  /* Emphasis, not rhythm: a band is a step deeper than the page and marks a
+     section with no heading of its own, the activity band and the footer.
+     A heading already marks where a chapter starts, and alternating every
+     section reads as noise. */
+  .section-band {
+    @apply bg-neutral-200 dark:bg-neutral-950;
+  }
+  .footer {
+    @apply mt-rhythm w-full bg-neutral-200 py-14 lg:py-16 dark:bg-neutral-950;
+  }
+  .footer-container {
+    @apply px-gutter max-w-page mx-auto flex w-full flex-col gap-12;
+  }
+  .footer-primary {
+    @apply grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_auto] lg:gap-11;
+  }
+  .footer-pitch {
+    @apply flex flex-col items-start;
+  }
+  .footer-heading {
+    @apply font-display text-heading lg:text-heading-lg 2xl:text-display font-bold text-balance;
+  }
+  .footer-copy {
+    @apply text-lead text-fg-secondary mt-8 max-w-[44ch];
+  }
+  .footer-actions {
+    @apply mt-7 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:gap-6;
+  }
+  /* Positions the copy confirmation that floats above the address. */
+  .footer-email {
+    @apply relative flex w-full sm:w-auto;
+  }
+  /* Floats above its button so confirming a copy never reflows the row. */
+  .copy-confirm {
+    @apply text-meta bg-inverse text-page pointer-events-none absolute right-0 bottom-full mb-2 rounded-full px-2.5 py-1 font-mono whitespace-nowrap empty:hidden;
+  }
+  .footer-action {
+    /* Same type as the hero's actions: mono is reserved for the weakest
+       affordances (see-all, card expanders), not for real buttons. */
+    @apply text-body min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold sm:w-auto;
+  }
+  /* The secondary in a primary/secondary pairing, shared by the hero and the
+     footer. Its hover is ink at low alpha rather than a named neutral, because
+     a named one is a fixed colour and these controls sit on three different
+     surfaces: hover:bg-neutral-200 was exactly the footer's and the activity
+     band's own background, so on those two the hover was invisible while
+     working fine on the page. An overlay darkens or lightens whatever is
+     behind it, so one rule holds on every surface; at 12% and 14% it is also
+     strong enough to see, which 8% and 10% were not, and every outline-style
+     control (filter pills, see-all, the job expander) takes the same one.
+     Neutral outline rather than TertiaryButton's brand border and amber
+     hover: the accent marks the one action worth taking, and spending it on both
+     halves of a pair leaves neither leading. Named for the role, not the section,
+     because the hero and the footer draw the same pairing. */
+  .btn-outline {
+    @apply border-line text-fg hover:border-line-strong hover:bg-tint bg-transparent shadow-none dark:bg-transparent;
+  }
+  .footer-social-links {
+    @apply flex flex-wrap items-center gap-x-[18px];
+  }
+  .footer-social-link {
+    @apply text-body-sm hover:text-fg-strong hover:decoration-accent text-fg-secondary decoration-line py-2.5 font-mono underline underline-offset-4 transition-colors;
+  }
+  .footer-meta {
+    @apply text-meta border-line text-fg-secondary flex w-full items-center justify-between border-t pt-6 font-mono;
+  }
+  /* ---- A page of its own: a project, the privacy policy ---- */
+  /* Blocks down the page carry the same rhythm a section uses internally. */
+  /* The prose inside keeps its own 72ch measure. */
+  .page-stack {
+    @apply gap-block lg:gap-block-lg flex w-full flex-col;
+  }
+  .page-head {
+    @apply flex w-full flex-col items-start gap-4 lg:gap-5;
+  }
+  /* One step under the hero and one above a section heading: the hero runs
+     display through display-2xl, a section heading heading through display. */
+  .page-title {
+    @apply font-display text-heading-lg lg:text-display text-fg-strong font-extrabold tracking-[-0.03em] text-balance;
+  }
+  /* The receiving half of the morph from a project card. Only one element on
+     a page may carry a name, and a project page has exactly one heading; the
+     card that sends it is named at the moment it is clicked. Kept off
+     .page-title so another page's heading never morphs into a project's. */
+  .project-page-title {
+    view-transition-name: project-title;
+  }
+  /* Lead work, not caption work: it is the first sentence a reader gets. */
+  .page-summary {
+    @apply text-lead lg:text-title-sm text-fg-secondary max-w-[54ch] leading-relaxed;
+  }
+  /* The facts as one mono rail. A ruled list belonged to the dialog, where it
+     had an aside to sit in; at page width it reads as a stray box. */
+  .page-meta {
+    @apply text-meta text-fg-muted flex flex-wrap items-center gap-x-2 gap-y-1.5 font-mono tracking-wide;
+  }
+  /* A heading on the display face at the page's own step. Not the accent: the
+     refresh reserves brand for emphasis, and a section label is not emphasis. */
+  .page-heading {
+    @apply font-display text-title lg:text-heading text-fg-strong font-bold tracking-tight;
+  }
+  /* The one fact that is a state rather than a label takes the accent. */
+  .project-page-meta-active {
+    @apply text-fg-accent;
+  }
+  /* The hero's pairing at the footer's size: the first link is the page's
+     primary call and the rest sit beside it. */
+  .page-actions {
+    @apply flex w-full flex-col gap-3 sm:w-auto sm:flex-row;
+  }
+  .page-action {
+    @apply text-body focus-visible:ring-brand-600 min-h-12 w-full justify-center px-5 py-3 leading-normal font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto dark:focus-visible:ring-offset-neutral-900;
+  }
+  /* "group" stays on the element in the markup: it is a marker class, not a
+     utility, so @apply cannot take it. */
+  .project-page-onward-link {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+  .project-page-onward-title {
+    @apply font-display text-title-sm lg:text-title group-hover:text-brand-700 dark:group-hover:text-brand-100 text-fg-strong font-bold tracking-tight transition-colors;
+  }
+  /* Stands where a cover will go. Every image the site holds today is a client
+     logo or an avatar, and centring one in a page-wide plate reads as a picture
+     that failed to load, so no project shows a cover yet. */
+  .project-page-edge {
+    @apply bg-brand-500 h-[3px] w-24 rounded-full;
+  }
+  /* Reading column and a rail, the hero's shape at a calmer measure. */
+  .project-page-body {
+    @apply gap-block grid w-full items-start lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-11 2xl:grid-cols-[minmax(0,1fr)_320px] 2xl:gap-14;
+  }
+  /* The prose keeps a measure of its own, so a long line never runs the full
+     column. */
+  .page-column {
+    @apply gap-stack flex max-w-[72ch] min-w-0 flex-col;
+  }
+  /* A heading and the prose under it, at the gap a project page's overview uses. */
+  .page-block {
+    @apply flex flex-col gap-3;
+  }
+  /* Reading text on a page of its own: the project overview's size and ink. */
+  .page-prose {
+    @apply text-body text-fg-secondary;
+  }
+  .page-list {
+    @apply list-disc space-y-3 pl-5 marker:text-neutral-400 dark:marker:text-neutral-600;
+  }
+  .project-page-rail {
+    @apply flex min-w-0 flex-col gap-3;
+  }
+  /* The same treatment .experience-stack-label gives "Built with":
+     mono at caption size, neutral, no case change. The uppercase tracked label
+     came from the dialog and appears nowhere else on the site. */
+  .project-page-label {
+    @apply text-caption text-fg-muted font-mono;
+  }
+  .project-page-onward {
+    @apply pt-stack flex flex-wrap items-end justify-between gap-4 border-t border-neutral-200/80 dark:border-neutral-700/60;
+  }
+  /*
+   * Arriving from the previous or next link, the page settles in piece by
+   * piece rather than swapping as one picture: the head first, then the
+   * summary, the facts, the body and the way onward, 60ms apart. Each piece
+   * moves only within its own place, so projects whose titles and summaries
+   * run to different lengths never overlap. These are the site's settle
+   * values (a 12px rise over 320ms on the project-title morph's curve), which
+   * the Projects filter reuses; under reduced motion the rise goes and a short
+   * fade stays.
+   */
+  .project-settle :is(.project-back-link, .project-page-title),
+  .project-settle .page-summary,
+  .project-settle .page-meta,
+  .project-settle .project-page-body,
+  .project-settle .project-page-onward {
+    animation: project-settle-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .project-settle .page-summary {
+    animation-delay: 60ms;
+  }
+  .project-settle .page-meta {
+    animation-delay: 120ms;
+  }
+  .project-settle .project-page-body {
+    animation-delay: 180ms;
+  }
+  .project-settle .project-page-onward {
+    animation-delay: 240ms;
+  }
+  @keyframes project-settle-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-settle :is(.project-back-link, .project-page-title),
+    .project-settle .page-summary,
+    .project-settle .page-meta,
+    .project-settle .project-page-body,
+    .project-settle .project-page-onward {
+      animation: project-settle-fade 150ms linear both;
+    }
+  }
+  @keyframes project-settle-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  /* Return to the projects section from a project's own page. */
+  .project-back-link {
+    @apply text-body-sm text-fg-muted hover:text-fg-strong inline-flex w-fit items-center gap-2 transition-colors;
+  }
+  .skill-tile-tooltip {
+    @apply text-caption bg-inverse pointer-events-none fixed z-[9999] rounded-md px-3 py-1.5 font-semibold whitespace-nowrap text-neutral-200 shadow-lg transition-opacity duration-200 dark:text-neutral-900;
+  }
+  /* From md the groups share one grid, so the label column takes the longest
+     label's width and every group's tiles start on the same edge. */
+  .skills-groups {
+    @apply flex w-full flex-col md:grid md:grid-cols-[max-content_minmax(0,1fr)] md:gap-x-6;
+  }
+  .skills-group {
+    @apply grid gap-y-3 py-6 first:pt-0 last:pb-0 md:col-span-2 md:grid-cols-subgrid;
+  }
+  /* Separators only between groups: no rule under the heading, none after the last. */
+  .skills-group + .skills-group {
+    @apply border-line border-t;
+  }
+  /* From md the label's first line centres on the first tile row (48px, 56px
+     from lg) rather than floating mid-group. */
+  .skills-group-label {
+    @apply text-body-sm text-fg-muted font-mono md:pt-[calc((3rem-1lh)/2)] lg:pt-[calc((3.5rem-1lh)/2)];
+  }
+  .skills-group-tiles {
+    @apply flex min-w-0 flex-wrap gap-2 sm:gap-3;
+  }
+  /* About. Below md the photograph stacks above the copy, as on a phone:
+     beside the copy at sm it could be no wider than 200, since the copy
+     column was already at its narrowest. From md the two sit side by side.
+     Beside the copy the photograph has one place, top right, one shape, 4:5,
+     and one size, 320 wide, about as tall as the copy beside it; a larger
+     one overshadowed the copy. Below lg the copy column is as wide as its
+     copy and the grid packs to the start. From lg the row splits in half,
+     though the copy's half never narrows below the copy, which would wrap
+     the highlights at 1024. The photograph centres in its half, so the slack
+     sits either side of it rather than pooling at the right. The last row is
+     1fr so a photograph taller than the copy pools its slack under the
+     credentials rather than spreading the copy apart. Every size steps;
+     nothing is fluid. */
+  .about-grid {
+    @apply gap-y-rhythm grid w-full grid-cols-1 items-start;
+
+    grid-template-areas: 'visual' 'narrative' 'credentials';
+  }
+  @media (width >= 48rem) {
+    .about-grid {
+      @apply gap-x-11;
+
+      grid-template-columns: minmax(0, max-content) 320px;
+      justify-content: start;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        'narrative visual'
+        'credentials visual';
+    }
+  }
+  @media (width >= 64rem) {
+    .about-grid {
+      @apply gap-x-14;
+
+      grid-template-columns: minmax(max-content, 1fr) minmax(0, 1fr);
+    }
+  }
+  /* Stacked, the frame is capped so it stays a plate rather than a banner on a
+     large phone. The face sits in the upper half of the photograph, so the
+     crop favours it. Beside the copy its top meets the narrative's cap height
+     rather than its line box; the photograph moves down rather than the text
+     up, so the space under the section heading matches every other
+     section's. Stacked, it keeps as much space beneath it as the heading
+     leaves above, 56px, where the row gap alone left 22 and the bottom
+     sticker 6px off the text. The frame does not clip, so the stickers can
+     overhang it; the image carries the rounding instead. */
+  .about-visual {
+    @apply relative mb-8.5 h-[300px] w-full max-w-88 md:mt-2 md:mb-0 md:aspect-[4/5] md:h-auto md:max-w-none lg:w-80 lg:justify-self-center;
+
+    grid-area: visual;
+
+    & img {
+      @apply rounded-lg object-cover object-[50%_35%];
+    }
+  }
+  /* Three stickers slapped on the photograph's edges, the section's one
+     playful note. They overhang by no more than the page gutter at md, where
+     the photograph meets the gutter, and further from lg, where the
+     row has slack beside it. */
+  .about-stickers {
+    @apply pointer-events-none absolute inset-0;
+  }
+  .about-sticker {
+    @apply font-display text-body lg:text-title-sm absolute rounded-full px-3 py-1.5 font-bold whitespace-nowrap text-neutral-900 shadow-lg shadow-black/35 lg:px-4 lg:py-2;
+
+    &:nth-child(1) {
+      @apply bg-brand-400 -top-2.5 -left-2 -rotate-6 lg:-top-3.5 lg:-left-6.5;
+    }
+    &:nth-child(2) {
+      @apply top-[41%] -right-2 rotate-[5deg] bg-neutral-100 lg:-right-8.5;
+    }
+    &:nth-child(3) {
+      @apply border-brand-400 -bottom-3 left-5 -rotate-3 border-2 bg-neutral-900 py-1 text-neutral-50 lg:-bottom-4 lg:left-9 lg:py-1.5;
+    }
+  }
+  /* 52ch from lg, which keeps the copy about as tall as the photograph. */
+  .about-narrative {
+    @apply text-lead text-fg-secondary max-w-[56ch] space-y-4 lg:max-w-[52ch];
+
+    grid-area: narrative;
+  }
+  /* Tops the grid's rhythm gap up to a block, so the highlights read as their
+     own group rather than a third paragraph. */
+  .about-credentials {
+    grid-area: credentials;
+    margin-top: calc(var(--spacing-block) - var(--spacing-rhythm));
+  }
+  /* Leads the narrative into the list, so the six lines read as a set rather
+     than a third paragraph. */
+  .about-credentials-heading {
+    @apply font-display text-title-sm text-fg-strong mb-4 font-bold tracking-tight;
+  }
+  /* One column until lg, where the copy is wide enough for two; six lines
+     stacked made a tall, narrow strip that ran the copy past the photograph. */
+  .about-credential-list {
+    @apply grid grid-cols-1 gap-x-6 gap-y-[11px] lg:grid-cols-2;
+  }
+  .about-credential {
+    @apply border-accent text-body text-fg border-l-2 py-[3px] pl-3.5;
+  }
+  .hero-composition {
+    /* The copy column is as wide as its copy and the grid packs to the start,
+       so the rocket sits one column gap from the copy at every width and the
+       window's slack falls to its right. The type and the rocket change size
+       only at a breakpoint, together, so between steps nothing in the hero
+       moves. The cost is a right edge that stops short of the sections', by
+       up to 305px at the end of the lg range and 61px at the 80rem cap. A copy
+       column that took what the rocket left pinned the rocket to the page edge
+       instead, and the gap beside it grew across each range and snapped back
+       at the next, 169 to 424 and then 147 at 1280.
+
+       Height is the content's, never the viewport's. A `min-height: 75vh` here
+       sat under fixed-height content, so the hero grew with the window while
+       nothing inside it did.
+
+       On a phone the rocket sits on its own row above the copy. Beside the headline it could only have the width the
+       headline did not need, which held it to 99px. On its own row the frame
+       takes the column's width at a fixed height, and since the camera's
+       vertical field is fixed the height alone sets the rocket's size: it
+       stays one size at every phone width and the camera centres it. From sm
+       the whole copy block sits beside it.
+
+       Each step's rocket frame is sized so the drawn rocket stands about as
+       tall as the copy block beside it, and so the hero fits the content width
+       at the first pixel of its range: the headline's measure + gap + frame
+       is 324 + 24 + 216 inside 640's 581, 409 + 28 + 240 inside 768's 709,
+       and 508 + 48 + 288 inside 1024's 905. */
+    @apply py-block lg:py-block-lg relative grid w-full gap-y-5 sm:items-center sm:gap-x-6 sm:gap-y-0 md:gap-x-7 lg:gap-x-12 xl:gap-x-14;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'visual'
+      'copy';
+
+    @variant sm {
+      grid-template-columns: minmax(0, max-content) 216px;
+      grid-template-areas: 'copy visual';
+      justify-content: start;
+    }
+    @variant md {
+      grid-template-columns: minmax(0, max-content) 240px;
+    }
+    @variant lg {
+      grid-template-columns: minmax(0, max-content) 288px;
+    }
+    @variant xl {
+      grid-template-columns: minmax(0, max-content) 396px;
+    }
+  }
+  .hero-copy {
+    /* The artboard's 20px
+       rhythm at the drawn scale; it steps with the type at xl so the block
+       does not tighten as the headline grows. */
+    @apply relative z-10 flex min-w-0 flex-col items-start gap-5 text-left xl:gap-7;
+    grid-area: copy;
+  }
+  .hero-identity {
+    @apply flex flex-col gap-1;
+  }
+  /* Between the mono rail and the headline in every respect: the display face
+     so it belongs to the headline, but far smaller so it introduces the page
+     rather than competing with the claim. */
+  .hero-name {
+    @apply font-display text-title-sm xl:text-title text-fg font-semibold tracking-tight;
+  }
+  .hero-eyebrow {
+    /* Pretty, so if the line wraps it does not leave "Beck" on its own. */
+    @apply text-fg-accent text-body-sm xl:text-lead font-mono tracking-wide text-pretty;
+  }
+  .hero-headline {
+    /* Weight and tracking are the artboard's: 800 at -0.035em. The heading face
+       stops at 700, so this sets its own.
+
+       One size per breakpoint, stepping with the rocket. 38px on a phone, the
+       drawn size. From sm 46px, from md 58px, from lg 72px and from xl 96px,
+       all at 11ch, a three-line block that leaves both buttons a row. The copy
+       column is as wide as this box, and balanced lines stop short of it, so
+       a wider measure set the rocket that much further from the text: 13ch
+       broke the same three lines and left 167px beside the rocket at lg
+       against 70 at 11ch. No 2xl step: the page stops growing before 1536. */
+    @apply font-display text-display sm:text-display-md md:text-display-lg lg:text-display-xl xl:text-display-2xl font-extrabold tracking-[-0.035em] text-balance sm:max-w-[11ch];
+  }
+  .hero-supporting-text {
+    @apply text-lead xl:text-title-sm max-w-[46ch] xl:max-w-[52ch];
+  }
+  .hero-actions {
+    /* One row from sm; the wrap is a backstop, so a longer label can never
+       break inside a pill. */
+    @apply mt-2 flex w-full flex-col flex-wrap gap-3 sm:w-auto sm:flex-row xl:mt-4 xl:gap-4;
+  }
+  /* Drawn at 10px/22px padding: a hero call to action, not the compact filter
+     pill. Scoped here so PrimaryButton stays compact everywhere else. The floor
+     matches the footer's, which is what takes these over the 48px touch target
+     the drawn padding alone missed by two pixels. */
+  .hero-action {
+    @apply text-body focus-visible:ring-brand-600 xl:text-lead min-h-12 w-full px-[22px] py-2.5 font-bold whitespace-nowrap focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-none sm:w-auto xl:px-7 xl:py-3.5 dark:focus-visible:ring-offset-neutral-900;
+  }
+  .hero-visual {
+    /* From sm the frame is the grid column's width at Rocket.module.css's 3:5,
+       so no step keeps a height in sync. On a phone it is the full column at a
+       fixed 280px; a definite height overrides the module's aspect ratio.
+
+       Portrait because the rocket is: in a square it filled 45% of the width
+       and left ~120px of empty canvas either side.
+       The camera's vertical field is fixed, so trimming the sides leaves the
+       rocket exactly the size it was.
+
+       No rounding or clipping: the canvas is transparent and its halo is drawn
+       past the edges, so a clip would cut the glow rather than frame anything. */
+    @apply relative z-10 h-70 w-full self-center sm:h-auto;
+    grid-area: visual;
+  }
+
+  /* Category is carried by the glyph and the label, so colour here is brand and
+     neutral only. State is a change of fill, never opacity: dimming the pill
+     dimmed its label and glyph too, and halved the hover shift into invisibility.
+     Declared after .btn-primary so the resting and hover backgrounds win on
+     source order rather than specificity. */
+  .filter-pill {
+    @apply hover:border-line-strong hover:bg-tint text-fg gap-1.5 border-neutral-400 bg-transparent shadow-none dark:border-neutral-600;
+  }
+  .filter-pill-mark {
+    @apply shrink-0;
+  }
+  /* Two classes, so this beats .category-mark's muted grey — that grey is right
+     on a card but washed out against the selected fill. The glyph takes the
+     pill's own colour in both states, and is never dimmed. */
+  .filter-pill .category-mark {
+    @apply text-current;
+  }
+  /* Declared after .filter-pill so the selected fill wins on source order. */
+  /* Dark's brand ramp runs the other way — brand-100 is its brightest amber —
+     so both themes get a bright fill under dark text: 7.15:1 light, 6.60:1
+     dark. Using brand-500 in dark gave 3.50:1, which is why it looked washed. */
+  .filter-pill-selected {
+    @apply bg-brand-500 border-brand-500 hover:border-brand-500 hover:bg-brand-500 dark:bg-brand-100 dark:border-brand-100 dark:hover:border-brand-100 dark:hover:bg-brand-100 text-neutral-900 dark:text-neutral-900;
+  }
+  /* Category glyphs. The card's own label carries the categories for a reader
+     who cannot see them, so the marks themselves are hidden from the tree. */
+  .category-marks {
+    @apply pointer-events-none inline-flex items-center gap-1.5;
+  }
+  .category-mark {
+    @apply text-fg-muted h-3.5 w-3.5;
+  }
+  .category-marks-on-cover {
+    @apply absolute top-3 right-3;
+  }
+  .category-mark-on-cover {
+    @apply text-fg-secondary/70 h-4 w-4;
   }
 
   /* Contributions calendar tooltip */
   .contributions-tooltip-box {
-    @apply rounded-lg bg-neutral-900 px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:bg-neutral-100 dark:text-neutral-900;
+    @apply bg-inverse rounded-lg px-3 py-2 text-white shadow-xl backdrop-blur-sm dark:text-neutral-900;
   }
   .contributions-tooltip-arrow {
-    @apply absolute -bottom-1 left-1/2 z-[-1] h-2 w-2 -translate-x-1/2 rotate-45 bg-neutral-900 dark:bg-neutral-100;
+    @apply bg-inverse absolute -bottom-1 left-1/2 z-[-1] h-2 w-2 -translate-x-1/2 rotate-45;
   }
-}
 
-/* =========================
-   ðŸŽ¨ SWIPER (project carousel)
-   ========================= */
-
-.swiper-pagination-bullet {
-  background-color: #dd993c !important;
-  opacity: 0.5;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: #dd993c !important;
-  opacity: 1;
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  color: #dd993c !important;
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-  font-size: 24px !important;
-}
-
-/* Active project card: directional depth + warm ambient (non-inset box-shadow only) */
-.projects-section-swiper .swiper-slide-active .project-card {
-  box-shadow:
-    0 1px 2px color-mix(in srgb, var(--color-neutral-900) 8%, transparent),
-    0 8px 24px -10px
-      color-mix(in srgb, var(--color-neutral-900) 10%, transparent),
-    0 14px 36px -12px
-      color-mix(in srgb, var(--color-brand-400) 30%, transparent),
-    0 22px 52px -16px
-      color-mix(in srgb, var(--color-brand-500) 18%, transparent),
-    10px 16px 40px -14px
-      color-mix(in srgb, var(--color-brand-500) 12%, transparent);
-  transition:
-    box-shadow 200ms ease-out,
-    transform 200ms ease-out;
-}
-
-.projects-section-swiper .swiper-slide-active .project-card:hover,
-.projects-section-swiper .swiper-slide-active .project-card:focus-within {
-  box-shadow:
-    0 2px 4px color-mix(in srgb, var(--color-neutral-900) 10%, transparent),
-    0 10px 28px -8px
-      color-mix(in srgb, var(--color-neutral-900) 12%, transparent),
-    0 14px 40px -10px
-      color-mix(in srgb, var(--color-brand-400) 38%, transparent),
-    0 24px 56px -12px
-      color-mix(in srgb, var(--color-brand-500) 24%, transparent),
-    12px 18px 44px -12px
-      color-mix(in srgb, var(--color-brand-500) 16%, transparent);
-}
-
-.dark .projects-section-swiper .swiper-slide-active .project-card {
-  box-shadow:
-    0 1px 2px color-mix(in srgb, var(--color-neutral-900) 14%, transparent),
-    0 8px 22px -10px
-      color-mix(in srgb, var(--color-neutral-900) 16%, transparent),
-    0 14px 34px -12px
-      color-mix(in srgb, var(--color-brand-400) 22%, transparent),
-    0 20px 44px -16px
-      color-mix(in srgb, var(--color-brand-500) 14%, transparent),
-    10px 14px 36px -14px
-      color-mix(in srgb, var(--color-brand-500) 10%, transparent);
-}
-
-.dark .projects-section-swiper .swiper-slide-active .project-card:hover,
-.dark .projects-section-swiper .swiper-slide-active .project-card:focus-within {
-  box-shadow:
-    0 2px 4px color-mix(in srgb, var(--color-neutral-900) 18%, transparent),
-    0 10px 26px -8px
-      color-mix(in srgb, var(--color-neutral-900) 18%, transparent),
-    0 14px 38px -10px
-      color-mix(in srgb, var(--color-brand-400) 28%, transparent),
-    0 22px 50px -12px
-      color-mix(in srgb, var(--color-brand-500) 18%, transparent),
-    12px 16px 40px -12px
-      color-mix(in srgb, var(--color-brand-500) 12%, transparent);
-}
-
-@media (min-width: 1280px) {
-  .projects-section-swiper .swiper-button-prev {
-    left: 2rem !important;
+  /* Every button and pill gives a little under the press and springs back, so
+     a click is felt before the page answers it. Declared after the controls so
+     this transition list, which adds scale to their colour change, wins on
+     source order. Reduced motion keeps the colour change and drops the give. */
+  .btn-primary,
+  .btn-outline,
+  .projects-see-all,
+  .experience-expand-button {
+    transition-property:
+      color, background-color, border-color, text-decoration-color, scale;
   }
-  .projects-section-swiper .swiper-button-next {
-    right: 2rem !important;
+  .btn-primary:active,
+  .btn-outline:active,
+  .projects-see-all:active,
+  .experience-expand-button:active {
+    scale: 0.97;
   }
-}
-
-@media (max-width: 1279px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-    display: none !important;
-  }
-}
-
-@media (max-width: 1023px) {
-  .projects-section-swiper .swiper-pagination {
-    position: absolute !important;
-    top: 0 !important;
-    bottom: auto !important;
-    left: 0;
-    right: 0;
-  }
-  .projects-section-swiper .swiper-wrapper {
-    margin-top: 2.75rem !important;
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:active,
+    .btn-outline:active,
+    .projects-see-all:active,
+    .experience-expand-button:active {
+      scale: none;
+    }
   }
 }

@@ -11,11 +11,11 @@ export default function Home() {
   return (
     <div className="screen-parent">
       <HeroSection />
+      <ContributionsSection />
       <SkillsSection />
       <ProjectsSection />
-      <AboutSection />
       <ExperienceSection />
-      <ContributionsSection />
+      <AboutSection />
     </div>
   );
 }

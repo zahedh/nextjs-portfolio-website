@@ -20,7 +20,13 @@ export type SkillCategory =
   | 'testing'
   | 'api'
   | 'collaboration'
-  | 'productivity'
   | 'ai'
   | 'os'
   | 'methodologies';
+
+export type SkillGroup =
+  | 'languages'
+  | 'frameworks'
+  | 'design'
+  | 'aiTooling'
+  | 'toolingAndPractice';

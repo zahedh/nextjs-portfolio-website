@@ -1,55 +1,73 @@
 'use client';
 
-import { BodyText, Heading, Section, SubHeading } from '@/components';
-import { AvatarGraphic } from '@/components/media';
-import { HeroFloatingOrbs } from '@/components/ui/animations';
-import { useGlobalStore } from '@/providers/global-store-provider';
+import {
+  BodyText,
+  Heading,
+  PrimaryButton,
+  Section,
+  TertiaryButton,
+} from '@/components';
+import { HeroFloatingOrbs, Rocket } from '@/components/ui/animations';
 import { en } from '@/language';
-import { WavingHand } from '@/components/ui/animations/WavingHand';
-import { AnimatedText } from '@/components/ui/animations/AnimatedText';
+import { useTheme } from '@/hooks/utilityHooks';
+import { Download } from 'lucide-react';
 
-/** Hero section introducing the portfolio and primary value proposition. */
-export default function HeroSection() {
-  const heroAnimationComplete = useGlobalStore(
-    (state) => state.heroAnimationComplete
-  );
-  const setHeroAnimationComplete = useGlobalStore(
-    (state) => state.setHeroAnimationComplete
-  );
+// Snaps to Projects like every nav link; the section's entrance does the arriving.
+function handleProjectsClick(mouseEvent?: React.MouseEvent<HTMLElement>): void {
+  mouseEvent?.preventDefault();
+  document.getElementById('projects')?.scrollIntoView({ behavior: 'instant' });
+}
+
+/**
+ * Hero section introducing the portfolio and primary value proposition.
+ *
+ * The page wrapper already pads past the fixed header. The hero cancels that
+ * clearance so it is not carried on top of the section's own padding, which
+ * would leave the composition sitting low in its band.
+ */
+export function HeroSection() {
+  // The rocket takes the resolved theme rather than reading it itself; it
+  // relights the running scene on a change instead of remounting.
+  const { isDark } = useTheme();
 
   return (
-    <Section anchor="home" showDivider={false}>
-      <div className="section-content relative flex w-full flex-col items-center justify-center gap-10 py-6 sm:flex-row sm:py-10 lg:py-16">
+    <Section anchor="home" className="-mt-18">
+      <div className="hero-composition">
         <HeroFloatingOrbs />
 
-        <div className="relative z-10 flex w-full flex-col items-center justify-center gap-10 sm:flex-row">
-          <AvatarGraphic
-            priority
-            className="h-36 w-36 sm:h-44 sm:w-44 lg:h-52 lg:w-52"
-          />
-          <div className="flex flex-col text-center sm:text-left">
-            <Heading>
-              {en.heroSection.header}
-              <WavingHand />
-            </Heading>
-            <div className="font-heading mt-6 flex flex-col items-center gap-2 text-center text-lg leading-tight font-semibold tracking-tight text-neutral-900 sm:flex-row sm:items-baseline sm:text-left sm:text-xl md:text-2xl dark:text-neutral-200">
-              <SubHeading>{en.heroSection.subHeaderPartOne}</SubHeading>
-              <Heading className="text-brand-600 dark:text-brand-300">
-                <AnimatedText
-                  delay={1.4}
-                  text={en.heroSection.subHeaderPartTwo}
-                  skipAnimation={heroAnimationComplete}
-                />
-              </Heading>
-            </div>
-            <BodyText className="mt-4 max-w-xs text-center text-base leading-normal font-medium tracking-tight sm:max-w-lg sm:text-left sm:text-lg md:text-xl">
-              <AnimatedText
-                delay={2.4}
-                text={en.heroSection.supportingText}
-                skipAnimation={heroAnimationComplete}
-                onAnimationComplete={setHeroAnimationComplete}
-              />
-            </BodyText>
+        <Rocket theme={isDark ? 'dark' : 'light'} className="hero-visual" />
+
+        <div className="hero-copy">
+          {/* Name and role read as one identity block, tighter than the copy
+              column's own rhythm, so the hero opens with a person rather than
+              two unrelated preamble lines above the headline. */}
+          <div className="hero-identity">
+            <p className="hero-name">{en.heroSection.name}</p>
+            <p className="hero-eyebrow">{en.heroSection.eyebrow}</p>
+          </div>
+          <Heading as="h1" className="hero-headline">
+            {en.heroSection.headline}
+          </Heading>
+          <BodyText className="hero-supporting-text">
+            {en.heroSection.supportingText}
+          </BodyText>
+          <div className="hero-actions">
+            <PrimaryButton
+              hyperlink="#projects"
+              onClick={handleProjectsClick}
+              className="hero-action"
+            >
+              {en.heroSection.primaryButton}
+            </PrimaryButton>
+            <TertiaryButton
+              hyperlink="/documents/CV.pdf"
+              aria-label={en.heroSection.downloadCvAriaLabel}
+              icon={<Download aria-hidden className="size-4" />}
+              className="hero-action btn-outline"
+              target="_blank"
+            >
+              {en.heroSection.secondaryButton}
+            </TertiaryButton>
           </div>
         </div>
       </div>

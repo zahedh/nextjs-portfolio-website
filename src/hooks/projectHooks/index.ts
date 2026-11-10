@@ -1,1 +1,0 @@
-export { useSwiperActiveSlideResize } from './useSwiperActiveSlideResize';

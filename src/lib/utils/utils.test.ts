@@ -1,4 +1,10 @@
-import { cn, createEscapeHandler, getSkillsByIds } from './utils';
+import {
+  capitalise,
+  cn,
+  getSkillsByIds,
+  spellNumber,
+  sumContributions,
+} from './utils';
 
 describe('utils', () => {
   describe('cn (className merger)', () => {
@@ -56,48 +62,28 @@ describe('utils', () => {
       // Then
       expect(result).toBe('text-xl'); // Later class wins
     });
-  });
 
-  describe('createEscapeHandler', () => {
-    it('GIVEN callback function WHEN Escape key pressed THEN executes callback', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-      const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+    it('GIVEN a type scale token and a text colour WHEN merging THEN keeps both', () => {
+      // Given - tailwind-merge reads an unregistered text-* token as a colour,
+      // which silently drops the size when a colour follows it
+      const classes = ['text-heading', 'text-neutral-900'];
 
       // When
-      handler(escapeEvent);
+      const result = cn(...classes);
 
       // Then
-      expect(mockCallback).toHaveBeenCalledTimes(1);
+      expect(result).toBe('text-heading text-neutral-900');
     });
 
-    it('GIVEN callback function WHEN non-Escape key pressed THEN does not execute callback', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-      const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    it('GIVEN two type scale tokens WHEN merging THEN keeps last value', () => {
+      // Given - they must still conflict with each other as font sizes do
+      const classes = ['text-body', 'text-lead'];
 
       // When
-      handler(enterEvent);
+      const result = cn(...classes);
 
       // Then
-      expect(mockCallback).not.toHaveBeenCalled();
-    });
-
-    it('GIVEN callback function WHEN multiple different keys pressed THEN only executes on Escape', () => {
-      // Given
-      const mockCallback = jest.fn();
-      const handler = createEscapeHandler(mockCallback);
-
-      // When
-      handler(new KeyboardEvent('keydown', { key: 'Tab' }));
-      handler(new KeyboardEvent('keydown', { key: 'Enter' }));
-      handler(new KeyboardEvent('keydown', { key: 'Escape' }));
-      handler(new KeyboardEvent('keydown', { key: 'Space' }));
-
-      // Then
-      expect(mockCallback).toHaveBeenCalledTimes(1);
+      expect(result).toBe('text-lead');
     });
   });
 
@@ -198,6 +184,42 @@ describe('utils', () => {
       expect(result[1].id).toBe('nextjs');
       expect(result[2].id).toBe('typescript');
       expect(result[3].id).toBe('react');
+    });
+  });
+
+  describe('sumContributions', () => {
+    it('GIVEN a calendar WHEN totalling THEN sums every day', () => {
+      // Given
+      const activities = [{ count: 3 }, { count: 0 }, { count: 12 }];
+
+      // When
+      const result = sumContributions(activities);
+
+      // Then
+      expect(result).toBe(15);
+    });
+
+    it('GIVEN an empty calendar WHEN totalling THEN returns zero', () => {
+      expect(sumContributions([])).toBe(0);
+    });
+  });
+
+  describe('spellNumber', () => {
+    it('GIVEN a small whole number WHEN spelled THEN returns the word', () => {
+      expect(spellNumber(0)).toBe('zero');
+      expect(spellNumber(6)).toBe('six');
+      expect(spellNumber(20)).toBe('twenty');
+    });
+
+    it('GIVEN a number past twenty WHEN spelled THEN falls back to digits', () => {
+      expect(spellNumber(21)).toBe('21');
+    });
+  });
+
+  describe('capitalise', () => {
+    it('GIVEN a word WHEN capitalised THEN upper-cases only its first letter', () => {
+      expect(capitalise('six')).toBe('Six');
+      expect(capitalise('')).toBe('');
     });
   });
 });

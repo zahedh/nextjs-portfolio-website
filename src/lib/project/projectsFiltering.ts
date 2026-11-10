@@ -1,29 +1,28 @@
-import { Project } from '@/types/project';
-import { isProjectActive } from '@/lib/ui-logic';
-import { projectMatchesSkill } from '@/lib/project/projectSkills';
+import { Project, ProjectFilter } from '@/types/project';
+import { projectHasCategory } from '@/lib/ui-logic';
+import { toMonthIndex } from '@/lib/date';
 
 /**
- * Projects for the carousel: optional skill filter, type filter, then active-first sort.
+ * Projects for the section: category filter, then newest first by end date.
+ * Ongoing work resolves to the current month, so it leads without a separate key.
  */
 export function getFilteredProjectsForSection(
   allProjects: Project[],
-  selectedType: 'All' | 'Web' | 'Mobile',
-  selectedSkillId: string | null
+  selectedType: ProjectFilter
 ): Project[] {
-  let list: Project[];
-  if (selectedSkillId) {
-    list = allProjects.filter((project) =>
-      projectMatchesSkill(project, selectedSkillId)
-    );
-  } else if (selectedType === 'All') {
-    list = [...allProjects];
-  } else {
-    list = allProjects.filter(
-      (project) => project.projectType === selectedType
-    );
-  }
+  const list =
+    selectedType === 'All'
+      ? [...allProjects]
+      : allProjects.filter((project) =>
+          projectHasCategory(project, selectedType)
+        );
+  const now = new Date();
+  const endedAt = (project: Project) => toMonthIndex(project.endDate, now) ?? 0;
+  const startedAt = (project: Project) =>
+    toMonthIndex(project.startDate, now) ?? 0;
   return [...list].sort(
     (projectA, projectB) =>
-      Number(isProjectActive(projectB)) - Number(isProjectActive(projectA))
+      endedAt(projectB) - endedAt(projectA) ||
+      startedAt(projectB) - startedAt(projectA)
   );
 }

@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter, IBM_Plex_Sans } from 'next/font/google';
+import {
+  Bricolage_Grotesque,
+  IBM_Plex_Mono,
+  IBM_Plex_Sans,
+  Inter,
+} from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { socialShareImageMeta } from '@/lib/meta';
-import { GlobalStoreProvider } from '@/providers/global-store-provider';
+import { en } from '@/language';
+import { SITE_URL, socialShareImageMeta } from '@/lib/meta';
 import '../styles/index.css';
 
 const inter = Inter({
@@ -20,29 +25,31 @@ const ibmPlexSans = IBM_Plex_Sans({
   display: 'swap',
 });
 
-const fontClasses = `${inter.variable} ${ibmPlexSans.variable}`;
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+});
+
+// Display face for the few places the artboards draw one: the hero headline and
+// standalone figures. Section headings stay on the heading face.
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  variable: '--font-bricolage-grotesque',
+  display: 'swap',
+});
+
+const fontClasses = `${inter.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${bricolageGrotesque.variable}`;
 
 /** Default metadata for the public site shell. */
 export const metadata: Metadata = {
-  title: 'Zahed Heidari',
-  description:
-    'Web and mobile developer specialising in Next.js, React Native, and TypeScript. Exploring how AI tools are reshaping how developers build and ship.',
-  authors: [{ name: 'Zahed Heidari' }],
-  keywords: [
-    'Zahed Heidari',
-    'Next.js Portfolio',
-    'Frontend Developer',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Web Development',
-    'Projects',
-    'Skills',
-    'Resume',
-    'Contact',
-    'AI',
-  ],
-  metadataBase: new URL('https://zahedheidari.co.uk'),
+  title: en.siteMetadata.name,
+  description: en.siteMetadata.description,
+  authors: [{ name: en.siteMetadata.name }],
+  keywords: en.siteMetadata.keywords,
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: '/',
   },
@@ -53,18 +60,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://zahedheidari.co.uk',
-    siteName: 'Zahed Heidari',
-    title: 'Zahed Heidari - Web & Mobile Developer',
-    description:
-      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+    url: SITE_URL,
+    siteName: en.siteMetadata.name,
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zahed Heidari - Web & Mobile Developer',
-    description:
-      "A portfolio website built with Next.js showcasing Zahed Heidari's professional experience, projects, and skills in web and mobile development.",
+    title: en.siteMetadata.title,
+    description: en.siteMetadata.description,
     images: [socialShareImageMeta],
   },
   icons: {
@@ -76,52 +81,46 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Root layout for the app.
- * Wraps children with global store provider and font variables.
- */
+/** Root layout: the document shell, font variables, and pre-paint theme. */
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <GlobalStoreProvider>
-      <html
-        lang="en"
-        className={`${fontClasses} max-xl:overflow-x-clip`}
-        suppressHydrationWarning
-      >
-        <head>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+    <html
+      lang="en"
+      className={`${fontClasses} overflow-x-clip`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
                 (function() {
-                  const theme = localStorage.getItem('theme');
-                  if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else if (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    document.documentElement.classList.add('dark');
-                  }
+                  // Dark unless the visitor chose light. Storage can throw in a
+                  // private window, which still means dark.
+                  let theme = null;
+                  try { theme = localStorage.getItem('theme'); } catch (e) {}
+                  if (theme !== 'light') document.documentElement.classList.add('dark');
                 })();
               `,
-            }}
-          />
-        </head>
-        <body
-          className="prime-parent bg-neutral-100 antialiased max-xl:overflow-x-clip dark:bg-neutral-900"
-          suppressHydrationWarning
-        >
-          {children}
-          {/* Only on Vercel: script URLs 404 on localhost and break the console */}
-          {process.env.VERCEL === '1' ? (
-            <>
-              <Analytics />
-              <SpeedInsights />
-            </>
-          ) : null}
-        </body>
-      </html>
-    </GlobalStoreProvider>
+          }}
+        />
+      </head>
+      <body
+        className="bg-page overflow-x-clip antialiased"
+        suppressHydrationWarning
+      >
+        {children}
+        {/* Only on Vercel: script URLs 404 on localhost and break the console */}
+        {process.env.VERCEL === '1' ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
+      </body>
+    </html>
   );
 }

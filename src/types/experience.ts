@@ -5,6 +5,7 @@ export interface JobExperience {
   location: string;
   startDate: string;
   endDate: string;
+  summary: string;
   description: string[];
   skills: string[];
 }

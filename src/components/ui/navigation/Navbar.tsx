@@ -3,119 +3,81 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { en } from '@/language';
-import { ThemeToggleButton } from '@/components/ui/buttons';
-import { InitialsGraphic } from '@/components/media';
-import MobileMenu from './MobileMenu';
-import { handleSmoothScroll, scrollToTop } from '@/lib/utils';
-import { cn } from '@/lib/utils';
+import { ThemeSwitch } from '@/components/ui/buttons';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { MobileMenu } from './MobileMenu';
 
-type NavbarProps = {
-  showInitials?: boolean;
-  showMobileMenu?: boolean;
-  className?: string;
-};
+const SECTIONS = [
+  { id: 'home', label: en.home },
+  { id: 'skills', label: en.skills },
+  { id: 'projects', label: en.projects },
+  { id: 'experience', label: en.experience },
+  { id: 'about', label: en.about },
+  { id: 'contact', label: en.contact },
+] as const;
+
+const SECTION_IDS = SECTIONS.map((section) => section.id);
 
 /** Responsive top navigation bar for primary site links. */
-export default function Navbar({
-  showInitials = true,
-  showMobileMenu = true,
-  className,
-}: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
+  // Before the first section reaches the line the reader is in the hero.
+  const [active, pinSection] = useActiveSection(SECTION_IDS, isHome);
+  const currentSection = isHome ? (active ?? 'home') : null;
+  const links = SECTIONS.map(({ id, label }) => ({
+    id,
+    label,
+    href: id === 'home' ? '/' : isHome ? `#${id}` : `/#${id}`,
+  }));
 
-  const handleNavClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isHome) {
-      handleSmoothScroll(mouseEvent);
-    }
-  };
-
-  const handleHomeClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>) => {
-    if (isHome) {
-      mouseEvent.preventDefault();
-      scrollToTop(mouseEvent);
-    }
+  // Every nav link snaps to its section rather than scrolling there: the phone
+  // sheet fades over the jump, and on desktop the section's entrance carries it.
+  const handleNavClick = (
+    mouseEvent: React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => {
+    if (!isHome) return;
+    mouseEvent.preventDefault();
+    if (id === 'home') window.scrollTo({ top: 0, behavior: 'instant' });
+    else document.getElementById(id)?.scrollIntoView({ behavior: 'instant' });
+    pinSection(id);
   };
 
   return (
-    <nav className={cn('flex items-center justify-between', className)}>
-      {showInitials && (
-        <Link
-          href="/"
-          onClick={handleHomeClick}
-          className="block transition-transform duration-150 active:scale-90"
-          aria-label={en.home}
-        >
-          <InitialsGraphic className="-ml-4 h-16 w-20" />
-        </Link>
-      )}
+    <nav className="h-header flex items-center justify-between">
+      <Link
+        href="/"
+        onClick={(mouseEvent) => handleNavClick(mouseEvent, 'home')}
+        className="nav-mark"
+        aria-label={en.home}
+      >
+        {en.initials}
+      </Link>
 
-      <ul className="hidden items-center gap-5 md:flex">
-        <li>
-          <Link href="/" className="nav-link" onClick={handleHomeClick}>
-            {en.home}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#skills' : '/#skills'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.skills}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#projects' : '/#projects'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.projects}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#about' : '/#about'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.about}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#experience' : '/#experience'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.experience}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#contributions' : '/#contributions'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.activity}
-          </Link>
-        </li>
-        <li>
-          <Link
-            href={isHome ? '#contact' : '/#contact'}
-            className="nav-link"
-            onClick={handleNavClick}
-          >
-            {en.contact}
-          </Link>
-        </li>
-        <li>
-          <ThemeToggleButton />
-        </li>
-      </ul>
+      <div className="hidden items-center gap-[26px] md:flex">
+        <ul className="nav-links">
+          {links.map(({ id, label, href }) => (
+            <li key={id}>
+              <Link
+                href={href}
+                className="nav-link"
+                aria-current={currentSection === id ? 'location' : undefined}
+                onClick={(mouseEvent) => handleNavClick(mouseEvent, id)}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ThemeSwitch />
+      </div>
 
-      {showMobileMenu && <MobileMenu />}
+      <MobileMenu
+        links={links}
+        activeSection={currentSection}
+        onNavigate={handleNavClick}
+      />
     </nav>
   );
 }

@@ -1,13 +1,8 @@
 export { FeatureList } from './FeatureList';
-export { default as JobCard } from './JobCard';
-export { ProjectHeroMedia } from './ProjectHeroMedia';
+export { JobCard } from './JobCard';
+export { ProjectCategoryMarks } from './ProjectCategoryMarks';
 export { ProjectLinks } from './ProjectLinks';
-export {
-  ProjectMetaSummary,
-  ProjectPlatformTag,
-  ProjectStatusBadge,
-} from './ProjectMetaItems';
-export { default as ProjectCard } from './ProjectCard';
-export { default as ProjectDetailPanel } from './ProjectDetailPanel';
+export { ProjectCard } from './ProjectCard';
 export { TechStack } from './TechStack';
-export { default as StatCard } from './StatCard';
+export { JobStack } from './JobStack';
+export { ExperienceRow } from './ExperienceRow';
