@@ -541,9 +541,11 @@
      .experience-details', so a project opening and a role opening read as the
      same gesture. Clipping is what makes the extra rows wipe in rather than
      appear whole, and it is dropped again with this class: a wrapper left
-     clipped cuts the focus ring off every card sitting on its edge. */
+     clipped cuts the focus ring off every card sitting on its edge. Only the
+     bottom edge clips, so a hovered card's lift and shadow survive the wipe. */
   .projects-grid-reveal-active {
-    @apply overflow-hidden transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
+    clip-path: inset(-1rem -1rem 0 -1rem);
+    @apply transition-[max-height] duration-500 ease-in-out motion-reduce:transition-none;
   }
   /* A filter press settles the new set in card by card, on the same settle
      and keyframes as a project page arriving from previous or next. Only the
