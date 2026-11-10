@@ -180,8 +180,3 @@
   --cover-brand: #4a3117;
   --cover-end: #1f2226;
 }
-
-/* Reserve scrollbar space so overflow locks (modals, mobile nav) do not shift layout. */
-html {
-  scrollbar-gutter: stable;
-}
